@@ -1,2 +1,26 @@
-# Template Repository : C++20 Agnostic, [Meson](https://mesonbuild.com), [GitHub Actions](https://github.com/features/actions), [ZenHub](https://www.zenhub.com)
-Template repository for C++20 agnostic projects using [Meson](https://mesonbuild.com) for build, [GitHub Actions](https://github.com/features/actions) for CI/CD and [ZenHub](https://www.zenhub.com) for project management.
+# Template Repository : C++ Ecosystem
+
+Template repository for C++ and its ecosystem projects.
+
+## Specifications
+
+- **Language** : C++
+    - Version : 20
+- **OS** : Agnostic (cross-platform)
+    - **Officially supports** :
+        - *Windows 10*
+            - MSVC 1928
+            - Clang 12
+            - GCC 11
+        - *Ubuntu 20.X LTS*
+            - Clang 12
+            - GCC 11
+        - *macOS* → version to be determined
+            - Clang 12
+            - GCC 11
+- **Architecture** : 64-bit
+- **Build system generator** : [Meson](https://mesonbuild.com)
+- **CID/CD** : [GitHub Actions](https://github.com/features/actions)
+- **VCS** : [Git](https://git-scm.com/)
+    - **Host** : [GitHub](https://github.com/), cloud hosted
+- **Projet management** : [ZenHub](https://www.zenhub.com)
