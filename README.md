@@ -5,7 +5,7 @@ Template repository for projects using C++ and its ecosystem.
 ## Specifications
 
 - **Language** : C++
-    - Version : 20
+    - **Version** : 20
     - Agnostic
     - Standard / pedantic
 - **OS** : Agnostic (cross-platform)
