@@ -1,6 +1,6 @@
 # Template Repository : C++ Ecosystem
 
-Template repository for C++ and its ecosystem projects.
+Template repository for projects using C++ and its ecosystem.
 
 ## Specifications
 
