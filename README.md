@@ -6,6 +6,8 @@ Template repository for projects using C++ and its ecosystem.
 
 - **Language** : C++
     - Version : 20
+    - Agnostic
+    - Standard / pedantic
 - **OS** : Agnostic (cross-platform)
     - **Officially supports** :
         - *Windows 10*
