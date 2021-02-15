@@ -28,3 +28,7 @@ Template repository for projects using C++ and its ecosystem.
 - **VCS** : [Git](https://git-scm.com/)
     - **Host** : [GitHub](https://github.com/), cloud hosted
 - **Projet management** : [ZenHub](https://www.zenhub.com)
+- **Computer Graphics & Visualization API** : [OpenGL](https://www.khronos.org/opengl/)
+    - **Version** : 4.6
+    - **Window & Context** : [GLFW](https://www.glfw.org/)
+    - **Implementation** : [GLAD](https://github.com/Dav1dde/glad)
