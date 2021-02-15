@@ -22,6 +22,7 @@ Template repository for projects using C++ and its ecosystem.
             - GCC 11
 - **Architecture** : 64-bit
 - **Build system generator** : [Meson](https://mesonbuild.com)
+- **Package Manager** : [Conan](https://conan.io/)
 - **Documentation** : [Doxygen](https://www.doxygen.nl)
 - **Test** : [Catch2](https://github.com/catchorg/Catch2)
 - **CI/CD** : [GitHub Actions](https://github.com/features/actions)
