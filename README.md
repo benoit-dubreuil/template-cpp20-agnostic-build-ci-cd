@@ -32,3 +32,4 @@ Template repository for projects using C++ and its ecosystem.
     - **Version** : 4.6
     - **Window & Context** : [GLFW](https://www.glfw.org/)
     - **Implementation** : [GLAD](https://github.com/Dav1dde/glad)
+    - **Mathematics** : [GLM](https://github.com/g-truc/glm)
