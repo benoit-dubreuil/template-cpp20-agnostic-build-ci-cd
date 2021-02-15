@@ -24,7 +24,7 @@ Template repository for projects using C++ and its ecosystem.
 - **Build system generator** : [Meson](https://mesonbuild.com)
 - **Documentation** : [Doxygen](https://www.doxygen.nl)
 - **Test** : [Catch2](https://github.com/catchorg/Catch2)
-- **CID/CD** : [GitHub Actions](https://github.com/features/actions)
+- **CI/CD** : [GitHub Actions](https://github.com/features/actions)
 - **VCS** : [Git](https://git-scm.com/)
     - **Host** : [GitHub](https://github.com/), cloud hosted
 - **Projet management** : [ZenHub](https://www.zenhub.com)
