@@ -7,8 +7,6 @@ assignees: benoit-dubreuil
 
 ---
 
-# Feature Title
-
 ## Specifications
 
 ### Specifications - Category
