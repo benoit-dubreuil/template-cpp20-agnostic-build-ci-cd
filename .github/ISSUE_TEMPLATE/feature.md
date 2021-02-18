@@ -8,7 +8,7 @@ assignees: benoit-dubreuil
 ---
 
 ## Specifications
+- ...
 
-### Specifications - Category
-- A spec
--  ...
+## TODO
+- [ ] ...
