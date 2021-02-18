@@ -32,6 +32,6 @@ Template repository for projects using C++ and its ecosystem.
 - **Projet management** : [ZenHub](https://www.zenhub.com)
 - **Computer Graphics & Visualization API** : [OpenGL](https://www.khronos.org/opengl/)
     - **Version** : 4.6
-    - **Window & Context** : [GLFW](https://www.glfw.org/)
     - **Implementation** : [GLAD](https://github.com/Dav1dde/glad)
+    - **Window & Context** : [GLFW](https://www.glfw.org/)
     - **Mathematics** : [GLM](https://github.com/g-truc/glm)
