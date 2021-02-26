@@ -1,8 +1,6 @@
 #include <iostream>
 
-#define PROJECT_NAME "template-repo-cpp-ecosystem"
-
 int main() {
-    std::cout << "This is project " << PROJECT_NAME << ".\n";
+    std::cout << "Hello World!" << std::endl;
     return 0;
 }
