@@ -9,6 +9,8 @@ IFS=$'\n\t'
 
 project_root_dir="${BASH_SOURCE%/*}"
 project_build_dir="${project_root_dir}/build"
+project_machine_files_dir="${project_root_dir}/meson/machine"
+project_native_machine_files_dir="${project_machine_files_dir}/native"
 
 arch="$(uname -m)"
 if [ "${arch}" == 'x86_64' ]; then
@@ -26,9 +28,18 @@ setup_build_dir() {
 
     local build_dir="${project_build_dir}/${os}-${arch}-${compiler}-${build_type}"
 
+    local setup_native_files_args="--native-file ${project_machine_files_dir}/pre-global.ini"
+    setup_native_files_args+=" --native-file ${project_native_machine_files_dir}/native.ini"
+    setup_native_files_args+=" --native-file ${project_native_machine_files_dir}/compiler/${compiler}.ini"
+    setup_native_files_args+=" --native-file ${project_native_machine_files_dir}/build_type/${build_type}.ini"
+    setup_native_files_args+=" --native-file ${project_machine_files_dir}/post-global.ini"
+
     rm -r "${build_dir}"
     mkdir -p "${build_dir}"
-    meson setup "${build_dir}" "${project_root_dir}"
+
+    # Voluntary word splitting
+    # shellcheck disable=SC2086
+    meson setup "${build_dir}" "${project_root_dir}" ${setup_native_files_args}
 }
 
 setup_build_dir 'msvc' 'debug'
