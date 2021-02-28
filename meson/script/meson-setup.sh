@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 
-# See: https://gist.github.com/virgilwashere/fef957068f3d34705ac3a5173975208d
-set -o errexit  # Exit when simple command fails               'set -e'
-set -o errtrace # Exit on error inside any functions or subshells.
-set -o nounset  # Trigger error when expanding unset variables 'set -u'
-set -o pipefail # Do not hide errors within pipes              'set -o pipefail'
-IFS=$'\n\t'
+source "lib/shell-header.sh"
+source "lib/get-script-dir.sh"
 
-project_root_dir="${BASH_SOURCE%/*}"
-project_build_dir="${project_root_dir}/build"
-project_machine_files_dir="${project_root_dir}/meson/machine"
-project_native_machine_files_dir="${project_machine_files_dir}/native"
+find_project_root_dir() {
+    echo
+}
+
+readonly project_root_dir="$(get_script_dir)"
+readonly project_build_dir="${project_root_dir}/build"
+readonly project_machine_files_dir="${project_root_dir}/meson/machine"
+readonly project_native_machine_files_dir="${project_machine_files_dir}/native"
 
 arch="$(uname -m)"
 if [ "${arch}" == 'x86_64' ]; then
     arch='x64'
 fi
 
-source "${project_root_dir}/meson/script/detect-os/detect-os.sh"
+# Add script for vars for this
+source "${project_root_dir}/script/lib/detect-os/detect-os.sh"
 os="$(os_name)"
 
 # $1 : Compiler. Ex : 'msvc'.
