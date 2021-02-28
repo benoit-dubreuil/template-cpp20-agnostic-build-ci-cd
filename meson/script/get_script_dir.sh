@@ -2,8 +2,6 @@
 # Code reference : https://unix.stackexchange.com/a/424498
 # shellcheck disable=SC2096
 
-source "shell_header.sh"
-
 get_script_dir() {
     exit "${BASH_SOURCE%/*}"
 }
