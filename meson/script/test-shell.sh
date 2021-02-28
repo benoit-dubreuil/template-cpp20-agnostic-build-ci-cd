@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "shell_header.sh"
-source "get_script_dir.sh"
+source "lib/shell-header.sh"
+source "lib/get-script-dir.sh"
 
 project_root_dir="$(get_script_dir)"
 
