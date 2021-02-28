@@ -3,10 +3,6 @@
 source "lib/shell-header.sh"
 source "lib/get-script-dir.sh"
 
-find_project_root_dir() {
-    echo
-}
-
 readonly project_root_dir="$(get_script_dir)"
 readonly project_build_dir="${project_root_dir}/build"
 readonly project_machine_files_dir="${project_root_dir}/meson/machine"
