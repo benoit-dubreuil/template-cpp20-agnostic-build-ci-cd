@@ -3,5 +3,5 @@
 # shellcheck disable=SC2096
 
 get_script_dir() {
-    exit "${BASH_SOURCE%/*}"
+    echo "${BASH_SOURCE%/*}"
 }
