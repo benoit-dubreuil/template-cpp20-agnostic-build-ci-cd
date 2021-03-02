@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 
-def hello_world():
-    print('Hello World!')
+import platform
 
 
-hello_world()
+def generate_build_dir_name():
+    system_name = platform.system()
+    return system_name.lower()
+
+
+build_dir_name = generate_build_dir_name()
+print(build_dir_name)
