@@ -12,6 +12,7 @@ class Architecture(IntFlag):
     A_128 = 2 ** 7
 
 
+@unique
 class Compiler(Enum):
     MSVC = 'msvc'
     CLANG = 'clang'
