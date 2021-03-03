@@ -29,10 +29,3 @@ class OSFamily(Enum):
     WINDOWS = 'windows'
     DARWIN = 'darwin'
     LINUX = 'linux'
-
-
-@unique
-class SupportedCompilersByOSFamily(Enum):
-    OSFamily.WINDOWS = [Compiler.MSVC, Compiler.CLANG, Compiler.GCC]
-    OSFamily.DARWIN = [Compiler.CLANG, Compiler.GCC]
-    OSFamily.LINUX = [Compiler.CLANG, Compiler.GCC]
