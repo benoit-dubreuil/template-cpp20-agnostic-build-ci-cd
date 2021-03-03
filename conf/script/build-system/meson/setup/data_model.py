@@ -24,3 +24,10 @@ class BuildType(Enum):
     DEBUG = 'debug'
     DEBUG_OPTIMIZED = 'debugoptimized'
     RELEASE = 'release'
+
+
+@unique
+class OSFamily(Enum):
+    WINDOWS = 'windows'
+    DARWIN = 'darwin'
+    LINUX = 'linux'
