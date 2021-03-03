@@ -1,3 +1,0 @@
-[submodule "script/lib/detect-os"]
-	path = script/lib/detect-os
-	url = git@gist.github.com:fef957068f3d34705ac3a5173975208d.git
