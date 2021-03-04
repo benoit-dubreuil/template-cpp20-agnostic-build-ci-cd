@@ -29,3 +29,10 @@ class OSFamily(Enum):
     WINDOWS = 'windows'
     DARWIN = 'darwin'
     LINUX = 'linux'
+
+
+@unique
+class CompilerRequirementsSectionScheme(Enum):
+    OS = 'os'
+    MAJOR = 'major'
+    MINOR = 'minor'  # Optional
