@@ -16,4 +16,10 @@ config.read(COMPILER_REQ_FILE)
 
 filtered_items = filter_config_default_section(config)
 
-[print(item) for item in filtered_items]
+for section, items in filtered_items:
+    print('Section:', section)
+    print('Items:')
+
+    for key, value in items.items():
+        print(key, value, sep=' = ')
+    print()
