@@ -26,16 +26,15 @@ class CompilerReqs:
         config.read(file_path)
         filtered_section_options_pairs = cls._filter_config_default_section(config)
 
-        for compiler_name, raw_compiler_reqs in filtered_section_options_pairs:
-            # Transform raw_compiler_reqs into treated reqs
-            #   Version
+        for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
             # Put all results inside dictionary to return
 
             compiler = Compiler(compiler_name)
 
-            os_families = raw_compiler_reqs.getosfamily(CompilerReqsSectionScheme.OS.value)
-            major = raw_compiler_reqs.getint(CompilerReqsSectionScheme.MAJOR.value)
-            minor = raw_compiler_reqs.getint(CompilerReqsSectionScheme.MINOR.value)
+            os_families = compiler_reqs_section.getosfamily(CompilerReqsSectionScheme.OS.value)
+            compiler_version = CompilerVersion.create_from_config_compiler_reqs_section(compiler_reqs_section)
+
+            pass
 
         return {}  # TODO
 
