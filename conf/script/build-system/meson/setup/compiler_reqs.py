@@ -23,7 +23,7 @@ class CompilerReqs:
 
     @staticmethod
     def get_default_compiler_reqs_file_path():
-        return 'compiler-requirements.ini'
+        return 'compiler-reqs.ini'
 
     @classmethod
     def create_all_from_file(cls, file_path: Path = None) -> dict[Compiler, 'CompilerReqs']:
@@ -92,7 +92,7 @@ class CompilerReqs:
 
 CompilerReqs.create_all_from_file()
 
-# COMPILER_REQ_FILE: Final = 'compiler-requirements.ini'
+# COMPILER_REQ_FILE: Final = 'compiler-reqs.ini'
 #
 # config = ConfigParser()
 # config.read(COMPILER_REQ_FILE)
