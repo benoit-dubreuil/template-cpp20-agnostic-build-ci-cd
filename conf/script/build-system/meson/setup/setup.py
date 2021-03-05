@@ -13,6 +13,10 @@ def fetch_os_name() -> str:
     return platform.system().lower()
 
 
+def fetch_os_family() -> OSFamily:
+    return OSFamily(fetch_os_name())
+
+
 def detect_arch() -> Architecture:
     exclusive_max_word = sys.maxsize + 1
     word_size = exclusive_max_word.bit_length()
@@ -42,12 +46,16 @@ def generate_build_dir_name(build_type: str) -> str:
 
 
 def generate_all_build_dir_names() -> list[str]:
+    os_family = fetch_os_family()
+    all_compilers_reqs = CompilerReqs.create_all_from_file()
+    filtered_compilers_reqs_by_os = CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
+
+    pp(filtered_compilers_reqs_by_os)
+
     all_build_types = assemble_build_types()
+
     return [generate_build_dir_name(build_type) for build_type in all_build_types]
 
 
 all_build_dir_names = generate_all_build_dir_names()
 print(*all_build_dir_names, sep='\n')
-
-all_compilers_reqs = CompilerReqs.create_all_from_file()
-pp(all_compilers_reqs)
