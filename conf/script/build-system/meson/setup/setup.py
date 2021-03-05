@@ -56,10 +56,7 @@ def generate_build_dir_name(build_type: str) -> str:
 
 
 def generate_all_build_dir_names() -> list[str]:
-    os_family = fetch_os_family()
-    all_compilers_reqs = CompilerReqs.create_all_from_file()
-    filtered_compilers_reqs_by_os = CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
-
+    filtered_compilers_reqs_by_os = fetch_filtered_compilers_reqs()
     pp(filtered_compilers_reqs_by_os)
 
     all_build_types = assemble_build_types()
