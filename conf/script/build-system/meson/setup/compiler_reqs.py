@@ -34,8 +34,8 @@ class CompilerReqs:
         config.read(file_path)
         filtered_section_options_pairs = cls._filter_config_default_section(config)
 
-        for compiler_name, raw_reqs in filtered_section_options_pairs:
-            # Transform raw_reqs into treated reqs
+        for compiler_name, raw_compiler_reqs in filtered_section_options_pairs:
+            # Transform raw_compiler_reqs into treated reqs
             #   OS
             #   Version
             # Put all results inside dictionary to return
