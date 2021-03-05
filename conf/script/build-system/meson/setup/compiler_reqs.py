@@ -1,15 +1,13 @@
-#!/usr/bin/env python3
-
 from pathlib import Path
 from configparser import ConfigParser
-from pprint import pp
 
-from auto_print import auto_repr
+from auto_print import auto_repr, auto_str
 from compiler_version import CompilerVersion
 from data_model import Compiler, OSFamily, CompilerReqsSectionScheme
 
 
 @auto_repr
+@auto_str
 class CompilerReqs:
     def __init__(self, compiler: Compiler, os_families: list[OSFamily], version: CompilerVersion):
         self.compiler = compiler
@@ -69,7 +67,3 @@ class CompilerReqs:
     @staticmethod
     def _filter_config_default_section(config: ConfigParser):
         return list(config.items())[1:]
-
-
-all_compilers_reqs = CompilerReqs.create_all_from_file()
-pp(all_compilers_reqs)
