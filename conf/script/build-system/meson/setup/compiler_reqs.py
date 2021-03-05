@@ -24,19 +24,19 @@ class CompilerReqs:
 
         config = ConfigParser(converters=cls._get_config_parser_converters())
         config.read(file_path)
+
         filtered_section_options_pairs = cls._filter_config_default_section(config)
+        all_compilers_reqs = {}
 
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
-            # Put all results inside dictionary to return
-
             compiler = Compiler(compiler_name)
-
             os_families = compiler_reqs_section.getosfamily(CompilerReqsSectionScheme.OS.value)
             compiler_version = CompilerVersion.create_from_config_compiler_reqs_section(compiler_reqs_section)
 
-            pass
+            compiler_reqs = cls(compiler, os_families, compiler_version)
+            all_compilers_reqs[compiler] = compiler_reqs
 
-        return {}  # TODO
+        return all_compilers_reqs
 
     @classmethod
     def _check_file_path_for_default_param(cls, file_path: Path) -> Path:
