@@ -28,17 +28,17 @@ def fetch_arch_bit_name() -> str:
     return arch_to_bit_name(detect_arch())
 
 
-def assemble_build_types() -> list[BuildType]:
+def assemble_build_types() -> list[str]:
     return [p_build_type.value for p_build_type in BuildType]
 
 
-def generate_build_dir_name(build_type: BuildType) -> str:
+def generate_build_dir_name(build_type: str) -> str:
     sep: Final = '-'
 
     os_simple_name = fetch_os_name()
     arch_bit_name = fetch_arch_bit_name()
 
-    return os_simple_name + sep + arch_bit_name + sep + build_type.value
+    return os_simple_name + sep + arch_bit_name + sep + build_type
 
 
 def generate_all_build_dir_names() -> list[str]:
