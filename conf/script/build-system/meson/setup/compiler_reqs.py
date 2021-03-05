@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from typing import Final
 from pathlib import Path
 from configparser import ConfigParser
 from compiler_version import CompilerVersion
@@ -67,46 +66,5 @@ class CompilerReqs:
     def _filter_config_default_section(config: ConfigParser):
         return list(config.items())[1:]
 
-    #    @classmethod
-    #    def create_tmp_instance(cls, config: ConfigParser, compiler: Compiler):
-    #        option_minor: Final = CompilerRequirementsSectionScheme.MINOR.value
-    #        section = config[compiler.value]
-    #        assert section is not None
-    #
-    #        # TODO : https://stackoverflow.com/a/53274707/2924010
-    #        all_os = section.getlist(CompilerRequirementsSectionScheme.OS.value, fallback=None)
-    #        assert all_os is not None
-    #        os_families = [OSFamily.enum_members[os.lower()] for os in all_os]
-    #
-    #        major = section.getint(CompilerRequirementsSectionScheme.MAJOR.value, fallback=None)
-    #        assert major is not None
-    #
-    #        if config.has_option(section.name, option_minor):
-    #            minor = section.getint(option_minor, fallback=None)
-    #            assert minor is not None
-    #            version = CompilerVersion(major, minor)
-    #        else:
-    #            version = CompilerVersion(major)
-    #
-    #        return CompilerRequirements(compiler, os_families, version)
-
 
 CompilerReqs.create_all_from_file()
-
-# COMPILER_REQ_FILE: Final = 'compiler-reqs.ini'
-#
-# config = ConfigParser()
-# config.read(COMPILER_REQ_FILE)
-#
-# compiler_reqs = CompilerRequirements.create(config, Compiler.MSVC)
-# print(compiler_reqs)
-#
-# filtered_items = filter_config_default_section(config)
-#
-# for section, items in filtered_items:
-#     print('Section:', section)
-#     print('Items:')
-#
-#     for key, value in items.items():
-#         print(key, value, sep=' = ')
-#     print()
