@@ -9,6 +9,9 @@ class Architecture(IntFlag):
     A_64 = 2 ** 6
     A_128 = 2 ** 7
 
+    def arch_to_bit_name(self) -> str:
+        return str(self.value) + 'bit'
+
 
 @unique
 class Compiler(Enum):
