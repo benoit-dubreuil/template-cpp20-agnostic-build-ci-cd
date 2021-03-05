@@ -32,7 +32,7 @@ class OSFamily(Enum):
 
 
 @unique
-class CompilerRequirementsSectionScheme(Enum):
+class CompilerReqsSectionScheme(Enum):
     OS = 'os'
     MAJOR = 'major'
     MINOR = 'minor'  # Optional

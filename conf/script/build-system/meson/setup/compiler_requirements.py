@@ -3,7 +3,7 @@
 from typing import Final
 from pathlib import Path
 from configparser import ConfigParser
-from data_model import Compiler, OSFamily, CompilerRequirementsSectionScheme
+from data_model import Compiler, OSFamily, CompilerReqsSectionScheme
 
 
 class CompilerVersion:
@@ -15,7 +15,7 @@ class CompilerVersion:
         return '%u.%u' % (self.major, self.minor)
 
 
-class CompilerRequirements:
+class CompilerReqs:
     def __init__(self, compiler: Compiler, os_families: list[OSFamily], version: CompilerVersion):
         self.compiler = compiler
         self.os_families = os_families
@@ -26,7 +26,7 @@ class CompilerRequirements:
         return 'compiler-requirements.ini'
 
     @classmethod
-    def create_all_from_file(cls, file_path: Path = None) -> dict[Compiler, 'CompilerRequirements']:
+    def create_all_from_file(cls, file_path: Path = None) -> dict[Compiler, 'CompilerReqs']:
         file_path = cls._check_file_path_for_default_param(file_path)
         cls._assure_file_path_integrity(file_path)
 
@@ -34,8 +34,8 @@ class CompilerRequirements:
         config.read(file_path)
         filtered_section_options_pairs = cls._filter_config_default_section(config)
 
-        for compiler_name, raw_requirements in filtered_section_options_pairs:
-            # Transform raw_requirements into treated requirements
+        for compiler_name, raw_reqs in filtered_section_options_pairs:
+            # Transform raw_reqs into treated reqs
             #   OS
             #   Version
             # Put all results inside dictionary to return
@@ -62,6 +62,10 @@ class CompilerRequirements:
     def _get_config_parser_list_converter():
         return {'list': lambda x: [i.strip() for i in x.split(',')]}
 
+    @staticmethod
+    def _filter_config_default_section(config: ConfigParser):
+        return list(config.items())[1:]
+
     #    @classmethod
     #    def create_tmp_instance(cls, config: ConfigParser, compiler: Compiler):
     #        option_minor: Final = CompilerRequirementsSectionScheme.MINOR.value
@@ -85,12 +89,8 @@ class CompilerRequirements:
     #
     #        return CompilerRequirements(compiler, os_families, version)
 
-    @staticmethod
-    def _filter_config_default_section(config: ConfigParser):
-        return list(config.items())[1:]
 
-
-CompilerRequirements.create_all_from_file()
+CompilerReqs.create_all_from_file()
 
 # COMPILER_REQ_FILE: Final = 'compiler-requirements.ini'
 #
