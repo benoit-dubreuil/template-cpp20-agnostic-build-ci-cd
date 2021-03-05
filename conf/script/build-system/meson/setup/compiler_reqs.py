@@ -40,6 +40,10 @@ class CompilerReqs:
         return all_compilers_reqs
 
     @classmethod
+    def filter_by_os(cls, all_compilers_reqs: dict[Compiler, 'CompilerReqs'], os_family: OSFamily) -> list['CompilerReqs']:
+        return [compiler_reqs for compiler, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.os_families]
+
+    @classmethod
     def _check_file_path_for_default_param(cls, file_path: Path) -> Path:
         return file_path if file_path is not None else cls.get_default_compiler_reqs_file_path()
 
