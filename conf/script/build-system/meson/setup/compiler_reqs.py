@@ -3,16 +3,8 @@
 from typing import Final
 from pathlib import Path
 from configparser import ConfigParser
+from compiler_version import CompilerVersion
 from data_model import Compiler, OSFamily, CompilerReqsSectionScheme
-
-
-class CompilerVersion:
-    def __init__(self, major: int, minor: int = 0):
-        self.major = major
-        self.minor = minor
-
-    def __str__(self) -> str:
-        return '%u.%u' % (self.major, self.minor)
 
 
 class CompilerReqs:
@@ -30,21 +22,20 @@ class CompilerReqs:
         file_path = cls._check_file_path_for_default_param(file_path)
         cls._assure_file_path_integrity(file_path)
 
-        config = ConfigParser(converters=cls._get_config_parser_list_converter())
+        config = ConfigParser(converters=cls._get_config_parser_converters())
         config.read(file_path)
         filtered_section_options_pairs = cls._filter_config_default_section(config)
 
         for compiler_name, raw_compiler_reqs in filtered_section_options_pairs:
             # Transform raw_compiler_reqs into treated reqs
-            #   OS
             #   Version
             # Put all results inside dictionary to return
 
             compiler = Compiler(compiler_name)
 
-            raw_os = raw_compiler_reqs.getlist(CompilerReqsSectionScheme.OS.value)
-            raw_major = raw_compiler_reqs.getint(CompilerReqsSectionScheme.MAJOR.value)
-            raw_minor = raw_compiler_reqs.getint(CompilerReqsSectionScheme.MINOR.value)
+            os_families = raw_compiler_reqs.getosfamily(CompilerReqsSectionScheme.OS.value)
+            major = raw_compiler_reqs.getint(CompilerReqsSectionScheme.MAJOR.value)
+            minor = raw_compiler_reqs.getint(CompilerReqsSectionScheme.MINOR.value)
 
         return {}  # TODO
 
@@ -59,10 +50,19 @@ class CompilerReqs:
                 raise IsADirectoryError()
             raise FileNotFoundError()
 
+    @classmethod
+    def _get_config_parser_converters(cls):
+        return cls._get_config_parser_list_converter() | cls._get_config_parser_os_family_converter()
+
     # From https://stackoverflow.com/a/53274707/2924010
     @staticmethod
     def _get_config_parser_list_converter():
-        return {'list': lambda x: [i.strip() for i in x.split(',')]}
+        return {'list': lambda whole_option: [split_options.strip() for split_options in whole_option.split(',')]}
+
+    # From https://stackoverflow.com/a/53274707/2924010
+    @staticmethod
+    def _get_config_parser_os_family_converter():
+        return {'osfamily': lambda whole_option: [OSFamily(split_options.strip()) for split_options in whole_option.split(',')]}
 
     @staticmethod
     def _filter_config_default_section(config: ConfigParser):
