@@ -42,7 +42,9 @@ class CompilerReqs:
 
             compiler = Compiler(compiler_name)
 
-            pass
+            raw_os = raw_compiler_reqs.getlist(CompilerReqsSectionScheme.OS.value)
+            raw_major = raw_compiler_reqs.getint(CompilerReqsSectionScheme.MAJOR.value)
+            raw_minor = raw_compiler_reqs.getint(CompilerReqsSectionScheme.MINOR.value)
 
         return {}  # TODO
 
