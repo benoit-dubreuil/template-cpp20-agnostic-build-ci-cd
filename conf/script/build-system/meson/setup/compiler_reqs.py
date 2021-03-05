@@ -2,10 +2,14 @@
 
 from pathlib import Path
 from configparser import ConfigParser
+from pprint import pp
+
+from auto_print import auto_repr
 from compiler_version import CompilerVersion
 from data_model import Compiler, OSFamily, CompilerReqsSectionScheme
 
 
+@auto_repr
 class CompilerReqs:
     def __init__(self, compiler: Compiler, os_families: list[OSFamily], version: CompilerVersion):
         self.compiler = compiler
@@ -67,4 +71,5 @@ class CompilerReqs:
         return list(config.items())[1:]
 
 
-CompilerReqs.create_all_from_file()
+all_compilers_reqs = CompilerReqs.create_all_from_file()
+pp(all_compilers_reqs)
