@@ -22,8 +22,8 @@ class CompilerReqs:
         self.version = version
 
     @staticmethod
-    def get_default_compiler_reqs_file_path():
-        return 'compiler-reqs.ini'
+    def get_default_compiler_reqs_file_path() -> Path:
+        return Path('compiler-reqs.ini')
 
     @classmethod
     def create_all_from_file(cls, file_path: Path = None) -> dict[Compiler, 'CompilerReqs']:
