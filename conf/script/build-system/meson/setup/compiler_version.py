@@ -18,6 +18,20 @@ class CompilerVersion:
 
         return cls(major, minor)
 
+    @classmethod
+    def create_from_str(cls, version_str: str) -> 'CompilerVersion':
+        version_split: list[str] = version_str.split(cls.get_separator(), cls.get_dimension_count())
+
+        if len(version_split) == 0 or (len(version_split) == 1 and not version_split[0]):
+            raise ValueError('The supplied compiler version string is empty')
+
+        try:
+            major = int(version_split[cls.get_dimension_of_major()])
+            minor = int(version_split[cls.get_dimension_of_minor()])
+        except ValueError as raised_exception:
+            raise type(raised_exception)('Cannot convert the supplied compiler version to integers').with_traceback(raised_exception.__traceback__)
+
+        return CompilerVersion(major, minor)
 
     @staticmethod
     def get_dimension_of_major() -> int:
