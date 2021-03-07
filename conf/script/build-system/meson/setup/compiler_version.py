@@ -18,6 +18,7 @@ class CompilerVersion:
 
         return cls(major, minor)
 
+    # Ex: '9.1.9' => CompilerVersion(9, 1)
     @classmethod
     def create_from_str(cls, version_str: str) -> 'CompilerVersion':
         version_split: list[str] = version_str.split(cls.get_separator(), cls.get_dimension_count())
