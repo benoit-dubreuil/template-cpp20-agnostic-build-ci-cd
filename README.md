@@ -26,6 +26,7 @@ Template repository for projects using C++ and its ecosystem.
 - **CI/CD** : [GitHub Actions](https://github.com/features/actions)
 - **VCS** : [Git](https://git-scm.com/)
     - **Host** : [GitHub](https://github.com/), cloud hosted
+    - **Workflow** : [GitFlow](https://github.com/nvie/gitflow)
 - **Projet management** : [ZenHub](https://www.zenhub.com)
 - **Computer Graphics & Visualization API** : [OpenGL](https://www.khronos.org/opengl/)
     - **Version** : 4.6

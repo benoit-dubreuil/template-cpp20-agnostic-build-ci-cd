@@ -2,7 +2,7 @@
 name: Feature
 about: New feature or request
 title: ''
-labels: enhancement
+labels: Feature
 assignees: benoit-dubreuil
 
 ---
