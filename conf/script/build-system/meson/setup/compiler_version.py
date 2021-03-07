@@ -17,3 +17,9 @@ class CompilerVersion:
         minor = config_compiler_reqs_section.getint(CompilerReqsSectionScheme.MINOR.value, fallback=0)
 
         return cls(major, minor)
+
+    @staticmethod
+    def get_dimension_count() -> int:
+        """Gets the numbers of dimensions represented by the :class:`~CompilerVersion` data model, i.e. :var:`~CompilerVersion.major`.:var:`~CompilerVersion.minor` => 2
+        dimensions """
+        return 2
