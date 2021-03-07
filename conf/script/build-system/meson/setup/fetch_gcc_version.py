@@ -3,18 +3,21 @@
 import subprocess
 
 from data_model import Compiler
-import compiler_version
+from compiler_version import CompilerVersion
 
 
-def fetch_gcc_version():
+def fetch_gcc_version() -> CompilerVersion:
     result: subprocess.CompletedProcess = subprocess.run(
         [Compiler.GCC.value, '-dumpversion'], capture_output=True, text=True, check=True
     )
 
-    print('stdout:', result.stdout.strip(), end='')
+    gcc_version_str: str = result.stdout.strip()
+    gcc_version_split: list[str] = gcc_version_str.split(CompilerVersion.get_separator(), CompilerVersion.get_dimension_count())
+
+    return gcc_version_str
 
 
 # Run as a script
 if __name__ == '__main__':
-    fetch_gcc_version()
-    pass
+    gcc_version = fetch_gcc_version()
+    print(gcc_version, end='')
