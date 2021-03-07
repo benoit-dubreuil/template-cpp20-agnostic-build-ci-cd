@@ -10,11 +10,9 @@ def fetch_gcc_version() -> CompilerVersion:
     result: subprocess.CompletedProcess = subprocess.run(
         [Compiler.GCC.value, '-dumpversion'], capture_output=True, text=True, check=True
     )
-
-    gcc_version_str: str = result.stdout.strip()
-    gcc_version_split: list[str] = gcc_version_str.split(CompilerVersion.get_separator(), CompilerVersion.get_dimension_count())
-
-    return gcc_version_str
+    
+    compiler_version_str: str = result.stdout.strip()
+    return CompilerVersion.create_from_str(compiler_version_str)
 
 
 # Run as a script
