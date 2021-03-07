@@ -21,7 +21,10 @@ class CompilerVersion:
     @staticmethod
     def get_dimension_count() -> int:
         """Gets the numbers of dimensions represented by the :class:`~CompilerVersion` data model, i.e. :var:`~CompilerVersion.major`.:var:`~CompilerVersion.minor` => 2
-        dimensions"""
+        dimensions
+
+        The dimensions count can be used as the `maxsplit` argument in the :func:`~str.split` method.
+        """
         return 2
 
     @staticmethod
