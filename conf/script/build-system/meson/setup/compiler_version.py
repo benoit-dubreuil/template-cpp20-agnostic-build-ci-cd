@@ -18,6 +18,15 @@ class CompilerVersion:
 
         return cls(major, minor)
 
+
+    @staticmethod
+    def get_dimension_of_major() -> int:
+        return 0
+
+    @classmethod
+    def get_dimension_of_minor(cls) -> int:
+        return cls.get_dimension_of_major() + 1
+
     @staticmethod
     def get_dimension_count() -> int:
         """Gets the numbers of dimensions represented by the :class:`~CompilerVersion` data model, i.e. :var:`~CompilerVersion.major`.:var:`~CompilerVersion.minor` => 2
