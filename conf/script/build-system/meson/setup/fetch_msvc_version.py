@@ -3,7 +3,6 @@
 from typing import Final
 
 import vswhere
-import sys
 import colorama
 
 import fetch_compiler_version
@@ -38,10 +37,12 @@ def _print_found_compiler(compiler_version: CompilerVersion):
     print(compiler_version, end=str())
 
 
-def _print_error_compiler_not_found():
-    print(colorama.Style.BRIGHT + colorama.Fore.RED, file=sys.stderr, end=str())
-    print(f'No {Compiler.MSVC.name} compiler matching the requirements found', end=str())
-    print(colorama.Style.RESET_ALL, file=sys.stderr, end=str())
+def _error_compiler_not_found():
+    error_msg = colorama.Style.BRIGHT + colorama.Fore.RED
+    error_msg += f'{Compiler.MSVC.name} compiler matching the requirements not found'
+    error_msg += colorama.Style.RESET_ALL
+
+    raise FileNotFoundError(error_msg)
 
 
 # Run as a script
@@ -52,4 +53,4 @@ if __name__ == '__main__':
     if compiler_version is not None:
         _print_found_compiler(compiler_version)
     else:
-        _print_error_compiler_not_found()
+        _error_compiler_not_found()
