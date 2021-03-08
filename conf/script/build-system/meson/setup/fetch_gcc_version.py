@@ -3,7 +3,7 @@
 import colorama
 
 from data_model import Compiler
-from cli_fetch_gnu_compiler_version import cli_fetch_gnu_compiler_version
+from fetch_gnu_compiler_version import cli_fetch_gnu_compiler_version
 
 # Run as a script
 if __name__ == '__main__':
