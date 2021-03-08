@@ -7,6 +7,7 @@ import sys
 import colorama
 
 from compiler_version import CompilerVersion
+from data_model import Compiler
 
 DEFAULT_ALL_PRODUCTS: Final[str] = '*'
 DEFAULT_PROP_VERSION: Final[str] = 'installationVersion'
@@ -21,24 +22,33 @@ DEFAULT_REQUIRES: Final[list[str]] = [
 ]
 
 
-def _print_found_compiler(found_msvc: list[str]):
-    compiler_version_str: str = found_msvc[0].strip()
-    compiler_version: CompilerVersion = CompilerVersion.create_from_str(compiler_version_str)
+def find_msvc_compiler_version() -> CompilerVersion or None:
+    interpreted_compiler_version = None
+    found_compiler_versions: list[str] = vswhere.find(latest=True, prerelease=True, products=DEFAULT_ALL_PRODUCTS, prop=DEFAULT_PROP_VERSION, requires=DEFAULT_REQUIRES)
+
+    if len(found_compiler_versions) > 0:
+        first_compiler_version: str = found_compiler_versions[0].strip()
+        interpreted_compiler_version = CompilerVersion.create_from_str(first_compiler_version)
+
+    return interpreted_compiler_version
+
+
+def _print_found_compiler(compiler_version: CompilerVersion):
     print(compiler_version, end=str())
 
 
 def _print_error_compiler_not_found():
     print(colorama.Style.BRIGHT + colorama.Fore.RED, file=sys.stderr, end=str())
-    print('No MSVC compiler matching the requirements found', end=str())
+    print(f'No {Compiler.MSVC.name} compiler matching the requirements found', end=str())
     print(colorama.Style.RESET_ALL, file=sys.stderr, end=str())
 
 
 # Run as a script
 if __name__ == '__main__':
     colorama.init()
-    found_msvc: list[str] = vswhere.find(latest=True, prerelease=True, products=DEFAULT_ALL_PRODUCTS, prop=DEFAULT_PROP_VERSION, requires=DEFAULT_REQUIRES)
+    compiler_version: CompilerVersion = find_msvc_compiler_version()
 
-    if len(found_msvc) > 0:
-        _print_found_compiler(found_msvc)
+    if compiler_version is not None:
+        _print_found_compiler(compiler_version)
     else:
         _print_error_compiler_not_found()
