@@ -13,7 +13,6 @@ def cli_init():
 
 
 def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Path or None], CompilerVersion], default_compiler_path: Path or None = None) -> None:
-def cli_fetch_compiler_version(compiler: Compiler, default_compiler_path: Path or None, fetch_compiler_version_func: Callable[[Path], CompilerVersion]) -> None:
     compiler_arg = compiler.value
 
     arg_parser = argparse.ArgumentParser(description=f'Fetches {compiler.name} compiler\'s version')
@@ -27,5 +26,4 @@ def cli_fetch_compiler_version(compiler: Compiler, default_compiler_path: Path o
 
 
 def cli_fetch_compiler_version_with_default_path(compiler: Compiler, fetch_compiler_version_func: Callable[[Path], CompilerVersion]) -> None:
-def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Path], CompilerVersion]) -> None:
-    cli_fetch_compiler_version(compiler, compiler.value, fetch_compiler_version_func)
+    cli_fetch_compiler_version(compiler, fetch_compiler_version_func, compiler.value)
