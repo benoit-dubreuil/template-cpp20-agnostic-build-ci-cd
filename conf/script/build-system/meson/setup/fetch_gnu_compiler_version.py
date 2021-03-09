@@ -4,7 +4,7 @@ from pathlib import Path
 
 from compiler_version import CompilerVersion
 from data_model import Compiler
-from fetch_compiler_version import assure_compiler_path_integrity
+from fetch_compiler_version import assure_compiler_path_integrity, interpret_fetched_compiler_version
 
 
 def fetch_gnu_compiler_version(compiler: Path) -> CompilerVersion:
@@ -14,8 +14,7 @@ def fetch_gnu_compiler_version(compiler: Path) -> CompilerVersion:
         [compiler, '-dumpversion'], capture_output=True, text=True, check=True
     )
 
-    compiler_version_str: str = result.stdout.strip()
-    return CompilerVersion.create_from_str(compiler_version_str)
+    return interpret_fetched_compiler_version(result.stdout)
 
 
 def cli_fetch_gnu_compiler_version(compiler: Compiler):
