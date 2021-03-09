@@ -1,13 +1,8 @@
-import colorama
 from pathlib import Path
 from typing import NoReturn, AnyStr, Callable
 
-from file_path_integrity import cmd_exists
 from compiler_version import CompilerVersion
-
-
-def cli_init():
-    colorama.init()
+from file_path_integrity import cmd_exists
 
 
 def assure_compiler_path_integrity(compiler_path: Path) -> NoReturn:

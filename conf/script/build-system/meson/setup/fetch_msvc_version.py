@@ -5,7 +5,7 @@ from typing import Final
 import vswhere
 import colorama
 
-import fetch_compiler_version
+import cli_fetch_compiler_version
 from compiler_version import CompilerVersion
 from data_model import Compiler
 
@@ -47,7 +47,7 @@ def _error_compiler_not_found():
 
 # Run as a script
 if __name__ == '__main__':
-    fetch_compiler_version.cli_init()
+    cli_fetch_compiler_version.cli_init()
     compiler_version: CompilerVersion = find_msvc_compiler_version()
 
     if compiler_version is not None:
