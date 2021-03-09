@@ -5,7 +5,7 @@ import colorama
 
 from compiler_version import CompilerVersion
 from data_model import Compiler
-from fetch_msvc_version import fetch_msvc_version
+from fetch_msvc_version_impl import fetch_msvc_version
 from cli_fetch_compiler_version import cli_fetch_compiler_version
 
 
