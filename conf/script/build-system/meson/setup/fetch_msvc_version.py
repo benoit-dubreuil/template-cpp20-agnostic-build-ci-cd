@@ -34,7 +34,7 @@ def find_msvc_installation_path() -> Path or None:
     return compiler_installation_path
 
 
-def fetch_msvc_version(compiler_installation_path: Path or None) -> CompilerVersion or None:
+def fetch_msvc_version(compiler_installation_path: Path or None = None) -> CompilerVersion or None:
     interpreted_compiler_version: CompilerVersion or None = None
     compiler_installation_path = find_msvc_installation_path() if compiler_installation_path is None else compiler_installation_path
 
