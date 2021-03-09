@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 
-from typing import Final
 from pathlib import Path
+from typing import Final
 
 import vswhere
-import colorama
 
 import cli_fetch_compiler_version
 from compiler_version import CompilerVersion
-from data_model import Compiler
+from cli_fetch_msvc_version import cli_fetch_msvc_version
 
 DEFAULT_REQUIRES: Final[list[str]] = [
     'Microsoft.VisualStudio.Component.VC.Tools.x86.x64',
@@ -36,34 +35,19 @@ def find_msvc_installation_path() -> Path or None:
 
 
 def fetch_msvc_version() -> CompilerVersion or None:
-    interpreted_compiler_version = None
-    found_compiler_versions: list[str] = vswhere.find(latest=True, prerelease=True, products=_ALL_PRODUCTS, prop=_PROP_VERSION, requires=DEFAULT_REQUIRES)
+    interpreted_compiler_version: CompilerVersion or None = None
+    compiler_installation_path: Path or None = find_msvc_installation_path()
 
-    if len(found_compiler_versions) > 0:
-        first_compiler_version: str = found_compiler_versions[0].strip()
-        interpreted_compiler_version = CompilerVersion.create_from_str(first_compiler_version)
+    if compiler_installation_path is not None:
+        fetched_compiler_version: str = vswhere.find_first(prop=_PROP_VERSION, path=compiler_installation_path)
+        fetched_compiler_version = fetched_compiler_version.strip()
+
+        interpreted_compiler_version = CompilerVersion.create_from_str(fetched_compiler_version)
 
     return interpreted_compiler_version
-
-
-def _print_found_compiler(compiler_version: CompilerVersion):
-    print(compiler_version, end=str())
-
-
-def _error_compiler_not_found():
-    error_msg = colorama.Style.BRIGHT + colorama.Fore.RED
-    error_msg += f'{Compiler.MSVC.name} compiler matching the requirements not found'
-    error_msg += colorama.Style.RESET_ALL
-
-    raise FileNotFoundError(error_msg)
 
 
 # Run as a script
 if __name__ == '__main__':
     cli_fetch_compiler_version.cli_init()
-    compiler_version: CompilerVersion = fetch_msvc_version()
-
-    if compiler_version is not None:
-        _print_found_compiler(compiler_version)
-    else:
-        _error_compiler_not_found()
+    cli_fetch_msvc_version()
