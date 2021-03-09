@@ -1,14 +1,12 @@
-from typing import NoReturn
+from typing import NoReturn, Optional, Union
+from pathlib import Path
 
 import colorama
 
 from compiler_version import CompilerVersion
 from data_model import Compiler
 from fetch_msvc_version import fetch_msvc_version
-
-
-def _print_found_compiler(compiler_version: CompilerVersion) -> None:
-    print(compiler_version, end=str())
+from cli_fetch_compiler_version import cli_fetch_compiler_version
 
 
 def _error_compiler_not_found() -> NoReturn:
@@ -19,10 +17,14 @@ def _error_compiler_not_found() -> NoReturn:
     raise FileNotFoundError(error_msg)
 
 
-def cli_fetch_msvc_version() -> None:
-    compiler_version: CompilerVersion = fetch_msvc_version()
+def _cli_no_arg_fetch_msvc_version(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
+    compiler_version: CompilerVersion = fetch_msvc_version(compiler_installation_path)
 
-    if compiler_version is not None:
-        _print_found_compiler(compiler_version)
-    else:
+    if compiler_version is None:
         _error_compiler_not_found()
+
+    return compiler_version
+
+
+def cli_fetch_msvc_version() -> None:
+    cli_fetch_compiler_version(Compiler.MSVC, _cli_no_arg_fetch_msvc_version)
