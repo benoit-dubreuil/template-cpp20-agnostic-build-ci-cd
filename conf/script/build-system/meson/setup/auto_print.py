@@ -4,7 +4,7 @@ def auto_repr(cls):
         return '%s(%s)' % (
             type(self).__name__,
             ', '.join('%s=%s' % item for item in vars(self).items())
-            )
+        )
 
     cls.__repr__ = __repr__
     return cls
@@ -16,7 +16,7 @@ def auto_str(cls):
         return '%s(%s)' % (
             type(self).__name__,
             ', '.join('%s' % item[1] for item in vars(self).items())
-            )
+        )
 
     cls.__str__ = __str__
     return cls

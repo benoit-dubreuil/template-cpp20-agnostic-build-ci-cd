@@ -1,12 +1,12 @@
-from typing import NoReturn, Optional, Union
 from pathlib import Path
+from typing import NoReturn, Optional, Union
 
 import colorama
 
+from cli_fetch_compiler_version import cli_fetch_compiler_version
 from compiler_version import CompilerVersion
 from data_model import Compiler
 from fetch_msvc_version_impl import fetch_msvc_version
-from cli_fetch_compiler_version import cli_fetch_compiler_version
 
 
 def _error_compiler_not_found() -> NoReturn:
