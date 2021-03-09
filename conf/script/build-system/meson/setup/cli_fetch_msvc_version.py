@@ -27,4 +27,4 @@ def _cli_no_arg_fetch_msvc_version(compiler_installation_path: Optional[Path] = 
 
 
 def cli_fetch_msvc_version() -> None:
-    cli_fetch_compiler_version(Compiler.MSVC, _cli_no_arg_fetch_msvc_version)
+    cli_fetch_compiler_version(Compiler.MSVC, _cli_no_arg_fetch_msvc_version, help_path_meaning='installation')

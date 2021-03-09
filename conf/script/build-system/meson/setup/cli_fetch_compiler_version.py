@@ -12,11 +12,13 @@ def cli_init():
     colorama.init()
 
 
-def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Path or None], CompilerVersion], default_compiler_path: Path or None = None) -> None:
+def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Path or None], CompilerVersion], default_compiler_path: Path or None = None,
+                               help_path_meaning: str = 'executable') -> None:
     compiler_arg = compiler.value
 
     arg_parser = argparse.ArgumentParser(description=f'Fetches {compiler.name} compiler\'s version')
-    arg_parser.add_argument(compiler_arg, type=Path, nargs='?', const=default_compiler_path, default=default_compiler_path, help=f'The {compiler.name} compiler\'s executable path')
+    arg_parser.add_argument(compiler_arg, type=Path, nargs='?', const=default_compiler_path, default=default_compiler_path,
+                            help=f'The {compiler.name} compiler\'s {help_path_meaning} path')
 
     args = arg_parser.parse_args()
     compiler_path: Path or None = getattr(args, compiler_arg)
