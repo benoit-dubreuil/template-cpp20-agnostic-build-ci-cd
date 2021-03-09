@@ -1,11 +1,11 @@
 from pathlib import Path
-from typing import NoReturn, AnyStr, Callable
+from typing import AnyStr, Callable
 
 from compiler_version import CompilerVersion
 from file_path_integrity import cmd_exists
 
 
-def assure_compiler_path_integrity(compiler_path: Path) -> NoReturn:
+def assure_compiler_path_integrity(compiler_path: Path) -> None:
     """Assures the integrity of the supplied :param:`compiler_path`
 
     :param compiler_path: The path to the compiler executable file. It must not be a directory.
