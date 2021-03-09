@@ -1,6 +1,6 @@
 import argparse
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Union
 
 import colorama
 
@@ -12,7 +12,7 @@ def cli_init():
     colorama.init()
 
 
-def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Path or None], CompilerVersion], default_compiler_path: Path or None = None,
+def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Path or None], CompilerVersion], default_compiler_path: Path or None = Path(),
                                help_path_meaning: str = 'executable') -> None:
     compiler_arg = compiler.value
 
@@ -21,7 +21,11 @@ def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: 
                             help=f'The {compiler.name} compiler\'s {help_path_meaning} path')
 
     args = arg_parser.parse_args()
-    compiler_path: Path or None = getattr(args, compiler_arg)
+    compiler_path: Union[Path, None] = getattr(args, compiler_arg)
+
+    if len(str(compiler_path)) <= 0:
+        compiler_path = None
+
     compiler_version = fetch_compiler_version_func(compiler_path)
 
     print(compiler_version, end='')
