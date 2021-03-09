@@ -34,9 +34,9 @@ def find_msvc_installation_path() -> Path or None:
     return compiler_installation_path
 
 
-def fetch_msvc_version() -> CompilerVersion or None:
+def fetch_msvc_version(compiler_installation_path: Path or None) -> CompilerVersion or None:
     interpreted_compiler_version: CompilerVersion or None = None
-    compiler_installation_path: Path or None = find_msvc_installation_path()
+    compiler_installation_path = find_msvc_installation_path() if compiler_installation_path is None else compiler_installation_path
 
     if compiler_installation_path is not None:
         fetched_compiler_version: str = vswhere.find_first(prop=_PROP_VERSION, path=compiler_installation_path)
