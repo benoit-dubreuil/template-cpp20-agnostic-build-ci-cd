@@ -12,7 +12,7 @@ def cli_init():
     colorama.init()
 
 
-def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Optional[Path]], CompilerVersion], default_compiler_path: Optional[Path] = Path(),
+def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Optional[Path]], CompilerVersion], default_compiler_path: Optional[Path] = None,
                                help_path_meaning: str = 'executable') -> None:
     compiler_arg = compiler.value
 

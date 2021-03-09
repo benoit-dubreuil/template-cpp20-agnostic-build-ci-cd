@@ -18,7 +18,7 @@ def _error_compiler_not_found() -> NoReturn:
 
 
 def _cli_no_arg_fetch_msvc_version(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
-    compiler_version: CompilerVersion = fetch_msvc_version(compiler_installation_path)
+    compiler_version: Optional[CompilerVersion] = fetch_msvc_version(compiler_installation_path)
 
     if compiler_version is None:
         _error_compiler_not_found()
