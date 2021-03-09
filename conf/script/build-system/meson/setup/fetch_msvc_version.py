@@ -35,7 +35,7 @@ def find_msvc_compiler() -> Path or None:
     return compiler_installation_path
 
 
-def find_msvc_compiler_version() -> CompilerVersion or None:
+def fetch_msvc_compiler_version() -> CompilerVersion or None:
     interpreted_compiler_version = None
     found_compiler_versions: list[str] = vswhere.find(latest=True, prerelease=True, products=_ALL_PRODUCTS, prop=_PROP_VERSION, requires=DEFAULT_REQUIRES)
 
@@ -61,7 +61,7 @@ def _error_compiler_not_found():
 # Run as a script
 if __name__ == '__main__':
     cli_fetch_compiler_version.cli_init()
-    compiler_version: CompilerVersion = find_msvc_compiler_version()
+    compiler_version: CompilerVersion = fetch_msvc_compiler_version()
 
     if compiler_version is not None:
         _print_found_compiler(compiler_version)
