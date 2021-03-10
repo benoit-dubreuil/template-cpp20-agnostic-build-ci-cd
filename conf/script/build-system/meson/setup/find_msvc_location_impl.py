@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Final, Optional, Union
+from typing import Final, Optional
 
 import vswhere
 
