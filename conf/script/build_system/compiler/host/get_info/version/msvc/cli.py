@@ -1,18 +1,23 @@
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
-from cli_fetch_compiler_info import cli_fetch_compiler_info
-from version import CompilerVersion
-from data_model import Compiler
-from fetch_msvc_version import fetch_msvc_version
-from cli_find_msvc_location import error_compiler_not_found
+from build_system.compiler.compiler import Compiler
+from build_system.compiler.version import CompilerVersion
+
+from build_system.compiler.host.get_info.cli import cli_fetch_compiler_info
+
+from build_system.compiler.host.get_info.location import msvc
+import build_system.compiler.host.get_info.location.msvc.cli
+
+from build_system.compiler.host.get_info.version import msvc
+import build_system.compiler.host.get_info.version.msvc.fetch_msvc_version
 
 
 def _cli_no_arg_fetch_msvc_version(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
-    compiler_version: Optional[CompilerVersion] = fetch_msvc_version(compiler_installation_path)
+    compiler_version: Optional[CompilerVersion] = msvc.fetch_msvc_version.fetch_msvc_version(compiler_installation_path)
 
     if compiler_version is None:
-        error_compiler_not_found()
+        msvc.cli.error_compiler_not_found()
 
     return compiler_version
 
