@@ -6,7 +6,7 @@ from data_model import Compiler
 from find_msvc_location_impl import find_msvc_installation_path
 
 
-def _error_compiler_not_found() -> NoReturn:
+def error_compiler_not_found() -> NoReturn:
     error_msg = format_error_msg(f'{Compiler.MSVC.name} compiler matching the requirements not found')
     raise FileNotFoundError(error_msg)
 
@@ -15,7 +15,7 @@ def _cli_no_arg_fetch_msvc_location(compiler_installation_path: Optional[Path] =
     compiler_installation_path: Optional[Path] = find_msvc_installation_path(compiler_installation_path)
 
     if compiler_installation_path is None:
-        _error_compiler_not_found()
+        error_compiler_not_found()
 
     return compiler_installation_path
 

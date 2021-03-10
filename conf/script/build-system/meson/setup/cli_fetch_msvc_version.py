@@ -1,22 +1,18 @@
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
-from cli_fetch_compiler_info import cli_fetch_compiler_info, format_error_msg
+from cli_fetch_compiler_info import cli_fetch_compiler_info
 from compiler_version import CompilerVersion
 from data_model import Compiler
 from fetch_msvc_version_impl import fetch_msvc_version
-
-
-def _error_compiler_not_found() -> NoReturn:
-    error_msg = format_error_msg(f'{Compiler.MSVC.name} compiler matching the requirements not found')
-    raise FileNotFoundError(error_msg)
+from cli_find_msvc_location import error_compiler_not_found
 
 
 def _cli_no_arg_fetch_msvc_version(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
     compiler_version: Optional[CompilerVersion] = fetch_msvc_version(compiler_installation_path)
 
     if compiler_version is None:
-        _error_compiler_not_found()
+        error_compiler_not_found()
 
     return compiler_version
 
