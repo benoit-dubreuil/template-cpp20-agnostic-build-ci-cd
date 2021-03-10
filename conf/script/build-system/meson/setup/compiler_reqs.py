@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 from pathlib import Path
 
-from auto_print import auto_repr, auto_str
+from utils.auto_print import auto_repr, auto_str
 from compiler_version import CompilerVersion
 from data_model import Compiler, OSFamily, CompilerReqsSectionScheme
 from file_path_integrity import assure_file_path_integrity

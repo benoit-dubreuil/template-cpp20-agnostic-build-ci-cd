@@ -1,4 +1,4 @@
-from auto_print import auto_repr
+from utils.auto_print import auto_repr
 from data_model import CompilerReqsSectionScheme
 
 
