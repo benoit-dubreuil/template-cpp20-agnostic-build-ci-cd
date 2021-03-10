@@ -1,5 +1,5 @@
 from utils.auto_print import auto_repr
-from data_model import CompilerReqsSectionScheme
+from build_system.compiler.reqs.scheme import CompilerReqsScheme
 
 
 @auto_repr
@@ -13,8 +13,8 @@ class CompilerVersion:
 
     @classmethod
     def create_from_config_compiler_reqs_section(cls, config_compiler_reqs_section) -> 'CompilerVersion':
-        major = config_compiler_reqs_section.getint(CompilerReqsSectionScheme.MAJOR.value)
-        minor = config_compiler_reqs_section.getint(CompilerReqsSectionScheme.MINOR.value, fallback=0)
+        major = config_compiler_reqs_section.getint(CompilerReqsScheme.MAJOR.value)
+        minor = config_compiler_reqs_section.getint(CompilerReqsScheme.MINOR.value, fallback=0)
 
         return cls(major, minor)
 
