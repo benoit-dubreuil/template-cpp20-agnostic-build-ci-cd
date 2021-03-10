@@ -2,7 +2,7 @@
 
 import cli_fetch_compiler_info
 
-from cli_find_msvc_location import cli_find_msvc_location
+from __main__ import cli_find_msvc_location
 
 # Run as a script
 if __name__ == '__main__':
