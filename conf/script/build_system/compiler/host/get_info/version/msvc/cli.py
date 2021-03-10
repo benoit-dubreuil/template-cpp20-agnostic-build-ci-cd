@@ -14,7 +14,7 @@ import build_system.compiler.host.get_info.version.msvc.fetch_msvc_version
 
 
 def _cli_no_arg_fetch_msvc_version(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
-    compiler_version: Optional[CompilerVersion] = msvc.fetch_msvc_version.fetch_msvc_version(compiler_installation_path)
+    compiler_version: Optional[CompilerVersion] = msvc.fetch_msvc_version.fetch(compiler_installation_path)
 
     if compiler_version is None:
         msvc.cli.error_compiler_not_found()
