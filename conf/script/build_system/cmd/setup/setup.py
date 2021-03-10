@@ -4,9 +4,12 @@ import platform
 import sys
 from typing import Final
 
-from compiler_reqs import CompilerReqs
-from compiler_version import CompilerVersion
-from build_type import *
+from build_system.compiler.compiler import Compiler
+from build_system.compiler.version import CompilerVersion
+from build_system.compiler.host.os_family import OSFamily
+from build_system.compiler.host.architecture import Architecture
+from build_system.cmd.setup.build_type import BuildType
+from build_system.compiler.reqs.reqs import CompilerReqs
 
 
 def fetch_os_name() -> str:
