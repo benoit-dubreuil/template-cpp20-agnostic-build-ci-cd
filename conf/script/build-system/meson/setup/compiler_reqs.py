@@ -1,9 +1,10 @@
-from pathlib import Path
 from configparser import ConfigParser
+from pathlib import Path
 
 from auto_print import auto_repr, auto_str
 from compiler_version import CompilerVersion
 from data_model import Compiler, OSFamily, CompilerReqsSectionScheme
+from file_path_integrity import assure_file_path_integrity
 
 
 @auto_repr
@@ -21,7 +22,7 @@ class CompilerReqs:
     @classmethod
     def create_all_from_file(cls, file_path: Path = None) -> dict[Compiler, 'CompilerReqs']:
         file_path = cls._check_file_path_for_default_param(file_path)
-        cls._assure_file_path_integrity(file_path)
+        assure_file_path_integrity(file_path)
 
         config = ConfigParser(converters=cls._get_config_parser_converters())
         config.read(file_path)
@@ -46,13 +47,6 @@ class CompilerReqs:
     @classmethod
     def _check_file_path_for_default_param(cls, file_path: Path) -> Path:
         return file_path if file_path is not None else cls.get_default_compiler_reqs_file_path()
-
-    @staticmethod
-    def _assure_file_path_integrity(file_path: Path):
-        if not file_path.exists() or not file_path.is_file():
-            if file_path.is_dir():
-                raise IsADirectoryError()
-            raise FileNotFoundError()
 
     @classmethod
     def _get_config_parser_converters(cls):

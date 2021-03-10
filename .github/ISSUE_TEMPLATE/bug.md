@@ -2,8 +2,8 @@
 name: Bug
 about: Something isn't working
 title: ''
-labels: bug
-assignees: ''
+labels: Bug
+assignees: benoit-dubreuil
 
 ---
 
