@@ -35,9 +35,10 @@ def fetch_msvc_version(compiler_installation_path: Optional[Path] = None) -> Opt
     compiler_installation_path = find_msvc_installation_path() if compiler_installation_path is None else compiler_installation_path
 
     if compiler_installation_path is not None:
-        fetched_compiler_version: str = vswhere.find_first(prop=_PROP_VERSION, path=compiler_installation_path)
-        fetched_compiler_version = fetched_compiler_version.strip()
+        fetched_compiler_version: Optional[str] = vswhere.find_first(prop=_PROP_VERSION, path=compiler_installation_path)
 
-        interpreted_compiler_version = CompilerVersion.create_from_str(fetched_compiler_version)
+        if fetched_compiler_version is not None:
+            fetched_compiler_version = fetched_compiler_version.strip()
+            interpreted_compiler_version = CompilerVersion.create_from_str(fetched_compiler_version)
 
     return interpreted_compiler_version
