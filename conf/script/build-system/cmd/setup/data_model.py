@@ -28,13 +28,6 @@ class BuildType(Enum):
 
 
 @unique
-class OSFamily(Enum):
-    WINDOWS = 'windows'
-    DARWIN = 'darwin'
-    LINUX = 'linux'
-
-
-@unique
 class CompilerReqsSectionScheme(Enum):
     OS = 'os'
     MAJOR = 'major'
