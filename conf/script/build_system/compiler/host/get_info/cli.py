@@ -1,10 +1,10 @@
-import argparse
 from pathlib import Path
 from typing import Callable, Optional, Final, AnyStr, Any
 
+import argparse
 import colorama
 
-from data_model import Compiler
+from build_system.compiler.compiler import Compiler
 
 
 def cli_init():
