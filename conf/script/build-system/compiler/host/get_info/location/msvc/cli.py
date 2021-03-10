@@ -3,7 +3,7 @@ from typing import NoReturn, Optional, Union
 
 from cli_fetch_compiler_info import cli_fetch_compiler_info, format_error_msg
 from data_model import Compiler
-from find_msvc_location import find_msvc_installation_path
+from installation_path import find_msvc_installation_path
 
 
 def error_compiler_not_found() -> NoReturn:
