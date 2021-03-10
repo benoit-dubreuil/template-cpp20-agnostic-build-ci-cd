@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-from typing import Final
-import sys
 import platform
+import sys
+from typing import Final
 
-from data_model import *
 from compiler_reqs import CompilerReqs
 from compiler_version import CompilerVersion
+from data_model import *
 
 
 def fetch_os_name() -> str:

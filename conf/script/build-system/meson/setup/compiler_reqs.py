@@ -1,5 +1,5 @@
-from pathlib import Path
 from configparser import ConfigParser
+from pathlib import Path
 
 from auto_print import auto_repr, auto_str
 from compiler_version import CompilerVersion
