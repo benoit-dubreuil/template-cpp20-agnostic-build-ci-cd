@@ -14,13 +14,6 @@ class Architecture(IntFlag):
 
 
 @unique
-class Compiler(Enum):
-    MSVC = 'msvc'
-    CLANG = 'clang'
-    GCC = 'gcc'
-
-
-@unique
 class BuildType(Enum):
     DEBUG = 'debug'
     DEBUG_OPTIMIZED = 'debugoptimized'
