@@ -7,4 +7,4 @@ import build_system.compiler.host.get_info.location.msvc.cli
 # Run as a script
 if __name__ == '__main__':
     cli.cli_init()
-    location.msvc.cli.cli_find_msvc_installation_path()
+    location.msvc.cli.find_installation_path()

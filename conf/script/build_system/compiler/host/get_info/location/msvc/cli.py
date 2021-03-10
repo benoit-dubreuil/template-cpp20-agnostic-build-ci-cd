@@ -12,7 +12,7 @@ def error_compiler_not_found() -> NoReturn:
     raise FileNotFoundError(error_msg)
 
 
-def _cli_no_arg_find_msvc_installation_path(compiler_installation_path: Optional[Path] = None) -> Union[Path, NoReturn]:
+def _find_installation_path_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[Path, NoReturn]:
     compiler_installation_path: Optional[Path] = msvc.installation_path.find(compiler_installation_path)
 
     if compiler_installation_path is None:
@@ -21,5 +21,5 @@ def _cli_no_arg_find_msvc_installation_path(compiler_installation_path: Optional
     return compiler_installation_path
 
 
-def cli_find_msvc_installation_path() -> None:
-    cli_fetch_compiler_info(Compiler.MSVC, _cli_no_arg_find_msvc_installation_path, desc_compiler_info='location', help_path_meaning='installation')
+def find_installation_path() -> None:
+    cli_fetch_compiler_info(Compiler.MSVC, _find_installation_path_no_arg, desc_compiler_info='location', help_path_meaning='installation')
