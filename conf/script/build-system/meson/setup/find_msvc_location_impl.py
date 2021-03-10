@@ -21,7 +21,7 @@ def find_msvc_installation_path(compiler_installation_path: Optional[Path] = Non
     if compiler_installation_path is None:
         found_compiler_installation_path = vswhere.find_first(latest=True, prerelease=True, products=_ALL_PRODUCTS, prop=_PROP_INSTALLATION_PATH, requires=_DEFAULT_REQUIRES)
     else:
-        found_compiler_installation_path = vswhere.find_first(path=compiler_installation_path)
+        found_compiler_installation_path = vswhere.find_first(prop=_PROP_INSTALLATION_PATH, path=compiler_installation_path)
 
     if found_compiler_installation_path is not None:
         found_compiler_installation_path = Path(found_compiler_installation_path.strip())
