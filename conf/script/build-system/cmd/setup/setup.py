@@ -6,7 +6,7 @@ from typing import Final
 
 from compiler_reqs import CompilerReqs
 from compiler_version import CompilerVersion
-from data_model import *
+from build_type import *
 
 
 def fetch_os_name() -> str:
