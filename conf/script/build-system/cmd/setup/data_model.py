@@ -18,10 +18,3 @@ class BuildType(Enum):
     DEBUG = 'debug'
     DEBUG_OPTIMIZED = 'debugoptimized'
     RELEASE = 'release'
-
-
-@unique
-class CompilerReqsSectionScheme(Enum):
-    OS = 'os'
-    MAJOR = 'major'
-    MINOR = 'minor'  # Optional
