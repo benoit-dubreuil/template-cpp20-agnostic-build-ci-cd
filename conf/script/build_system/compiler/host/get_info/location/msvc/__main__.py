@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import cli_fetch_compiler_info
+from build_system.compiler.host.get_info import cli
+from build_system.compiler.host.get_info import location
 
-from cli import cli_find_msvc_installation_path
 
 # Run as a script
 if __name__ == '__main__':
-    cli_fetch_compiler_info.cli_init()
-    cli_find_msvc_installation_path()
+    cli.cli_init()
+    location.msvc.cli.cli_find_msvc_installation_path()
