@@ -7,7 +7,7 @@ from utils.file_path_integrity import assure_file_path_integrity
 from build_system.compiler.compiler import Compiler
 from build_system.compiler.version import CompilerVersion
 from build_system.compiler.host.os_family import OSFamily
-from build_system.compiler.reqs.scheme import CompilerReqsSectionScheme
+from build_system.compiler.reqs.scheme import CompilerReqsScheme
 
 
 @auto_repr
@@ -35,7 +35,7 @@ class CompilerReqs:
 
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
             compiler = Compiler(compiler_name)
-            os_families = compiler_reqs_section.getosfamily(CompilerReqsSectionScheme.OS.value)
+            os_families = compiler_reqs_section.getosfamily(CompilerReqsScheme.OS.value)
             compiler_version = CompilerVersion.create_from_config_compiler_reqs_section(compiler_reqs_section)
 
             compiler_reqs = cls(compiler, os_families, compiler_version)
