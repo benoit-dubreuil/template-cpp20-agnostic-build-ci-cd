@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import AnyStr, Callable
 
-from compiler_version import CompilerVersion
+from version import CompilerVersion
 from utils.cmd_integrity import cmd_exists
 
 

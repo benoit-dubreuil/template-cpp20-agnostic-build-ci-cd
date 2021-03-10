@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import NoReturn, Optional, Union
 
 from cli_fetch_compiler_info import cli_fetch_compiler_info
-from compiler_version import CompilerVersion
+from version import CompilerVersion
 from data_model import Compiler
 from fetch_msvc_version_impl import fetch_msvc_version
 from cli_find_msvc_location import error_compiler_not_found

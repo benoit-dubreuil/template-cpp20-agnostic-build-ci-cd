@@ -2,7 +2,7 @@ import subprocess
 from pathlib import Path
 from typing import AnyStr
 
-from compiler_version import CompilerVersion
+from version import CompilerVersion
 from fetch_compiler_version import assure_compiler_path_integrity, fetch_compiler_version
 
 
