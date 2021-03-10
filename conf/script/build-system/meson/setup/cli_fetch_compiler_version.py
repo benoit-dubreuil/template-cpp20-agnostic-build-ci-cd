@@ -18,21 +18,27 @@ def format_error_msg(error_msg: AnyStr) -> AnyStr:
 
 def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Optional[Path]], CompilerVersion], default_compiler_path: Optional[Path] = None,
                                help_path_meaning: str = 'executable') -> None:
-    compiler_arg = compiler.value
+    path_arg_name: Final[str] = 'path'
+    path_arg: Final[str] = '-' + path_arg_name
 
     arg_parser = argparse.ArgumentParser(description=f'Fetches {compiler.name} compiler\'s version')
-    arg_parser.add_argument(compiler_arg, type=Path, nargs='?', const=default_compiler_path, default=default_compiler_path,
-                            help=f'The {compiler.name} compiler\'s {help_path_meaning} path')
+    arg_parser.add_argument(path_arg, type=str, nargs='?', const=str(), default=default_compiler_path,
+                            help=f'The {compiler.name} compiler\'s {help_path_meaning} {path_arg_name}')
 
     args = arg_parser.parse_args()
-    compiler_path: Optional[Path] = getattr(args, compiler_arg)
+    compiler_path: Optional[str] = getattr(args, path_arg_name)
 
-    if len(str(compiler_path)) <= 0:
-        compiler_path = None
+    if compiler_path == str():
+        error_msg = format_error_msg(f"'{path_arg}' argument must be followed by a path string")
+        arg_parser.error(error_msg)
 
-    compiler_version = fetch_compiler_version_func(compiler_path)
+    compiler_path: Optional[Path] = Path(compiler_path) if compiler_path is not None else None
 
-    print(compiler_version, end='')
+    try:
+        compiler_version = fetch_compiler_version_func(compiler_path)
+        print(compiler_version, end='')
+    except FileNotFoundError as exception:
+        arg_parser.error(str(exception))
 
 
 def cli_fetch_compiler_version_with_default_path(compiler: Compiler, fetch_compiler_version_func: Callable[[Path], CompilerVersion]) -> None:
