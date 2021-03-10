@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import AnyStr, Callable
 
 from compiler_version import CompilerVersion
-from file_path_integrity import cmd_exists
+from utils.file_path_integrity import cmd_exists
 
 
 def assure_compiler_path_integrity(compiler_path: Path) -> None:
