@@ -13,7 +13,7 @@ from build_system.compiler.host.get_info.version import msvc
 import build_system.compiler.host.get_info.version.msvc.fetch_msvc_version
 
 
-def _cli_no_arg_fetch_msvc_version(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
+def _fetch_msvc_version_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
     compiler_version: Optional[CompilerVersion] = msvc.fetch_msvc_version.fetch(compiler_installation_path)
 
     if compiler_version is None:
@@ -22,5 +22,5 @@ def _cli_no_arg_fetch_msvc_version(compiler_installation_path: Optional[Path] = 
     return compiler_version
 
 
-def cli_fetch_msvc_version() -> None:
-    cli_fetch_compiler_info(Compiler.MSVC, _cli_no_arg_fetch_msvc_version, help_path_meaning='installation')
+def fetch_msvc_version() -> None:
+    cli_fetch_compiler_info(Compiler.MSVC, _fetch_msvc_version_no_arg, help_path_meaning='installation')
