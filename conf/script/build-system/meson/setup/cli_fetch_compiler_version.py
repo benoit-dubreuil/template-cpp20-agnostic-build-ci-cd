@@ -1,6 +1,6 @@
 import argparse
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable, Optional, Final, AnyStr
 
 import colorama
 
@@ -10,6 +10,10 @@ from data_model import Compiler
 
 def cli_init():
     colorama.init()
+
+
+def format_error_msg(error_msg: AnyStr) -> AnyStr:
+    return colorama.Style.BRIGHT + colorama.Fore.RED + error_msg + colorama.Style.RESET_ALL
 
 
 def cli_fetch_compiler_version(compiler: Compiler, fetch_compiler_version_func: Callable[[Optional[Path]], CompilerVersion], default_compiler_path: Optional[Path] = None,

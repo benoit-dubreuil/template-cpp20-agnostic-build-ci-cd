@@ -1,19 +1,14 @@
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
-import colorama
-
-from cli_fetch_compiler_version import cli_fetch_compiler_version
+from cli_fetch_compiler_version import cli_fetch_compiler_version, format_error_msg
 from compiler_version import CompilerVersion
 from data_model import Compiler
 from fetch_msvc_version_impl import fetch_msvc_version
 
 
 def _error_compiler_not_found() -> NoReturn:
-    error_msg = colorama.Style.BRIGHT + colorama.Fore.RED
-    error_msg += f'{Compiler.MSVC.name} compiler matching the requirements not found'
-    error_msg += colorama.Style.RESET_ALL
-
+    error_msg = format_error_msg(f'{Compiler.MSVC.name} compiler matching the requirements not found')
     raise FileNotFoundError(error_msg)
 
 
