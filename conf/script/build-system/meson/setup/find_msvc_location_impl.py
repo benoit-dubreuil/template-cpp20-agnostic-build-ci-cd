@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Final, Optional
+from typing import Final, Optional, Union
 
 import vswhere
 
@@ -17,11 +17,13 @@ _ALL_PRODUCTS: Final[str] = '*'
 _PROP_INSTALLATION_PATH: Final[str] = 'installationPath'
 
 
-def find_msvc_installation_path() -> Optional[Path]:
-    compiler_installation_path: Optional[Path] = None
-    found_compiler_version: str = vswhere.find_first(latest=True, prerelease=True, products=_ALL_PRODUCTS, prop=_PROP_INSTALLATION_PATH, requires=_DEFAULT_REQUIRES)
+def find_msvc_installation_path(compiler_installation_path: Optional[Path] = None) -> Optional[Path]:
+    if compiler_installation_path is None:
+        found_compiler_installation_path = vswhere.find_first(latest=True, prerelease=True, products=_ALL_PRODUCTS, prop=_PROP_INSTALLATION_PATH, requires=_DEFAULT_REQUIRES)
+    else:
+        found_compiler_installation_path = vswhere.find_first(path=compiler_installation_path)
 
-    if found_compiler_version is not None:
-        compiler_installation_path = Path(found_compiler_version.strip())
+    if found_compiler_installation_path is not None:
+        found_compiler_installation_path = Path(found_compiler_installation_path.strip())
 
-    return compiler_installation_path
+    return found_compiler_installation_path
