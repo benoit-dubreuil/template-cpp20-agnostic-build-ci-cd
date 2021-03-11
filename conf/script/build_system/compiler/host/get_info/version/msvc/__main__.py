@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-import cli_fetch_compiler_info
-from cli import fetch_version
+import build_system.compiler.host.get_info.version.msvc.cli
+
+from build_system.compiler.host.get_info import cli
+from build_system.compiler.host.get_info import version
 
 # Run as a script
 if __name__ == '__main__':
-    cli_fetch_compiler_info.cli_init()
-    fetch_version()
+    cli.cli_init()
+    version.msvc.cli.fetch_version()

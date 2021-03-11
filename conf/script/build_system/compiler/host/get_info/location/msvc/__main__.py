@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
+import build_system.compiler.host.get_info.location.msvc.cli
+
 from build_system.compiler.host.get_info import cli
 from build_system.compiler.host.get_info import location
-import build_system.compiler.host.get_info.location.msvc.cli
 
 # Run as a script
 if __name__ == '__main__':
