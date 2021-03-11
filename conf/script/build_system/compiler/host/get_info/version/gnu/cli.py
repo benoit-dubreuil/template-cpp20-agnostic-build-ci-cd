@@ -1,7 +1,6 @@
 from build_system.compiler.compiler import Compiler
 
 from build_system.compiler.host.get_info import cli
-
 from build_system.compiler.host.get_info.version import gnu
 
 
