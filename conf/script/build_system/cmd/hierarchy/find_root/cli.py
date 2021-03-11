@@ -9,7 +9,8 @@ def get_error_formatted_msg_root_not_found() -> str:
 
 
 def find_root() -> Path:
-    arg_parser = argparse.ArgumentParser()
+    arg_parser = argparse.ArgumentParser(
+        description=f"Fetches the project's root folder, where the '{hierarchy.find_root.VCS_DIR_NAME}' is. It searches recursively parent folders upwards.")
 
     try:
         return hierarchy.find_root.find_root(get_error_formatted_msg_root_not_found)
