@@ -3,7 +3,7 @@ from typing import AnyStr
 import colorama
 
 
-def cli_init():
+def init():
     colorama.init()
 
 

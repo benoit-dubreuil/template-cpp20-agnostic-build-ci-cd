@@ -7,5 +7,5 @@ from build_system.compiler.host.get_info import version
 
 # Run as a script
 if __name__ == '__main__':
-    utils.cli.cli_init()
+    utils.cli.init()
     version.gnu.cli.cli_fetch_gnu_compiler_version(CompilerFamily.CLANG)

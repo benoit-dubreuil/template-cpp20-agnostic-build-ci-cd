@@ -6,5 +6,5 @@ from build_system.compiler.host.get_info import location
 
 # Run as a script
 if __name__ == '__main__':
-    utils.cli.cli_init()
+    utils.cli.init()
     location.msvc.cli.find()
