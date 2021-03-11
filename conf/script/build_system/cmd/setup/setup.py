@@ -12,7 +12,6 @@ from build_system.compiler.reqs.reqs import CompilerReqs
 
 def fetch_os_name() -> str:
     return platform.system().lower()
-    return platform.system().lower()
 
 
 def fetch_os_family() -> host.OSFamily:
