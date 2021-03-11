@@ -2,7 +2,7 @@
 
 import build_system.compiler.host.get_info.version.msvc.cli
 import utils.cli
-from build_system.compiler.host.get_info import cli, version
+from build_system.compiler.host.get_info import version
 
 # Run as a script
 if __name__ == '__main__':

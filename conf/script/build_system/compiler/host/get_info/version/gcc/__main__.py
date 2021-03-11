@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import utils.cli
 from build_system.compiler.family import CompilerFamily
-from build_system.compiler.host.get_info import cli, version
+from build_system.compiler.host.get_info import version
 from build_system.compiler.host.get_info.version import gnu
 
 # Run as a script

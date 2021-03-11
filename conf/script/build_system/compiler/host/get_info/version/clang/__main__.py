@@ -3,7 +3,7 @@
 import build_system.compiler.host.get_info.version.gnu.cli
 import utils.cli
 from build_system.compiler.family import CompilerFamily
-from build_system.compiler.host.get_info import cli, version
+from build_system.compiler.host.get_info import version
 
 # Run as a script
 if __name__ == '__main__':
