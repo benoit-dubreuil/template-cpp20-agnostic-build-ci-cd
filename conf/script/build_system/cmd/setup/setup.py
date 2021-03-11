@@ -7,7 +7,7 @@ from typing import Final
 from build_system import compiler
 from build_system.compiler import host
 from build_system.cmd.setup.build_type import BuildType
-import build_system.compiler.reqs
+from build_system.compiler.reqs.reqs import CompilerReqs
 
 
 def fetch_os_name() -> str:
@@ -18,9 +18,9 @@ def fetch_os_family() -> host.OSFamily:
     return host.OSFamily(fetch_os_name())
 
 
-def fetch_filtered_compilers_reqs_by_os(os_family: host.OSFamily) -> list[compiler.reqs.CompilerReqs]:
-    all_compilers_reqs = compiler.reqs.CompilerReqs.create_all_from_file()
-    return compiler.reqs.CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
+def fetch_filtered_compilers_reqs_by_os(os_family: host.OSFamily) -> list[CompilerReqs]:
+    all_compilers_reqs = CompilerReqs.create_all_from_file()
+    return CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
 
 
 def detect_arch() -> host.Architecture:
