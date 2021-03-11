@@ -1,9 +1,10 @@
 import subprocess
+
 from pathlib import Path
 from typing import AnyStr
 
-from version import CompilerVersion
-from fetch_compiler_version import assure_compiler_path_integrity, fetch_compiler_version
+from build_system.compiler.version import CompilerVersion
+from build_system.compiler.host.get_info.version.fetch_compiler_version import assure_compiler_path_integrity, fetch_compiler_version
 
 
 def _fetch_raw_gnu_compiler_version(compiler: Path) -> AnyStr:
