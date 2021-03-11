@@ -8,4 +8,4 @@ from build_system.compiler.host.get_info import location
 # Run as a script
 if __name__ == '__main__':
     cli.cli_init()
-    location.msvc.cli.find_installation_path()
+    location.msvc.cli.find()
