@@ -1,18 +1,9 @@
 import argparse
 from pathlib import Path
-from typing import Any, AnyStr, Callable, Final, Optional
-
-import colorama
+from typing import Any, Callable, Final, Optional
 
 from build_system.compiler.family import CompilerFamily
-
-
-def cli_init():
-    colorama.init()
-
-
-def format_error_msg(error_msg: AnyStr) -> AnyStr:
-    return colorama.Style.BRIGHT + colorama.Fore.RED + error_msg + colorama.Style.RESET_ALL
+from utils.cli import format_error_msg
 
 
 def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Optional[Path]], Any], default_compiler_path: Optional[Path] = None,
