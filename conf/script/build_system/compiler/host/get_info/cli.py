@@ -4,7 +4,7 @@ from typing import Any, AnyStr, Callable, Final, Optional
 
 import colorama
 
-from build_system.compiler.compiler_family import Compiler
+from build_system.compiler.compiler_family import CompilerFamily
 
 
 def cli_init():
@@ -15,7 +15,7 @@ def format_error_msg(error_msg: AnyStr) -> AnyStr:
     return colorama.Style.BRIGHT + colorama.Fore.RED + error_msg + colorama.Style.RESET_ALL
 
 
-def cli_fetch_compiler_info(compiler: Compiler, fetch_compiler_info_func: Callable[[Optional[Path]], Any], default_compiler_path: Optional[Path] = None,
+def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Optional[Path]], Any], default_compiler_path: Optional[Path] = None,
                             desc_compiler_info: str = 'version', help_path_meaning: str = 'executable') -> None:
     path_arg_name: Final[str] = 'path'
     path_arg: Final[str] = '-' + path_arg_name
@@ -40,5 +40,5 @@ def cli_fetch_compiler_info(compiler: Compiler, fetch_compiler_info_func: Callab
         arg_parser.error(str(exception))
 
 
-def cli_fetch_compiler_info_with_default_path(compiler: Compiler, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
+def cli_fetch_compiler_info_with_default_path(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
     cli_fetch_compiler_info(compiler, fetch_compiler_info_func, compiler.value)

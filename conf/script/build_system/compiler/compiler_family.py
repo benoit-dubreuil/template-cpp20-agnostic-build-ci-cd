@@ -2,7 +2,7 @@ from enum import Enum, unique
 
 
 @unique
-class Compiler(Enum):
+class CompilerFamily(Enum):
     MSVC = 'msvc'
     CLANG = 'clang'
     GCC = 'gcc'

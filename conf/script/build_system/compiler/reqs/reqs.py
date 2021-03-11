@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 from pathlib import Path
 
-from build_system.compiler.compiler_family import Compiler
+from build_system.compiler.compiler_family import CompilerFamily
 from build_system.compiler.host.os_family import OSFamily
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
 from build_system.compiler.version import CompilerVersion
@@ -12,7 +12,7 @@ from utils.file_path_integrity import assure_file_path_integrity
 @auto_repr
 @auto_str
 class CompilerReqs:
-    def __init__(self, compiler: Compiler, os_families: list[OSFamily], version: CompilerVersion):
+    def __init__(self, compiler_family: CompilerFamily, os_families: list[OSFamily], version: CompilerVersion):
         self.compiler = compiler
         self.os_families = os_families
         self.version = version
@@ -22,7 +22,7 @@ class CompilerReqs:
         return Path('compiler-reqs.ini')
 
     @classmethod
-    def create_all_from_file(cls, file_path: Path = None) -> dict[Compiler, 'CompilerReqs']:
+    def create_all_from_file(cls, file_path: Path = None) -> dict[CompilerFamily, 'CompilerReqs']:
         file_path = cls._check_file_path_for_default_param(file_path)
         assure_file_path_integrity(file_path)
 
@@ -43,7 +43,7 @@ class CompilerReqs:
         return all_compilers_reqs
 
     @classmethod
-    def filter_by_os(cls, all_compilers_reqs: dict[Compiler, 'CompilerReqs'], os_family: OSFamily) -> list['CompilerReqs']:
+    def filter_by_os(cls, all_compilers_reqs: dict[CompilerFamily, 'CompilerReqs'], os_family: OSFamily) -> list['CompilerReqs']:
         return [compiler_reqs for compiler, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.os_families]
 
     @classmethod
