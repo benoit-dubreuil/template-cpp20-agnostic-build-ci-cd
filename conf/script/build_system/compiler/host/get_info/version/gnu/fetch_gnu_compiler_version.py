@@ -4,11 +4,11 @@ from pathlib import Path
 from typing import AnyStr
 
 from build_system.compiler.version import CompilerVersion
-from build_system.compiler.host.get_info.version.fetch_compiler_version import assure_compiler_path_integrity, fetch_compiler_version
+from build_system.compiler.host.get_info import version
 
 
 def _fetch_raw_gnu_compiler_version(compiler: Path) -> AnyStr:
-    assure_compiler_path_integrity(compiler)
+    version.assure_compiler_path_integrity(compiler)
 
     result: subprocess.CompletedProcess = subprocess.run(
         [compiler, '-dumpversion'], capture_output=True, text=True, check=True
@@ -18,4 +18,4 @@ def _fetch_raw_gnu_compiler_version(compiler: Path) -> AnyStr:
 
 
 def fetch_gnu_compiler_version(compiler: Path) -> CompilerVersion:
-    return fetch_compiler_version(compiler, _fetch_raw_gnu_compiler_version)
+    return version.fetch_compiler_version(compiler, _fetch_raw_gnu_compiler_version)
