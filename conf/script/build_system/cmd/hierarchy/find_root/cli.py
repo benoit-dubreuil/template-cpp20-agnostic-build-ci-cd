@@ -1,5 +1,5 @@
 import utils.cli
-from build_system.cmd.hierarchy.find_root import find_root
+from build_system.cmd.hierarchy import find_root
 
 
 def get_error_formatted_msg_root_not_found() -> str:
