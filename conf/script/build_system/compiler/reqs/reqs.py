@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 from pathlib import Path
 
-from build_system.compiler.compiler import Compiler
+from build_system.compiler.compiler_family import Compiler
 from build_system.compiler.host.os_family import OSFamily
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
 from build_system.compiler.version import CompilerVersion

@@ -1,4 +1,4 @@
-from build_system.compiler.compiler import Compiler
+from build_system.compiler.compiler_family import Compiler
 from build_system.compiler.host.get_info import cli, version
 
 

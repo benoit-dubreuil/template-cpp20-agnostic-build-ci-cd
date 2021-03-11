@@ -5,7 +5,7 @@ import sys
 from typing import Final
 
 from build_system.compiler import host
-from build_system.compiler.compiler import Compiler
+from build_system.compiler.compiler_family import Compiler
 from build_system.compiler.version import CompilerVersion
 from build_system.cmd.setup.build_type import BuildType
 from build_system.compiler.reqs.reqs import CompilerReqs

@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import NoReturn, Optional, Union
 
 import build_system.compiler.host.get_info.location.msvc
-from build_system.compiler.compiler import Compiler
+from build_system.compiler.compiler_family import Compiler
 from build_system.compiler.host.get_info import cli, location, version
 from build_system.compiler.version import CompilerVersion
 
