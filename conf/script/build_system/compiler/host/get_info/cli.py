@@ -20,9 +20,9 @@ def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info
     path_arg_name: Final[str] = 'path'
     path_arg: Final[str] = '-' + path_arg_name
 
-    arg_parser = argparse.ArgumentParser(description=f'Fetches {compiler.name} compiler\'s {desc_compiler_info}')
+    arg_parser = argparse.ArgumentParser(description=f'Fetches {compiler_family.name} compiler\'s {desc_compiler_info}')
     arg_parser.add_argument(path_arg, type=str, nargs='?', const=str(), default=default_compiler_path,
-                            help=f'The {compiler.name} compiler\'s {help_path_meaning} {path_arg_name}')
+                            help=f'The {compiler_family.name} compiler\'s {help_path_meaning} {path_arg_name}')
 
     args = arg_parser.parse_args()
     compiler_path: Optional[str] = getattr(args, path_arg_name)
@@ -41,4 +41,4 @@ def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info
 
 
 def cli_fetch_compiler_info_with_default_path(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
-    cli_fetch_compiler_info(compiler, fetch_compiler_info_func, compiler_family.value)
+    cli_fetch_compiler_info(compiler_family, fetch_compiler_info_func, compiler_family.value)
