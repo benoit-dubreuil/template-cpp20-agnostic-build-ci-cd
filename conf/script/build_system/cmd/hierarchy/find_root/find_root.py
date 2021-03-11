@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Callable, Final, NoReturn
 
-_VCS_DIR_NAME: Final[str] = '.git'
+VCS_DIR_NAME: Final[str] = '.git'
 
 
 def get_error_msg_root_not_found() -> str:
