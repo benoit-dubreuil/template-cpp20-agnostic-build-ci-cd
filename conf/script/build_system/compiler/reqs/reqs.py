@@ -13,7 +13,7 @@ from utils.file_path_integrity import assure_file_path_integrity
 @auto_str
 class CompilerReqs:
     def __init__(self, compiler_family: CompilerFamily, os_families: list[OSFamily], version: CompilerVersion):
-        self.compiler = compiler
+        self.compiler = compiler_family
         self.os_families = os_families
         self.version = version
 
@@ -33,7 +33,7 @@ class CompilerReqs:
         all_compilers_reqs = {}
 
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
-            compiler = Compiler(compiler_name)
+            compiler = CompilerFamily(compiler_name)
             os_families = compiler_reqs_section.getosfamily(CompilerReqsScheme.OS.value)
             compiler_version = CompilerVersion.create_from_config_compiler_reqs_section(compiler_reqs_section)
 
