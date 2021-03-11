@@ -8,7 +8,7 @@ from build_system.compiler.host.get_info import version
 
 
 def _fetch_raw(compiler: Path) -> AnyStr:
-    version.assure_compiler_path_integrity(compiler)
+    version.assure_path_integrity(compiler)
 
     result: subprocess.CompletedProcess = subprocess.run(
         [compiler, '-dumpversion'], capture_output=True, text=True, check=True
@@ -18,4 +18,4 @@ def _fetch_raw(compiler: Path) -> AnyStr:
 
 
 def fetch(compiler: Path) -> CompilerVersion:
-    return version.fetch_compiler_version(compiler, _fetch_raw)
+    return version.fetch(compiler, _fetch_raw)
