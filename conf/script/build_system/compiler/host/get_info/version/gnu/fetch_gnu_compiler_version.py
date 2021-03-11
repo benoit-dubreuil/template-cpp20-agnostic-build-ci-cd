@@ -17,5 +17,5 @@ def _fetch_raw_gnu_compiler_version(compiler: Path) -> AnyStr:
     return result.stdout
 
 
-def fetch_gnu_compiler_version(compiler: Path) -> CompilerVersion:
+def fetch(compiler: Path) -> CompilerVersion:
     return version.fetch_compiler_version(compiler, _fetch_raw_gnu_compiler_version)
