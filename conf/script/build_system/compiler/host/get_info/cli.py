@@ -41,4 +41,4 @@ def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info
 
 
 def cli_fetch_compiler_info_with_default_path(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
-    cli_fetch_compiler_info(compiler, fetch_compiler_info_func, compiler.value)
+    cli_fetch_compiler_info(compiler, fetch_compiler_info_func, compiler_family.value)

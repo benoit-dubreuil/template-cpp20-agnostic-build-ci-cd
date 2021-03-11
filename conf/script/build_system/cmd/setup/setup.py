@@ -40,7 +40,7 @@ def generate_build_dir_name(os_family: host.OSFamily, compiler_family: CompilerF
 
     os_family_name = os_family.value
     arch_bit_name = arch.arch_to_bit_name()
-    compiler_name = compiler.value
+    compiler_name = compiler_family.value
     compiler_version_name = str(compiler_version)
     build_type_name = build_type.value
 
