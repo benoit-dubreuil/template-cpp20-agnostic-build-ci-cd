@@ -4,10 +4,9 @@ import platform
 import sys
 from typing import Final
 
+from build_system.compiler import host
 from build_system.compiler.compiler import Compiler
 from build_system.compiler.version import CompilerVersion
-from build_system.compiler.host.os_family import OSFamily
-from build_system.compiler.host.architecture import Architecture
 from build_system.cmd.setup.build_type import BuildType
 from build_system.compiler.reqs.reqs import CompilerReqs
 
@@ -16,27 +15,27 @@ def fetch_os_name() -> str:
     return platform.system().lower()
 
 
-def fetch_os_family() -> OSFamily:
-    return OSFamily(fetch_os_name())
+def fetch_os_family() -> host.OSFamily:
+    return host.OSFamily(fetch_os_name())
 
 
-def fetch_filtered_compilers_reqs_by_os(os_family: OSFamily) -> list[CompilerReqs]:
+def fetch_filtered_compilers_reqs_by_os(os_family: host.OSFamily) -> list[CompilerReqs]:
     all_compilers_reqs = CompilerReqs.create_all_from_file()
     return CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
 
 
-def detect_arch() -> Architecture:
+def detect_arch() -> host.Architecture:
     exclusive_max_word = sys.maxsize + 1
     word_size = exclusive_max_word.bit_length()
 
-    return Architecture(word_size)
+    return host.Architecture(word_size)
 
 
 def assemble_build_types() -> list[BuildType]:
     return list(BuildType)
 
 
-def generate_build_dir_name(os_family: OSFamily, compiler: Compiler, compiler_version: CompilerVersion, arch: Architecture, build_type: BuildType) -> str:
+def generate_build_dir_name(os_family: host.OSFamily, compiler: Compiler, compiler_version: CompilerVersion, arch: host.Architecture, build_type: BuildType) -> str:
     sep: Final = '-'
 
     os_family_name = os_family.value
