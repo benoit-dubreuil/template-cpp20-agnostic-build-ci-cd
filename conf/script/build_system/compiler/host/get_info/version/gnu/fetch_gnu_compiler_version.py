@@ -1,10 +1,9 @@
 import subprocess
-
 from pathlib import Path
 from typing import AnyStr
 
-from build_system.compiler.version import CompilerVersion
 from build_system.compiler.host.get_info import version
+from build_system.compiler.version import CompilerVersion
 
 
 def _fetch_raw(compiler: Path) -> AnyStr:

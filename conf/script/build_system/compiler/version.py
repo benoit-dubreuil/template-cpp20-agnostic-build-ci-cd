@@ -1,5 +1,5 @@
-from utils.auto_print import auto_repr
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
+from utils.auto_print import auto_repr
 
 
 @auto_repr

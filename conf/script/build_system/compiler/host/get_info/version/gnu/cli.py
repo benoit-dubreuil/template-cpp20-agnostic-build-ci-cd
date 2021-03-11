@@ -1,7 +1,5 @@
 from build_system.compiler.compiler import Compiler
-
-from build_system.compiler.host.get_info import cli
-from build_system.compiler.host.get_info import version
+from build_system.compiler.host.get_info import cli, version
 
 
 def cli_fetch_gnu_compiler_version(compiler: Compiler):

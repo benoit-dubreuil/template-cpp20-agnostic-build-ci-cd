@@ -1,13 +1,12 @@
 from configparser import ConfigParser
 from pathlib import Path
 
-from utils.auto_print import auto_repr, auto_str
-from utils.file_path_integrity import assure_file_path_integrity
-
 from build_system.compiler.compiler import Compiler
-from build_system.compiler.version import CompilerVersion
 from build_system.compiler.host.os_family import OSFamily
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
+from build_system.compiler.version import CompilerVersion
+from utils.auto_print import auto_repr, auto_str
+from utils.file_path_integrity import assure_file_path_integrity
 
 
 @auto_repr

@@ -3,8 +3,8 @@ from typing import Final, Optional
 
 import vswhere
 
-from build_system.compiler.version import CompilerVersion
 from build_system.compiler.host.get_info.location import msvc
+from build_system.compiler.version import CompilerVersion
 
 _PROP_VERSION: Final[str] = 'installationVersion'
 

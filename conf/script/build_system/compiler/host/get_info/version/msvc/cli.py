@@ -1,15 +1,10 @@
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
-from build_system.compiler.compiler import Compiler
-from build_system.compiler.version import CompilerVersion
-
-from build_system.compiler.host.get_info import cli
-
-from build_system.compiler.host.get_info import location
 import build_system.compiler.host.get_info.location.msvc
-
-from build_system.compiler.host.get_info import version
+from build_system.compiler.compiler import Compiler
+from build_system.compiler.host.get_info import cli, location, version
+from build_system.compiler.version import CompilerVersion
 
 
 def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:

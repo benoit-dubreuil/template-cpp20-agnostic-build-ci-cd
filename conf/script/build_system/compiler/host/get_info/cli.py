@@ -1,7 +1,7 @@
-from pathlib import Path
-from typing import Callable, Optional, Final, AnyStr, Any
-
 import argparse
+from pathlib import Path
+from typing import Any, AnyStr, Callable, Final, Optional
+
 import colorama
 
 from build_system.compiler.compiler import Compiler
