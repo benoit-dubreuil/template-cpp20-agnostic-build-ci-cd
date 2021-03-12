@@ -1,5 +1,6 @@
 from configparser import ConfigParser
 from pathlib import Path
+from typing import Final
 
 from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.os_family import OSFamily
@@ -19,7 +20,11 @@ class CompilerReqs:
 
     @staticmethod
     def get_default_compiler_reqs_file_path() -> Path:
-        return Path('compiler-reqs.ini')
+        default_compiler_reqs_filename: Final[Path] = Path('compiler-reqs.ini')
+        package_dir = Path(__file__).parent
+        default_compiler_reqs_file = package_dir / default_compiler_reqs_filename
+
+        return default_compiler_reqs_file.resolve()
 
     @classmethod
     def create_all_from_file(cls, file_path: Path = None) -> dict[CompilerFamily, 'CompilerReqs']:
