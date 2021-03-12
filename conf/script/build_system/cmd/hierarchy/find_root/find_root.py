@@ -23,7 +23,7 @@ def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
     current_path = current_path.resolve(True)
     last_path = current_path
 
-    return last_path, current_path
+    return current_path.parent, last_path
 
 
 def find_root(get_error_msg: Callable[[], str] = get_error_msg_root_not_found) -> Path:
