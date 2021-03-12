@@ -24,6 +24,6 @@ def find(compiler_installation_path: Optional[Path] = None) -> Optional[Path]:
         found_compiler_installation_path = vswhere.find_first(prop=_PROP_INSTALLATION_PATH, path=compiler_installation_path)
 
     if found_compiler_installation_path is not None:
-        found_compiler_installation_path = Path(found_compiler_installation_path.strip())
+        found_compiler_installation_path = Path(found_compiler_installation_path.strip()).resolve()
 
     return found_compiler_installation_path
