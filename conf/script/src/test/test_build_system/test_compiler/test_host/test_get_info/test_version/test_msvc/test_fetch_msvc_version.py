@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 import unittest
+from typing import Final
 from unittest import mock
 from unittest.mock import MagicMock
-
-from typing import Final
 
 from build_system.compiler.host.get_info.version.msvc import fetch_msvc_version
 
