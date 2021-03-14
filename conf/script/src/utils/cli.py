@@ -27,3 +27,8 @@ def is_caller_main() -> bool:
 
     return caller_script_name == MACRO___NAME___MAIN
 
+
+def wrap_main(main_func: Callable):
+    init()
+    main_func()
+    deinit()
