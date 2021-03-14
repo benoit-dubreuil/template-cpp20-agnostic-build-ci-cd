@@ -8,3 +8,4 @@ from build_system.compiler.host.get_info import version
 if __name__ == '__main__':
     utils.cli.init()
     version.msvc.cli.fetch_version()
+    utils.cli.deinit()

@@ -8,3 +8,4 @@ from build_system.compiler.host.get_info import location
 if __name__ == '__main__':
     utils.cli.init()
     location.msvc.cli.find()
+    utils.cli.deinit()

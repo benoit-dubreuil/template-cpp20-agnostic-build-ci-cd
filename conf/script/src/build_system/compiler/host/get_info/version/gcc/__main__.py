@@ -9,3 +9,4 @@ from build_system.compiler.host.get_info.version import gnu
 if __name__ == '__main__':
     utils.cli.init()
     version.gnu.cli.cli_fetch_gnu_compiler_version(CompilerFamily.GCC)
+    utils.cli.deinit()
