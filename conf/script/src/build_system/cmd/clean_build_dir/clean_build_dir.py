@@ -29,19 +29,21 @@ def find_build_dir(root_dir: Optional[Path] = None, get_error_msg: Callable[[], 
 
 
 def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> bool:
+    # noinspection PyUnusedLocal
+    def _on_rmtree_error(function, path, excinfo):
+        nonlocal has_successfuly_cleaned_build
+        has_successfuly_cleaned_build = False
+
     has_successfuly_cleaned_build = True
-    found_build_dir = False
+    build_dir: Optional[Path] = None
 
     try:
         build_dir = find_build_dir(root_dir)
-        found_build_dir = True
     except OSError as raised_exception:
         if not ignore_errors:
             raise raised_exception
 
-    # TODO
-    def _on_rmtree_error(function: Callable, path: str, excinfo: str):
-        nonlocal has_successfuly_cleaned_build
-        has_successfuly_cleaned_build = False
+    if build_dir is not None:
+        shutil.rmtree(build_dir, ignore_errors, _on_rmtree_error)
 
-    return False  # TODO
+    return (build_dir is not None) and has_successfuly_cleaned_build
