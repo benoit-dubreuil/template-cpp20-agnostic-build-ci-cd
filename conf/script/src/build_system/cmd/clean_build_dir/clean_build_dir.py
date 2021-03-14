@@ -17,7 +17,7 @@ def _error_build_not_found(get_error_msg: Callable[[], str] = get_error_msg_buil
 
 def find_build_dir(root_dir: Optional[Path] = None, get_error_msg: Callable[[], str] = get_error_msg_build_not_found) -> Path:
     if root_dir is None:
-        root_dir = build_system.cmd.hierarchy.find_root.find_root_dir()
+        root_dir = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
 
     build_dir = root_dir / BUILD_DIR_NAME
     build_dir = build_dir.resolve(True)
@@ -28,7 +28,7 @@ def find_build_dir(root_dir: Optional[Path] = None, get_error_msg: Callable[[], 
     return build_dir
 
 
-def clean_build_dir(root: Optional[Path] = None, ignore_errors=False) -> bool:
+def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> bool:
     has_successfuly_cleaned_build = True
 
     build_dir = find_build_dir()
