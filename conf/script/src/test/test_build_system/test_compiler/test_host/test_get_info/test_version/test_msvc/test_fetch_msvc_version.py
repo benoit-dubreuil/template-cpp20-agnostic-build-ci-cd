@@ -42,25 +42,3 @@ class TestFetch(unittest.TestCase):
         assert len(mock_vswhere.mock_calls) == 0
 
         assert return_value is expected_return_value
-
-    @mock.patch('build_system.compiler.host.get_info.version.msvc.fetch_msvc_version.Path')
-    @mock.patch('build_system.compiler.host.get_info.version.msvc.fetch_msvc_version.vswhere')
-    @mock.patch('build_system.compiler.host.get_info.version.msvc.fetch_msvc_version.msvc.installation_path')
-    def test_found_installation_path_arg_return_none(self, mock_installation_path: MagicMock, mock_vswhere: MagicMock, mock_path: MagicMock):
-        expected_return_value: Final = None
-
-        expected_installation_path_args: Final = None
-        expected_installation_path_calls: Final = [mock.call.find(expected_installation_path_args)]
-        tmp = mock_path()
-        mock_installation_path.find.return_value = tmp
-
-        expected_vswhere_kwargs: Final = {'prop': fetch_msvc_version._PROP_VERSION, 'path': tmp}
-        expected_vswhere_calls: Final = [mock.call.find_first(expected_vswhere_kwargs)]
-        mock_vswhere.find_first.return_value = None
-
-        return_value = fetch_msvc_version.fetch()
-
-        assert mock_installation_path.mock_calls == expected_installation_path_calls
-        assert mock_vswhere.mock_calls == expected_vswhere_calls
-
-        assert return_value is expected_return_value
