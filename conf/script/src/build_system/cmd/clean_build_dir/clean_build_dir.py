@@ -30,8 +30,14 @@ def find_build_dir(root_dir: Optional[Path] = None, get_error_msg: Callable[[], 
 
 def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> bool:
     has_successfuly_cleaned_build = True
+    found_build_dir = False
 
-    build_dir = find_build_dir(root_dir)
+    try:
+        build_dir = find_build_dir(root_dir)
+        found_build_dir = True
+    except OSError as raised_exception:
+        if not ignore_errors:
+            raise raised_exception
 
     # TODO
     def _on_rmtree_error(function: Callable, path: str, excinfo: str):
