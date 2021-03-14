@@ -5,15 +5,15 @@ import argparse
 
 
 def get_error_formatted_msg_root_not_found() -> str:
-    return utils.cli.format_error_msg(hierarchy.find_root.get_error_msg_root_not_found())
+    return utils.cli.format_error_msg(hierarchy.find_root_dir.get_error_msg_root_not_found())
 
 
 def find_root_dir():
     arg_parser = argparse.ArgumentParser(
-        description=f"Fetches the project's root folder, where the '{hierarchy.find_root.VCS_DIR_NAME}' is. It searches recursively parent folders upwards.")
+        description=f"Fetches the project's root folder, where the '{hierarchy.find_root_dir.VCS_DIR_NAME}' is. It searches recursively parent folders upwards.")
 
     try:
-        project_root: Path = hierarchy.find_root.find_root_dir(get_error_formatted_msg_root_not_found)
+        project_root: Path = hierarchy.find_root_dir.find_root_dir(get_error_formatted_msg_root_not_found)
         print(project_root)
     except FileNotFoundError as raised_exception:
         raised_exception_msg = str(raised_exception)
