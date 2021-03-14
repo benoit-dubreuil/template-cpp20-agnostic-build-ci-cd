@@ -13,7 +13,7 @@ def find_root():
         description=f"Fetches the project's root folder, where the '{hierarchy.find_root.VCS_DIR_NAME}' is. It searches recursively parent folders upwards.")
 
     try:
-        project_root: Path = hierarchy.find_root.find_root(get_error_formatted_msg_root_not_found)
+        project_root: Path = hierarchy.find_root.find_root_dir(get_error_formatted_msg_root_not_found)
         print(project_root)
     except FileNotFoundError as raised_exception:
         raised_exception_msg = str(raised_exception)

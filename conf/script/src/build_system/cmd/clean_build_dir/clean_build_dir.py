@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 from typing import Optional, Callable, Final, NoReturn
 
-import build_system.cmd.hierarchy.find_root
+import build_system.cmd.hierarchy.find_root_dir
 
 BUILD_DIR_NAME: Final[str] = 'build'
 
@@ -17,7 +17,7 @@ def _error_build_not_found(get_error_msg: Callable[[], str] = get_error_msg_buil
 
 def find_build_dir(root_dir: Optional[Path] = None, get_error_msg: Callable[[], str] = get_error_msg_build_not_found) -> Path:
     if root_dir is None:
-        root_dir = build_system.cmd.hierarchy.find_root.find_root()
+        root_dir = build_system.cmd.hierarchy.find_root.find_root_dir()
 
     build_dir = root_dir / BUILD_DIR_NAME
     build_dir = build_dir.resolve(True)
