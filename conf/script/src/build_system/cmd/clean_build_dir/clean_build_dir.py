@@ -31,7 +31,7 @@ def find_build_dir(root_dir: Optional[Path] = None, get_error_msg: Callable[[], 
 def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> bool:
     has_successfuly_cleaned_build = True
 
-    build_dir = find_build_dir()
+    build_dir = find_build_dir(root_dir)
 
     # TODO
     def _on_rmtree_error(function: Callable, path: str, excinfo: str):
