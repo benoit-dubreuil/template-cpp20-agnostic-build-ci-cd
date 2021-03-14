@@ -13,6 +13,9 @@ def clean_build(root: Optional[Path] = None, ignore_errors=False) -> bool:
     if root is None:
         root = build_system.cmd.hierarchy.find_root.find_root()
 
+    root /= BUILD_DIR_NAME
+    root = root.resolve(True)
+
     # TODO
     def _on_rmtree_error(function: Callable, path: str, excinfo: str):
         nonlocal has_successfuly_cleaned_build
