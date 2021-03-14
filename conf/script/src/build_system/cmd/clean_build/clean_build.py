@@ -1,8 +1,10 @@
 import shutil
 from pathlib import Path
-from typing import Optional, Callable
+from typing import Optional, Callable, Final
 
 import build_system.cmd.hierarchy.find_root
+
+BUILD_DIR_NAME: Final[str] = 'build'
 
 
 def clean_build(root: Optional[Path] = None, ignore_errors=False) -> bool:
