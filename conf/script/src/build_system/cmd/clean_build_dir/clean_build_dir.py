@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-import build_system.cmd.hierarchy.find_build_dir.find_build_dir
+import build_system.cmd.hierarchy.find_build_dir
 from build_system import cmd
 
 
