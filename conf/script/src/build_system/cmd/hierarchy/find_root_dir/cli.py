@@ -1,5 +1,4 @@
 import argparse
-from pathlib import Path
 from typing import Final
 
 from build_system import cmd
@@ -15,7 +14,7 @@ def find_root_dir():
 
     try:
         try:
-            project_root: Path = cmd.hierarchy.find_root_dir.find_root_dir()
+            project_root = cmd.hierarchy.find_root_dir.find_root_dir()
             print(project_root, end=str())
         except cmd.hierarchy.find_root_dir.error.RootDirNotFoundError as raised_exception:
             arg_parser.exit(ROOT_DIR_NOT_FOUND_ERROR_STATUS, str(raised_exception))
