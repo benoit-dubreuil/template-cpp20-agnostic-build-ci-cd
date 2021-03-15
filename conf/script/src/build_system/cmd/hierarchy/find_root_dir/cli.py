@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 from typing import Final
 
+import build_system.cmd.hierarchy.find_root_dir.error
 from build_system import cmd
 from build_system.cmd.hierarchy.find_root_dir.find_root_dir import VCS_DIR_NAME
 
@@ -17,7 +18,7 @@ def find_root_dir():
         try:
             project_root: Path = cmd.hierarchy.find_root_dir.find_root_dir()
             print(project_root, end=str())
-        except cmd.hierarchy.find_root_dir.RootDirNotFoundError as raised_exception:
+        except cmd.hierarchy.find_root_dir.error.RootDirNotFoundError as raised_exception:
             arg_parser.exit(ROOT_NOT_FOUND_ERROR_STATUS, str(raised_exception))
 
     except OSError as raised_exception:
