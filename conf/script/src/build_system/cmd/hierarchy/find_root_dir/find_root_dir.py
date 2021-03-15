@@ -1,19 +1,9 @@
 from pathlib import Path
 from typing import Final
 
-import utils.cli
+from build_system.cmd.hierarchy.find_root_dir.error import RootDirNotFoundError
 
 VCS_DIR_NAME: Final[str] = '.git'
-
-
-class RootDirNotFoundError(FileNotFoundError):
-
-    def __init__(self):
-        super().__init__(self._get_error_msg_root_not_found())
-
-    @staticmethod
-    def _get_error_msg_root_not_found() -> str:
-        return utils.cli.format_error_msg('Root directory not found')
 
 
 def is_dir_root(root_dir: Path) -> bool:
