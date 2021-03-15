@@ -24,6 +24,6 @@ def clean_build_dir():
             cmd.clean_build_dir.clean_build_dir(root_dir)
         except FileNotFoundError as raised_exception:
             arg_parser.exit(ANY_BUILD_DIR_NOT_FOUND_ERROR_STATUS, str(raised_exception))
-            
+
     except OSError as raised_exception:
-        arg_parser.exit(ANY_BUILD_DIR_NOT_FOUND_ERROR_STATUS, str(raised_exception))
+        arg_parser.exit(UNSUPPORTED_ERROR_STATUS, str(raised_exception))
