@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import AnyStr, Callable
 
+import utils.cmd_integrity
 from build_system.compiler.version import CompilerVersion
-from utils.cmd_integrity import cmd_exists
 
 
 def assure_path_integrity(compiler_path: Path) -> None:
@@ -10,7 +10,7 @@ def assure_path_integrity(compiler_path: Path) -> None:
 
     :param compiler_path: The path to the compiler executable file. It must not be a directory.
     """
-    if not cmd_exists(str(compiler_path)):
+    if not utils.cmd_integrity.cmd_exists(str(compiler_path)):
         raise FileNotFoundError('Compiler at the supplied path does not exist or requires ungranted permissions')
 
 
