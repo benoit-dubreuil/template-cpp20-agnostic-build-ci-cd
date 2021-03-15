@@ -13,11 +13,11 @@ PATH_ARG: Final[str] = '-' + PATH_ARG_NAME
 
 def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Optional[Path]], Any], default_compiler_path: Optional[Path] = None,
                             desc_compiler_info: str = 'version', help_path_meaning: str = 'executable') -> None:
-    arg_parser = argparse.ArgumentParser(description=f'Fetches {compiler_family.name} compiler\'s {desc_compiler_info}')
+    arg_parser = argparse.ArgumentParser(description=f"Fetches {compiler_family.name} compiler's {desc_compiler_info}")
     arg_parser.add_argument(PATH_ARG, type=str, nargs='?', const=str(), default=default_compiler_path,
-                            help=f'The {compiler_family.name} compiler\'s {help_path_meaning} {PATH_ARG_NAME}')
+                            help=f"The {compiler_family.name} compiler's {help_path_meaning} {PATH_ARG_NAME}")
 
-    args = arg_parser.parse_args()
+    args: argparse.Namespace = arg_parser.parse_args()
     compiler_path: Optional[str] = getattr(args, PATH_ARG_NAME)
 
     if compiler_path == str():
