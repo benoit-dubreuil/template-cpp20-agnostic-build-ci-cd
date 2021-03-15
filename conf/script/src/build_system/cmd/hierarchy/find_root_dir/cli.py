@@ -11,7 +11,7 @@ def find_root_dir():
 
     try:
         project_root: Path = hierarchy.find_root_dir.find_root_dir()
-        print(project_root)
+        print(project_root, end=str())
     except FileNotFoundError as raised_exception:
         raised_exception_msg = str(raised_exception)
         arg_parser.error(raised_exception_msg)

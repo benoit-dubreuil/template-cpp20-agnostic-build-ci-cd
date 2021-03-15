@@ -62,4 +62,4 @@ def generate_all_build_dir_names() -> list[str]:
 
 
 all_build_dir_names = generate_all_build_dir_names()
-print(*all_build_dir_names, sep='\n', end='')
+print(*all_build_dir_names, sep='\n', end=str())

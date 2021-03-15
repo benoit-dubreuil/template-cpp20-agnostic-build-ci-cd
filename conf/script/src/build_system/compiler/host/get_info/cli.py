@@ -26,7 +26,7 @@ def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info
 
     try:
         compiler_info = fetch_compiler_info_func(compiler_path)
-        print(compiler_info, end='')
+        print(compiler_info, end=str())
     except FileNotFoundError as exception:
         arg_parser.error(str(exception))
 
