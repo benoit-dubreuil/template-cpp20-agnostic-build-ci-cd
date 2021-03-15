@@ -39,9 +39,9 @@ def wrap_main(main_func: Callable):
     deinit()
 
 
-def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr = DEFAULT_PATH_ARG, path_arg_help: Optional[AnyStr] = None):
-    arg_parser.add_argument(path_arg, type=str, nargs='?', const=str(), default=None,
-                            help=path_arg_help)
+def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr = DEFAULT_PATH_ARG, path_arg_default_value: Optional[Path] = None,
+                          path_arg_help: Optional[AnyStr] = None):
+    arg_parser.add_argument(path_arg, type=str, nargs='?', const=str(), default=path_arg_default_value, help=path_arg_help)
 
 
 def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str = DEFAULT_PATH_ARG) -> Optional[Path]:
