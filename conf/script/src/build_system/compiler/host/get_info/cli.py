@@ -7,9 +7,6 @@ from build_system.compiler.family import CompilerFamily
 
 COMPILER_NOT_FOUND_ERROR_STATUS: Final[int] = 1
 
-PATH_ARG_NAME: Final[str] = 'path'
-PATH_ARG: Final[str] = '-' + PATH_ARG_NAME
-
 
 def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Optional[Path]], Any], default_compiler_path: Optional[Path] = None,
                             desc_compiler_info: str = 'version', help_path_meaning: str = 'executable') -> None:
