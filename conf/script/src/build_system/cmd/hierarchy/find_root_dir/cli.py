@@ -5,7 +5,7 @@ import argparse
 
 
 def get_error_formatted_msg_root_not_found() -> str:
-    return utils.cli.format_error_msg(hierarchy.find_root_dir.get_error_msg_root_not_found())
+    return utils.cli.format_error_msg(hierarchy.find_root_dir._get_error_msg_root_not_found())
 
 
 def find_root_dir():

@@ -4,7 +4,7 @@ from typing import Callable, Final, NoReturn
 VCS_DIR_NAME: Final[str] = '.git'
 
 
-def get_error_msg_root_not_found() -> str:
+def _get_error_msg_root_not_found() -> str:
     return 'Root directory not found'
 
 
@@ -15,7 +15,7 @@ def is_dir_root(root_dir: Path) -> bool:
     return vcs_dir.is_dir()
 
 
-def _error_root_not_found(get_error_msg: Callable[[], str] = get_error_msg_root_not_found) -> NoReturn:
+def _error_root_not_found(get_error_msg: Callable[[], str] = _get_error_msg_root_not_found) -> NoReturn:
     raise FileNotFoundError(get_error_msg())
 
 
@@ -26,7 +26,7 @@ def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
     return current_path.parent, last_path
 
 
-def find_root_dir(get_error_msg: Callable[[], str] = get_error_msg_root_not_found) -> Path:
+def find_root_dir(get_error_msg: Callable[[], str] = _get_error_msg_root_not_found) -> Path:
     current_path, last_path = _walk_parent_path()
     is_last_path_root_dir = is_dir_root(last_path)
 
