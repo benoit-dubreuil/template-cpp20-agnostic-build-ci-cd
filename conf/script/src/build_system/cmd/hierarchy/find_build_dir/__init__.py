@@ -1,2 +1,1 @@
-from build_system.cmd.hierarchy.find_build_dir.error import BuildDirNotFoundError
 from build_system.cmd.hierarchy.find_build_dir.find_build_dir import find_build_dir
