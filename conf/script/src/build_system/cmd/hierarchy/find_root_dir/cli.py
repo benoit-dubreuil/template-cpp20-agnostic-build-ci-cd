@@ -11,7 +11,7 @@ UNSUPPORTED_ERROR_STATUS: Final[int] = 1 + ROOT_NOT_FOUND_ERROR_STATUS
 
 def find_root_dir():
     arg_parser = argparse.ArgumentParser(
-        description=f"Fetches the project's root folder, where the '{VCS_DIR_NAME}' is. It searches recursively parent folders upwards.")
+        description=f"Finds the project's root folder, where the '{VCS_DIR_NAME}' folder is. It searches recursively parent folders upwards.")
 
     try:
         try:
