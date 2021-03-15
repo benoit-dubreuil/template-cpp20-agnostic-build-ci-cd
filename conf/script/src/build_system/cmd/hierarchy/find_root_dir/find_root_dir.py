@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Callable, Final, NoReturn
+from typing import Final, NoReturn
 
 VCS_DIR_NAME: Final[str] = '.git'
 
