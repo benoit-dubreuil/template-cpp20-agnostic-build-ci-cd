@@ -1,25 +1,19 @@
 import argparse
-import enum
 import inspect
 import sys
-from enum import IntEnum
 from pathlib import Path
 from types import FrameType
 from typing import AnyStr, Callable, Final, Optional, cast
 
 import colorama
 
+from utils.cli_error import ErrorStatus
+
 DEFAULT_PATH_ARG_NAME: Final[str] = 'path'
 DEFAULT_PATH_ARG: Final[str] = '-' + DEFAULT_PATH_ARG_NAME
 
 MACRO___NAME__: Final[str] = '__name__'
 MACRO___NAME___MAIN: Final[str] = '__main__'
-
-
-class ErrorStatus(IntEnum):
-    ARG_PARSER_DEFAULT = 2
-    UNKNOWN_PARSED_ARG = enum.auto()
-    EMPTY_PARSED_ARG = enum.auto()
 
 
 def init():
@@ -62,7 +56,7 @@ def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_
             arg_parser.print_usage(sys.stderr)
             arg_parser.exit(ErrorStatus.UNKNOWN_PARSED_ARG, error_msg)
         else:
-            raise NotImplementedError(error_msg)
+            raise TypeError(error_msg)
 
 
 def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str = DEFAULT_PATH_ARG) -> Optional[Path]:
