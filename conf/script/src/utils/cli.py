@@ -1,9 +1,9 @@
-from types import FrameType
-from typing import AnyStr, cast, Final, Callable, Optional
-from pathlib import Path
-
 import argparse
 import inspect
+from pathlib import Path
+from types import FrameType
+from typing import AnyStr, Callable, Final, Optional, cast
+
 import colorama
 
 DEFAULT_PATH_ARG_NAME: Final[str] = 'path'
@@ -37,6 +37,11 @@ def wrap_main(main_func: Callable):
     init()
     main_func()
     deinit()
+
+
+def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr = DEFAULT_PATH_ARG, path_arg_help: Optional[AnyStr] = None):
+    arg_parser.add_argument(path_arg, type=str, nargs='?', const=str(), default=None,
+                            help=path_arg_help)
 
 
 def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str = DEFAULT_PATH_ARG) -> Optional[Path]:
