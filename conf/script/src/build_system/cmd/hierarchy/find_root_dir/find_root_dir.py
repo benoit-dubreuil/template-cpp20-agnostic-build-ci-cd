@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Final
 
-from build_system.cmd.hierarchy.find_root_dir.error import RootDirNotFoundError
+from build_system import cmd
 
 VCS_DIR_NAME: Final[str] = '.git'
 
@@ -29,6 +29,6 @@ def find_root_dir() -> Path:
         current_path, last_path = _walk_parent_path(current_path)
 
     if not is_last_path_root_dir:
-        raise RootDirNotFoundError()
+        raise cmd.hierarchy.find_root_dir.RootDirNotFoundError()
 
     return last_path
