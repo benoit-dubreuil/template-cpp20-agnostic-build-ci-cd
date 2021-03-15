@@ -1,8 +1,13 @@
 from types import FrameType
-from typing import AnyStr, cast, Final, Callable
+from typing import AnyStr, cast, Final, Callable, Optional
+from pathlib import Path
 
+import argparse
 import inspect
 import colorama
+
+DEFAULT_PATH_ARG_NAME: Final[str] = 'path'
+DEFAULT_PATH_ARG: Final[str] = '-' + DEFAULT_PATH_ARG_NAME
 
 MACRO___NAME__: Final[str] = '__name__'
 MACRO___NAME___MAIN: Final[str] = '__main__'
@@ -32,3 +37,14 @@ def wrap_main(main_func: Callable):
     init()
     main_func()
     deinit()
+
+
+def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str = DEFAULT_PATH_ARG) -> Optional[Path]:
+    parsed_args = arg_parser.parse_known_args(path_arg)
+    parsed_path: Optional[str] = getattr(parsed_args, path_arg)
+
+    if parsed_path == str():
+        error_msg = format_error_msg(f"'{path_arg}' argument must be followed by a path string")
+        arg_parser.error(error_msg)
+
+    return Path(parsed_path) if parsed_path is not None else None
