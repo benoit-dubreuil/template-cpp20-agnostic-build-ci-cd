@@ -3,7 +3,7 @@
 import utils.cli
 from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.get_info import version
-from build_system.compiler.host.get_info.version import gnu
+import build_system.compiler.host.get_info.version.gnu.cli
 
 
 def main():
