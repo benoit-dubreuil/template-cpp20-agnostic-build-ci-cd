@@ -1,4 +1,5 @@
 import utils.cli
+import utils.formatted_error
 
 
 class RootDirNotFoundError(FileNotFoundError):
@@ -8,4 +9,4 @@ class RootDirNotFoundError(FileNotFoundError):
 
     @staticmethod
     def _get_error_msg_root_not_found() -> str:
-        return utils.cli.format_error_msg('Root directory not found')
+        return utils.formatted_error.format_exception_msg('Root directory not found')

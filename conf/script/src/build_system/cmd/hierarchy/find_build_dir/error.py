@@ -1,4 +1,5 @@
 import utils.cli
+import utils.formatted_error
 
 
 class BuildDirNotFoundError(FileNotFoundError):
@@ -8,4 +9,4 @@ class BuildDirNotFoundError(FileNotFoundError):
 
     @staticmethod
     def _get_error_msg_build_not_found() -> str:
-        return utils.cli.format_error_msg('Build directory not found')
+        return utils.formatted_error.format_exception_msg('Build directory not found')

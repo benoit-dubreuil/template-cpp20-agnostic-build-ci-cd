@@ -1,10 +1,13 @@
 import argparse
 import sys
 from pathlib import Path
-from typing import AnyStr, Optional
+from typing import AnyStr, Final, Optional
 
-from utils.cli import DEFAULT_PATH_ARG, format_error_msg
+from utils.formatted_error import format_exception_msg
 from utils.cli_error import ErrorStatus
+
+DEFAULT_PATH_ARG_NAME: Final[str] = 'path'
+DEFAULT_PATH_ARG: Final[str] = '-' + DEFAULT_PATH_ARG_NAME
 
 
 def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr = DEFAULT_PATH_ARG, path_arg_default_value: Optional[Path] = None,
@@ -14,7 +17,7 @@ def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr 
 
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
     if len(unknown_parsed_args) > 0:
-        error_msg = format_error_msg(f"Unsupported argument '{unknown_parsed_args}'")
+        error_msg = format_exception_msg(f"Unsupported argument '{unknown_parsed_args}'")
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
@@ -26,7 +29,7 @@ def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_
 
 def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: str):
     if parsed_path == str():
-        error_msg = format_error_msg(f"'{path_arg}' argument must be followed by a path string")
+        error_msg = format_exception_msg(f"'{path_arg}' argument must be followed by a path string")
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
@@ -43,7 +46,7 @@ def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str =
     parsed_path: Optional[str] = parsed_args[path_arg]
 
     if parsed_path == str():
-        error_msg = format_error_msg(f"'{path_arg}' argument must be followed by a path string")
+        error_msg = format_exception_msg(f"'{path_arg}' argument must be followed by a path string")
         arg_parser.error(error_msg)
 
     return Path(parsed_path) if parsed_path is not None else None
