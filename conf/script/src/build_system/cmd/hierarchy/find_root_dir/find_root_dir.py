@@ -15,8 +15,8 @@ def is_dir_root(root_dir: Path) -> bool:
     return vcs_dir.is_dir()
 
 
-def _error_root_not_found(get_error_msg: Callable[[], str] = _get_error_msg_root_not_found) -> NoReturn:
-    raise FileNotFoundError(get_error_msg())
+def _error_root_not_found() -> NoReturn:
+    raise FileNotFoundError(_get_error_msg_root_not_found())
 
 
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
