@@ -1,7 +1,6 @@
 import argparse
 from typing import Final
 
-import build_system.cmd.hierarchy.find_root_dir
 import build_system.cmd.hierarchy.find_root_dir.cli
 from build_system import cmd
 from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
