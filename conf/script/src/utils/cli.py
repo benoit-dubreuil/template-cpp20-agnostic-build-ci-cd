@@ -1,5 +1,8 @@
 import argparse
 import inspect
+from argparse import Namespace
+from enum import IntEnum
+import enum
 from pathlib import Path
 from types import FrameType
 from typing import AnyStr, Callable, Final, Optional, cast
@@ -11,6 +14,12 @@ DEFAULT_PATH_ARG: Final[str] = '-' + DEFAULT_PATH_ARG_NAME
 
 MACRO___NAME__: Final[str] = '__name__'
 MACRO___NAME___MAIN: Final[str] = '__main__'
+
+
+class ErrorStatus(IntEnum):
+    ARG_PARSER_DEFAULT = 2
+    UNKNOWN_PARSED_ARG = enum.auto()
+    EMPTY_PARSED_ARG = enum.auto()
 
 
 def init():
