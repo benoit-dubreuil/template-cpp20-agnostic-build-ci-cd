@@ -29,6 +29,6 @@ def find_root_dir() -> Path:
         current_path, last_path = _walk_parent_path(current_path)
 
     if not is_last_path_root_dir:
-        raise cmd.hierarchy.find_root_dir.RootDirNotFoundError()
+        raise cmd.hierarchy.find_root_dir.error.RootDirNotFoundError()
 
     return last_path

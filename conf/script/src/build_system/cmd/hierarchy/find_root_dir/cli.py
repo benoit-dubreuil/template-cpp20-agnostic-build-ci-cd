@@ -2,7 +2,6 @@ import argparse
 from pathlib import Path
 from typing import Final
 
-import build_system.cmd.hierarchy.find_root_dir.error
 from build_system import cmd
 from build_system.cmd.hierarchy.find_root_dir.find_root_dir import VCS_DIR_NAME
 
