@@ -5,7 +5,9 @@ import utils.cli
 from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.get_info import version
 
-# Run as a script
-if __name__ == '__main__':
-    utils.cli.init()
+
+def main():
     version.gnu.cli.cli_fetch_gnu_compiler_version(CompilerFamily.CLANG)
+
+
+utils.cli.wrap_main(main)

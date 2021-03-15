@@ -3,9 +3,11 @@
 import utils.cli
 from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.get_info import version
-from build_system.compiler.host.get_info.version import gnu
+import build_system.compiler.host.get_info.version.gnu.cli
 
-# Run as a script
-if __name__ == '__main__':
-    utils.cli.init()
+
+def main():
     version.gnu.cli.cli_fetch_gnu_compiler_version(CompilerFamily.GCC)
+
+
+utils.cli.wrap_main(main)

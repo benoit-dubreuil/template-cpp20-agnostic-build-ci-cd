@@ -1,11 +1,13 @@
+import utils.cli
+
 from pathlib import Path
-from typing import Callable, Final, NoReturn
+from typing import Final, NoReturn
 
 VCS_DIR_NAME: Final[str] = '.git'
 
 
-def get_error_msg_root_not_found() -> str:
-    return 'Root directory not found'
+def _get_error_msg_root_not_found() -> str:
+    return utils.cli.format_error_msg('Root directory not found')
 
 
 def is_dir_root(root_dir: Path) -> bool:
@@ -15,8 +17,8 @@ def is_dir_root(root_dir: Path) -> bool:
     return vcs_dir.is_dir()
 
 
-def _error_root_not_found(get_error_msg: Callable[[], str] = get_error_msg_root_not_found) -> NoReturn:
-    raise FileNotFoundError(get_error_msg())
+def _error_root_not_found() -> NoReturn:
+    raise FileNotFoundError(_get_error_msg_root_not_found())
 
 
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
@@ -26,7 +28,7 @@ def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
     return current_path.parent, last_path
 
 
-def find_root(get_error_msg: Callable[[], str] = get_error_msg_root_not_found) -> Path:
+def find_root_dir() -> Path:
     current_path, last_path = _walk_parent_path()
     is_last_path_root_dir = is_dir_root(last_path)
 
@@ -35,6 +37,6 @@ def find_root(get_error_msg: Callable[[], str] = get_error_msg_root_not_found) -
         current_path, last_path = _walk_parent_path(current_path)
 
     if not is_last_path_root_dir:
-        _error_root_not_found(get_error_msg)
+        _error_root_not_found()
 
     return last_path

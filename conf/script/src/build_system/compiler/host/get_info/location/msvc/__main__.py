@@ -4,7 +4,9 @@ import build_system.compiler.host.get_info.location.msvc.cli
 import utils.cli
 from build_system.compiler.host.get_info import location
 
-# Run as a script
-if __name__ == '__main__':
-    utils.cli.init()
+
+def main():
     location.msvc.cli.find()
+
+
+utils.cli.wrap_main(main)
