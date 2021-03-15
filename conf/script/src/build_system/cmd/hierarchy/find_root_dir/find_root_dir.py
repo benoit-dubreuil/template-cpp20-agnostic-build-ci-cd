@@ -1,3 +1,5 @@
+import utils.cli
+
 from pathlib import Path
 from typing import Final, NoReturn
 
@@ -5,7 +7,7 @@ VCS_DIR_NAME: Final[str] = '.git'
 
 
 def _get_error_msg_root_not_found() -> str:
-    return 'Root directory not found'
+    return utils.cli.format_error_msg('Root directory not found')
 
 
 def is_dir_root(root_dir: Path) -> bool:

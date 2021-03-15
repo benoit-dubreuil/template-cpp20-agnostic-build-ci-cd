@@ -1,6 +1,6 @@
-import utils.cli
 from build_system.cmd import hierarchy
 from pathlib import Path
+import utils.cli
 import argparse
 
 
