@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Callable, Final, Optional
 
 import utils.cli
+import utils.cli_args
 from build_system.compiler.family import CompilerFamily
 
 COMPILER_NOT_FOUND_ERROR_STATUS: Final[int] = 1
