@@ -16,7 +16,7 @@ def find_build_dir():
 
     try:
         build_dir = cmd.hierarchy.find_build_dir.find_build_dir()
-        print(build_dir)
+        print(build_dir, end=str())
 
     except cmd.hierarchy.find_root_dir.error.RootDirNotFoundError as raised_exception:
         arg_parser.exit(cmd.hierarchy.find_root_dir.cli.ROOT_DIR_NOT_FOUND_ERROR_STATUS, str(raised_exception))
