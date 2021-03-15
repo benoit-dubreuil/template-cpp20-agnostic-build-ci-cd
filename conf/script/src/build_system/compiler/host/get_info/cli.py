@@ -5,6 +5,8 @@ from typing import Any, Callable, Final, Optional
 import utils.cli
 from build_system.compiler.family import CompilerFamily
 
+COMPILER_NOT_FOUND_ERROR_STATUS: Final[int] = 1
+
 PATH_ARG_NAME: Final[str] = 'path'
 PATH_ARG: Final[str] = '-' + PATH_ARG_NAME
 
@@ -28,7 +30,7 @@ def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info
         compiler_info = fetch_compiler_info_func(compiler_path)
         print(compiler_info, end=str())
     except FileNotFoundError as exception:
-        arg_parser.error(str(exception))
+        arg_parser.exit(COMPILER_NOT_FOUND_ERROR_STATUS, str(exception))
 
 
 def cli_fetch_compiler_info_with_default_path(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:

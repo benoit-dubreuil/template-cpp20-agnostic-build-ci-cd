@@ -1,10 +1,11 @@
 import argparse
 from pathlib import Path
+from typing import Final
 
 from build_system.cmd import hierarchy
 from build_system.cmd.hierarchy.find_root_dir.find_root_dir import VCS_DIR_NAME
 
-ROOT_NOT_FOUND_ERROR_STATUS = 1
+ROOT_NOT_FOUND_ERROR_STATUS: Final[int] = 1
 
 
 def find_root_dir():
