@@ -2,8 +2,8 @@ import argparse
 from pathlib import Path
 from typing import Any, Callable, Final, Optional
 
+import utils.cli
 from build_system.compiler.family import CompilerFamily
-from utils.cli import format_error_msg
 
 PATH_ARG_NAME: Final[str] = 'path'
 PATH_ARG: Final[str] = '-' + PATH_ARG_NAME
@@ -19,7 +19,7 @@ def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info
     compiler_path: Optional[str] = getattr(args, PATH_ARG_NAME)
 
     if compiler_path == str():
-        error_msg = format_error_msg(f"'{PATH_ARG}' argument must be followed by a path string")
+        error_msg = utils.cli.format_error_msg(f"'{PATH_ARG}' argument must be followed by a path string")
         arg_parser.error(error_msg)
 
     compiler_path: Optional[Path] = Path(compiler_path) if compiler_path is not None else None
