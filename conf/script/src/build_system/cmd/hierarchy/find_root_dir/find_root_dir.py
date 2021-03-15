@@ -26,7 +26,7 @@ def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
     return current_path.parent, last_path
 
 
-def find_root_dir(get_error_msg: Callable[[], str] = _get_error_msg_root_not_found) -> Path:
+def find_root_dir() -> Path:
     current_path, last_path = _walk_parent_path()
     is_last_path_root_dir = is_dir_root(last_path)
 
@@ -35,6 +35,6 @@ def find_root_dir(get_error_msg: Callable[[], str] = _get_error_msg_root_not_fou
         current_path, last_path = _walk_parent_path(current_path)
 
     if not is_last_path_root_dir:
-        _error_root_not_found(get_error_msg)
+        _error_root_not_found()
 
     return last_path
