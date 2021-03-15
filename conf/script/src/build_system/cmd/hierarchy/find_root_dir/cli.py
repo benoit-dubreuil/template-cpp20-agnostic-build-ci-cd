@@ -13,11 +13,11 @@ def find_root_dir():
         description=f"Finds the project's root folder, where the '{VCS_DIR_NAME}' folder is. It searches recursively parent folders upwards.")
 
     try:
-        try:
-            project_root = cmd.hierarchy.find_root_dir.find_root_dir()
-            print(project_root, end=str())
-        except cmd.hierarchy.find_root_dir.error.RootDirNotFoundError as raised_exception:
-            arg_parser.exit(ROOT_DIR_NOT_FOUND_ERROR_STATUS, str(raised_exception))
+        project_root = cmd.hierarchy.find_root_dir.find_root_dir()
+        print(project_root, end=str())
+
+    except cmd.hierarchy.find_root_dir.error.RootDirNotFoundError as raised_exception:
+        arg_parser.exit(ROOT_DIR_NOT_FOUND_ERROR_STATUS, str(raised_exception))
 
     except OSError as raised_exception:
         arg_parser.exit(UNSUPPORTED_ERROR_STATUS, str(raised_exception))

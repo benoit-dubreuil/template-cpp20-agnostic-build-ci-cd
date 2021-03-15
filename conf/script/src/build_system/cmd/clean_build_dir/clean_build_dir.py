@@ -17,6 +17,7 @@ def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> boo
 
     try:
         build_dir = cmd.hierarchy.find_build_dir.find_build_dir(root_dir)
+
     except OSError as raised_exception:
         if not ignore_errors:
             raise raised_exception
