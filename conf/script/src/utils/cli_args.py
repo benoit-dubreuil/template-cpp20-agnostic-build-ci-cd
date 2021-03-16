@@ -44,9 +44,6 @@ def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str =
 
     _assure_no_unknown_parsed_args(arg_parser, unknown_parsed_args)
     parsed_path: Optional[str] = parsed_args[path_arg]
-
-    if parsed_path == str():
-        error_msg = format_exception_msg(f"'{path_arg}' argument must be followed by a path string")
-        arg_parser.error(error_msg)
+    _assure_nonempty_parsed_path(arg_parser, path_arg, parsed_path)
 
     return Path(parsed_path) if parsed_path is not None else None
