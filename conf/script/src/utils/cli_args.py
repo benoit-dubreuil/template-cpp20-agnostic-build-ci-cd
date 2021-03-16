@@ -3,8 +3,8 @@ import sys
 from pathlib import Path
 from typing import AnyStr, Final, Optional
 
-from utils.formatted_error import format_exception_msg
-from utils.cli_error import ErrorStatus
+import utils.cli_error
+import utils.formatted_error
 
 DEFAULT_PATH_ARG_NAME: Final[str] = 'path'
 DEFAULT_PATH_ARG: Final[str] = '-' + DEFAULT_PATH_ARG_NAME
@@ -17,24 +17,24 @@ def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr 
 
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
     if len(unknown_parsed_args) > 0:
-        error_msg = format_exception_msg(f"Unsupported argument '{unknown_parsed_args}'")
+        error = utils.cli_error.UnknownParsedArgError(unknown_parsed_args)
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
             arg_parser.print_usage(sys.stderr)
-            arg_parser.exit(ErrorStatus.UNKNOWN_PARSED_ARG, error_msg)
+            arg_parser.exit(utils.cli_error.ErrorStatus.UNKNOWN_PARSED_ARG, str(error))
         else:
-            raise TypeError(error_msg)
+            raise error
 
 
 def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: str):
     if parsed_path == str():
-        error_msg = format_exception_msg(f"'{path_arg}' argument must be followed by a path string")
+        error_msg = utils.formatted_error.format_exception_msg(f"'{path_arg}' argument must be followed by a path string")
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
             arg_parser.print_usage(sys.stderr)
-            arg_parser.exit(ErrorStatus.EMPTY_PARSED_ARG, error_msg)
+            arg_parser.exit(utils.cli_error.ErrorStatus.EMPTY_PARSED_ARG, error_msg)
         else:
             pass  # TODO
 
