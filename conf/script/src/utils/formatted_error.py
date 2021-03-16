@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from abc import ABC
 from typing import AnyStr
 
 import colorama
@@ -12,5 +11,6 @@ def format_exception_msg(error_msg: AnyStr) -> AnyStr:
 
 class FormattedException(BaseException):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, kwargs)
+    def __init__(self, *args):
+        formatted_args = [format_exception_msg(arg) if isinstance(arg, str) else arg for arg in args]
+        super().__init__(*formatted_args)
