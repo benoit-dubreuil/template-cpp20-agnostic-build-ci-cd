@@ -16,7 +16,7 @@ ROOT_DIR_ARG: Final[str] = '-' + ROOT_DIR_ARG_NAME
 
 def find_build_dir():
     arg_parser = argparse.ArgumentParser(description=f"Finds the project's '{BUILD_DIR_NAME}' folder.")
-    utils.cli.add_optional_path_arg(arg_parser, ROOT_DIR_ARG, path_arg_help=f"The project's root directory")
+    utils.cli_args.add_optional_path_arg(arg_parser, ROOT_DIR_ARG, path_arg_help=f"The project's root directory")
 
     try:
         build_dir = cmd.hierarchy.find_build_dir.find_build_dir()
