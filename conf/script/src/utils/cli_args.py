@@ -29,14 +29,14 @@ def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_
 
 def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: str):
     if parsed_path == str():
-        error_msg = utils.formatted_error.format_exception_msg(f"'{path_arg}' argument must be followed by a path string")
+        error = utils.cli_error.EmptyParsedArgError(path_arg)
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
             arg_parser.print_usage(sys.stderr)
-            arg_parser.exit(utils.cli_error.ErrorStatus.EMPTY_PARSED_ARG, error_msg)
+            arg_parser.exit(utils.cli_error.ErrorStatus.EMPTY_PARSED_ARG, str(error))
         else:
-            pass  # TODO
+            raise error
 
 
 def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str = DEFAULT_PATH_ARG) -> Optional[Path]:
