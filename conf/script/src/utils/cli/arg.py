@@ -42,5 +42,11 @@ class CLIArg:
     def prefix(self, prefix) -> None:
         self.__prefixed_name = prefix + self.name
 
+    def __str__(self) -> str:
+        return self.prefixed_name
+
+    def __repr__(self) -> str:
+        return f'{self.__class__.__name__} {{{self.__class__.prefix.fget.__name__}: {self.prefix}, {str(self.__class__.name.fget.__name__)}: {self.name}}}'
+
 
 DEFAULT_PATH_ARG: Final[CLIArg] = CLIArg('path')
