@@ -1,3 +1,5 @@
+# BUG : KEEP __INIT__ EMPTY TO AVOID NASTY BUGS
+
 import utils.cli.arg_parsing
 import utils.cli.error
 import utils.cli.main
