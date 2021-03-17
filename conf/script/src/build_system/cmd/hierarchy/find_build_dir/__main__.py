@@ -9,4 +9,4 @@ def main():
     cmd.hierarchy.find_build_dir.cli.find_build_dir()
 
 
-utils.cli.cli.wrap_main(main)
+utils.cli.main.wrap_main(main)

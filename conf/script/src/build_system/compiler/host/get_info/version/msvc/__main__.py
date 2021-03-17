@@ -9,4 +9,4 @@ def main():
     version.msvc.cli.fetch_version()
 
 
-utils.cli.cli.wrap_main(main)
+utils.cli.main.wrap_main(main)

@@ -9,4 +9,4 @@ def main():
     cmd.clean_build_dir.cli.clean_build_dir()
 
 
-utils.cli.cli.wrap_main(main)
+utils.cli.main.wrap_main(main)

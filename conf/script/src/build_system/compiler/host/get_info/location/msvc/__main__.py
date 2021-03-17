@@ -9,4 +9,4 @@ def main():
     location.msvc.cli.find()
 
 
-utils.cli.cli.wrap_main(main)
+utils.cli.main.wrap_main(main)

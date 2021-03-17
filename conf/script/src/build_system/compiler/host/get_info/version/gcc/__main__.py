@@ -10,4 +10,4 @@ def main():
     version.gnu.cli.cli_fetch_gnu_compiler_version(CompilerFamily.GCC)
 
 
-utils.cli.cli.wrap_main(main)
+utils.cli.main.wrap_main(main)
