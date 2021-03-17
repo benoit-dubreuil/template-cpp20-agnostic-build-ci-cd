@@ -43,7 +43,7 @@ def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str =
     parsed_args, unknown_parsed_args = arg_parser.parse_known_args([path_arg])
 
     _assure_no_unknown_parsed_args(arg_parser, unknown_parsed_args)
-    parsed_path: Optional[str] = parsed_args[path_arg]
+    parsed_path: Optional[str] = getattr(parsed_args, path_arg) if path_arg in parsed_args else None
     _assure_nonempty_parsed_path(arg_parser, path_arg, parsed_path)
 
     return Path(parsed_path) if parsed_path is not None else None
