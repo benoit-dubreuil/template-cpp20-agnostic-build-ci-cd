@@ -2,6 +2,7 @@ import argparse
 import sys
 from pathlib import Path
 from typing import AnyStr, Final, Optional
+from utils.more_typing import AnyPath
 
 import utils.cli_error
 import utils.formatted_error
