@@ -13,7 +13,7 @@ DEFAULT_PATH_ARG: Final[str] = '-' + DEFAULT_PATH_ARG_NAME
 
 def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr = DEFAULT_PATH_ARG, path_arg_default_value: AnyPath = None,
                           path_arg_help: Optional[AnyStr] = None):
-    arg_parser.add_argument(path_arg, type=Path, nargs='?', const=path_arg_default_value, default=path_arg_default_value, help=path_arg_help)
+    arg_parser.add_argument(path_arg, type=Path, nargs=argparse.OPTIONAL, const=path_arg_default_value, default=path_arg_default_value, help=path_arg_help)
 
 
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
@@ -42,7 +42,6 @@ def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: 
 
 def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str = DEFAULT_PATH_ARG) -> AnyPath:
     parsed_args, unknown_parsed_args = arg_parser.parse_known_args([path_arg])
-
     _assure_no_unknown_parsed_args(arg_parser, unknown_parsed_args)
     parsed_path: AnyPath = getattr(parsed_args, path_arg) if path_arg in parsed_args else None
     _assure_nonempty_parsed_path(arg_parser, path_arg, parsed_path)
