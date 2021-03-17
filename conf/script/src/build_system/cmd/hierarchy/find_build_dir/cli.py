@@ -6,6 +6,7 @@ import utils.cli
 import utils.cli_args
 from build_system import cmd
 from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
+from utils.more_typing import AnyPath
 
 BUILD_DIR_NOT_FOUND_ERROR_STATUS: Final[int] = 1 + cmd.hierarchy.find_root_dir.cli.ROOT_DIR_NOT_FOUND_ERROR_STATUS
 UNSUPPORTED_ERROR_STATUS: Final[int] = 1 + BUILD_DIR_NOT_FOUND_ERROR_STATUS
@@ -17,6 +18,8 @@ ROOT_DIR_ARG: Final[str] = '-' + ROOT_DIR_ARG_NAME
 def find_build_dir():
     arg_parser = argparse.ArgumentParser(description=f"Finds the project's '{BUILD_DIR_NAME}' folder.")
     utils.cli_args.add_optional_path_arg(arg_parser, ROOT_DIR_ARG, path_arg_help=f"The project's root directory")
+
+    root_dir: AnyPath = utils.cli_args.parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
 
     try:
         build_dir = cmd.hierarchy.find_build_dir.find_build_dir()
