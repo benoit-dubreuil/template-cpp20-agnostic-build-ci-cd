@@ -3,7 +3,7 @@ from typing import Final
 
 import build_system.cmd.hierarchy.find_root_dir.cli
 import utils.cli
-import utils.cli_args
+import utils.cli_arg_parser
 from build_system import cmd
 from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
 from utils.more_typing import AnyPath
@@ -17,9 +17,9 @@ ROOT_DIR_ARG: Final[str] = '-' + ROOT_DIR_ARG_NAME
 
 def find_build_dir():
     arg_parser = argparse.ArgumentParser(description=f"Finds the project's '{BUILD_DIR_NAME}' folder.")
-    utils.cli_args.add_optional_path_arg(arg_parser, ROOT_DIR_ARG, path_arg_help=f"The project's root directory")
+    utils.cli_arg_parser.add_optional_path_arg(arg_parser, ROOT_DIR_ARG, path_arg_help=f"The project's root directory")
 
-    root_dir: AnyPath = utils.cli_args.parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
+    root_dir: AnyPath = utils.cli_arg_parser.parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
 
     try:
         build_dir = cmd.hierarchy.find_build_dir.find_build_dir()
