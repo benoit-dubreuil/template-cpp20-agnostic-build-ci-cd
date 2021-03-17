@@ -12,7 +12,7 @@ DEFAULT_PATH_ARG: Final[str] = '-' + DEFAULT_PATH_ARG_NAME
 
 def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr = DEFAULT_PATH_ARG, path_arg_default_value: Optional[Path] = None,
                           path_arg_help: Optional[AnyStr] = None):
-    arg_parser.add_argument(path_arg, type=str, nargs='?', const=str(), default=path_arg_default_value, help=path_arg_help)
+    arg_parser.add_argument(path_arg, type=str, nargs='?', const=None, default=path_arg_default_value, help=path_arg_help)
 
 
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
