@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import AnyStr, Final, Optional
 from utils.more_typing import AnyPath
 
-import utils.cli.cli_error
+import utils.cli.error
 import utils.formatted_error
 
 DEFAULT_PATH_ARG_NAME: Final[str] = 'path'
@@ -18,24 +18,24 @@ def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr 
 
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
     if len(unknown_parsed_args) > 0:
-        error = utils.cli.cli_error.UnknownParsedArgError(unknown_parsed_args)
+        error = utils.cli.error.UnknownParsedArgError(unknown_parsed_args)
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
             arg_parser.print_usage(sys.stderr)
-            arg_parser.exit(utils.cli.cli_error.ErrorStatus.UNKNOWN_PARSED_ARG, str(error))
+            arg_parser.exit(utils.cli.error.ErrorStatus.UNKNOWN_PARSED_ARG, str(error))
         else:
             raise error
 
 
 def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: AnyPath):
     if str(parsed_path) == str():
-        error = utils.cli.cli_error.EmptyParsedArgError(path_arg)
+        error = utils.cli.error.EmptyParsedArgError(path_arg)
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
             arg_parser.print_usage(sys.stderr)
-            arg_parser.exit(utils.cli.cli_error.ErrorStatus.EMPTY_PARSED_ARG, str(error))
+            arg_parser.exit(utils.cli.error.ErrorStatus.EMPTY_PARSED_ARG, str(error))
         else:
             raise error
 
