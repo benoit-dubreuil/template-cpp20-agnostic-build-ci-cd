@@ -3,7 +3,6 @@ from typing import Final
 
 import build_system.cmd.hierarchy.find_root_dir.cli
 import utils.cli
-import utils.cli.arg_parsing
 from build_system import cmd
 from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
 from utils.more_typing import AnyPath
@@ -11,8 +10,7 @@ from utils.more_typing import AnyPath
 BUILD_DIR_NOT_FOUND_ERROR_STATUS: Final[int] = 1 + cmd.hierarchy.find_root_dir.cli.ROOT_DIR_NOT_FOUND_ERROR_STATUS
 UNSUPPORTED_ERROR_STATUS: Final[int] = 1 + BUILD_DIR_NOT_FOUND_ERROR_STATUS
 
-ROOT_DIR_ARG_NAME: Final[str] = 'rootdir'
-ROOT_DIR_ARG: Final[str] = '-' + ROOT_DIR_ARG_NAME
+ROOT_DIR_ARG: Final[utils.cli.CLIArg] = utils.cli.CLIArg('rootdir')
 
 
 def find_build_dir():

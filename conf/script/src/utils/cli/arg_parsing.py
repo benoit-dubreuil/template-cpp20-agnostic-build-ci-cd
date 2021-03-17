@@ -1,19 +1,17 @@
 import argparse
 import sys
 from pathlib import Path
-from typing import AnyStr, Final, Optional
-from utils.more_typing import AnyPath
+from typing import AnyStr, Optional
 
-import utils.cli.error
+import utils.cli
+import utils.cli.arg
 import utils.formatted_error
-
-DEFAULT_PATH_ARG_NAME: Final[str] = 'path'
-DEFAULT_PATH_ARG: Final[str] = '-' + DEFAULT_PATH_ARG_NAME
+import utils.more_typing
 
 
-def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: AnyStr = DEFAULT_PATH_ARG, path_arg_default_value: AnyPath = None,
-                          path_arg_help: Optional[AnyStr] = None):
-    arg_parser.add_argument(path_arg, type=Path, nargs=argparse.OPTIONAL, const=path_arg_default_value, default=path_arg_default_value, help=path_arg_help)
+def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils.cli.arg.CLIArg = utils.cli.arg.DEFAULT_PATH_ARG,
+                          path_arg_default_value: utils.more_typing.AnyPath = None, path_arg_help: Optional[AnyStr] = None):
+    arg_parser.add_argument(path_arg.prefixed_name, type=Path, nargs=argparse.OPTIONAL, const=path_arg_default_value, default=path_arg_default_value, help=path_arg_help)
 
 
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
@@ -28,7 +26,7 @@ def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_
             raise error
 
 
-def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: AnyPath):
+def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: utils.more_typing.AnyPath):
     if str(parsed_path) == str():
         error = utils.cli.error.EmptyParsedArgError(path_arg)
 
@@ -40,10 +38,11 @@ def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: 
             raise error
 
 
-def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: str = DEFAULT_PATH_ARG) -> AnyPath:
-    parsed_args, unknown_parsed_args = arg_parser.parse_known_args([path_arg])
+def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils.cli.arg.CLIArg = utils.cli.DEFAULT_PATH_ARG) -> utils.more_typing.AnyPath:
+    parsed_args, unknown_parsed_args = arg_parser.parse_known_args([path_arg.prefixed_name])
+
     _assure_no_unknown_parsed_args(arg_parser, unknown_parsed_args)
-    parsed_path: AnyPath = getattr(parsed_args, path_arg) if path_arg in parsed_args else None
-    _assure_nonempty_parsed_path(arg_parser, path_arg, parsed_path)
+    parsed_path: utils.more_typing.AnyPath = getattr(parsed_args, path_arg.prefixed_name) if path_arg.prefixed_name in parsed_args else None
+    _assure_nonempty_parsed_path(arg_parser, path_arg.prefixed_name, parsed_path)
 
     return parsed_path
