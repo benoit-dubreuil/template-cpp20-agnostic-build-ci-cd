@@ -41,3 +41,6 @@ class CLIArg:
     @prefix.setter
     def prefix(self, prefix) -> None:
         self.__prefixed_name = prefix + self.name
+
+
+DEFAULT_PATH_ARG: Final[CLIArg] = CLIArg('path')
