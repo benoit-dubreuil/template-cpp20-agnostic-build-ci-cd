@@ -1,4 +1,3 @@
-import utils.cli
 import utils.formatted_error
 
 
