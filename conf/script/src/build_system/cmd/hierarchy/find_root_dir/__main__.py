@@ -9,4 +9,4 @@ def main():
     cmd.hierarchy.find_root_dir.cli.find_root_dir()
 
 
-utils.cli.wrap_main(main)
+utils.cli.cli.wrap_main(main)
