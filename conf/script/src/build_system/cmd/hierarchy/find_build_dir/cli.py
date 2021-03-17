@@ -10,7 +10,7 @@ from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_N
 BUILD_DIR_NOT_FOUND_ERROR_STATUS: Final[int] = 1 + cmd.hierarchy.find_root_dir.cli.ROOT_DIR_NOT_FOUND_ERROR_STATUS
 UNSUPPORTED_ERROR_STATUS: Final[int] = 1 + BUILD_DIR_NOT_FOUND_ERROR_STATUS
 
-ROOT_DIR_ARG_NAME: Final[str] = 'root-dir'
+ROOT_DIR_ARG_NAME: Final[str] = 'rootdir'
 ROOT_DIR_ARG: Final[str] = '-' + ROOT_DIR_ARG_NAME
 
 
