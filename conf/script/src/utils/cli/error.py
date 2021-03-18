@@ -8,7 +8,7 @@ from utils.cli.error_status import EncodedError
 class SuccessWarning(UserWarning, EncodedError, utils.format_error.FormattedSuccess, metaclass=utils.cli.error_status.EncodedErrorMeta):
 
     def __init__(self):
-        super().__init__(f'Success')
+        super().__init__('Success')
 
     @staticmethod
     def get_error_status():
@@ -38,7 +38,7 @@ class EmptyParsedArgError(ValueError, EncodedError, utils.format_error.Formatted
 class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
 
     def __init__(self):
-        super().__init__(f'Root directory not found')
+        super().__init__('Root directory not found')
 
     @staticmethod
     def get_error_status():
@@ -48,7 +48,7 @@ class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.F
 class BuildDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
 
     def __init__(self):
-        super().__init__(f'Build directory not found')
+        super().__init__('Build directory not found')
 
     @staticmethod
     def get_error_status():
