@@ -15,6 +15,16 @@ class SuccessWarning(UserWarning, EncodedError, utils.format_error.FormattedSucc
         return utils.cli.error_status.ErrorStatus.SUCCESS
 
 
+class UnsupportedError(RuntimeError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
+
+    def __init__(self):
+        super().__init__('Unsupported error')
+
+    @staticmethod
+    def get_error_status():
+        return utils.cli.error_status.ErrorStatus.UNSUPPORTED
+
+
 class UnknownParsedArgError(TypeError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
 
     def __init__(self, unknown_parsed_args: list[str]):
