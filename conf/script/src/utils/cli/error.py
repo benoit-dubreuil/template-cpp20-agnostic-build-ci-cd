@@ -1,5 +1,3 @@
-import abc
-
 import utils.cli.error_status
 import utils.format_error
 from utils.cli.error_status import EncodedError
