@@ -10,7 +10,7 @@ class ManagedError(abc.ABC, utils.cli.error_status.EncodedError, utils.format_er
     ...
 
 
-def manage(cls: type, error_formatter_cls: Type[utils.format_error.BaseFormattedError]):
+def manage(cls: type, error_formatter_cls: Type[utils.format_error.BaseFormattedError] = utils.format_error.FormattedError):
     class NewlyManagedError(cls, ManagedError, error_formatter_cls, metaclass=utils.cli.error_meta.ErrorMeta):
         ...
 
