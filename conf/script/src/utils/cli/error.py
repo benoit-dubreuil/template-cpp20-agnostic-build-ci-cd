@@ -1,10 +1,9 @@
 import utils.cli.error_meta
 import utils.cli.error_status
 import utils.format_error
-from utils.cli.error_status import EncodedError
 
 
-class SuccessWarning(UserWarning, EncodedError, utils.format_error.FormattedSuccess, metaclass=utils.cli.error_meta.ErrorMeta):
+class SuccessWarning(UserWarning, utils.cli.error_status.EncodedError, utils.format_error.FormattedSuccess, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self):
         super().__init__('Success')
@@ -14,7 +13,7 @@ class SuccessWarning(UserWarning, EncodedError, utils.format_error.FormattedSucc
         return utils.cli.error_status.ErrorStatus.SUCCESS
 
 
-class UnsupportedError(RuntimeError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class UnsupportedError(RuntimeError, utils.cli.error_status.EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self):
         super().__init__('Unsupported error')
@@ -24,7 +23,7 @@ class UnsupportedError(RuntimeError, EncodedError, utils.format_error.FormattedE
         return utils.cli.error_status.ErrorStatus.UNSUPPORTED
 
 
-class UnknownParsedArgError(TypeError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class UnknownParsedArgError(TypeError, utils.cli.error_status.EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self, unknown_parsed_args: list[str]):
         super().__init__(f"Unsupported argument '{unknown_parsed_args}'")
@@ -34,7 +33,7 @@ class UnknownParsedArgError(TypeError, EncodedError, utils.format_error.Formatte
         return utils.cli.error_status.ErrorStatus.UNKNOWN_PARSED_ARG
 
 
-class EmptyParsedArgError(ValueError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class EmptyParsedArgError(ValueError, utils.cli.error_status.EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self, arg: str):
         super().__init__(f"'{arg}' argument must be followed by a path string")
@@ -44,7 +43,7 @@ class EmptyParsedArgError(ValueError, EncodedError, utils.format_error.Formatted
         return utils.cli.error_status.ErrorStatus.EMPTY_PARSED_ARG
 
 
-class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class RootDirNotFoundError(FileNotFoundError, utils.cli.error_status.EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self):
         super().__init__('Root directory not found')
@@ -54,7 +53,7 @@ class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.F
         return utils.cli.error_status.ErrorStatus.ROOT_DIR_NOT_FOUND
 
 
-class BuildDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class BuildDirNotFoundError(FileNotFoundError, utils.cli.error_status.EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self):
         super().__init__('Build directory not found')
