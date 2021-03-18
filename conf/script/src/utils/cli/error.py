@@ -1,10 +1,9 @@
 import enum
-from enum import IntEnum
 
 import utils.formatted_error
 
 
-class ErrorStatus(IntEnum):
+class ErrorStatus(enum.IntEnum):
     UNSUPPORTED_ERROR = 1
     ARG_PARSER_DEFAULT = 2
     UNKNOWN_PARSED_ARG = enum.auto()

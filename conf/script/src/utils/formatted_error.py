@@ -9,5 +9,5 @@ def format_error_msg(error_msg: AnyStr) -> AnyStr:
 
 class FormattedError(BaseException):
 
-    def __init__(self, error_msg: str, *args):
-        super().__init__(format_error_msg(error_msg), *args)
+    def __init__(self, message: str, *args):
+        super().__init__(format_error_msg(message), *args)
