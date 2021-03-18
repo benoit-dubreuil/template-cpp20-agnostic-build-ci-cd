@@ -13,7 +13,7 @@ def find_root_dir():
         project_root = cmd.hierarchy.find_root_dir.find_root_dir()
         print(project_root, end=str())
 
-    except cmd.hierarchy.find_root_dir.error.RootDirNotFoundError as raised_exception:
+    except utils.cli.error.RootDirNotFoundError as raised_exception:
         arg_parser.exit(utils.cli.error.ErrorStatus.ROOT_DIR_NOT_FOUND, str(raised_exception))
 
     except OSError as raised_exception:

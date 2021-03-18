@@ -1,7 +1,6 @@
 import argparse
 from typing import Final
 
-import build_system.cmd.hierarchy.find_root_dir.cli
 import utils.cli.arg
 import utils.cli.arg_parsing
 import utils.cli.error
@@ -22,10 +21,10 @@ def find_build_dir():
         build_dir = cmd.hierarchy.find_build_dir.find_build_dir()
         print(build_dir, end=str())
 
-    except cmd.hierarchy.find_root_dir.error.RootDirNotFoundError as raised_exception:
+    except utils.cli.error.RootDirNotFoundError as raised_exception:
         arg_parser.exit(utils.cli.error.ErrorStatus.ROOT_DIR_NOT_FOUND, str(raised_exception))
 
-    except cmd.hierarchy.find_build_dir.error.BuildDirNotFoundError as raised_exception:
+    except utils.cli.error.BuildDirNotFoundError as raised_exception:
         arg_parser.exit(utils.cli.error.ErrorStatus.BUILD_DIR_NOT_FOUND, str(raised_exception))
 
     except OSError as raised_exception:

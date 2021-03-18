@@ -23,3 +23,15 @@ class EmptyParsedArgError(ValueError, utils.formatted_error.FormattedException):
 
     def __init__(self, arg: str):
         super().__init__(f"'{arg}' argument must be followed by a path string")
+
+
+class RootDirNotFoundError(FileNotFoundError, utils.formatted_error.FormattedException):
+
+    def __init__(self):
+        super().__init__(f'Root directory not found')
+
+
+class BuildDirNotFoundError(FileNotFoundError):
+
+    def __init__(self):
+        super().__init__(f'Build directory not found')

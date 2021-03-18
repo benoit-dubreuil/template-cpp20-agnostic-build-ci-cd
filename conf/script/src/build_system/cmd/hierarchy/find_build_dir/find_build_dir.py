@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Final, Optional
 
 import build_system.cmd.hierarchy.find_root_dir
+import utils.cli.error
 from build_system import cmd
 
 BUILD_DIR_NAME: Final[str] = 'build'
@@ -17,9 +18,9 @@ def find_build_dir(root_dir: Optional[Path] = None) -> Path:
     try:
         build_dir = build_dir.resolve(True)
     except FileNotFoundError:
-        raise cmd.hierarchy.find_build_dir.error.BuildDirNotFoundError()
+        raise utils.cli.error.BuildDirNotFoundError()
 
     if not build_dir.is_dir():
-        raise cmd.hierarchy.find_build_dir.error.BuildDirNotFoundError()
+        raise utils.cli.error.BuildDirNotFoundError()
 
     return build_dir
