@@ -13,19 +13,19 @@ class ErrorStatus(IntEnum):
     BUILD_DIR_NOT_FOUND = enum.auto()
 
 
-class UnknownParsedArgError(TypeError, utils.formatted_error.FormattedException):
+class UnknownParsedArgError(TypeError, utils.formatted_error.FormattedError):
 
     def __init__(self, unknown_parsed_args: list[str]):
         super().__init__(f"Unsupported argument '{unknown_parsed_args}'")
 
 
-class EmptyParsedArgError(ValueError, utils.formatted_error.FormattedException):
+class EmptyParsedArgError(ValueError, utils.formatted_error.FormattedError):
 
     def __init__(self, arg: str):
         super().__init__(f"'{arg}' argument must be followed by a path string")
 
 
-class RootDirNotFoundError(FileNotFoundError, utils.formatted_error.FormattedException):
+class RootDirNotFoundError(FileNotFoundError, utils.formatted_error.FormattedError):
 
     def __init__(self):
         super().__init__(f'Root directory not found')

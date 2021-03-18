@@ -4,11 +4,11 @@ from typing import NoReturn, Optional, Union
 from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.get_info import location
 from build_system.compiler.host.get_info.cli import cli_fetch_compiler_info
-from utils.formatted_error import format_exception_msg
+from utils.formatted_error import format_error_msg
 
 
 def error_compiler_not_found() -> NoReturn:
-    error_msg = format_exception_msg(f'{CompilerFamily.MSVC.name} compiler matching the requirements not found')
+    error_msg = format_error_msg(f'{CompilerFamily.MSVC.name} compiler matching the requirements not found')
     raise FileNotFoundError(error_msg)
 
 
