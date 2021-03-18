@@ -3,8 +3,8 @@ import sys
 from pathlib import Path
 from typing import AnyStr, Optional
 
-import utils.cli
 import utils.cli.arg
+import utils.cli.error
 import utils.formatted_error
 import utils.more_typing
 
@@ -38,7 +38,7 @@ def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: 
             raise error
 
 
-def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils.cli.arg.CLIArg = utils.cli.DEFAULT_PATH_ARG) -> utils.more_typing.AnyPath:
+def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils.cli.arg.CLIArg = utils.cli.arg.DEFAULT_PATH_ARG) -> utils.more_typing.AnyPath:
     parsed_args, unknown_parsed_args = arg_parser.parse_known_args([path_arg.prefixed_name])
 
     _assure_no_unknown_parsed_args(arg_parser, unknown_parsed_args)

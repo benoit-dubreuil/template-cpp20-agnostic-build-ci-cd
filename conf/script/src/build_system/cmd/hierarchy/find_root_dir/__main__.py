@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import build_system.cmd.hierarchy.find_root_dir.cli
-import utils.cli
+import utils.cli.main
 from build_system import cmd
 
 

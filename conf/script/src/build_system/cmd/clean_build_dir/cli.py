@@ -18,7 +18,7 @@ def clean_build_dir():
     try:
         try:
             root_dir = cmd.hierarchy.find_root_dir.find_root_dir()
-        except cmd.hierarchy.find_root_dir.RootDirNotFoundError as raised_exception:
+        except cmd.hierarchy.find_root_dir.error.RootDirNotFoundError as raised_exception:
             arg_parser.exit(cmd.hierarchy.find_root_dir.cli.ROOT_DIR_NOT_FOUND_ERROR_STATUS, str(raised_exception))
 
         try:
