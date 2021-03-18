@@ -17,7 +17,7 @@ class EncodedErrorMeta(abc.ABCMeta, type):
     pass
 
 
-class EncodedError(BaseException, abc.ABC, metaclass=EncodedErrorMeta):
+class EncodedError(Exception, abc.ABC, metaclass=EncodedErrorMeta):
 
     @staticmethod
     @abc.abstractmethod
