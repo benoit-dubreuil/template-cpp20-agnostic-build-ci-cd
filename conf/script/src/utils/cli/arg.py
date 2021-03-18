@@ -1,8 +1,9 @@
 from typing import Final
 
+DEFAULT_PREFIX: Final[str] = '-'
+
 
 class CLIArg:
-    DEFAULT_PREFIX: Final[str] = '-'
 
     def __init__(self, name: str, prefix: str = DEFAULT_PREFIX):
         super().__init__()
