@@ -1,11 +1,11 @@
 import abc
 
 import utils.cli.error_status
-import utils.formatted_error
+import utils.format_error
 from utils.cli.error_status import EncodedError
 
 
-class UnknownParsedArgError(TypeError, EncodedError, utils.formatted_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
+class SuccessWarning(UserWarning, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
 
     def __init__(self, unknown_parsed_args: list[str]):
         super().__init__(f"Unsupported argument '{unknown_parsed_args}'")
@@ -15,7 +15,17 @@ class UnknownParsedArgError(TypeError, EncodedError, utils.formatted_error.Forma
         return utils.cli.error_status.ErrorStatus.UNKNOWN_PARSED_ARG
 
 
-class EmptyParsedArgError(ValueError, EncodedError, utils.formatted_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
+class UnknownParsedArgError(TypeError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
+
+    def __init__(self, unknown_parsed_args: list[str]):
+        super().__init__(f"Unsupported argument '{unknown_parsed_args}'")
+
+    @staticmethod
+    def get_error_status():
+        return utils.cli.error_status.ErrorStatus.UNKNOWN_PARSED_ARG
+
+
+class EmptyParsedArgError(ValueError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
 
     def __init__(self, arg: str):
         super().__init__(f"'{arg}' argument must be followed by a path string")
@@ -25,7 +35,7 @@ class EmptyParsedArgError(ValueError, EncodedError, utils.formatted_error.Format
         return utils.cli.error_status.ErrorStatus.EMPTY_PARSED_ARG
 
 
-class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.formatted_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
+class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
 
     def __init__(self):
         super().__init__(f'Root directory not found')
@@ -35,7 +45,7 @@ class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.formatted_erro
         return utils.cli.error_status.ErrorStatus.ROOT_DIR_NOT_FOUND
 
 
-class BuildDirNotFoundError(FileNotFoundError, EncodedError, utils.formatted_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
+class BuildDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_status.EncodedErrorMeta):
 
     def __init__(self):
         super().__init__(f'Build directory not found')

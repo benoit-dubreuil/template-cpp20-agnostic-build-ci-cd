@@ -6,7 +6,7 @@ from typing import AnyStr, Optional
 import utils.cli.arg
 import utils.cli.error
 import utils.cli.error_status
-import utils.formatted_error
+import utils.format_error
 import utils.more_typing
 
 
