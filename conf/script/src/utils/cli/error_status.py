@@ -6,7 +6,7 @@ import enum
 class ErrorStatus(enum.IntEnum):
     SUCCESS = 0
     UNSUPPORTED = 1
-    ARG_PARSER_DEFAULT = 2
+    ARG_PARSER = 2
     UNKNOWN_PARSED_ARG = enum.auto()
     EMPTY_PARSED_ARG = enum.auto()
     ROOT_DIR_NOT_FOUND = enum.auto()
