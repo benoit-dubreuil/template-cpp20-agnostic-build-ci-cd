@@ -2,6 +2,7 @@ import abc
 import enum
 
 
+@enum.unique
 class ErrorStatus(enum.IntEnum):
     UNSUPPORTED_ERROR = 1
     ARG_PARSER_DEFAULT = 2
