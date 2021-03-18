@@ -1,5 +1,5 @@
 import abc
 
 
-class ManagedErrorMeta(abc.ABCMeta, type):
+class ManagedErrorMeta(abc.ABCMeta, type(Exception)):
     ...
