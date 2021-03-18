@@ -1,3 +1,6 @@
+import argparse
+from typing import Union
+
 import utils.cli.error_meta
 import utils.cli.error_status
 import utils.format_error
@@ -11,6 +14,23 @@ class SuccessWarning(UserWarning, utils.cli.error_status.EncodedError, utils.for
     @staticmethod
     def get_error_status() -> utils.cli.error_status.ErrorStatus:
         return utils.cli.error_status.ErrorStatus.SUCCESS
+
+
+class ArgParserError(RuntimeError, utils.cli.error_status.EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+
+    def __init__(self, arg_parser_exception: Union[argparse.ArgumentError, argparse.ArgumentTypeError]):
+        error_msg = 'Argument parser error'
+        arg_parser_error_msg = str(arg_parser_exception)
+
+        if arg_parser_error_msg != str() and arg_parser_error_msg != str(None):
+            error_msg += '\n'
+            error_msg += arg_parser_error_msg
+
+        super().__init__(error_msg)
+
+    @staticmethod
+    def get_error_status() -> utils.cli.error_status.ErrorStatus:
+        return utils.cli.error_status.ErrorStatus.ARG_PARSER
 
 
 class UnsupportedError(RuntimeError, utils.cli.error_status.EncodedError, utils.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
