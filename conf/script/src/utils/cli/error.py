@@ -25,25 +25,41 @@ class EncodedError(BaseException, abc.ABC, metaclass=EncodedErrorMeta):
         ...
 
 
-class UnknownParsedArgError(TypeError, utils.formatted_error.FormattedError):
+class UnknownParsedArgError(TypeError, EncodedError, utils.formatted_error.FormattedError, metaclass=EncodedErrorMeta):
 
     def __init__(self, unknown_parsed_args: list[str]):
         super().__init__(f"Unsupported argument '{unknown_parsed_args}'")
 
+    @staticmethod
+    def get_error_status():
+        return ErrorStatus.UNKNOWN_PARSED_ARG
 
-class EmptyParsedArgError(ValueError, utils.formatted_error.FormattedError):
+
+class EmptyParsedArgError(ValueError, EncodedError, utils.formatted_error.FormattedError, metaclass=EncodedErrorMeta):
 
     def __init__(self, arg: str):
         super().__init__(f"'{arg}' argument must be followed by a path string")
 
+    @staticmethod
+    def get_error_status():
+        return ErrorStatus.EMPTY_PARSED_ARG
 
-class RootDirNotFoundError(FileNotFoundError, utils.formatted_error.FormattedError):
+
+class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.formatted_error.FormattedError, metaclass=EncodedErrorMeta):
 
     def __init__(self):
         super().__init__(f'Root directory not found')
 
+    @staticmethod
+    def get_error_status():
+        return ErrorStatus.ROOT_DIR_NOT_FOUND
 
-class BuildDirNotFoundError(FileNotFoundError):
+
+class BuildDirNotFoundError(FileNotFoundError, EncodedError, utils.formatted_error.FormattedError, metaclass=EncodedErrorMeta):
 
     def __init__(self):
         super().__init__(f'Build directory not found')
+
+    @staticmethod
+    def get_error_status():
+        return ErrorStatus.BUILD_DIR_NOT_FOUND
