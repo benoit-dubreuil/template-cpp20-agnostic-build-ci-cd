@@ -29,4 +29,4 @@ def find_build_dir():
         arg_parser.exit(utils.cli.error_status.ErrorStatus.BUILD_DIR_NOT_FOUND, str(raised_exception))
 
     except OSError as raised_exception:
-        arg_parser.exit(utils.cli.error_status.ErrorStatus.UNSUPPORTED_ERROR, str(raised_exception))
+        arg_parser.exit(utils.cli.error_status.ErrorStatus.UNSUPPORTED, str(raised_exception))

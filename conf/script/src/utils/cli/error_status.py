@@ -5,7 +5,7 @@ import enum
 @enum.unique
 class ErrorStatus(enum.IntEnum):
     SUCCESS = 0
-    UNSUPPORTED_ERROR = 1
+    UNSUPPORTED = 1
     ARG_PARSER_DEFAULT = 2
     UNKNOWN_PARSED_ARG = enum.auto()
     EMPTY_PARSED_ARG = enum.auto()
