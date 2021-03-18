@@ -19,5 +19,5 @@ class EncodedError(Exception, abc.ABC, metaclass=utils.cli.error_meta.ManagedErr
 
     @staticmethod
     @abc.abstractmethod
-    def get_error_status():
+    def get_error_status() -> ErrorStatus:
         ...

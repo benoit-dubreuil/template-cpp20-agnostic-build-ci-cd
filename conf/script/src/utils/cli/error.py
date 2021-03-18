@@ -1,7 +1,6 @@
+import utils.cli.error_meta
 import utils.cli.error_status
 import utils.format_error
-import utils.cli.error_meta
-
 from utils.cli.error_status import EncodedError
 
 
@@ -11,7 +10,7 @@ class SuccessWarning(UserWarning, EncodedError, utils.format_error.FormattedSucc
         super().__init__('Success')
 
     @staticmethod
-    def get_error_status():
+    def get_error_status() -> utils.cli.error_status.ErrorStatus:
         return utils.cli.error_status.ErrorStatus.SUCCESS
 
 
@@ -21,7 +20,7 @@ class UnsupportedError(RuntimeError, EncodedError, utils.format_error.FormattedE
         super().__init__('Unsupported error')
 
     @staticmethod
-    def get_error_status():
+    def get_error_status() -> utils.cli.error_status.ErrorStatus:
         return utils.cli.error_status.ErrorStatus.UNSUPPORTED
 
 
@@ -31,7 +30,7 @@ class UnknownParsedArgError(TypeError, EncodedError, utils.format_error.Formatte
         super().__init__(f"Unsupported argument '{unknown_parsed_args}'")
 
     @staticmethod
-    def get_error_status():
+    def get_error_status() -> utils.cli.error_status.ErrorStatus:
         return utils.cli.error_status.ErrorStatus.UNKNOWN_PARSED_ARG
 
 
@@ -41,7 +40,7 @@ class EmptyParsedArgError(ValueError, EncodedError, utils.format_error.Formatted
         super().__init__(f"'{arg}' argument must be followed by a path string")
 
     @staticmethod
-    def get_error_status():
+    def get_error_status() -> utils.cli.error_status.ErrorStatus:
         return utils.cli.error_status.ErrorStatus.EMPTY_PARSED_ARG
 
 
@@ -51,7 +50,7 @@ class RootDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.F
         super().__init__('Root directory not found')
 
     @staticmethod
-    def get_error_status():
+    def get_error_status() -> utils.cli.error_status.ErrorStatus:
         return utils.cli.error_status.ErrorStatus.ROOT_DIR_NOT_FOUND
 
 
@@ -61,5 +60,5 @@ class BuildDirNotFoundError(FileNotFoundError, EncodedError, utils.format_error.
         super().__init__('Build directory not found')
 
     @staticmethod
-    def get_error_status():
+    def get_error_status() -> utils.cli.error_status.ErrorStatus:
         return utils.cli.error_status.ErrorStatus.BUILD_DIR_NOT_FOUND
