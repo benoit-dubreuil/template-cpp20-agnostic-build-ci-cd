@@ -1,3 +1,4 @@
+import abc
 import enum
 
 import utils.formatted_error
@@ -10,6 +11,18 @@ class ErrorStatus(enum.IntEnum):
     EMPTY_PARSED_ARG = enum.auto()
     ROOT_DIR_NOT_FOUND = enum.auto()
     BUILD_DIR_NOT_FOUND = enum.auto()
+
+
+class EncodedErrorMeta(abc.ABCMeta, type):
+    pass
+
+
+class EncodedError(BaseException, abc.ABC, metaclass=EncodedErrorMeta):
+
+    @staticmethod
+    @abc.abstractmethod
+    def get_error_status():
+        ...
 
 
 class UnknownParsedArgError(TypeError, utils.formatted_error.FormattedError):
