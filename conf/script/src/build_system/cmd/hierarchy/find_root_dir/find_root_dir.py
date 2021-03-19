@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Final
 
-import utils.error.error
+import utils.error.cls_def
 
 VCS_DIR_NAME: Final[str] = '.git'
 
@@ -29,6 +29,6 @@ def find_root_dir() -> Path:
         current_path, last_path = _walk_parent_path(current_path)
 
     if not is_last_path_root_dir:
-        raise utils.error.error.RootDirNotFoundError()
+        raise utils.error.cls_def.RootDirNotFoundError()
 
     return last_path

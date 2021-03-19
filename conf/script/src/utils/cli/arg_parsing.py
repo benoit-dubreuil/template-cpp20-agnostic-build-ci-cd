@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import AnyStr, Optional
 
 import utils.cli.arg
-import utils.error.error
+import utils.error.cls_def
 import utils.error.status
 import utils.error.format
 import utils.more_typing
@@ -17,7 +17,7 @@ def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils.c
 
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
     if len(unknown_parsed_args) > 0:
-        error = utils.error.error.UnknownParsedArgError(unknown_parsed_args)
+        error = utils.error.cls_def.UnknownParsedArgError(unknown_parsed_args)
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
@@ -29,7 +29,7 @@ def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_
 
 def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: utils.more_typing.AnyPath):
     if str(parsed_path) == str():
-        error = utils.error.error.EmptyParsedArgError(path_arg)
+        error = utils.error.cls_def.EmptyParsedArgError(path_arg)
 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
