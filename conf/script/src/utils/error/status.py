@@ -15,7 +15,7 @@ class ErrorStatus(enum.IntEnum):
     BUILD_DIR_NOT_FOUND = enum.auto()
 
 
-class EncodedError(abc.ABC, Exception, metaclass=utils.error.meta.ErrorMeta):
+class EncodedError(Exception, metaclass=utils.error.meta.ErrorMeta):
 
     @staticmethod
     @abc.abstractmethod
