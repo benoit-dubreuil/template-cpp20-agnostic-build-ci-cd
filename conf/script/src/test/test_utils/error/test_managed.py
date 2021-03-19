@@ -23,6 +23,37 @@ class TestManage(unittest.TestCase):
 
         DecoratedError()
 
+    def test_raise_decorated_error(self):
+        @manage
+        class DecoratedError(RuntimeError):
+
+            def __init__(self):
+                super().__init__(str(unittest))
+
+            @staticmethod
+            def get_error_status() -> utils.error.status.ErrorStatus:
+                return utils.error.status.ErrorStatus.UNSUPPORTED
+
+        with self.assertRaises(DecoratedError):
+            raise DecoratedError()
+
+    def test_error_status_of_raised_decorated_error(self):
+        @manage
+        class DecoratedError(RuntimeError):
+
+            def __init__(self):
+                super().__init__(str(unittest))
+
+            @staticmethod
+            def get_error_status() -> utils.error.status.ErrorStatus:
+                return utils.error.status.ErrorStatus.UNSUPPORTED
+
+        with self.assertRaises(DecoratedError) as context_manager:
+            raise DecoratedError()
+
+        raised_exception = context_manager.exception
+        self.assertEqual(raised_exception.get_error_status(), utils.error.status.ErrorStatus.UNSUPPORTED)
+
     def test_decorate_warning(self):
         @manage
         class DecoratedError(RuntimeWarning):
