@@ -20,7 +20,7 @@ def find_build_dir():
     root_dir: AnyPath = utils.cli.arg_parsing.parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
 
     try:
-        build_dir = cmd.hierarchy.find_build_dir.find_build_dir()
+        build_dir = cmd.hierarchy.find_build_dir.find_build_dir(root_dir)
         print(build_dir, end=str())
 
     except (utils.error.cls_def.RootDirNotFoundError, utils.error.cls_def.BuildDirNotFoundError) as raised_error:
