@@ -10,7 +10,7 @@ class ManagedError(abc.ABC, utils.error.status.EncodedError, utils.error.format.
     ...
 
 
-def manage(cls: type, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
+def manage(cls: type = None, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
            encoded_error_status: Optional[utils.error.status.ErrorStatus] = None):
     def decorator_impl(impl_cls, impl_error_formatter_cls):
         # noinspection PyAbstractClass
