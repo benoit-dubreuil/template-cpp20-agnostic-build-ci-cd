@@ -3,10 +3,10 @@ from typing import Union
 
 import utils.cli.error_meta
 import utils.cli.error_status
-import utils.error.format_error
+import utils.error.format
 
 
-class SuccessWarning(UserWarning, utils.cli.error_status.EncodedError, utils.error.format_error.FormattedSuccess, metaclass=utils.cli.error_meta.ErrorMeta):
+class SuccessWarning(UserWarning, utils.cli.error_status.EncodedError, utils.error.format.FormattedSuccess, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self):
         super().__init__('Success')
@@ -16,7 +16,7 @@ class SuccessWarning(UserWarning, utils.cli.error_status.EncodedError, utils.err
         return utils.cli.error_status.ErrorStatus.SUCCESS
 
 
-class ArgParserError(RuntimeError, utils.cli.error_status.EncodedError, utils.error.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class ArgParserError(RuntimeError, utils.cli.error_status.EncodedError, utils.error.format.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self, arg_parser_exception: Union[argparse.ArgumentError, argparse.ArgumentTypeError]):
         error_msg = 'Argument parser error'
@@ -33,7 +33,7 @@ class ArgParserError(RuntimeError, utils.cli.error_status.EncodedError, utils.er
         return utils.cli.error_status.ErrorStatus.ARG_PARSER
 
 
-class UnsupportedError(RuntimeError, utils.cli.error_status.EncodedError, utils.error.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class UnsupportedError(RuntimeError, utils.cli.error_status.EncodedError, utils.error.format.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self):
         super().__init__('Unsupported error')
@@ -43,7 +43,7 @@ class UnsupportedError(RuntimeError, utils.cli.error_status.EncodedError, utils.
         return utils.cli.error_status.ErrorStatus.UNSUPPORTED
 
 
-class UnknownParsedArgError(TypeError, utils.cli.error_status.EncodedError, utils.error.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class UnknownParsedArgError(TypeError, utils.cli.error_status.EncodedError, utils.error.format.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self, unknown_parsed_args: list[str]):
         super().__init__(f"Unsupported argument '{unknown_parsed_args}'")
@@ -53,7 +53,7 @@ class UnknownParsedArgError(TypeError, utils.cli.error_status.EncodedError, util
         return utils.cli.error_status.ErrorStatus.UNKNOWN_PARSED_ARG
 
 
-class EmptyParsedArgError(ValueError, utils.cli.error_status.EncodedError, utils.error.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class EmptyParsedArgError(ValueError, utils.cli.error_status.EncodedError, utils.error.format.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self, arg: str):
         super().__init__(f"'{arg}' argument must be followed by a path string")
@@ -63,7 +63,7 @@ class EmptyParsedArgError(ValueError, utils.cli.error_status.EncodedError, utils
         return utils.cli.error_status.ErrorStatus.EMPTY_PARSED_ARG
 
 
-class RootDirNotFoundError(FileNotFoundError, utils.cli.error_status.EncodedError, utils.error.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class RootDirNotFoundError(FileNotFoundError, utils.cli.error_status.EncodedError, utils.error.format.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self):
         super().__init__('Root directory not found')
@@ -73,7 +73,7 @@ class RootDirNotFoundError(FileNotFoundError, utils.cli.error_status.EncodedErro
         return utils.cli.error_status.ErrorStatus.ROOT_DIR_NOT_FOUND
 
 
-class BuildDirNotFoundError(FileNotFoundError, utils.cli.error_status.EncodedError, utils.error.format_error.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class BuildDirNotFoundError(FileNotFoundError, utils.cli.error_status.EncodedError, utils.error.format.FormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
 
     def __init__(self):
         super().__init__('Build directory not found')
