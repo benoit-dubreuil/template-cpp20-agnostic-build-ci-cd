@@ -13,8 +13,8 @@ class ManagedError(utils.error.status.EncodedError, utils.error.format.BaseForma
 
 class ManageClass:
 
-    def __new__(cls, cls_to_decorate, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
-                encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> Any:
+    def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
+                encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> type:
         # noinspection PyAbstractClass
         class DecoratedManagedErrorAPI(ManagedError, error_formatter_cls, metaclass=utils.error.meta.ErrorMeta):
             if encoded_error_status is not None:
@@ -22,11 +22,20 @@ class ManageClass:
                 def get_error_status() -> utils.error.status.ErrorStatus:
                     return encoded_error_status
 
-        DecoratorModuleSetter = {
-            '__module__': __name__ if cls_to_decorate.__module__ is None else cls_to_decorate.__module__
-        }
+        def create_managed_cls(unmanaged_cls: type) -> type:
+            managed_class_namespace = {
+                '__module__': __name__ if unmanaged_cls.__module__ is None else unmanaged_cls.__module__
+            }
 
-        return types.new_class(cls_to_decorate.__qualname__,
-                               bases=(cls_to_decorate, DecoratedManagedErrorAPI),
-                               kwds={'metaclass': utils.error.meta.ErrorMeta},
-                               exec_body=lambda ns: ns.update(DecoratorModuleSetter))
+            return types.new_class(unmanaged_cls.__qualname__,
+                                   bases=(unmanaged_cls, DecoratedManagedErrorAPI),
+                                   kwds={'metaclass': utils.error.meta.ErrorMeta},
+                                   exec_body=lambda ns: ns.update(managed_class_namespace))
+
+        if decorated_cls is not None:
+            return create_managed_cls(decorated_cls)
+        else:
+            def wrapper(wrapped_decorated_cls):
+                return ManageClass(wrapped_decorated_cls, error_formatter_cls, encoded_error_status)
+
+            return wrapper
