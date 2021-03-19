@@ -1,4 +1,5 @@
 from configparser import ConfigParser
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
@@ -6,17 +7,14 @@ from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.os_family import OSFamily
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
 from build_system.compiler.version import CompilerVersion
-from utils.auto_print import auto_repr, auto_str
 from utils.file_path_integrity import assure_file_path_integrity
 
 
-@auto_repr
-@auto_str
+@dataclass(order=True, frozen=True)
 class CompilerReqs:
-    def __init__(self, compiler_family: CompilerFamily, os_families: list[OSFamily], version: CompilerVersion):
-        self.compiler = compiler_family
-        self.os_families = os_families
-        self.version = version
+    compiler: CompilerFamily
+    os_families: list[OSFamily]
+    version: CompilerVersion
 
     @staticmethod
     def get_default_compiler_reqs_file_path() -> Path:
