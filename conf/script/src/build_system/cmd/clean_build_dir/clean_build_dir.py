@@ -2,8 +2,8 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-import utils.error.cls_def
 import build_system.cmd.hierarchy.find_build_dir
+import utils.error.cls_def
 from build_system import cmd
 
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
+import build_system.cmd.compiler.host.get_info.version.gnu.cli
 import utils.cli.main
 from build_system.compiler.family import CompilerFamily
-import build_system.cmd.compiler.host.get_info.version.gnu.cli
 
 
 def main():
