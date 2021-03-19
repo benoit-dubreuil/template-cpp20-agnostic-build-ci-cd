@@ -22,10 +22,11 @@ class ManageClass:
                 def get_error_status() -> utils.error.status.ErrorStatus:
                     return encoded_error_status
 
-        def populate_namespace(namespace):
-            return namespace
+        DecoratorModuleSetter = {
+            '__module__': __name__ if cls_to_decorate.__module__ is None else cls_to_decorate.__module__
+        }
 
-        return types.new_class(cls_to_decorate.__name__,
-                               (cls_to_decorate, DecoratedManagedErrorAPI),
-                               {'metaclass': utils.error.meta.ErrorMeta},
-                               populate_namespace)
+        return types.new_class(cls_to_decorate.__qualname__,
+                               bases=(cls_to_decorate, DecoratedManagedErrorAPI),
+                               kwds={'metaclass': utils.error.meta.ErrorMeta},
+                               exec_body=lambda ns: ns.update(DecoratorModuleSetter))
