@@ -1,6 +1,6 @@
 import abc
 import types
-from typing import Optional, Type
+from typing import Optional, Type, Union, Callable
 
 import utils.error.format
 import utils.error.meta
@@ -14,7 +14,7 @@ class ManagedError(utils.error.status.EncodedError, utils.error.format.BaseForma
 class ManageClass:
 
     def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
-                encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> type:
+                encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> Union[type, Callable[[Optional[type]], type]]:
         # noinspection PyAbstractClass
         class DecoratedManagedErrorAPI(ManagedError, error_formatter_cls, metaclass=utils.error.meta.ErrorMeta):
             if encoded_error_status is not None:
