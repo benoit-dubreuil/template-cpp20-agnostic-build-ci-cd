@@ -1,7 +1,7 @@
 import abc
 import enum
 
-import utils.error.error_meta
+import utils.error.meta
 
 
 @enum.unique
@@ -15,7 +15,7 @@ class ErrorStatus(enum.IntEnum):
     BUILD_DIR_NOT_FOUND = enum.auto()
 
 
-class EncodedError(abc.ABC, Exception, metaclass=utils.error.error_meta.ErrorMeta):
+class EncodedError(abc.ABC, Exception, metaclass=utils.error.meta.ErrorMeta):
 
     @staticmethod
     @abc.abstractmethod
