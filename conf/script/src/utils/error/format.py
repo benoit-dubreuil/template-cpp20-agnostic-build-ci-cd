@@ -3,7 +3,7 @@ from typing import AnyStr
 
 import colorama
 
-import utils.cli.error_meta
+import utils.error.error_meta
 
 
 def format_error_msg(message: AnyStr) -> AnyStr:
@@ -14,7 +14,7 @@ def format_success_msg(message: AnyStr) -> AnyStr:
     return colorama.Style.BRIGHT + colorama.Fore.GREEN + message + colorama.Style.RESET_ALL
 
 
-class BaseFormattedError(abc.ABC, Exception, metaclass=utils.cli.error_meta.ErrorMeta):
+class BaseFormattedError(abc.ABC, Exception, metaclass=utils.error.error_meta.ErrorMeta):
 
     def __init__(self, message: str, *args):
         super().__init__(self._format_msg(message), *args)
