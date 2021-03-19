@@ -1,5 +1,5 @@
 import argparse
-from typing import Union
+from typing import Optional, Union
 
 import utils.error.format
 import utils.error.managed
@@ -30,8 +30,17 @@ class ArgParserError(RuntimeError):
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.UNSUPPORTED)
 class UnsupportedError(RuntimeError):
 
-    def __init__(self):
+    def __init__(self, original_raised_error: Optional[BaseException] = None):
+        error_msg = 'Unsupported error'
+
+        if original_raised_error is not None:
+            error_msg += '\n'
+            error_msg += str(original_raised_error)
+
         super().__init__('Unsupported error')
+
+        if original_raised_error is not None:
+            self.with_traceback(original_raised_error.__traceback__)
 
 
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.UNKNOWN_PARSED_ARG)
