@@ -1,7 +1,6 @@
 import abc
-import functools
 
-from typing import Optional, Type
+from typing import Optional, Type, Callable
 
 import utils.error.format
 import utils.error.meta
@@ -12,17 +11,24 @@ class ManagedError(utils.error.status.EncodedError, utils.error.format.BaseForma
     ...
 
 
-def manage(cls: type = None, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
-           encoded_error_status: Optional[utils.error.status.ErrorStatus] = None):
-    @functools.wraps(cls)
-    def decorator_impl(impl_cls, impl_error_formatter_cls):
-        # noinspection PyAbstractClass
-        class NewlyManagedError(impl_cls, ManagedError, impl_error_formatter_cls, metaclass=utils.error.meta.ErrorMeta):
-            if encoded_error_status is not None:
-                @staticmethod
-                def get_error_status() -> utils.error.status.ErrorStatus:
-                    return encoded_error_status
+class ManageClass:
 
-        return NewlyManagedError
+    def __init__(self, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
+                 encoded_error_status: Optional[utils.error.status.ErrorStatus] = None):
+        self.error_formatter_cls = error_formatter_cls
 
-    return decorator_impl(cls, error_formatter_cls)
+        if [encoded_error_status is not None]:
+            self.encoded_error_status = encoded_error_status
+
+    def __call__(self, cls) -> Callable[[], type]:
+        def inner_cls():
+            # noinspection PyAbstractClass
+            class DecoratedManagedError(cls, ManagedError, self.error_formatter_cls, metaclass=utils.error.meta.ErrorMeta):
+                if hasattr(self, 'encoded_error_status'):
+                    @staticmethod
+                    def get_error_status() -> utils.error.status.ErrorStatus:
+                        return self.encoded_error_status
+
+            return DecoratedManagedError
+
+        return inner_cls

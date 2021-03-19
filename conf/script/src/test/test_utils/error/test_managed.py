@@ -5,13 +5,13 @@ import unittest
 import utils.cli.main
 import utils.error.format
 import utils.error.status
-from utils.error.managed import manage
+from utils.error.managed import ManageClass
 
 
 class TestManage(unittest.TestCase):
 
     def test_decorate_error(self):
-        @manage
+        @ManageClass
         class DecoratedError(RuntimeError):
 
             def __init__(self):
@@ -24,7 +24,7 @@ class TestManage(unittest.TestCase):
         DecoratedError()
 
     def test_raise_decorated_error(self):
-        @manage
+        @ManageClass
         class DecoratedError(RuntimeError):
 
             def __init__(self):
@@ -38,7 +38,7 @@ class TestManage(unittest.TestCase):
             raise DecoratedError()
 
     def test_error_status_of_raised_decorated_error(self):
-        @manage
+        @ManageClass
         class DecoratedError(RuntimeError):
 
             def __init__(self):
@@ -55,7 +55,7 @@ class TestManage(unittest.TestCase):
         self.assertEqual(raised_exception.get_error_status(), utils.error.status.ErrorStatus.UNSUPPORTED)
 
     def test_decorate_warning(self):
-        @manage
+        @ManageClass
         class DecoratedError(RuntimeWarning):
 
             def __init__(self):
@@ -68,7 +68,7 @@ class TestManage(unittest.TestCase):
         DecoratedError()
 
     def test_decorate_success_with_formatter(self):
-        @manage(error_formatter_cls=utils.error.format.FormattedSuccess)
+        @ManageClass(error_formatter_cls=utils.error.format.FormattedSuccess)
         class DecoratedError(UserWarning):
 
             def __init__(self):
@@ -81,7 +81,7 @@ class TestManage(unittest.TestCase):
         DecoratedError()
 
     def test_decorate_success_with_formatter_and_status(self):
-        @manage(error_formatter_cls=utils.error.format.FormattedSuccess, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
+        @ManageClass(error_formatter_cls=utils.error.format.FormattedSuccess, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
         class DecoratedError(UserWarning):
 
             def __init__(self):
