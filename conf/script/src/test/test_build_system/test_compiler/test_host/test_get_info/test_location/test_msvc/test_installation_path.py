@@ -4,7 +4,8 @@ import unittest
 from unittest import mock
 from unittest.mock import MagicMock
 
-from build_system.compiler.host.get_info.location.msvc import installation_path
+import utils.cli.main
+from build_system.cmd.compiler.host.get_info.location.msvc import installation_path
 
 
 class TestFind(unittest.TestCase):
@@ -17,3 +18,7 @@ class TestFind(unittest.TestCase):
         mock_vswhere.find_first.assert_called_once_with(latest=True, prerelease=True, products=installation_path._ALL_PRODUCTS, prop=installation_path._PROP_INSTALLATION_PATH,
                                                         requires=installation_path._DEFAULT_REQUIRES)
         self.assertIsNone(result)
+
+
+if utils.cli.main.is_caller_main():
+    unittest.main()

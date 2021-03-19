@@ -1,30 +1,22 @@
 import argparse
-from typing import Final
 
-import build_system.cmd.hierarchy.find_root_dir
-import build_system.cmd.hierarchy.find_root_dir.cli
+import utils.error.cls_def
+import utils.error.managed
+import utils.error.status
 from build_system import cmd
-
-ANY_BUILD_DIR_NOT_FOUND_ERROR_STATUS: Final[int] = 1 + cmd.hierarchy.find_root_dir.cli.ROOT_NOT_FOUND_ERROR_STATUS
-UNSUPPORTED_ERROR_STATUS: Final[int] = 1 + ANY_BUILD_DIR_NOT_FOUND_ERROR_STATUS
 
 
 def clean_build_dir():
     arg_parser = argparse.ArgumentParser(
         description=f"Cleans the project's build folder, where the build system organizes into subfolders specific builds.")
 
-    root_dir = None
-
     try:
-        try:
-            root_dir = cmd.hierarchy.find_root_dir.find_root_dir()
-        except FileNotFoundError as raised_exception:
-            arg_parser.exit(cmd.hierarchy.find_root_dir.cli.ROOT_NOT_FOUND_ERROR_STATUS, str(raised_exception))
+        cmd.clean_build_dir.clean_build_dir()
 
-        try:
-            cmd.clean_build_dir.clean_build_dir(root_dir)
-        except FileNotFoundError as raised_exception:
-            arg_parser.exit(ANY_BUILD_DIR_NOT_FOUND_ERROR_STATUS, str(raised_exception))
+    except (utils.error.cls_def.RootDirNotFoundError, utils.error.cls_def.BuildDirNotFoundError) as raised_error:
+        raised_error.raise_or_exit_cli(arg_parser)
 
-    except OSError as raised_exception:
-        arg_parser.exit(UNSUPPORTED_ERROR_STATUS, str(raised_exception))
+    except OSError as raised_error:
+        if not isinstance(raised_error, utils.error.managed.ManagedError):
+            unsupported_error = utils.error.cls_def.UnsupportedError(raised_error)
+            unsupported_error.raise_or_exit_cli(arg_parser)
