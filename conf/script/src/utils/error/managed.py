@@ -8,6 +8,7 @@ import utils.error.meta
 import utils.error.status
 
 
+# noinspection PyAbstractClass
 class ManagedError(utils.error.status.EncodedError, utils.error.cli_exit.ExitCLIError, utils.error.format.BaseFormattedError, metaclass=utils.error.meta.ErrorMeta):
     ...
 
