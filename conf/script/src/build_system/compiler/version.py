@@ -1,12 +1,12 @@
+from dataclasses import dataclass
+
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
-from utils.auto_print import auto_repr
 
 
-@auto_repr
+@dataclass(order=True, frozen=True)
 class CompilerVersion:
-    def __init__(self, major: int, minor: int = 0):
-        self.major = major
-        self.minor = minor
+    major: int
+    minor: int = 0
 
     def __str__(self) -> str:
         return '%u%s%u' % (self.major, self.get_separator(), self.minor)
