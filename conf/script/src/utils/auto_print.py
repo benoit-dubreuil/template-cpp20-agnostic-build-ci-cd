@@ -1,3 +1,5 @@
+# Consider using the dataclasses package
+
 # From https://stackoverflow.com/a/33800620/2924010
 def auto_repr(cls):
     def __repr__(self):
