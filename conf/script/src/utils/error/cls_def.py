@@ -60,3 +60,10 @@ class BuildDirNotFoundError(FileNotFoundError):
 
     def __init__(self):
         super().__init__('Build directory not found')
+
+
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_NOT_FOUND)
+class CompilerNotFoundError(FileNotFoundError):
+
+    def __init__(self):
+        super().__init__('Compiler at the supplied path does not exist or requires ungranted permissions')
