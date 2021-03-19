@@ -5,7 +5,7 @@ from typing import AnyStr, Optional
 
 import utils.cli.arg
 import utils.cli.error
-import utils.error.error_status
+import utils.error.status
 import utils.error.format
 import utils.more_typing
 
@@ -22,7 +22,7 @@ def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
             arg_parser.print_usage(sys.stderr)
-            arg_parser.exit(utils.error.error_status.ErrorStatus.UNKNOWN_PARSED_ARG, str(error))
+            arg_parser.exit(utils.error.status.ErrorStatus.UNKNOWN_PARSED_ARG, str(error))
         else:
             raise error
 
@@ -34,7 +34,7 @@ def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: 
         # noinspection PyUnresolvedReferences
         if arg_parser.exit_on_error:
             arg_parser.print_usage(sys.stderr)
-            arg_parser.exit(utils.error.error_status.ErrorStatus.EMPTY_PARSED_ARG, str(error))
+            arg_parser.exit(utils.error.status.ErrorStatus.EMPTY_PARSED_ARG, str(error))
         else:
             raise error
 
