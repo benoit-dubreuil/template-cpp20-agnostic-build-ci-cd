@@ -6,7 +6,7 @@ import utils.error.meta
 import utils.error.status
 
 
-class ManagedError(Exception, utils.error.status.EncodedError, utils.error.format.BaseFormattedError, metaclass=utils.error.meta.ErrorMeta):
+class ManagedError(utils.error.status.EncodedError, utils.error.format.BaseFormattedError, metaclass=utils.error.meta.ErrorMeta):
     ...
 
 
