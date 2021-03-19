@@ -1,4 +1,6 @@
 import abc
+import functools
+
 from typing import Optional, Type
 
 import utils.error.format
@@ -12,6 +14,7 @@ class ManagedError(utils.error.status.EncodedError, utils.error.format.BaseForma
 
 def manage(cls: type = None, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
            encoded_error_status: Optional[utils.error.status.ErrorStatus] = None):
+    @functools.wraps(cls)
     def decorator_impl(impl_cls, impl_error_formatter_cls):
         # noinspection PyAbstractClass
         class NewlyManagedError(impl_cls, ManagedError, impl_error_formatter_cls, metaclass=utils.error.meta.ErrorMeta):
