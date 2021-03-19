@@ -20,9 +20,9 @@ def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_
         error.raise_or_exit_cli(arg_parser, print_usage=True)
 
 
-def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: utils.more_typing.AnyPath):
+def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg_name: str, parsed_path: utils.more_typing.AnyPath):
     if str(parsed_path) == str():
-        error = utils.error.cls_def.EmptyParsedArgError(path_arg)
+        error = utils.error.cls_def.EmptyParsedArgError(path_arg_name)
         error.raise_or_exit_cli(arg_parser, print_usage=True)
 
 
@@ -30,7 +30,7 @@ def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils
     parsed_args, unknown_parsed_args = arg_parser.parse_known_args([path_arg.prefixed_name])
 
     _assure_no_unknown_parsed_args(arg_parser, unknown_parsed_args)
-    parsed_path: utils.more_typing.AnyPath = getattr(parsed_args, path_arg.prefixed_name) if path_arg.prefixed_name in parsed_args else None
-    _assure_nonempty_parsed_path(arg_parser, path_arg.prefixed_name, parsed_path)
+    parsed_path: utils.more_typing.AnyPath = getattr(parsed_args, path_arg.name) if path_arg.name in parsed_args else None
+    _assure_nonempty_parsed_path(arg_parser, path_arg.name, parsed_path)
 
     return parsed_path
