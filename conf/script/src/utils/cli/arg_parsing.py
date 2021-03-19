@@ -1,5 +1,4 @@
 import argparse
-import sys
 from pathlib import Path
 from typing import AnyStr, Optional
 
@@ -18,23 +17,13 @@ def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils.c
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
     if len(unknown_parsed_args) > 0:
         error = utils.error.cls_def.UnknownParsedArgError(unknown_parsed_args)
-
-        # noinspection PyUnresolvedReferences
-        if arg_parser.exit_on_error:
-            error.exit_cli(arg_parser, print_usage=True)
-        else:
-            raise error
+        error.raise_or_exit_cli(arg_parser, print_usage=True)
 
 
 def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg: str, parsed_path: utils.more_typing.AnyPath):
     if str(parsed_path) == str():
         error = utils.error.cls_def.EmptyParsedArgError(path_arg)
-
-        # noinspection PyUnresolvedReferences
-        if arg_parser.exit_on_error:
-            error.exit_cli(arg_parser, print_usage=True)
-        else:
-            raise error
+        error.raise_or_exit_cli(arg_parser, print_usage=True)
 
 
 def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils.cli.arg.CLIArg = utils.cli.arg.DEFAULT_PATH_ARG) -> utils.more_typing.AnyPath:
