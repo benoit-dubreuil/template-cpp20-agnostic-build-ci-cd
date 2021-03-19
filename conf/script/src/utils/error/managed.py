@@ -5,9 +5,10 @@ from typing import Optional, Type, Union, Callable
 import utils.error.format
 import utils.error.meta
 import utils.error.status
+import utils.error.cli_exit
 
 
-class ManagedError(utils.error.status.EncodedError, utils.error.format.BaseFormattedError, metaclass=utils.error.meta.ErrorMeta):
+class ManagedError(utils.error.status.EncodedError, utils.error.cli_exit.ExitCLIErrorMixin, utils.error.format.BaseFormattedError, metaclass=utils.error.meta.ErrorMeta):
     ...
 
 
