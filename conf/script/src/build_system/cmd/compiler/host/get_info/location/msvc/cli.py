@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
+import build_system.cmd.compiler.host.get_info.location.msvc.installation_path
 from build_system.compiler.family import CompilerFamily
 from build_system.cmd.compiler.host.get_info import location
 from build_system.cmd.compiler.host.get_info.cli import cli_fetch_compiler_info
@@ -13,7 +14,7 @@ def error_compiler_not_found() -> NoReturn:
 
 
 def _find_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[Path, NoReturn]:
-    compiler_installation_path: Optional[Path] = location.msvc.find(compiler_installation_path)
+    compiler_installation_path: Optional[Path] = location.msvc.installation_path.find(compiler_installation_path)
 
     if compiler_installation_path is None:
         error_compiler_not_found()

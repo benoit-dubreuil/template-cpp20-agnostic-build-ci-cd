@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
+import build_system.cmd.compiler.host.get_info.location.msvc.cli
 from build_system.compiler.family import CompilerFamily
 from build_system.cmd.compiler.host.get_info import version
 from build_system.cmd.compiler.host.get_info import cli
