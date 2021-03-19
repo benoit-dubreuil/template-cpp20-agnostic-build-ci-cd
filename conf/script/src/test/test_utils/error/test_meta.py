@@ -9,6 +9,18 @@ from utils.error.meta import ErrorMeta
 
 class TestErrorMeta(unittest.TestCase):
 
+    def test_is_instance(self):
+        self.assertIsInstance(ErrorMeta, type)
+        self.assertNotIsInstance(ErrorMeta, abc.ABCMeta)
+
+    def test_impl_is_instance(self):
+        class ErrorMetaImpl(metaclass=ErrorMeta):
+            ...
+
+        self.assertIsInstance(ErrorMetaImpl, type)
+        self.assertIsInstance(ErrorMetaImpl, abc.ABCMeta)
+        self.assertIsInstance(ErrorMetaImpl(), ErrorMetaImpl)
+
     def test_impl_extends_exception(self):
         class ErrorMetaImpl(Exception, metaclass=ErrorMeta):
             ...
