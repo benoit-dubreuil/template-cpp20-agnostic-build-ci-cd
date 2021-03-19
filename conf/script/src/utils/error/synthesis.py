@@ -2,7 +2,7 @@ from typing import Final, Type
 
 import utils.error.cls_def
 import utils.error.status
-import utils.error.manage
+import utils.error.managed
 
 ALL_ERRORS: Final[list[Type[utils.cli.managed_error.ManagedError]]] = [
     utils.error.cls_def.SuccessWarning,
