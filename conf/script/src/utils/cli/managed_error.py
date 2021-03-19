@@ -2,11 +2,11 @@ import abc
 from typing import Type
 
 import utils.cli.error_meta
-import utils.cli.error_status
+import utils.error.error_status
 import utils.error.format
 
 
-class ManagedError(abc.ABC, utils.cli.error_status.EncodedError, utils.error.format.BaseFormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
+class ManagedError(abc.ABC, utils.error.error_status.EncodedError, utils.error.format.BaseFormattedError, metaclass=utils.cli.error_meta.ErrorMeta):
     ...
 
 
