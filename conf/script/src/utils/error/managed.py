@@ -1,14 +1,14 @@
 import abc
 import types
-from typing import Optional, Type, Union, Callable
+from typing import Callable, Optional, Type, Union
 
+import utils.error.cli_exit
 import utils.error.format
 import utils.error.meta
 import utils.error.status
-import utils.error.cli_exit
 
 
-class ManagedError(utils.error.status.EncodedError, utils.error.cli_exit.ExitCLIErrorMixin, utils.error.format.BaseFormattedError, metaclass=utils.error.meta.ErrorMeta):
+class ManagedError(utils.error.status.EncodedError, utils.error.cli_exit.ExitCLIError, utils.error.format.BaseFormattedError, metaclass=utils.error.meta.ErrorMeta):
     ...
 
 

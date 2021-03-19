@@ -5,7 +5,7 @@ import utils.error.meta
 import utils.error.status
 
 
-class ExitCLIErrorMixin(metaclass=utils.error.meta.ErrorMeta):
+class ExitCLIError(metaclass=utils.error.meta.ErrorMeta):
 
     def exit_cli(self, arg_parser: argparse.ArgumentParser, print_usage: bool = False) -> None:
         assert isinstance(self, utils.error.status.EncodedError)
