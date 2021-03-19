@@ -1,10 +1,9 @@
-from typing import Final, Type
+from typing import Final
 
 import utils.error.cls_def
-import utils.error.managed
 import utils.error.status
 
-ALL_ERRORS: Final[list[Type[utils.error.managed.ManagedError]]] = [
+ALL_ERRORS: Final = [
     utils.error.cls_def.SuccessWarning,
     utils.error.cls_def.UnsupportedError,
     utils.error.cls_def.ArgParserError,
@@ -14,5 +13,4 @@ ALL_ERRORS: Final[list[Type[utils.error.managed.ManagedError]]] = [
     utils.error.cls_def.BuildDirNotFoundError,
 ]
 
-ALL_ERRORS_BY_STATUS: Final[dict[utils.error.status.ErrorStatus, Type[utils.error.managed.ManagedError]]] = {status: ALL_ERRORS[status] for status in
-                                                                                                             utils.error.status.ErrorStatus}
+ALL_ERRORS_BY_STATUS: Final = {status: ALL_ERRORS[status] for status in utils.error.status.ErrorStatus}
