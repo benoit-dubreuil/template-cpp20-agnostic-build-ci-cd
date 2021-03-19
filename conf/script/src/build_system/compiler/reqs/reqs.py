@@ -7,7 +7,6 @@ from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.os_family import OSFamily
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
 from build_system.compiler.version import CompilerVersion
-from utils.file_path_integrity import assure_file_path_integrity
 
 
 @dataclass(order=True, frozen=True)
@@ -27,7 +26,7 @@ class CompilerReqs:
     @classmethod
     def create_all_from_file(cls, file_path: Path = None) -> dict[CompilerFamily, 'CompilerReqs']:
         file_path = cls._check_file_path_for_default_param(file_path)
-        assure_file_path_integrity(file_path)
+        cls.assure_file_path_integrity(file_path)
 
         config = ConfigParser(converters=cls._get_config_parser_converters())
         config.read(file_path)
@@ -70,3 +69,10 @@ class CompilerReqs:
     @staticmethod
     def _filter_config_default_section(config: ConfigParser):
         return list(config.items())[1:]
+
+    @staticmethod
+    def assure_file_path_integrity(file_path: Path):
+        if not file_path.exists() or not file_path.is_file():
+            if file_path.is_dir():
+                raise IsADirectoryError()
+            raise FileNotFoundError()
