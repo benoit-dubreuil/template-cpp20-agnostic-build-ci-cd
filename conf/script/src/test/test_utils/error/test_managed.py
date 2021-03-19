@@ -10,6 +10,19 @@ from utils.error.managed import manage
 
 class TestManage(unittest.TestCase):
 
+    def test_decorate_error(self):
+        @manage
+        class DecoratedError(RuntimeError):
+
+            def __init__(self):
+                super().__init__(str(unittest))
+
+            @staticmethod
+            def get_error_status() -> utils.error.status.ErrorStatus:
+                return utils.error.status.ErrorStatus.UNSUPPORTED
+
+        DecoratedError()
+
     def test_decorate_warning(self):
         @manage
         class DecoratedError(RuntimeWarning):
