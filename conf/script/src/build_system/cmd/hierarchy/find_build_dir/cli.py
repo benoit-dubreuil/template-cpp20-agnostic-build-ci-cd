@@ -4,6 +4,7 @@ from typing import Final
 import utils.cli.arg
 import utils.cli.arg_parsing
 import utils.error.cls_def
+import utils.error.managed
 import utils.error.status
 from build_system import cmd
 from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
@@ -22,11 +23,10 @@ def find_build_dir():
         build_dir = cmd.hierarchy.find_build_dir.find_build_dir()
         print(build_dir, end=str())
 
-    except utils.error.cls_def.RootDirNotFoundError as raised_exception:
-        arg_parser.exit(utils.error.status.ErrorStatus.ROOT_DIR_NOT_FOUND, str(raised_exception))
+    except (utils.error.cls_def.RootDirNotFoundError, utils.error.cls_def.BuildDirNotFoundError) as raised_error:
+        raised_error.raise_or_exit_cli(arg_parser)
 
-    except utils.error.cls_def.BuildDirNotFoundError as raised_exception:
-        arg_parser.exit(utils.error.status.ErrorStatus.BUILD_DIR_NOT_FOUND, str(raised_exception))
-
-    except OSError as raised_exception:
-        arg_parser.exit(utils.error.status.ErrorStatus.UNSUPPORTED, str(raised_exception))
+    except OSError as raised_error:
+        if not isinstance(raised_error, utils.error.managed.ManagedError):
+            unsupported_error = utils.error.cls_def.UnsupportedError(raised_error)
+            unsupported_error.raise_or_exit_cli(arg_parser)
