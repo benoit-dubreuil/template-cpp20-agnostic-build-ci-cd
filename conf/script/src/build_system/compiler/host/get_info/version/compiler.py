@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import AnyStr, Callable
 
 import utils.cmd_integrity
+import utils.error.cls_def
 from build_system.compiler.version import CompilerVersion
 
 
@@ -11,7 +12,7 @@ def assure_path_integrity(compiler_path: Path) -> None:
     :param compiler_path: The path to the compiler executable file. It must not be a directory.
     """
     if not utils.cmd_integrity.cmd_exists(str(compiler_path)):
-        raise FileNotFoundError('Compiler at the supplied path does not exist or requires ungranted permissions')
+        raise utils.error.cls_def.CompilerNotFoundError()
 
 
 def interpret_fetched_version(compiler_version_str: AnyStr) -> CompilerVersion:
