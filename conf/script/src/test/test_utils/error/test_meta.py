@@ -15,6 +15,20 @@ class TestErrorMeta(unittest.TestCase):
 
         ErrorMetaImpl()
 
+    def test_impl_extends_abc_exception_abstractmethod(self):
+        class ErrorMetaImplParent(abc.ABC, Exception, metaclass=ErrorMeta):
+
+            @abc.abstractmethod
+            def dummy(self):
+                ...
+
+        class ErrorMetaImplChild(ErrorMetaImplParent, metaclass=ErrorMeta):
+
+            def dummy(self):
+                ...
+
+        ErrorMetaImplChild()
+
 
 if utils.cli.main.is_caller_main():
     unittest.main()
