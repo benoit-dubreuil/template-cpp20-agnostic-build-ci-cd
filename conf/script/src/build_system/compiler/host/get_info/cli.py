@@ -18,8 +18,8 @@ def cli_fetch_compiler_info(compiler_family: CompilerFamily, fetch_compiler_info
     try:
         compiler_info = fetch_compiler_info_func(compiler_path)
         print(compiler_info, end=str())
-    except utils.error.cls_def.CompilerNotFoundError as exception:
-        exception.raise_or_exit_cli(arg_parser)
+    except utils.error.cls_def.CompilerNotFoundError as raised_error:
+        raised_error.raise_or_exit_cli(arg_parser)
 
 
 def cli_fetch_compiler_info_with_default_path(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
