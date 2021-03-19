@@ -5,7 +5,7 @@ from unittest import mock
 from unittest.mock import MagicMock
 
 import utils.cli.main
-from build_system.compiler.host.get_info.location.msvc import installation_path
+from build_system.cmd.compiler.host.get_info.location.msvc import installation_path
 
 
 class TestFind(unittest.TestCase):

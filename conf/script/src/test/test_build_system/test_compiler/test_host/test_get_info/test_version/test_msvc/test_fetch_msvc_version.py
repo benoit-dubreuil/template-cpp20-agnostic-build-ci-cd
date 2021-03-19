@@ -6,7 +6,7 @@ from unittest import mock
 from unittest.mock import MagicMock
 
 import utils.cli.main
-from build_system.compiler.host.get_info.version.msvc import fetch_msvc_version
+from build_system.cmd.compiler.host.get_info.version.msvc import fetch_msvc_version
 
 
 class TestFetch(unittest.TestCase):

@@ -2,8 +2,8 @@ from pathlib import Path
 from typing import NoReturn, Optional, Union
 
 from build_system.compiler.family import CompilerFamily
-from build_system.compiler.host.get_info import location
-from build_system.compiler.host.get_info.cli import cli_fetch_compiler_info
+from build_system.cmd.compiler.host.get_info import location
+from build_system.cmd.compiler.host.get_info.cli import cli_fetch_compiler_info
 from utils.error.format import format_error_msg
 
 
