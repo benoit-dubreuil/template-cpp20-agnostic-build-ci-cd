@@ -6,7 +6,7 @@ import utils.error.managed
 import utils.error.status
 
 
-@utils.error.managed.ManageClass(error_formatter_cls=utils.error.format.FormattedSuccess, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
+@utils.error.managed.ManageClass(error_formatter_cls=utils.error.format.FormattedSuccessMixin, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
 class SuccessWarning(UserWarning):
 
     def __init__(self):

@@ -16,7 +16,7 @@ class ErrorStatus(enum.IntEnum):
     COMPILER_NOT_FOUND = enum.auto()
 
 
-class EncodedError(metaclass=utils.error.meta.ErrorMeta):
+class EncodedErrorMixin(metaclass=utils.error.meta.ErrorMeta):
 
     @staticmethod
     @abc.abstractmethod

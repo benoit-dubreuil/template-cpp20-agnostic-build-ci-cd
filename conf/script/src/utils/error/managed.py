@@ -9,16 +9,16 @@ import utils.error.status
 
 
 # noinspection PyAbstractClass
-class ManagedError(utils.error.status.EncodedError, utils.error.cli_exit.ExitCLIError, utils.error.format.BaseFormattedError, metaclass=utils.error.meta.ErrorMeta):
-    ...
+class ManagedErrorMixin(utils.error.status.EncodedErrorMixin, utils.error.cli_exit.ExitCLIErrorMixin, utils.error.format.BaseFormattedErrorMixin,
+                        metaclass=utils.error.meta.ErrorMeta):
 
 
 class ManageClass:
 
-    def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
+    def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedErrorMixin] = utils.error.format.FormattedErrorMixin,
                 encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> Union[type, Callable[[Optional[type]], type]]:
         # noinspection PyAbstractClass
-        class DecoratedManagedErrorAPI(ManagedError, error_formatter_cls):
+        class DecoratedManagedErrorAPIMixin(ManagedErrorMixin, error_formatter_cls):
             if encoded_error_status is not None:
                 @staticmethod
                 def get_error_status() -> utils.error.status.ErrorStatus:

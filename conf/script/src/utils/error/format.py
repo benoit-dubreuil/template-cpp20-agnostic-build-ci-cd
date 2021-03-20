@@ -14,7 +14,7 @@ def format_success_msg(message: AnyStr) -> AnyStr:
     return colorama.Style.BRIGHT + colorama.Fore.GREEN + message + colorama.Style.RESET_ALL
 
 
-class BaseFormattedError(Exception, metaclass=utils.error.meta.ErrorMeta):
+class BaseFormattedErrorMixin(metaclass=utils.error.meta.ErrorMeta):
 
     def __init__(self, message: str, *args):
         super().__init__(self._format_msg(message), *args)
@@ -25,14 +25,14 @@ class BaseFormattedError(Exception, metaclass=utils.error.meta.ErrorMeta):
         ...
 
 
-class FormattedError(BaseFormattedError):
+class FormattedErrorMixin(BaseFormattedErrorMixin):
 
     @staticmethod
     def _format_msg(message: str) -> str:
         return format_error_msg(message)
 
 
-class FormattedSuccess(BaseFormattedError):
+class FormattedSuccessMixin(BaseFormattedErrorMixin):
 
     @staticmethod
     def _format_msg(message: str) -> str:
