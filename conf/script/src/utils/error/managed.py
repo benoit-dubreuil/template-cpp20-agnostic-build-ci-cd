@@ -18,7 +18,7 @@ class ManageClass:
     def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedErrorMixin] = utils.error.format.FormattedErrorMixin,
                 encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> Union[type, Callable[[Optional[type]], type]]:
         # noinspection PyAbstractClass
-        class DecoratedManagedErrorAPIMixin(ManagedErrorMixin, error_formatter_cls):
+        class DecoratedManagedErrorAPIMixin(error_formatter_cls, ManagedErrorMixin):
             if encoded_error_status is not None:
                 @staticmethod
                 def get_error_status() -> utils.error.status.ErrorStatus:
