@@ -16,12 +16,8 @@ def format_success_msg(message: AnyStr) -> AnyStr:
 
 class BaseFormattedErrorMixin(metaclass=utils.error.meta.ErrorMeta):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def __str__(self) -> str:
-        error_msg = super().__str__()
-        return self._format_msg(error_msg)
+    def __init__(self, message: str, *args):
+        super().__init__(self._format_msg(message), *args)
 
     @staticmethod
     @abc.abstractmethod
