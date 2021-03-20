@@ -3,11 +3,12 @@ import argparse
 import utils.error.cls_def
 import utils.error.managed
 from build_system import cmd
+from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
 
 
 def setup():
     arg_parser = argparse.ArgumentParser(
-        description=f"Creates the build folder and setup specific build system builds inside.")
+        description=f"Creates the {BUILD_DIR_NAME} folder and setup specific build system builds inside.")
 
     try:
         cmd.setup.setup()

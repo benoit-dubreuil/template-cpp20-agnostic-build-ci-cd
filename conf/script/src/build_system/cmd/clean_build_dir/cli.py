@@ -3,11 +3,12 @@ import argparse
 import utils.error.cls_def
 import utils.error.managed
 from build_system import cmd
+from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
 
 
 def clean_build_dir():
     arg_parser = argparse.ArgumentParser(
-        description=f"Cleans the project's build folder, where the build system organizes into subfolders specific builds.")
+        description=f"Cleans the project's {BUILD_DIR_NAME} folder, where the build system organizes into subfolders specific builds.")
 
     try:
         cmd.clean_build_dir.clean_build_dir()
