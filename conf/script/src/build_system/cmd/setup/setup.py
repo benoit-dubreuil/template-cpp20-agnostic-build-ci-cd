@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import platform
 import sys
 from typing import Final
@@ -61,5 +59,6 @@ def generate_all_build_dir_names() -> list[str]:
     return build_dir_names
 
 
-all_build_dir_names = generate_all_build_dir_names()
-print(*all_build_dir_names, sep='\n', end=str())
+def setup():
+    all_build_dir_names = generate_all_build_dir_names()
+    print(*all_build_dir_names, sep='\n', end=str())
