@@ -5,7 +5,6 @@ import utils.cli.arg
 import utils.cli.arg_parsing
 import utils.error.cls_def
 import utils.error.managed
-import utils.error.status
 from build_system import cmd
 from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
 from utils.more_typing import AnyPath

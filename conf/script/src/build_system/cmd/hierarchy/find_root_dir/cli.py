@@ -2,7 +2,6 @@ import argparse
 
 import utils.error.cls_def
 import utils.error.managed
-import utils.error.status
 from build_system import cmd
 from build_system.cmd.hierarchy.find_root_dir.find_root_dir import BUILD_SYSTEM_CONF_FILENAME
 
