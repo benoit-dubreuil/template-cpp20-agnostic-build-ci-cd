@@ -9,11 +9,15 @@ from build_system import cmd
 BUILD_DIR_NAME: Final[str] = 'build'
 
 
-def find_build_dir(root_dir: Optional[Path] = None) -> Path:
+def find_build_dir_path(root_dir: Optional[Path] = None) -> Path:
     if root_dir is None:
         root_dir = cmd.hierarchy.find_root_dir.find_root_dir()
 
-    build_dir = root_dir / BUILD_DIR_NAME
+    return root_dir / BUILD_DIR_NAME
+
+
+def find_build_dir(root_dir: Optional[Path] = None) -> Path:
+    build_dir = find_build_dir_path(root_dir)
 
     try:
         build_dir = build_dir.resolve(True)
