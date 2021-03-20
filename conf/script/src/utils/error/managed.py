@@ -33,11 +33,12 @@ class ManageClass:
 
         def create_managed_cls(unmanaged_cls: type) -> type:
             managed_class_namespace = {
-                '__module__': __name__ if unmanaged_cls.__module__ is None else unmanaged_cls.__module__
+                '__module__': __name__ if unmanaged_cls.__module__ is None else unmanaged_cls.__module__,
+                '__init__': lambda self, *args, **kwargs: super(self.__class__, self).__init__(*args, **kwargs)
             }
 
             return types.new_class(unmanaged_cls.__qualname__,
-                                   bases=(unmanaged_cls, DecoratedManagedErrorAPI),
+                                   bases=(DecoratedManagedErrorAPIMixin, unmanaged_cls),
                                    kwds={'metaclass': utils.error.meta.ErrorMeta},
                                    exec_body=lambda ns: ns.update(managed_class_namespace))
 
