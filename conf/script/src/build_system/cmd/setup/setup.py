@@ -2,7 +2,9 @@ import platform
 import sys
 from typing import Final
 
+import build_system.cmd.hierarchy.find_build_dir
 from build_system import compiler
+from build_system import cmd
 from build_system.cmd.setup.build_type import BuildType
 from build_system.compiler import host
 from build_system.compiler.reqs.reqs import CompilerReqs
@@ -57,6 +59,17 @@ def generate_all_build_dir_names() -> list[str]:
             build_dir_names.append(generated)
 
     return build_dir_names
+
+
+def find_or_create_build_dir():
+    build_dir = cmd.hierarchy.find_build_dir.find_build_dir_path()
+    if build_dir.exists():
+        if not build_dir.is_dir():
+            # Error
+            ...
+    else:
+        ...
+        # Create
 
 
 def setup():
