@@ -45,8 +45,5 @@ class TestFetch(unittest.TestCase):
         assert return_value is expected_return_value
 
 
-# TODO : Add more tests
-
-
 if utils.cli.main.is_caller_main():
     unittest.main()

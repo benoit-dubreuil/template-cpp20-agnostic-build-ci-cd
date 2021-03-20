@@ -9,6 +9,7 @@ from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_N
 def setup():
     arg_parser = argparse.ArgumentParser(
         description=f"Creates the {BUILD_DIR_NAME} folder and setup specific build system builds inside.")
+    # TODO
 
     try:
         cmd.setup.setup()
