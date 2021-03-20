@@ -5,7 +5,7 @@ import utils.error.managed
 from build_system import cmd
 
 
-def clean_build_dir():
+def setup():
     arg_parser = argparse.ArgumentParser(
         description=f"Creates the build folder and setup specific build system builds inside.")
 
