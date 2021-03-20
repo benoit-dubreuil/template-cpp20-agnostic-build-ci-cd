@@ -18,7 +18,7 @@ class ManageClass:
     def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedError] = utils.error.format.FormattedError,
                 encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> Union[type, Callable[[Optional[type]], type]]:
         # noinspection PyAbstractClass
-        class DecoratedManagedErrorAPI(ManagedError, error_formatter_cls, metaclass=utils.error.meta.ErrorMeta):
+        class DecoratedManagedErrorAPI(ManagedError, error_formatter_cls):
             if encoded_error_status is not None:
                 @staticmethod
                 def get_error_status() -> utils.error.status.ErrorStatus:
