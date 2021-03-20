@@ -27,12 +27,18 @@ class BaseFormattedErrorMixin(metaclass=utils.error.meta.ErrorMeta):
 
 class FormattedErrorMixin(BaseFormattedErrorMixin):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     @staticmethod
     def _format_msg(message: str) -> str:
         return format_error_msg(message)
 
 
 class FormattedSuccessMixin(BaseFormattedErrorMixin):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     @staticmethod
     def _format_msg(message: str) -> str:

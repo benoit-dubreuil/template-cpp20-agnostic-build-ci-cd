@@ -18,6 +18,9 @@ class ErrorStatus(enum.IntEnum):
 
 class EncodedErrorMixin(metaclass=utils.error.meta.ErrorMeta):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     @staticmethod
     @abc.abstractmethod
     def get_error_status() -> ErrorStatus:

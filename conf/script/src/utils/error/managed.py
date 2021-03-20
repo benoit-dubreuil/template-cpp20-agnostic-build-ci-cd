@@ -12,6 +12,9 @@ import utils.error.status
 class ManagedErrorMixin(utils.error.status.EncodedErrorMixin, utils.error.cli_exit.ExitCLIErrorMixin, utils.error.format.BaseFormattedErrorMixin,
                         metaclass=utils.error.meta.ErrorMeta):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
 
 class ManageClass:
 
@@ -19,6 +22,10 @@ class ManageClass:
                 encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> Union[type, Callable[[Optional[type]], type]]:
         # noinspection PyAbstractClass
         class DecoratedManagedErrorAPIMixin(error_formatter_cls, ManagedErrorMixin):
+
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+
             if encoded_error_status is not None:
                 @staticmethod
                 def get_error_status() -> utils.error.status.ErrorStatus:

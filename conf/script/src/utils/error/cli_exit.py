@@ -8,6 +8,9 @@ import utils.error.status
 
 class ExitCLIErrorMixin(metaclass=utils.error.meta.ErrorMeta):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def exit_cli(self, arg_parser: argparse.ArgumentParser, print_usage: bool = False) -> typing.NoReturn:
         assert isinstance(self, utils.error.status.EncodedErrorMixin)
 
