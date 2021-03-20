@@ -3,14 +3,14 @@ from typing import Final
 
 import utils.error.cls_def
 
-VCS_DIR_NAME: Final[str] = '.git'
+BUILD_SYSTEM_CONF_FILENAME: Final[str] = 'meson.build'
 
 
 def is_dir_root(root_dir: Path) -> bool:
     assert root_dir.is_dir()
 
-    vcs_dir = root_dir / VCS_DIR_NAME
-    return vcs_dir.is_dir()
+    build_system_conf_file = root_dir / BUILD_SYSTEM_CONF_FILENAME
+    return build_system_conf_file.is_file()
 
 
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
