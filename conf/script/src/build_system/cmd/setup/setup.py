@@ -36,7 +36,7 @@ def assemble_build_types() -> list[BuildType]:
     return list(BuildType)
 
 
-def generate_build_dir_name(os_family: host.OSFamily, compiler_family: compiler.Family, compiler_version: compiler.Version, arch: host.Architecture, build_type: BuildType) -> str:
+def generate_build_subdir_name(os_family: host.OSFamily, compiler_family: compiler.Family, compiler_version: compiler.Version, arch: host.Architecture, build_type: BuildType) -> str:
     sep: Final = '-'
 
     os_family_name = os_family.value
@@ -48,7 +48,7 @@ def generate_build_dir_name(os_family: host.OSFamily, compiler_family: compiler.
     return os_family_name + sep + arch_bit_name + sep + compiler_name + sep + compiler_version_name + sep + build_type_name
 
 
-def generate_all_build_dir_names() -> list[str]:
+def generate_all_build_subdir_names() -> list[str]:
     os_family = fetch_os_family()
     filtered_compilers_reqs_by_os = fetch_filtered_compilers_reqs_by_os(os_family)
     all_build_types = assemble_build_types()
@@ -57,7 +57,7 @@ def generate_all_build_dir_names() -> list[str]:
     build_dir_names = []
     for compiler_reqs in filtered_compilers_reqs_by_os:
         for build_type in all_build_types:
-            generated = generate_build_dir_name(os_family, compiler_reqs.compiler, compiler_reqs.version, arch, build_type)
+            generated = generate_build_subdir_name(os_family, compiler_reqs.compiler, compiler_reqs.version, arch, build_type)
             build_dir_names.append(generated)
 
     return build_dir_names
@@ -82,5 +82,7 @@ def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
 
 def setup(root_dir: Optional[Path] = None):
     find_or_create_build_dir(root_dir)
-    all_build_dir_names = generate_all_build_dir_names()
+
+    all_build_dir_names = generate_all_build_subdir_names()
+
     print(*all_build_dir_names, sep='\n', end=str())
