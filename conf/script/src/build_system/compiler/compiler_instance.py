@@ -1,21 +1,20 @@
-from dataclasses import dataclass
+import dataclasses
 
-from build_system.compiler.family import CompilerFamily
-from build_system.compiler.host.os_family import OSFamily
-from build_system.compiler.version import CompilerVersion
 import build_system.cmd.compiler.host.get_info.version
+import build_system.compiler
+import build_system.compiler.host
 
 
-@dataclass(order=True, frozen=True)
+@dataclasses.dataclass(order=True, frozen=True)
 class CompilerInstance:
-    compiler_family: CompilerFamily
-    os_families: list[OSFamily]
-    version: CompilerVersion
+    compiler_family: build_system.compiler.Family
+    os_families: list[build_system.compiler.host.OSFamily]
+    version: build_system.compiler.Version
 
     @classmethod
-    def create_from_installed_compiler(cls, compiler_family: CompilerFamily, os_family: OSFamily) -> 'CompilerInstance':
+    def create_from_installed_compiler(cls, compiler_family: build_system.compiler.Family, os_family: build_system.compiler.host.OSFamily) -> 'CompilerInstance':
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_compiler_family(compiler_family)
         return cls(compiler_family=compiler_family, os_families=[os_family], version=version)
 
-    def get_current_os_family(self) -> build_system.compiler.host.os_family.OSFamily:
+    def get_current_os_family(self) -> build_system.compiler.host.OSFamily:
         return self.os_families[0]
