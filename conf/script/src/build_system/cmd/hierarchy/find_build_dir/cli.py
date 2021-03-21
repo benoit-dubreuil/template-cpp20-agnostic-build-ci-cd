@@ -5,7 +5,6 @@ import utils.cli.arg
 import utils.cli.arg_parsing
 import utils.error.cls_def
 import utils.error.managed
-import utils.error.status
 from build_system import cmd
 from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
 from utils.more_typing import AnyPath
@@ -27,6 +26,6 @@ def find_build_dir():
         raised_error.raise_or_exit_cli(arg_parser)
 
     except OSError as raised_error:
-        if not isinstance(raised_error, utils.error.managed.ManagedError):
+        if not isinstance(raised_error, utils.error.managed.ManagedErrorMixin):
             unsupported_error = utils.error.cls_def.UnsupportedError(raised_error)
             unsupported_error.raise_or_exit_cli(arg_parser)

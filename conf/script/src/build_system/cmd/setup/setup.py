@@ -1,13 +1,17 @@
-#!/usr/bin/env python3
-
 import platform
 import sys
-from typing import Final
+from pathlib import Path
+from typing import Final, Optional
 
-from build_system import compiler
+import build_system.cmd.hierarchy.find_build_dir
+import build_system.cmd.hierarchy.find_root_dir
+import utils.error.cls_def
+from build_system import cmd, compiler
 from build_system.cmd.setup.build_type import BuildType
 from build_system.compiler import host
 from build_system.compiler.reqs.reqs import CompilerReqs
+
+BUILD_DIR_PERMISSIONS: Final[int] = 0o770
 
 
 def fetch_os_name() -> str:
@@ -34,7 +38,8 @@ def assemble_build_types() -> list[BuildType]:
     return list(BuildType)
 
 
-def generate_build_dir_name(os_family: host.OSFamily, compiler_family: compiler.Family, compiler_version: compiler.Version, arch: host.Architecture, build_type: BuildType) -> str:
+def generate_build_subdir_name(os_family: host.OSFamily, compiler_family: compiler.Family, compiler_version: compiler.Version, arch: host.Architecture,
+                               build_type: BuildType) -> str:
     sep: Final = '-'
 
     os_family_name = os_family.value
@@ -46,7 +51,7 @@ def generate_build_dir_name(os_family: host.OSFamily, compiler_family: compiler.
     return os_family_name + sep + arch_bit_name + sep + compiler_name + sep + compiler_version_name + sep + build_type_name
 
 
-def generate_all_build_dir_names() -> list[str]:
+def generate_all_build_subdir_names() -> list[str]:
     os_family = fetch_os_family()
     filtered_compilers_reqs_by_os = fetch_filtered_compilers_reqs_by_os(os_family)
     all_build_types = assemble_build_types()
@@ -55,11 +60,44 @@ def generate_all_build_dir_names() -> list[str]:
     build_dir_names = []
     for compiler_reqs in filtered_compilers_reqs_by_os:
         for build_type in all_build_types:
-            generated = generate_build_dir_name(os_family, compiler_reqs.compiler, compiler_reqs.version, arch, build_type)
+            generated = generate_build_subdir_name(os_family, compiler_reqs.compiler, compiler_reqs.version, arch, build_type)
             build_dir_names.append(generated)
 
     return build_dir_names
 
 
-all_build_dir_names = generate_all_build_dir_names()
-print(*all_build_dir_names, sep='\n', end=str())
+def create_build_subdir(build_dir: Path, build_subdir: str):
+    build_subdir_path = build_dir / build_subdir
+    build_subdir_path.mkdir(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
+
+
+def create_all_build_subdirs(build_dir: Path, all_build_subdirs: list[str]):
+    for build_subdir in all_build_subdirs:
+        create_build_subdir(build_dir, build_subdir)
+
+
+def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
+    if root_dir is None:
+        root_dir = cmd.hierarchy.find_root_dir.find_root_dir()
+    else:
+        assert root_dir.exists()
+
+    build_dir = cmd.hierarchy.find_build_dir.find_build_dir_path(root_dir)
+
+    if build_dir.exists():
+        if not build_dir.is_dir():
+            raise utils.error.cls_def.RootDirNotFoundError()
+    else:
+        build_dir.mkdir(mode=BUILD_DIR_PERMISSIONS, parents=True)
+
+    return build_dir
+
+
+def setup(root_dir: Optional[Path] = None):
+    build_dir = find_or_create_build_dir(root_dir)
+
+    all_build_subdir_names = generate_all_build_subdir_names()
+    create_all_build_subdirs(build_dir, all_build_subdir_names)
+
+    # TODO : Remove when #58 is done
+    print(*all_build_subdir_names, sep='\n', end=str())

@@ -6,7 +6,7 @@ import utils.error.managed
 import utils.error.status
 
 
-@utils.error.managed.ManageClass(error_formatter_cls=utils.error.format.FormattedSuccess, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
+@utils.error.managed.ManageClass(error_formatter_cls=utils.error.format.FormattedSuccessMixin, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
 class SuccessWarning(UserWarning):
 
     def __init__(self):
@@ -69,6 +69,13 @@ class BuildDirNotFoundError(FileNotFoundError):
 
     def __init__(self):
         super().__init__('Build directory not found')
+
+
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.BUILD_DIR_NOT_DIR)
+class BuildDirNotDirError(FileExistsError):
+
+    def __init__(self):
+        super().__init__("Build directory exists but isn't a directory")
 
 
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_NOT_FOUND)

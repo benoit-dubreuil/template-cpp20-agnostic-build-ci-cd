@@ -13,7 +13,7 @@ class TestManage(unittest.TestCase):
 
     def assert_decorated_error_type(self, decorated_error_cls: type):
         self.assertEqual(type(decorated_error_cls), utils.error.meta.ErrorMeta)
-        self.assertIsInstance(decorated_error_cls(), utils.error.managed.ManagedError)
+        self.assertIsInstance(decorated_error_cls(), utils.error.managed.ManagedErrorMixin)
         self.assertNotIsInstance(decorated_error_cls(), utils.error.managed.ManageClass)
 
     def test_decorate_error(self):
@@ -75,7 +75,7 @@ class TestManage(unittest.TestCase):
         self.assert_decorated_error_type(DecoratedError)
 
     def test_decorate_success_with_formatter(self):
-        @ManageClass(error_formatter_cls=utils.error.format.FormattedSuccess)
+        @ManageClass(error_formatter_cls=utils.error.format.FormattedSuccessMixin)
         class DecoratedError(UserWarning):
 
             def __init__(self):
@@ -89,7 +89,7 @@ class TestManage(unittest.TestCase):
         self.assert_decorated_error_type(DecoratedError)
 
     def test_decorate_success_with_formatter_and_status(self):
-        @ManageClass(error_formatter_cls=utils.error.format.FormattedSuccess, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
+        @ManageClass(error_formatter_cls=utils.error.format.FormattedSuccessMixin, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
         class DecoratedError(UserWarning):
 
             def __init__(self):
