@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
-from build_system.compiler.compiler_instance import CompilerInstance
+import build_system.compiler.compiler_instance
 from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.os_family import OSFamily
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
@@ -12,7 +12,7 @@ from build_system.compiler.version import CompilerVersion
 
 @dataclass(frozen=True)
 class CompilerReqs:
-    compiler_instance: CompilerInstance
+    compiler_instance: build_system.compiler.compiler_instance.CompilerInstance
 
     @staticmethod
     def get_default_compiler_reqs_file_path() -> Path:
@@ -37,7 +37,7 @@ class CompilerReqs:
             compiler_family = CompilerFamily(compiler_name)
             os_families = compiler_reqs_section.getosfamily(CompilerReqsScheme.OS.value)
             compiler_version = CompilerVersion.create_from_config_compiler_reqs_section(compiler_reqs_section)
-            compiler_instance = CompilerInstance(compiler_family, os_families, compiler_version)
+            compiler_instance = build_system.compiler.compiler_instance.CompilerInstance(compiler_family, os_families, compiler_version)
 
             compiler_reqs = cls(compiler_instance)
             all_compilers_reqs[compiler_family] = compiler_reqs
