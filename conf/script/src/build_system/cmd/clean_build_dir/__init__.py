@@ -1,1 +1,1 @@
-from build_system.cmd.clean_build_dir.clean_build_dir import clean_build_dir
+from build_system.cmd.clean_build_dir.impl import clean_build_dir
