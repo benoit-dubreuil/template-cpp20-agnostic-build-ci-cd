@@ -4,7 +4,6 @@ from typing import Optional
 
 import build_system.cmd.hierarchy.find_build_dir
 import utils.error.cls_def
-from build_system import cmd
 
 
 def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> bool:
@@ -17,7 +16,7 @@ def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> boo
     build_dir: Optional[Path] = None
 
     try:
-        build_dir = cmd.hierarchy.find_build_dir.find_build_dir(root_dir)
+        build_dir = build_system.cmd.hierarchy.find_build_dir.find_build_dir(root_dir)
 
     except (utils.error.cls_def.RootDirNotFoundError, utils.error.cls_def.BuildDirNotFoundError) as raised_exception:
         if not ignore_errors:
