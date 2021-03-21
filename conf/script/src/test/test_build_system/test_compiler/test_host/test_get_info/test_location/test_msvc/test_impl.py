@@ -16,9 +16,9 @@ class TestFind(unittest.TestCase):
         result = build_system.cmd.compiler.host.get_info.location.msvc.find()
 
         mock_vswhere.find_first.assert_called_once_with(latest=True, prerelease=True,
-                                                        products=build_system.cmd.compiler.host.get_info.location.msvc.installation_path._ALL_PRODUCTS,
-                                                        prop=build_system.cmd.compiler.host.get_info.location.msvc.installation_path._PROP_INSTALLATION_PATH,
-                                                        requires=build_system.cmd.compiler.host.get_info.location.msvc.installation_path._DEFAULT_REQUIRES)
+                                                        products=build_system.cmd.compiler.host.get_info.location.msvc.impl._ALL_PRODUCTS,
+                                                        prop=build_system.cmd.compiler.host.get_info.location.msvc.impl._PROP_INSTALLATION_PATH,
+                                                        requires=build_system.cmd.compiler.host.get_info.location.msvc.impl._DEFAULT_REQUIRES)
         self.assertIsNone(result)
 
 
