@@ -71,6 +71,11 @@ def create_build_subdir(build_subdir: str):
     build_subdir_path.mkdir(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
 
 
+def create_all_build_subdirs(all_build_subdirs: list[str]):
+    for build_subdir in all_build_subdirs:
+        create_build_subdir(build_subdir)
+
+
 def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
     if root_dir is None:
         root_dir = cmd.hierarchy.find_root_dir.find_root_dir()
