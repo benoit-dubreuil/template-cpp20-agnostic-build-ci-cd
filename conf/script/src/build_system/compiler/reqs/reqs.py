@@ -10,7 +10,7 @@ from build_system.compiler.reqs.scheme import CompilerReqsScheme
 from build_system.compiler.version import CompilerVersion
 
 
-@dataclass(order=True, frozen=True)
+@dataclass(frozen=True)
 class CompilerReqs:
     compiler_instance: CompilerInstance
 

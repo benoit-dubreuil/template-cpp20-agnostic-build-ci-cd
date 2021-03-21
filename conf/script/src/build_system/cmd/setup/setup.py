@@ -3,12 +3,17 @@ import sys
 from pathlib import Path
 from typing import Final, Optional
 
+import build_system.cmd.compiler.host.get_info.version.clang
+import build_system.cmd.compiler.host.get_info.version.gcc
+import build_system.cmd.compiler.host.get_info.version.msvc
 import build_system.cmd.hierarchy.find_build_dir
 import build_system.cmd.hierarchy.find_root_dir
 import utils.error.cls_def
 from build_system import cmd, compiler
 from build_system.cmd.setup.build_type import BuildType
 from build_system.compiler import host
+from build_system.compiler.compiler_instance import CompilerInstance
+from build_system.compiler.family import CompilerFamily
 from build_system.compiler.reqs.reqs import CompilerReqs
 
 BUILD_DIR_PERMISSIONS: Final[int] = 0o770
@@ -25,6 +30,23 @@ def fetch_os_family() -> host.OSFamily:
 def fetch_filtered_compilers_reqs_by_os(os_family: host.OSFamily) -> list[CompilerReqs]:
     all_compilers_reqs = CompilerReqs.create_all_from_file()
     return CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
+
+
+def fetch_supported_compiler_instances_by_os(os_family: host.OSFamily) -> list[CompilerInstance]:
+    filtered_compiler_reqs = fetch_filtered_compilers_reqs_by_os(os_family)
+    installed_compiler_instances: dict[CompilerFamily: CompilerInstance] = {CompilerFamily.MSVC: cmd.compiler.host.get_info.version.msvc.fetch(),
+                                                                            CompilerFamily.CLANG: cmd.compiler.host.get_info.version.clang.fetch(),
+                                                                            CompilerFamily.GCC: cmd.compiler.host.get_info.version.gcc.fetch()}
+
+    supported_compiler_instances: list[CompilerInstance] = list()
+
+    for compiler_reqs in filtered_compiler_reqs:
+        if compiler_reqs.compiler_instance.compiler_family in installed_compiler_instances:
+            with installed_compiler_instances[compiler_reqs.compiler_instance.compiler_family] as installed_compiler_family_instance:
+                if installed_compiler_family_instance.version >= compiler_reqs.compiler_instance.version:
+                    supported_compiler_instances += installed_compiler_family_instance
+
+    return installed_compiler_family_instance
 
 
 def detect_arch() -> host.Architecture:
@@ -53,14 +75,14 @@ def generate_build_subdir_name(os_family: host.OSFamily, compiler_family: compil
 
 def generate_all_build_subdir_names() -> list[str]:
     os_family = fetch_os_family()
-    filtered_compilers_reqs_by_os = fetch_filtered_compilers_reqs_by_os(os_family)
+    supported_compiler_instances = fetch_supported_compiler_instances_by_os(os_family)
     all_build_types = assemble_build_types()
     arch = detect_arch()
 
     build_dir_names = []
-    for compiler_reqs in filtered_compilers_reqs_by_os:
+    for compiler_instance in supported_compiler_instances:
         for build_type in all_build_types:
-            generated = generate_build_subdir_name(os_family, compiler_reqs.compiler, compiler_reqs.version, arch, build_type)
+            generated = generate_build_subdir_name(os_family, compiler_instance.compiler_family, compiler_instance.version, arch, build_type)
             build_dir_names.append(generated)
 
     return build_dir_names
