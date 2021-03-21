@@ -96,6 +96,7 @@ def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
 def setup(root_dir: Optional[Path] = None):
     find_or_create_build_dir(root_dir)
 
-    all_build_dir_names = generate_all_build_subdir_names()
+    all_build_subdir_names = generate_all_build_subdir_names()
+    create_all_build_subdirs(all_build_subdir_names)
 
     print(*all_build_dir_names, sep='\n', end=str())
