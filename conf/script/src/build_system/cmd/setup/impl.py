@@ -7,10 +7,10 @@ import build_system.cmd.hierarchy.find_build_dir
 import build_system.cmd.hierarchy.find_root_dir
 import build_system.cmd.setup.build_type
 import build_system.compiler.compiler_instance
-import build_system.compiler.host
 import build_system.compiler.family
-import build_system.compiler.version
+import build_system.compiler.host
 import build_system.compiler.reqs.reqs
+import build_system.compiler.version
 import utils.error.cls_def
 
 BUILD_DIR_PERMISSIONS: Final[int] = 0o770

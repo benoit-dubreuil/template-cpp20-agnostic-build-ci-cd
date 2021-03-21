@@ -1,6 +1,6 @@
 import build_system.cmd.compiler.host.get_info.version.gnu.impl
-import build_system.compiler.version
 import build_system.compiler.family
+import build_system.compiler.version
 
 
 def fetch() -> build_system.compiler.version.CompilerVersion:

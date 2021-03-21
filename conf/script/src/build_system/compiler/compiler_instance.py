@@ -2,8 +2,8 @@ import dataclasses
 
 import build_system.cmd.compiler.host.get_info.version
 import build_system.compiler.family
-import build_system.compiler.version
 import build_system.compiler.host
+import build_system.compiler.version
 
 
 @dataclasses.dataclass(order=True, frozen=True)
