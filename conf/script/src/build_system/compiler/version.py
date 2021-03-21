@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from build_system.compiler.reqs.scheme import CompilerReqsScheme
+import build_system.compiler.reqs.scheme
 
 
 @dataclass(order=True, frozen=True)
@@ -13,8 +13,8 @@ class CompilerVersion:
 
     @classmethod
     def create_from_config_compiler_reqs_section(cls, config_compiler_reqs_section) -> 'CompilerVersion':
-        major = config_compiler_reqs_section.getint(CompilerReqsScheme.MAJOR.value)
-        minor = config_compiler_reqs_section.getint(CompilerReqsScheme.MINOR.value, fallback=0)
+        major = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MAJOR.value)
+        minor = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MINOR.value, fallback=0)
 
         return cls(major, minor)
 
