@@ -4,17 +4,17 @@ import abc
 import unittest
 
 import utils.cli.main
-from utils.error.meta import ErrorMeta
+import utils.error.meta
 
 
 class TestErrorMeta(unittest.TestCase):
 
     def test_is_instance(self):
-        self.assertIsInstance(ErrorMeta, type)
-        self.assertNotIsInstance(ErrorMeta, abc.ABCMeta)
+        self.assertIsInstance(utils.error.meta.ErrorMeta, type)
+        self.assertNotIsInstance(utils.error.meta.ErrorMeta, abc.ABCMeta)
 
     def test_impl_is_instance(self):
-        class ErrorMetaImpl(metaclass=ErrorMeta):
+        class ErrorMetaImpl(metaclass=utils.error.meta.ErrorMeta):
             ...
 
         self.assertIsInstance(ErrorMetaImpl, type)
@@ -22,19 +22,19 @@ class TestErrorMeta(unittest.TestCase):
         self.assertIsInstance(ErrorMetaImpl(), ErrorMetaImpl)
 
     def test_impl_extends_exception(self):
-        class ErrorMetaImpl(Exception, metaclass=ErrorMeta):
+        class ErrorMetaImpl(Exception, metaclass=utils.error.meta.ErrorMeta):
             ...
 
         ErrorMetaImpl()
 
     def test_impl_extends_exception_abstractmethod(self):
-        class ErrorMetaImplParent(Exception, metaclass=ErrorMeta):
+        class ErrorMetaImplParent(Exception, metaclass=utils.error.meta.ErrorMeta):
 
             @abc.abstractmethod
             def dummy(self):
                 ...
 
-        class ErrorMetaImplChild(ErrorMetaImplParent, metaclass=ErrorMeta):
+        class ErrorMetaImplChild(ErrorMetaImplParent, metaclass=utils.error.meta.ErrorMeta):
 
             def dummy(self):
                 ...
