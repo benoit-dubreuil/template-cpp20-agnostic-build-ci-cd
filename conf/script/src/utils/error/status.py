@@ -13,6 +13,7 @@ class ErrorStatus(enum.IntEnum):
     EMPTY_PARSED_ARG = enum.auto()
     ROOT_DIR_NOT_FOUND = enum.auto()
     BUILD_DIR_NOT_FOUND = enum.auto()
+    BUILD_DIR_NOT_DIR = enum.auto()
     COMPILER_NOT_FOUND = enum.auto()
 
 

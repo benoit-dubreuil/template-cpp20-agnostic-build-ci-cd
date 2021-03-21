@@ -71,6 +71,13 @@ class BuildDirNotFoundError(FileNotFoundError):
         super().__init__('Build directory not found')
 
 
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.BUILD_DIR_NOT_DIR)
+class BuildDirNotDirError(FileExistsError):
+
+    def __init__(self):
+        super().__init__("Build directory exists but isn't a directory")
+
+
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_NOT_FOUND)
 class CompilerNotFoundError(FileNotFoundError):
 
