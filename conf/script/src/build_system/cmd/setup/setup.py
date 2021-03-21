@@ -90,7 +90,7 @@ def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
     else:
         build_dir.mkdir(mode=BUILD_DIR_PERMISSIONS, parents=True)
 
-    return root_dir
+    return build_dir
 
 
 def setup(root_dir: Optional[Path] = None):
