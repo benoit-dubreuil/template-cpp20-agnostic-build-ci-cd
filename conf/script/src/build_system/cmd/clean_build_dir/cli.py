@@ -6,7 +6,6 @@ import utils.cli.arg
 import utils.cli.arg_parsing
 import utils.error.cls_def
 import utils.error.managed
-import build_system
 from utils.more_typing import AnyPath
 
 ROOT_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg('rootdir')
