@@ -8,7 +8,7 @@ import build_system.cmd.compiler.host.get_info.location.msvc
 import utils.cli.main
 
 
-class TestFind(unittest.TestCase):
+class TestFindMSVC(unittest.TestCase):
 
     @mock.patch('build_system.compiler.host.get_info.location.msvc.installation_path.vswhere')
     def test_no_arg_not_found(self, mock_vswhere: MagicMock):

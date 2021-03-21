@@ -9,7 +9,7 @@ import utils.cli.main
 from build_system.cmd.compiler.host.get_info.version.msvc import fetch_msvc_version
 
 
-class TestFetch(unittest.TestCase):
+class TestFetchMSVCVersion(unittest.TestCase):
 
     @mock.patch('build_system.compiler.host.get_info.version.msvc.fetch_msvc_version.vswhere')
     @mock.patch('build_system.compiler.host.get_info.version.msvc.fetch_msvc_version.msvc.installation_path')
