@@ -1,1 +1,1 @@
-from build_system.cmd.setup.setup import setup
+from build_system.cmd.setup.impl import setup
