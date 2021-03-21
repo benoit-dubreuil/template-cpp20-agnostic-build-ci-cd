@@ -20,6 +20,7 @@ def fetch_os_name() -> str:
 
 
 def fetch_os_family() -> host.OSFamily:
+    # noinspection PyArgumentList
     return host.OSFamily(fetch_os_name())
 
 
@@ -36,7 +37,8 @@ def fetch_supported_compiler_instances_by_os(os_family: host.OSFamily) -> list[C
 
         if os_family in compiler_reqs.compiler_instance.os_families:
 
-            installed_compiler_instance = compiler.Instance.create_from_installed_compiler(compiler_family=compiler_reqs.compiler_instance.compiler_family, os_family=os_family)
+            installed_compiler_instance = compiler.compiler_instance.CompilerInstance.create_from_installed_compiler(
+                compiler_family=compiler_reqs.compiler_instance.compiler_family, os_family=os_family)
 
             if installed_compiler_instance.version >= compiler_reqs.compiler_instance.version:
                 supported_compiler_instances += installed_compiler_instance
@@ -48,6 +50,7 @@ def detect_arch() -> host.Architecture:
     exclusive_max_word = sys.maxsize + 1
     word_size = exclusive_max_word.bit_length()
 
+    # noinspection PyArgumentList
     return host.Architecture(word_size)
 
 
@@ -55,7 +58,10 @@ def assemble_build_types() -> list[BuildType]:
     return list(BuildType)
 
 
-def generate_build_subdir_name(os_family: host.OSFamily, compiler_family: compiler.Family, compiler_version: compiler.Version, arch: host.Architecture,
+def generate_build_subdir_name(os_family: host.OSFamily,
+                               compiler_family: compiler.family.CompilerFamily,
+                               compiler_version: compiler.version.CompilerVersion,
+                               arch: host.Architecture,
                                build_type: BuildType) -> str:
     sep: Final = '-'
 
