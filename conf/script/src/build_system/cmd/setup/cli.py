@@ -3,7 +3,7 @@ import argparse
 import utils.error.cls_def
 import utils.error.managed
 from build_system import cmd
-from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
+from build_system.cmd.hierarchy.find_build_dir.impl import BUILD_DIR_NAME
 
 
 def setup():
