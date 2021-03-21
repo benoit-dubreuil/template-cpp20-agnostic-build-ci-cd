@@ -11,6 +11,8 @@ from build_system.cmd.setup.build_type import BuildType
 from build_system.compiler import host
 from build_system.compiler.reqs.reqs import CompilerReqs
 
+BUILD_DIR_PERMISSIONS: Final[int] = 0o770
+
 
 def fetch_os_name() -> str:
     return platform.system().lower()
@@ -36,7 +38,8 @@ def assemble_build_types() -> list[BuildType]:
     return list(BuildType)
 
 
-def generate_build_subdir_name(os_family: host.OSFamily, compiler_family: compiler.Family, compiler_version: compiler.Version, arch: host.Architecture, build_type: BuildType) -> str:
+def generate_build_subdir_name(os_family: host.OSFamily, compiler_family: compiler.Family, compiler_version: compiler.Version, arch: host.Architecture,
+                               build_type: BuildType) -> str:
     sep: Final = '-'
 
     os_family_name = os_family.value
@@ -63,6 +66,11 @@ def generate_all_build_subdir_names() -> list[str]:
     return build_dir_names
 
 
+def create_build_subdir(build_subdir: str):
+    build_subdir_path = Path(build_subdir)
+    build_subdir_path.mkdir(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
+
+
 def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
     if root_dir is None:
         root_dir = cmd.hierarchy.find_root_dir.find_root_dir()
@@ -75,7 +83,7 @@ def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
         if not build_dir.is_dir():
             raise utils.error.cls_def.RootDirNotFoundError()
     else:
-        build_dir.mkdir(mode=0o770, parents=True)
+        build_dir.mkdir(mode=BUILD_DIR_PERMISSIONS, parents=True)
 
     return root_dir
 
