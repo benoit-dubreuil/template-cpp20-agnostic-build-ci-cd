@@ -5,12 +5,11 @@ from typing import Final, Optional
 
 import build_system.cmd.hierarchy.find_build_dir
 import build_system.cmd.hierarchy.find_root_dir
+import build_system.cmd.setup.build_type
+import build_system.compiler.compiler_instance
+import build_system.compiler.host
+import build_system.compiler.reqs.reqs
 import utils.error.cls_def
-from build_system import cmd, compiler
-from build_system.cmd.setup.build_type import BuildType
-from build_system.compiler import host
-from build_system.compiler.compiler_instance import CompilerInstance
-from build_system.compiler.reqs.reqs import CompilerReqs
 
 BUILD_DIR_PERMISSIONS: Final[int] = 0o770
 
@@ -19,25 +18,25 @@ def fetch_os_name() -> str:
     return platform.system().lower()
 
 
-def fetch_os_family() -> host.os_family.OSFamily:
+def fetch_os_family() -> build_system.compiler.host.os_family.OSFamily:
     # noinspection PyArgumentList
-    return host.os_family.OSFamily(fetch_os_name())
+    return build_system.compiler.host.os_family.OSFamily(fetch_os_name())
 
 
-def fetch_filtered_compilers_reqs_by_os(os_family: host.os_family.OSFamily) -> list[CompilerReqs]:
-    all_compilers_reqs = CompilerReqs.create_all_from_file()
-    return CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
+def fetch_filtered_compilers_reqs_by_os(os_family: build_system.compiler.host.os_family.OSFamily) -> list[build_system.compiler.reqs.reqs.CompilerReqs]:
+    all_compilers_reqs = build_system.compiler.reqs.reqs.CompilerReqs.create_all_from_file()
+    return build_system.compiler.reqs.reqs.CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
 
 
-def fetch_supported_compiler_instances_by_os(os_family: host.os_family.OSFamily) -> list[CompilerInstance]:
+def fetch_supported_compiler_instances_by_os(os_family: build_system.compiler.host.os_family.OSFamily) -> list[build_system.compiler.compiler_instance.CompilerInstance]:
     filtered_compiler_reqs = fetch_filtered_compilers_reqs_by_os(os_family)
-    supported_compiler_instances: list[CompilerInstance] = list()
+    supported_compiler_instances: list[build_system.compiler.compiler_instance.CompilerInstance] = list()
 
     for compiler_reqs in filtered_compiler_reqs:
 
         if os_family in compiler_reqs.compiler_instance.os_families:
 
-            installed_compiler_instance = compiler.compiler_instance.CompilerInstance.create_from_installed_compiler(
+            installed_compiler_instance = build_system.compiler.compiler_instance.CompilerInstance.create_from_installed_compiler(
                 compiler_family=compiler_reqs.compiler_instance.compiler_family, os_family=os_family)
 
             if installed_compiler_instance.version >= compiler_reqs.compiler_instance.version:
@@ -46,23 +45,23 @@ def fetch_supported_compiler_instances_by_os(os_family: host.os_family.OSFamily)
     return supported_compiler_instances
 
 
-def detect_arch() -> host.architecture.Architecture:
+def detect_arch() -> build_system.compiler.host.architecture.Architecture:
     exclusive_max_word = sys.maxsize + 1
     word_size = exclusive_max_word.bit_length()
 
     # noinspection PyArgumentList
-    return host.architecture.Architecture(word_size)
+    return build_system.compiler.host.architecture.Architecture(word_size)
 
 
-def assemble_build_types() -> list[BuildType]:
-    return list(BuildType)
+def assemble_build_types() -> list[build_system.cmd.setup.build_type.BuildType]:
+    return list(build_system.cmd.setup.build_type.BuildType)
 
 
-def generate_build_subdir_name(os_family: host.os_family.OSFamily,
-                               compiler_family: compiler.family.CompilerFamily,
-                               compiler_version: compiler.version.CompilerVersion,
-                               arch: host.architecture.Architecture,
-                               build_type: BuildType) -> str:
+def generate_build_subdir_name(os_family: build_system.compiler.host.os_family.OSFamily,
+                               compiler_family: build_system.compiler.family.CompilerFamily,
+                               compiler_version: build_system.compiler.version.CompilerVersion,
+                               arch: build_system.compiler.host.architecture.Architecture,
+                               build_type: build_system.cmd.setup.build_type.BuildType) -> str:
     sep: Final = '-'
 
     os_family_name = os_family.value
@@ -101,11 +100,11 @@ def create_all_build_subdirs(build_dir: Path, all_build_subdirs: list[str]):
 
 def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
     if root_dir is None:
-        root_dir = cmd.hierarchy.find_root_dir.find_root_dir()
+        root_dir = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
     else:
         assert root_dir.exists()
 
-    build_dir = cmd.hierarchy.find_build_dir.find_build_dir_path(root_dir)
+    build_dir = build_system.cmd.hierarchy.find_build_dir.find_build_dir_path(root_dir)
 
     if build_dir.exists():
         if not build_dir.is_dir():
