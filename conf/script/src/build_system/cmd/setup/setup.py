@@ -99,4 +99,5 @@ def setup(root_dir: Optional[Path] = None):
     all_build_subdir_names = generate_all_build_subdir_names()
     create_all_build_subdirs(all_build_subdir_names)
 
-    print(*all_build_dir_names, sep='\n', end=str())
+    # TODO : Remove when #58 is done
+    print(*all_build_subdir_names, sep='\n', end=str())
