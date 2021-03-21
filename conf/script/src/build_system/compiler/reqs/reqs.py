@@ -4,10 +4,10 @@ from pathlib import Path
 from typing import Final
 
 import build_system.compiler.compiler_instance
-from build_system.compiler.family import CompilerFamily
-from build_system.compiler.host.os_family import OSFamily
-from build_system.compiler.reqs.scheme import CompilerReqsScheme
-from build_system.compiler.version import CompilerVersion
+import build_system.compiler.family
+import build_system.compiler.host.os_family
+import build_system.compiler.reqs.scheme
+import build_system.compiler.version
 
 
 @dataclass(frozen=True)
@@ -23,7 +23,7 @@ class CompilerReqs:
         return default_compiler_reqs_file.resolve()
 
     @classmethod
-    def create_all_from_file(cls, file_path: Path = None) -> dict[CompilerFamily, 'CompilerReqs']:
+    def create_all_from_file(cls, file_path: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
         file_path = cls._check_file_path_for_default_param(file_path)
         cls.assure_file_path_integrity(file_path)
 
@@ -34,9 +34,9 @@ class CompilerReqs:
         all_compilers_reqs = {}
 
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
-            compiler_family = CompilerFamily(compiler_name)
-            os_families = compiler_reqs_section.getosfamily(CompilerReqsScheme.OS.value)
-            compiler_version = CompilerVersion.create_from_config_compiler_reqs_section(compiler_reqs_section)
+            compiler_family = build_system.compiler.family.CompilerFamily(compiler_name)
+            os_families = compiler_reqs_section.getosfamily(build_system.compiler.reqs.scheme.CompilerReqsScheme.OS.value)
+            compiler_version = build_system.compiler.version.CompilerVersion.create_from_config_compiler_reqs_section(compiler_reqs_section)
             compiler_instance = build_system.compiler.compiler_instance.CompilerInstance(compiler_family, os_families, compiler_version)
 
             compiler_reqs = cls(compiler_instance)
@@ -45,7 +45,9 @@ class CompilerReqs:
         return all_compilers_reqs
 
     @classmethod
-    def filter_by_os(cls, all_compilers_reqs: dict[CompilerFamily, 'CompilerReqs'], os_family: OSFamily) -> list['CompilerReqs']:
+    def filter_by_os(cls,
+                     all_compilers_reqs: dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs'],
+                     os_family: build_system.compiler.host.os_family.OSFamily) -> list['CompilerReqs']:
         return [compiler_reqs for compiler_family, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.compiler_instance.os_families]
 
     @classmethod
@@ -64,7 +66,7 @@ class CompilerReqs:
     # From https://stackoverflow.com/a/53274707/2924010
     @staticmethod
     def _get_config_parser_os_family_converter():
-        return {'osfamily': lambda whole_option: [OSFamily(split_options.strip()) for split_options in whole_option.split(',')]}
+        return {'osfamily': lambda whole_option: [build_system.compiler.host.os_family.OSFamily(split_options.strip()) for split_options in whole_option.split(',')]}
 
     @staticmethod
     def _filter_config_default_section(config: ConfigParser):
