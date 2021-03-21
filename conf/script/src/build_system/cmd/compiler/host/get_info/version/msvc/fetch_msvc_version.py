@@ -3,7 +3,7 @@ from typing import Final, Optional
 
 import vswhere
 
-import build_system.cmd.compiler.host.get_info.location.msvc.installation_path
+import build_system.cmd.compiler.host.get_info.location.msvc
 from build_system.compiler.version import CompilerVersion
 
 _PROP_VERSION: Final[str] = 'installationVersion'
@@ -11,7 +11,7 @@ _PROP_VERSION: Final[str] = 'installationVersion'
 
 def fetch(compiler_installation_path: Optional[Path] = None) -> Optional[CompilerVersion]:
     interpreted_compiler_version: Optional[CompilerVersion] = None
-    compiler_installation_path = build_system.cmd.compiler.host.get_info.location.msvc.installation_path.find(compiler_installation_path)
+    compiler_installation_path = build_system.cmd.compiler.host.get_info.location.msvc.find(compiler_installation_path)
 
     if compiler_installation_path is not None:
         fetched_compiler_version: Optional[str] = vswhere.find_first(prop=_PROP_VERSION, path=compiler_installation_path)
