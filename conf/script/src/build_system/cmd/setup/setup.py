@@ -1,10 +1,12 @@
 import platform
 import sys
-from typing import Final
+from pathlib import Path
+from typing import Final, Optional
 
 import build_system.cmd.hierarchy.find_build_dir
-from build_system import compiler
-from build_system import cmd
+import build_system.cmd.hierarchy.find_root_dir
+import utils.error.cls_def
+from build_system import cmd, compiler
 from build_system.cmd.setup.build_type import BuildType
 from build_system.compiler import host
 from build_system.compiler.reqs.reqs import CompilerReqs
@@ -61,15 +63,21 @@ def generate_all_build_dir_names() -> list[str]:
     return build_dir_names
 
 
-def find_or_create_build_dir():
-    build_dir = cmd.hierarchy.find_build_dir.find_build_dir_path()
+def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
+    if root_dir is None:
+        root_dir = cmd.hierarchy.find_root_dir.find_root_dir()
+    else:
+        assert root_dir.exists()
+
+    build_dir = cmd.hierarchy.find_build_dir.find_build_dir_path(root_dir)
+
     if build_dir.exists():
         if not build_dir.is_dir():
-            # Error
-            ...
+            raise utils.error.cls_def.RootDirNotFoundError()
     else:
-        ...
-        # Create
+        build_dir.mkdir(mode=0o770, parents=True)
+
+    return root_dir
 
 
 def setup():
