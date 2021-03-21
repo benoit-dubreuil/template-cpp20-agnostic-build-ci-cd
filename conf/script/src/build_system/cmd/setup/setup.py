@@ -19,17 +19,17 @@ def fetch_os_name() -> str:
     return platform.system().lower()
 
 
-def fetch_os_family() -> host.OSFamily:
+def fetch_os_family() -> host.os_family.OSFamily:
     # noinspection PyArgumentList
-    return host.OSFamily(fetch_os_name())
+    return host.os_family.OSFamily(fetch_os_name())
 
 
-def fetch_filtered_compilers_reqs_by_os(os_family: host.OSFamily) -> list[CompilerReqs]:
+def fetch_filtered_compilers_reqs_by_os(os_family: host.os_family.OSFamily) -> list[CompilerReqs]:
     all_compilers_reqs = CompilerReqs.create_all_from_file()
     return CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
 
 
-def fetch_supported_compiler_instances_by_os(os_family: host.OSFamily) -> list[CompilerInstance]:
+def fetch_supported_compiler_instances_by_os(os_family: host.os_family.OSFamily) -> list[CompilerInstance]:
     filtered_compiler_reqs = fetch_filtered_compilers_reqs_by_os(os_family)
     supported_compiler_instances: list[CompilerInstance] = list()
 
@@ -46,22 +46,22 @@ def fetch_supported_compiler_instances_by_os(os_family: host.OSFamily) -> list[C
     return supported_compiler_instances
 
 
-def detect_arch() -> host.Architecture:
+def detect_arch() -> host.architecture.Architecture:
     exclusive_max_word = sys.maxsize + 1
     word_size = exclusive_max_word.bit_length()
 
     # noinspection PyArgumentList
-    return host.Architecture(word_size)
+    return host.architecture.Architecture(word_size)
 
 
 def assemble_build_types() -> list[BuildType]:
     return list(BuildType)
 
 
-def generate_build_subdir_name(os_family: host.OSFamily,
+def generate_build_subdir_name(os_family: host.os_family.OSFamily,
                                compiler_family: compiler.family.CompilerFamily,
                                compiler_version: compiler.version.CompilerVersion,
-                               arch: host.Architecture,
+                               arch: host.architecture.Architecture,
                                build_type: BuildType) -> str:
     sep: Final = '-'
 
