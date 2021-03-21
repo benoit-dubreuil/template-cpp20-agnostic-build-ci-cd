@@ -6,7 +6,7 @@ from unittest import mock
 from unittest.mock import MagicMock
 
 import utils.cli.main
-from build_system.cmd.compiler.host.get_info.version.msvc import fetch_msvc_version
+from build_system.cmd.compiler.host.get_info.version.msvc import impl
 
 
 class TestFetchMSVCVersion(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestFetchMSVCVersion(unittest.TestCase):
 
         mock_installation_path.find.return_value = expected_return_value
 
-        return_value = fetch_msvc_version.fetch()
+        return_value = impl.fetch()
 
         assert mock_installation_path.mock_calls == expected_installation_path_calls
         assert len(mock_vswhere.mock_calls) == 0
@@ -37,7 +37,7 @@ class TestFetchMSVCVersion(unittest.TestCase):
 
         mock_installation_path.find.return_value = None
 
-        return_value = fetch_msvc_version.fetch(expected_installation_path_args)
+        return_value = impl.fetch(expected_installation_path_args)
 
         assert mock_installation_path.mock_calls == expected_installation_path_calls
         assert len(mock_vswhere.mock_calls) == 0
