@@ -1,14 +1,15 @@
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
+import build_system.cmd.compiler.host.get_info.cli
 import build_system.cmd.compiler.host.get_info.location.msvc.cli
-from build_system.cmd.compiler.host.get_info import cli, version
-from build_system.compiler.family import CompilerFamily
-from build_system.compiler.version import CompilerVersion
+import build_system.cmd.compiler.host.get_info.version
+import build_system.compiler.family
+import build_system.compiler.version
 
 
-def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
-    compiler_version: Optional[CompilerVersion] = version.msvc.fetch(compiler_installation_path)
+def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[build_system.compiler.version.CompilerVersion, NoReturn]:
+    compiler_version: Optional[build_system.compiler.version.CompilerVersion] = build_system.cmd.compiler.host.get_info.version.msvc.fetch(compiler_installation_path)
 
     if compiler_version is None:
         build_system.cmd.compiler.host.get_info.location.msvc.cli.error_compiler_not_found()
@@ -17,4 +18,4 @@ def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> 
 
 
 def fetch_version() -> None:
-    cli.cli_fetch_compiler_info(CompilerFamily.MSVC, _fetch_version_no_arg, help_path_meaning='installation')
+    build_system.cmd.compiler.host.get_info.cli.cli_fetch_compiler_info(build_system.compiler.family.CompilerFamily.MSVC, _fetch_version_no_arg, help_path_meaning='installation')
