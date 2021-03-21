@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
+from build_system.compiler.compiler_instance import CompilerInstance
 from build_system.compiler.family import CompilerFamily
 from build_system.compiler.host.os_family import OSFamily
 from build_system.compiler.reqs.scheme import CompilerReqsScheme
@@ -11,9 +12,7 @@ from build_system.compiler.version import CompilerVersion
 
 @dataclass(order=True, frozen=True)
 class CompilerReqs:
-    compiler: CompilerFamily
-    os_families: list[OSFamily]
-    version: CompilerVersion
+    compiler_instance: CompilerInstance
 
     @staticmethod
     def get_default_compiler_reqs_file_path() -> Path:
@@ -35,18 +34,19 @@ class CompilerReqs:
         all_compilers_reqs = {}
 
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
-            compiler = CompilerFamily(compiler_name)
+            compiler_family = CompilerFamily(compiler_name)
             os_families = compiler_reqs_section.getosfamily(CompilerReqsScheme.OS.value)
             compiler_version = CompilerVersion.create_from_config_compiler_reqs_section(compiler_reqs_section)
+            compiler_instance = CompilerInstance(compiler_family, os_families, compiler_version)
 
-            compiler_reqs = cls(compiler, os_families, compiler_version)
-            all_compilers_reqs[compiler] = compiler_reqs
+            compiler_reqs = cls(compiler_instance)
+            all_compilers_reqs[compiler_family] = compiler_reqs
 
         return all_compilers_reqs
 
     @classmethod
     def filter_by_os(cls, all_compilers_reqs: dict[CompilerFamily, 'CompilerReqs'], os_family: OSFamily) -> list['CompilerReqs']:
-        return [compiler_reqs for compiler, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.os_families]
+        return [compiler_reqs for compiler_family, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.compiler_instance.os_families]
 
     @classmethod
     def _check_file_path_for_default_param(cls, file_path: Path) -> Path:
