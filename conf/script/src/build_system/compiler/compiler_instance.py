@@ -1,7 +1,6 @@
 import dataclasses
 
 import build_system.cmd.compiler.host.get_info.version
-import build_system.compiler
 import build_system.compiler.host
 
 
