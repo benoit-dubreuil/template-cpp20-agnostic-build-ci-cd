@@ -66,14 +66,14 @@ def generate_all_build_subdir_names() -> list[str]:
     return build_dir_names
 
 
-def create_build_subdir(build_subdir: str):
-    build_subdir_path = Path(build_subdir)
+def create_build_subdir(build_dir: Path, build_subdir: str):
+    build_subdir_path = build_dir / build_subdir
     build_subdir_path.mkdir(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
 
 
-def create_all_build_subdirs(all_build_subdirs: list[str]):
+def create_all_build_subdirs(build_dir: Path, all_build_subdirs: list[str]):
     for build_subdir in all_build_subdirs:
-        create_build_subdir(build_subdir)
+        create_build_subdir(build_dir, build_subdir)
 
 
 def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
@@ -94,10 +94,10 @@ def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
 
 
 def setup(root_dir: Optional[Path] = None):
-    find_or_create_build_dir(root_dir)
+    build_dir = find_or_create_build_dir(root_dir)
 
     all_build_subdir_names = generate_all_build_subdir_names()
-    create_all_build_subdirs(all_build_subdir_names)
+    create_all_build_subdirs(build_dir, all_build_subdir_names)
 
     # TODO : Remove when #58 is done
     print(*all_build_subdir_names, sep='\n', end=str())
