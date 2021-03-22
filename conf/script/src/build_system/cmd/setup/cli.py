@@ -2,13 +2,14 @@ import argparse
 
 import colorama
 
+import build_system.cmd.hierarchy.consts
 import build_system.cmd.hierarchy.find_build_dir
 import utils.cli.try_cmd
 
 
 def setup():
     arg_parser = argparse.ArgumentParser(
-        description=f"Creates the '{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.find_build_dir.BUILD_DIR_NAME}{colorama.Style.RESET_ALL}'"
+        description=f"Creates the '{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.consts.BUILD_DIR_NAME}{colorama.Style.RESET_ALL}'"
                     'folder and setup specific build system builds inside.')
 
     # TODO
