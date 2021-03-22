@@ -17,6 +17,7 @@ def fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFa
                                                 path_arg_help=f"The {compiler_family.name} compiler's {help_path_meaning} path")
 
     compiler_path: Optional[Path] = utils.cli.arg_parsing.parse_optional_path_arg(arg_parser)
+    arg_parser.parse_args()
 
     def cli_cmd():
         compiler_info = fetch_compiler_info_func(compiler_path)
