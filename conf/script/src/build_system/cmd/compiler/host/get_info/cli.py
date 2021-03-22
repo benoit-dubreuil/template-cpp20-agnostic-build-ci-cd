@@ -22,7 +22,6 @@ def fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFa
         compiler_info = fetch_compiler_info_func(compiler_path)
         print(compiler_info, end=str())
 
-    # TODO : Use ManagedErrorMixin
     except utils.error.managed.ManagedErrorMixin as raised_error:
         raised_error.raise_or_exit_cli(arg_parser)
 
