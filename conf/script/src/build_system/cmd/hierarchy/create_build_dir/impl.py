@@ -8,7 +8,7 @@ import utils.error.cls_def
 BUILD_DIR_PERMISSIONS: Final[int] = 0o770
 
 
-def find_or_create_build_dir(root_dir: Optional[Path] = None) -> Path:
+def create_build_dir(root_dir: Optional[Path] = None) -> Path:
     if root_dir is None:
         root_dir = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
     else:
