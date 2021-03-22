@@ -2,11 +2,12 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-import build_system.cmd.hierarchy.find_build_dir
 import utils.error.cls_def
 
 
 def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> bool:
+    import build_system.cmd.hierarchy.find_build_dir
+
     # noinspection PyUnusedLocal
     def _on_rmtree_error(function, path, excinfo):
         nonlocal has_successfuly_cleaned_build
