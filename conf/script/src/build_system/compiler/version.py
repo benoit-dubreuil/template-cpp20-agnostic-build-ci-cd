@@ -20,8 +20,8 @@ class CompilerVersion:
         try:
             major = int(version_split[cls.get_dimension_of_major()])
             minor = int(version_split[cls.get_dimension_of_minor()])
-        except ValueError as raised_exception:
-            raise type(raised_exception)('Cannot convert the supplied compiler version to integers').with_traceback(raised_exception.__traceback__)
+        except ValueError as raised_error:
+            raise type(raised_error)('Cannot convert the supplied compiler version to integers').with_traceback(raised_error.__traceback__)
 
         return CompilerVersion(major, minor)
 

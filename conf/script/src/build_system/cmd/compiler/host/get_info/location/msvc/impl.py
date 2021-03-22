@@ -29,9 +29,9 @@ def find_location(compiler_installation_path: Optional[Path] = None) -> Optional
         try:
             found_compiler_installation_path = Path(found_compiler_installation_path.strip()).resolve(strict=True)
 
-        except FileNotFoundError as raised_exception:
+        except FileNotFoundError as raised_error:
             supported_exception = utils.error.cls_def.CompilerNotFoundError()
-            supported_exception.with_traceback(raised_exception.__traceback__)
+            supported_exception.with_traceback(raised_error.__traceback__)
             raise supported_exception
 
     return found_compiler_installation_path

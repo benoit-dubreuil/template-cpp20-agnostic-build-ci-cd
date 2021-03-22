@@ -4,7 +4,7 @@ from typing import Any, Callable, Optional
 
 import build_system.compiler.family
 import utils.cli.arg_parsing
-import utils.error.cls_def
+import utils.error.managed
 
 
 def fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFamily,
@@ -23,7 +23,7 @@ def fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFa
         print(compiler_info, end=str())
 
     # TODO : Use ManagedErrorMixin
-    except utils.error.cls_def.CompilerNotFoundError as raised_error:
+    except utils.error.managed.ManagedErrorMixin as raised_error:
         raised_error.raise_or_exit_cli(arg_parser)
 
     # TODO : Ceck for OSErrors
