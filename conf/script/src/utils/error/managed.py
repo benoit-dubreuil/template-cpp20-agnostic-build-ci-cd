@@ -37,6 +37,9 @@ class ManageClass:
                 '__init__': lambda self, *args, **kwargs: super(self.__class__, self).__init__(*args, **kwargs)
             }
 
+            user_attrs_to_copy = {attr_name: attr_val for (attr_name, attr_val) in unmanaged_cls.__dict__.items() if not (attr_name.startswith('__') and attr_name.endswith('__'))}
+            managed_class_namespace.update(user_attrs_to_copy)
+
             return types.new_class(unmanaged_cls.__qualname__,
                                    bases=(DecoratedManagedErrorAPIMixin, unmanaged_cls),
                                    kwds={'metaclass': utils.error.meta.ErrorMeta},
