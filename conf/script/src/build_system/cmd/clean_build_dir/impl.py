@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-import utils.error.cls_def
+import utils.error.managed
 
 
 def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> bool:
@@ -19,7 +19,7 @@ def clean_build_dir(root_dir: Optional[Path] = None, ignore_errors=False) -> boo
     try:
         build_dir = build_system.cmd.hierarchy.find_build_dir.find_build_dir(root_dir)
 
-    except (utils.error.cls_def.RootDirNotFoundError, utils.error.cls_def.BuildDirNotFoundError) as raised_error:
+    except utils.error.managed.ManagedErrorMixin as raised_error:
         if not ignore_errors:
             raise raised_error
 
