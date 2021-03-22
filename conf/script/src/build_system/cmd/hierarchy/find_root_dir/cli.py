@@ -1,12 +1,15 @@
 import argparse
 
+import colorama
+
 import build_system.cmd.hierarchy.find_root_dir
 import utils.cli.try_cmd
 
 
 def find_root_dir():
     arg_parser = argparse.ArgumentParser(
-        description=f"Finds the project's root folder, where the '{build_system.cmd.hierarchy.find_root_dir.BUILD_SYSTEM_CONF_FILENAME}' folder is. "
+        description="Finds the project's root folder, where the "
+                    f"'{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.find_root_dir.BUILD_SYSTEM_CONF_FILENAME}{colorama.Style.RESET_ALL}' folder is. "
                     'It searches recursively parent folders upwards.')
 
     def cli_cmd():
