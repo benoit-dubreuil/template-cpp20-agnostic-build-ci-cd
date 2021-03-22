@@ -43,7 +43,7 @@ class TestManage(unittest.TestCase):
         with self.assertRaises(DecoratedError):
             raise DecoratedError()
 
-    def test_error_status_of_raised_decorated_error(self):
+    def test_error_status_of_raised_decorated_error_overriden(self):
         @utils.error.managed.ManageClass
         class DecoratedError(RuntimeError):
 
@@ -58,9 +58,10 @@ class TestManage(unittest.TestCase):
             raise DecoratedError()
 
         raised_error = context_manager.exception
+        print(raised_error.get_error_status())
         self.assertEqual(utils.error.status.ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
 
-    def test_error_status_of_raised_decorated_error_with_param(self):
+    def test_error_status_of_raised_decorated_error_as_param(self):
         @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.UNSUPPORTED)
         class DecoratedError(RuntimeError):
 
