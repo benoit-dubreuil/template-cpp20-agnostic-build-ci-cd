@@ -4,6 +4,7 @@ from typing import Final
 import colorama
 
 import build_system.cmd.hierarchy.create_build_dir
+import build_system.cmd.hierarchy.find_build_dir
 import utils.cli.arg
 import utils.cli.arg_parsing
 import utils.cli.try_cmd
@@ -14,7 +15,7 @@ ROOT_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg('rootdir')
 
 def create_build_dir():
     arg_parser = argparse.ArgumentParser(
-        description=f"Creates the project's '{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.create_build_dir.BUILD_DIR_NAME}{colorama.Style.RESET_ALL}' folder.")
+        description=f"Creates the project's '{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.find_build_dir.BUILD_DIR_NAME}{colorama.Style.RESET_ALL}' folder.")
     utils.cli.arg_parsing.add_optional_path_arg(arg_parser, ROOT_DIR_ARG, path_arg_help=f"The project's root directory")
 
     root_dir: AnyPath = utils.cli.arg_parsing.parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
