@@ -22,6 +22,6 @@ def clean_build_dir():
     arg_parser.parse_args()
 
     def cli_cmd():
-        build_system.cmd.clean_build_dir.clean_build_dir(build_dir=root_dir)
+        build_system.cmd.hierarchy.clean_build_dir.clean_build_dir(build_dir=root_dir)
 
     utils.cli.try_cmd.try_cmd_except_managed_errors(cli_cmd, arg_parser)

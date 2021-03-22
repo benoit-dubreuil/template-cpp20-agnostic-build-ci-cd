@@ -19,7 +19,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
             raise utils.error.cls_def.RootDirNotFoundError()
 
     build_dir = build_system.cmd.hierarchy.find_build_dir.find_build_dir_path(root_dir=root_dir)
-    build_system.cmd.clean_build_dir.clean_build_dir(build_dir=build_dir, ignore_errors=True)
+    build_system.cmd.hierarchy.clean_build_dir.clean_build_dir(build_dir=build_dir, ignore_errors=True)
     build_dir = build_system.cmd.hierarchy.create_build_dir.create_build_dir(root_dir=root_dir)
 
     all_build_subdir_names = build_system.cmd.setup.build_name.generate_all_build_subdir_names()
