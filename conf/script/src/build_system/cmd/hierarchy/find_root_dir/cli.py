@@ -1,17 +1,18 @@
 import argparse
 
+import build_system.cmd.hierarchy.find_root_dir
+import build_system.cmd.hierarchy.find_root_dir.impl
 import utils.error.cls_def
 import utils.error.managed
-from build_system import cmd
-from build_system.cmd.hierarchy.find_root_dir.find_root_dir import BUILD_SYSTEM_CONF_FILENAME
 
 
 def find_root_dir():
     arg_parser = argparse.ArgumentParser(
-        description=f"Finds the project's root folder, where the '{BUILD_SYSTEM_CONF_FILENAME}' folder is. It searches recursively parent folders upwards.")
+        description=f"Finds the project's root folder, where the '{build_system.cmd.hierarchy.find_root_dir.impl.BUILD_SYSTEM_CONF_FILENAME}' folder is. "
+                    'It searches recursively parent folders upwards.')
 
     try:
-        project_root = cmd.hierarchy.find_root_dir.find_root_dir()
+        project_root = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
         print(project_root, end=str())
 
     except utils.error.cls_def.RootDirNotFoundError as raised_error:

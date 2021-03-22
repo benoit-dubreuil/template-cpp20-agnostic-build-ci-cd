@@ -1,9 +1,9 @@
 from pathlib import Path
 from typing import AnyStr, Callable
 
+import build_system.compiler.version
 import utils.cmd_integrity
 import utils.error.cls_def
-from build_system.compiler.version import CompilerVersion
 
 
 def assure_path_integrity(compiler_path: Path) -> None:
@@ -15,10 +15,10 @@ def assure_path_integrity(compiler_path: Path) -> None:
         raise utils.error.cls_def.CompilerNotFoundError()
 
 
-def interpret_fetched_version(compiler_version_str: AnyStr) -> CompilerVersion:
-    return CompilerVersion.create_from_str(compiler_version_str.strip())
+def interpret_fetched_version(compiler_version_str: AnyStr) -> build_system.compiler.version.CompilerVersion:
+    return build_system.compiler.version.CompilerVersion.create_from_str(compiler_version_str.strip())
 
 
-def fetch(compiler: Path, fetch_compiler_version_func: Callable[[Path], AnyStr]) -> CompilerVersion:
+def fetch(compiler: Path, fetch_compiler_version_func: Callable[[Path], AnyStr]) -> build_system.compiler.version.CompilerVersion:
     compiler_version_str: AnyStr = fetch_compiler_version_func(compiler)
     return interpret_fetched_version(compiler_version_str)

@@ -17,9 +17,10 @@ class ErrorStatus(enum.IntEnum):
     COMPILER_NOT_FOUND = enum.auto()
 
 
-class EncodedErrorMixin(metaclass=utils.error.meta.ErrorMeta):
+class EncodedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
 
     def __init__(self, *args, **kwargs):
+        # noinspection PyArgumentList
         super().__init__(*args, **kwargs)
 
     @staticmethod

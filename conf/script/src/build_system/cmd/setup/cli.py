@@ -1,18 +1,17 @@
 import argparse
 
+import build_system.cmd.hierarchy.find_build_dir
 import utils.error.cls_def
 import utils.error.managed
-from build_system import cmd
-from build_system.cmd.hierarchy.find_build_dir.find_build_dir import BUILD_DIR_NAME
 
 
 def setup():
     arg_parser = argparse.ArgumentParser(
-        description=f"Creates the {BUILD_DIR_NAME} folder and setup specific build system builds inside.")
+        description=f"Creates the {build_system.cmd.hierarchy.find_build_dir.BUILD_DIR_NAME} folder and setup specific build system builds inside.")
     # TODO
 
     try:
-        cmd.setup.setup()
+        build_system.cmd.setup.setup_build_system()
 
     except utils.error.managed.ManagedErrorMixin as raised_error:
         raised_error.raise_or_exit_cli(arg_parser)
