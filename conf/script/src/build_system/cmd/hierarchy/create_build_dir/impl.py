@@ -12,7 +12,8 @@ def create_build_dir(root_dir: Optional[Path] = None) -> Path:
     if root_dir is None:
         root_dir = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
     else:
-        assert root_dir.exists()
+        if not root_dir.exists():
+            raise utils.error.cls_def.RootDirNotFoundError()
 
     build_dir = build_system.cmd.hierarchy.find_build_dir.find_build_dir_path(root_dir)
 
