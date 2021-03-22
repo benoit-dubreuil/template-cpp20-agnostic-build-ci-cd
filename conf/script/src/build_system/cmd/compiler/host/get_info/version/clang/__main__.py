@@ -5,7 +5,7 @@ import utils.cli.main
 
 
 def main():
-    build_system.cmd.compiler.host.get_info.version.clang.fetch()
+    build_system.cmd.compiler.host.get_info.version.clang.fetch_version()
 
 
 utils.cli.main.wrap_main(main)
