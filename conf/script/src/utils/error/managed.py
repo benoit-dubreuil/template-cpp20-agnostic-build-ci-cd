@@ -9,7 +9,7 @@ import utils.error.status
 
 
 # noinspection PyAbstractClass
-class ManagedErrorMixin(utils.error.status.EncodedErrorMixin, utils.error.cli_exit.ExitCLIErrorMixin, utils.error.format.BaseFormattedErrorMixin,
+class ManagedErrorMixin(utils.error.format.BaseFormattedErrorMixin, utils.error.status.EncodedErrorMixin, utils.error.cli_exit.ExitCLIErrorMixin,
                         metaclass=utils.error.meta.ErrorMeta):
 
     def __init__(self, *args, **kwargs):
