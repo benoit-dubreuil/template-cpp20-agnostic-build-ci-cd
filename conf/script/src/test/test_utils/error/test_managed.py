@@ -58,7 +58,6 @@ class TestManage(unittest.TestCase):
             raise DecoratedError()
 
         raised_error = context_manager.exception
-        print(raised_error.get_error_status())
         self.assertEqual(utils.error.status.ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
 
     def test_error_status_of_raised_decorated_error_as_param(self):
