@@ -3,6 +3,8 @@ from typing import Final, Optional
 
 import vswhere
 
+import utils.error.cls_def
+
 _DEFAULT_REQUIRES: Final[list[str]] = [
     'Microsoft.VisualStudio.Component.VC.Tools.x86.x64',
     'Microsoft.VisualStudio.Component.Windows10SDK.19041',
@@ -24,6 +26,11 @@ def find_location(compiler_installation_path: Optional[Path] = None) -> Optional
         found_compiler_installation_path = vswhere.find_first(prop=_PROP_INSTALLATION_PATH, path=compiler_installation_path)
 
     if found_compiler_installation_path is not None:
-        found_compiler_installation_path = Path(found_compiler_installation_path.strip()).resolve()
+        try:
+            found_compiler_installation_path = Path(found_compiler_installation_path.strip()).resolve(strict=True)
+
+        except FileNotFoundError as raised_exception:
+            supported_exception = utils.error.cls_def.CompilerNotFoundError()
+            supported_exception.with_traceback(raised_exception.__traceback__)
 
     return found_compiler_installation_path
