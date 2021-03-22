@@ -11,7 +11,7 @@ def setup():
     # TODO
 
     try:
-        build_system.cmd.setup.setup()
+        build_system.cmd.setup.setup_build_system()
 
     except utils.error.managed.ManagedErrorMixin as raised_error:
         raised_error.raise_or_exit_cli(arg_parser)
