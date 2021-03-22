@@ -12,6 +12,7 @@ def setup():
                     'folder and setup specific build system builds inside.')
 
     # TODO
+    arg_parser.parse_args()
 
     def cli_cmd():
         build_system.cmd.setup.setup_build_system()
