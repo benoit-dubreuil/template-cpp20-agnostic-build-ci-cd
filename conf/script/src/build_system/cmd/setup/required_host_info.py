@@ -33,7 +33,7 @@ def fetch_supported_compiler_instances_by_os(os_family: build_system.compiler.ho
                 compiler_family=compiler_reqs.compiler_instance.compiler_family, os_family=os_family)
 
             if installed_compiler_instance.version >= compiler_reqs.compiler_instance.version:
-                supported_compiler_instances += installed_compiler_instance
+                supported_compiler_instances.append(installed_compiler_instance)
 
     return supported_compiler_instances
 
