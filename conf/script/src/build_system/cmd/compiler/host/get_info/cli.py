@@ -4,6 +4,7 @@ from typing import Any, Callable, Optional
 
 import build_system.compiler.family
 import utils.cli.arg_parsing
+import utils.error.cls_def
 import utils.error.managed
 
 
@@ -25,7 +26,9 @@ def fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFa
     except utils.error.managed.ManagedErrorMixin as raised_error:
         raised_error.raise_or_exit_cli(arg_parser)
 
-    # TODO : Ceck for OSErrors
+    except OSError as raised_error:
+        unsupported_error = utils.error.cls_def.UnsupportedError(raised_error)
+        unsupported_error.raise_or_exit_cli(arg_parser)
 
 
 def fetch_compiler_info_with_default_path(compiler_family: build_system.compiler.family.CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
