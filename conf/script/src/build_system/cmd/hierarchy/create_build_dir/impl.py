@@ -1,11 +1,10 @@
 from pathlib import Path
-from typing import Final, Optional
+from typing import Optional
 
-import build_system.cmd.hierarchy.find_root_dir
+import build_system.cmd.hierarchy.consts
 import build_system.cmd.hierarchy.find_build_dir
+import build_system.cmd.hierarchy.find_root_dir
 import utils.error.cls_def
-
-BUILD_DIR_PERMISSIONS: Final[int] = 0o770
 
 
 def create_build_dir(root_dir: Optional[Path] = None) -> Path:
@@ -21,6 +20,6 @@ def create_build_dir(root_dir: Optional[Path] = None) -> Path:
         if not build_dir.is_dir():
             raise utils.error.cls_def.BuildDirNotDirError()
     else:
-        build_dir.mkdir(mode=BUILD_DIR_PERMISSIONS, parents=True)
+        build_dir.mkdir(mode=build_system.cmd.hierarchy.consts.BUILD_DIR_PERMISSIONS, parents=True)
 
     return build_dir
