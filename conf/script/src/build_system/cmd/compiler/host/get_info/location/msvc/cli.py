@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
-import build_system.cmd.compiler.host.get_info.location
+import build_system.cmd.compiler.host.get_info.cli
 import build_system.compiler.family
 import utils.error.format
 
