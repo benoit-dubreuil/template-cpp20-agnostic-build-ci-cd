@@ -5,7 +5,7 @@ import utils.error.cls_def
 
 
 def setup_build_system(root_dir: Optional[Path] = None):
-    import build_system.cmd.clean_build_dir
+    import build_system.cmd.hierarchy.clean_build_dir
     import build_system.cmd.hierarchy.create_build_dir
     import build_system.cmd.hierarchy.find_root_dir
     import build_system.cmd.hierarchy.find_build_dir
