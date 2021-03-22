@@ -7,11 +7,11 @@ import utils.cli.arg_parsing
 import utils.error.cls_def
 
 
-def cli_fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFamily,
-                            fetch_compiler_info_func: Callable[[Optional[Path]], Any],
-                            default_compiler_path: Optional[Path] = None,
-                            desc_compiler_info: str = 'version',
-                            help_path_meaning: str = 'executable') -> None:
+def fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFamily,
+                        fetch_compiler_info_func: Callable[[Optional[Path]], Any],
+                        default_compiler_path: Optional[Path] = None,
+                        desc_compiler_info: str = 'version',
+                        help_path_meaning: str = 'executable') -> None:
     arg_parser = argparse.ArgumentParser(description=f"Fetches {compiler_family.name} compiler's {desc_compiler_info}")
     utils.cli.arg_parsing.add_optional_path_arg(arg_parser, path_arg_default_value=default_compiler_path,
                                                 path_arg_help=f"The {compiler_family.name} compiler's {help_path_meaning} path")
@@ -29,5 +29,5 @@ def cli_fetch_compiler_info(compiler_family: build_system.compiler.family.Compil
     # TODO : Ceck for OSErrors
 
 
-def cli_fetch_compiler_info_with_default_path(compiler_family: build_system.compiler.family.CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
-    cli_fetch_compiler_info(compiler_family, fetch_compiler_info_func, compiler_family.value)
+def fetch_compiler_info_with_default_path(compiler_family: build_system.compiler.family.CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
+    fetch_compiler_info(compiler_family, fetch_compiler_info_func, compiler_family.value)
