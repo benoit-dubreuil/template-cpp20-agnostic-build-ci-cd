@@ -18,6 +18,6 @@ def clean_build_dir():
     root_dir: AnyPath = utils.cli.arg_parsing.parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
 
     def cli_cmd():
-        build_system.cmd.clean_build_dir.clean_build_dir(root_dir=root_dir)
+        build_system.cmd.clean_build_dir.clean_build_dir(build_dir=root_dir)
 
     utils.cli.try_cmd.try_cmd_except_managed_errors(cli_cmd, arg_parser)
