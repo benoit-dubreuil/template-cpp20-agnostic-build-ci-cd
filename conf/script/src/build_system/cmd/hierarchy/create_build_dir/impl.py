@@ -18,7 +18,7 @@ def create_build_dir(root_dir: Optional[Path] = None) -> Path:
 
     if build_dir.exists():
         if not build_dir.is_dir():
-            raise utils.error.cls_def.RootDirNotFoundError()
+            raise utils.error.cls_def.BuildDirNotDirError()
     else:
         build_dir.mkdir(mode=BUILD_DIR_PERMISSIONS, parents=True)
 
