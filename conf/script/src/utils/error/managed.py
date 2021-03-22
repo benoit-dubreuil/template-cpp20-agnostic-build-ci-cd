@@ -38,7 +38,7 @@ class ManageClass:
             }
 
             return types.new_class(unmanaged_cls.__qualname__,
-                                   bases=(unmanaged_cls, DecoratedManagedErrorAPIMixin),
+                                   bases=(DecoratedManagedErrorAPIMixin, unmanaged_cls),
                                    kwds={'metaclass': utils.error.meta.ErrorMeta},
                                    exec_body=lambda ns: ns.update(managed_class_namespace))
 
