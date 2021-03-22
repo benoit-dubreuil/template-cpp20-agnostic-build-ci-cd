@@ -8,7 +8,7 @@ import build_system.compiler.version
 
 
 def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[build_system.compiler.version.CompilerVersion, NoReturn]:
-    compiler_version: Optional[build_system.compiler.version.CompilerVersion] = build_system.cmd.compiler.host.get_info.version.msvc.fetch(compiler_installation_path)
+    compiler_version: Optional[build_system.compiler.version.CompilerVersion] = build_system.cmd.compiler.host.get_info.version.msvc.fetch_version(compiler_installation_path)
 
     if compiler_version is None:
         build_system.cmd.compiler.host.get_info.location.msvc.cli.error_compiler_not_found()

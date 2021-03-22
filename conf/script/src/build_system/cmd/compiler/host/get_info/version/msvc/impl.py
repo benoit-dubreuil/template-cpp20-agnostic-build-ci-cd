@@ -9,7 +9,7 @@ import build_system.compiler.version
 _PROP_VERSION: Final[str] = 'installationVersion'
 
 
-def fetch(compiler_installation_path: Optional[Path] = None) -> Optional[build_system.compiler.version.CompilerVersion]:
+def fetch_version(compiler_installation_path: Optional[Path] = None) -> Optional[build_system.compiler.version.CompilerVersion]:
     interpreted_compiler_version: Optional[build_system.compiler.version.CompilerVersion] = None
     compiler_installation_path = build_system.cmd.compiler.host.get_info.location.msvc.find(compiler_installation_path)
 
