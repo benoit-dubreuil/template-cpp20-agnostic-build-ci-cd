@@ -21,10 +21,12 @@ def find_build_dir():
         build_dir = build_system.cmd.hierarchy.find_build_dir.find_build_dir(root_dir)
         print(build_dir, end=str())
 
+    # TODO : Use ManagedErrorMixin
     except (utils.error.cls_def.RootDirNotFoundError, utils.error.cls_def.BuildDirNotFoundError) as raised_error:
         raised_error.raise_or_exit_cli(arg_parser)
 
     except OSError as raised_error:
+        # TODO : Remove if check based on the previous TODO
         if not isinstance(raised_error, utils.error.managed.ManagedErrorMixin):
             unsupported_error = utils.error.cls_def.UnsupportedError(raised_error)
             unsupported_error.raise_or_exit_cli(arg_parser)

@@ -21,8 +21,12 @@ def cli_fetch_compiler_info(compiler_family: build_system.compiler.family.Compil
     try:
         compiler_info = fetch_compiler_info_func(compiler_path)
         print(compiler_info, end=str())
+
+    # TODO : Use ManagedErrorMixin
     except utils.error.cls_def.CompilerNotFoundError as raised_error:
         raised_error.raise_or_exit_cli(arg_parser)
+
+    # TODO : Ceck for OSErrors
 
 
 def cli_fetch_compiler_info_with_default_path(compiler_family: build_system.compiler.family.CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
