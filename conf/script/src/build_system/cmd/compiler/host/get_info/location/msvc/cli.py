@@ -12,7 +12,7 @@ def error_compiler_not_found() -> NoReturn:
 
 
 def _find_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[Path, NoReturn]:
-    compiler_installation_path: Optional[Path] = build_system.cmd.compiler.host.get_info.location.msvc.find(compiler_installation_path)
+    compiler_installation_path: Optional[Path] = build_system.cmd.compiler.host.get_info.location.msvc.find_location(compiler_installation_path)
 
     if compiler_installation_path is None:
         error_compiler_not_found()
