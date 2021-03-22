@@ -20,7 +20,7 @@ class TestFetchMSVCVersion(unittest.TestCase):
 
         mock_installation_path.find.return_value = expected_return_value
 
-        return_value = build_system.cmd.compiler.host.get_info.version.msvc.impl.fetch_version()
+        return_value = build_system.cmd.compiler.host.get_info.version.msvc.fetch_version()
 
         assert mock_installation_path.mock_calls == expected_installation_path_calls
         assert len(mock_vswhere.mock_calls) == 0
@@ -37,7 +37,7 @@ class TestFetchMSVCVersion(unittest.TestCase):
 
         mock_installation_path.find.return_value = None
 
-        return_value = build_system.cmd.compiler.host.get_info.version.msvc.impl.fetch_version(expected_installation_path_args)
+        return_value = build_system.cmd.compiler.host.get_info.version.msvc.fetch_version(expected_installation_path_args)
 
         assert mock_installation_path.mock_calls == expected_installation_path_calls
         assert len(mock_vswhere.mock_calls) == 0
