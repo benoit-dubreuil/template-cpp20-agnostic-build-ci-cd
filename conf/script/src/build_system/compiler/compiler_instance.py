@@ -16,9 +16,9 @@ class CompilerInstance:
     def create_from_installed_compiler(cls,
                                        compiler_family: build_system.compiler.family.CompilerFamily,
                                        os_family: build_system.compiler.host.os_family.OSFamily) -> 'CompilerInstance':
-        import build_system.cmd.compiler.host.get_info.version
+        import build_system.cmd.compiler.host.get_info.version.fetch_by_criteria
 
-        version = build_system.cmd.compiler.host.get_info.version.fetch_by_compiler_family(compiler_family)
+        version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
         return cls(compiler_family=compiler_family, os_families=[os_family], version=version)
 
     def get_current_os_family(self) -> build_system.compiler.host.os_family.OSFamily:
