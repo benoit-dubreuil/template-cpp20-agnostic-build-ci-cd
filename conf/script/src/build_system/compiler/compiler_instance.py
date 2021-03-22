@@ -1,7 +1,8 @@
 import dataclasses
 
 import build_system.compiler.family
-import build_system.compiler.host
+import build_system.compiler.host.architecture
+import build_system.compiler.host.os_family
 import build_system.compiler.version
 
 
@@ -16,7 +17,7 @@ class CompilerInstance:
                                        compiler_family: build_system.compiler.family.CompilerFamily,
                                        os_family: build_system.compiler.host.os_family.OSFamily) -> 'CompilerInstance':
         import build_system.cmd.compiler.host.get_info.version
-        
+
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_compiler_family(compiler_family)
         return cls(compiler_family=compiler_family, os_families=[os_family], version=version)
 

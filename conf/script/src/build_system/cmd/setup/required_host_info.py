@@ -2,7 +2,8 @@ import platform
 import sys
 
 import build_system.compiler.compiler_instance
-import build_system.compiler.host
+import build_system.compiler.host.architecture
+import build_system.compiler.host.os_family
 import build_system.compiler.reqs.reqs
 
 
