@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-import build_system.compiler.reqs.scheme
-
 
 @dataclass(order=True, frozen=True)
 class CompilerVersion:
@@ -10,13 +8,6 @@ class CompilerVersion:
 
     def __str__(self) -> str:
         return '%u%s%u' % (self.major, self.get_separator(), self.minor)
-
-    @classmethod
-    def create_from_config_compiler_reqs_section(cls, config_compiler_reqs_section) -> 'CompilerVersion':
-        major = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MAJOR.value)
-        minor = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MINOR.value, fallback=0)
-
-        return cls(major, minor)
 
     # Ex: '9.1.9' => CompilerVersion(9, 1). The string must be stripped.
     @classmethod
