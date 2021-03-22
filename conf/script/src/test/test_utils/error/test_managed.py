@@ -60,6 +60,19 @@ class TestManage(unittest.TestCase):
         raised_error = context_manager.exception
         self.assertEqual(utils.error.status.ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
 
+    def test_error_status_of_raised_decorated_error_with_param(self):
+        @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.UNSUPPORTED)
+        class DecoratedError(RuntimeError):
+
+            def __init__(self):
+                super().__init__(str(unittest))
+
+        with self.assertRaises(DecoratedError) as context_manager:
+            raise DecoratedError()
+
+        raised_error = context_manager.exception
+        self.assertEqual(utils.error.status.ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
+
     def test_decorate_warning(self):
         @utils.error.managed.ManageClass
         class DecoratedError(RuntimeWarning):
