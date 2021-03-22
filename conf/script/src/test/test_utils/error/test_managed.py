@@ -58,7 +58,7 @@ class TestManage(unittest.TestCase):
             raise DecoratedError()
 
         raised_error = context_manager.exception
-        self.assertEqual(raised_error.get_error_status(), utils.error.status.ErrorStatus.UNSUPPORTED)
+        self.assertEqual(utils.error.status.ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
 
     def test_decorate_warning(self):
         @utils.error.managed.ManageClass
