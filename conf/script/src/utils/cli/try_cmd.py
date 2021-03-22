@@ -1,11 +1,11 @@
 import argparse
-from typing import Callable
+import typing
 
 import utils.error.cls_def
 import utils.error.managed
 
 
-def try_cmd_except_managed_errors(cmd_func: Callable, arg_parser: argparse.ArgumentParser):
+def try_cmd_except_managed_errors(cmd_func: typing.Callable, arg_parser: argparse.ArgumentParser):
     try:
         cmd_func()
 
