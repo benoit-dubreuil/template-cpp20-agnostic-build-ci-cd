@@ -1,10 +1,6 @@
 import build_system.build_target.build_type
 import build_system.build_target.name
 import build_system.compiler.compiler_instance
-import build_system.compiler.family
-import build_system.compiler.host.architecture
-import build_system.compiler.host.os_family
-import build_system.compiler.version
 
 
 def _assemble_target_build_types() -> list[build_system.build_target.build_type.TargetBuildType]:
