@@ -2,7 +2,7 @@ from enum import Enum, unique
 
 
 @unique
-class BuildType(Enum):
+class TargetBuildType(Enum):
     DEBUG = 'debug'
     DEBUG_OPTIMIZED = 'debugoptimized'
     RELEASE = 'release'
