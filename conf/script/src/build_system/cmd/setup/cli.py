@@ -10,6 +10,7 @@ from utils.more_typing import AnyPath
 
 
 def setup():
+    # TODO : Fix description
     arg_parser = argparse.ArgumentParser(description=f"Creates the '{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.consts.BUILD_DIR_NAME}{colorama.Style.RESET_ALL}'"
                                                      'folder and setup specific build system builds inside.')
     utils.cli.arg_parsing.add_optional_path_arg(arg_parser, build_system.cmd.hierarchy.consts.ROOT_DIR_ARG, path_arg_help="The project's root directory")
