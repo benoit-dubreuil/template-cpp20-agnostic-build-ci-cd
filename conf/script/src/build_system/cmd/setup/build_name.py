@@ -1,6 +1,6 @@
 from typing import Final
 
-import build_system.build_info.build_type
+import build_system.build_target.build_type
 import build_system.cmd.setup.required_host_info
 import build_system.compiler.family
 import build_system.compiler.host.architecture
