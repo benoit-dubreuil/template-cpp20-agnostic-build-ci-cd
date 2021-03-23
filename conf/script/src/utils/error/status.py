@@ -14,6 +14,7 @@ class ErrorStatus(enum.IntEnum):
     ROOT_DIR_NOT_FOUND = enum.auto()
     BUILD_DIR_NOT_FOUND = enum.auto()
     BUILD_DIR_NOT_DIR = enum.auto()
+    BUILD_DIR_NOT_EMPTY = enum.auto()
     COMPILER_NOT_FOUND = enum.auto()
 
 
