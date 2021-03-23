@@ -78,6 +78,13 @@ class BuildDirNotDirError(FileExistsError):
         super().__init__("Build directory exists but isn't a directory")
 
 
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.BUILD_DIR_NOT_EMPTY)
+class BuildDirNotEmptyError(FileExistsError):
+
+    def __init__(self):
+        super().__init__("Build directory isn't empty")
+
+
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_NOT_FOUND)
 class CompilerNotFoundError(FileNotFoundError):
 
