@@ -3,7 +3,7 @@ import argparse
 import colorama
 
 import build_system.cmd.hierarchy.consts
-import build_system.cmd.hierarchy.create_build_dir
+import build_system.cmd.hierarchy.find_build_dir
 import utils.cli.arg_parsing
 import utils.cli.try_cmd
 from utils.more_typing import AnyPath
@@ -18,6 +18,6 @@ def create_build_dir():
     arg_parser.parse_args()
 
     def cli_cmd():
-        build_system.cmd.hierarchy.create_build_dir.create_build_dir(root_dir)
+        build_system.cmd.hierarchy.find_build_dir.find_build_dir(root_dir)
 
     utils.cli.try_cmd.try_cmd_except_managed_errors(cli_cmd, arg_parser)
