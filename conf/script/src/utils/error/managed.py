@@ -34,7 +34,7 @@ class ManageClass:
         def create_managed_cls(unmanaged_cls: type) -> type:
             managed_class_namespace = {
                 '__module__': __name__ if unmanaged_cls.__module__ is None else unmanaged_cls.__module__,
-                '__init__': lambda self, *args, **kwargs: super(self.__class__, self).__init__(*args, **kwargs)
+                '__init__': lambda self, *args, **kwargs: super(type(self), self).__init__(*args, **kwargs)
             }
 
             user_attrs_to_copy = {attr_name: attr_val for (attr_name, attr_val) in unmanaged_cls.__dict__.items() if not (attr_name.startswith('__') and attr_name.endswith('__'))}
