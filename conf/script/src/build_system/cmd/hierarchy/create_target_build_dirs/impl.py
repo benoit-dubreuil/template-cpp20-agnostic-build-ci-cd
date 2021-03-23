@@ -1,20 +1,9 @@
 from pathlib import Path
 from typing import Optional
 
+import build_system.cmd.hierarchy.assure_arg_integrity
 import utils.error.cls_def
 import utils.more_path
-
-
-def _assure_build_dir_exists(build_dir_cli_arg):
-    import build_system.cmd.hierarchy.create_build_dir
-
-    if build_dir_cli_arg is None:
-        build_dir_cli_arg = build_system.cmd.hierarchy.create_build_dir.create_build_dir()
-    else:
-        if not build_dir_cli_arg.exists():
-            raise utils.error.cls_def.BuildDirNotFoundError()
-
-    return build_dir_cli_arg
 
 
 def _assure_build_dir_is_empty(build_dir):
@@ -41,7 +30,7 @@ def _create_all_target_build_dirs(build_dir):
 
 
 def create_target_build_dirs(build_dir: Optional[Path] = None) -> list[Path]:
-    build_dir = _assure_build_dir_exists(build_dir)
+    build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir)
     _assure_build_dir_is_empty(build_dir)
 
     return _create_all_target_build_dirs(build_dir)
