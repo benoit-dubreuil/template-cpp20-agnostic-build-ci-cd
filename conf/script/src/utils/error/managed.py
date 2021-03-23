@@ -34,16 +34,23 @@ class ManageClass:
         def create_managed_cls(unmanaged_cls: type) -> type:
             managed_class_namespace = {
                 '__module__': __name__ if unmanaged_cls.__module__ is None else unmanaged_cls.__module__,
-                '__init__': lambda self, *args, **kwargs: super(self.__class__, self).__init__(*args, **kwargs)
             }
 
             user_attrs_to_copy = {attr_name: attr_val for (attr_name, attr_val) in unmanaged_cls.__dict__.items() if not (attr_name.startswith('__') and attr_name.endswith('__'))}
             managed_class_namespace.update(user_attrs_to_copy)
 
-            return types.new_class(unmanaged_cls.__qualname__,
-                                   bases=(DecoratedManagedErrorAPIMixin, unmanaged_cls),
-                                   kwds={'metaclass': utils.error.meta.ErrorMeta},
-                                   exec_body=lambda ns: ns.update(managed_class_namespace))
+            managed_class = types.new_class(unmanaged_cls.__qualname__,
+                                            bases=(DecoratedManagedErrorAPIMixin, unmanaged_cls),
+                                            kwds={'metaclass': utils.error.meta.ErrorMeta},
+                                            exec_body=lambda ns: ns.update(managed_class_namespace))
+
+            def __init__(self, *args, **kwargs):
+                # noinspection PyArgumentList
+                super(managed_class, self).__init__(*args, **kwargs)
+
+            setattr(managed_class, '__init__', __init__)
+
+            return managed_class
 
         if decorated_cls is not None:
             return create_managed_cls(decorated_cls)

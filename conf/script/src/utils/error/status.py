@@ -16,6 +16,7 @@ class ErrorStatus(enum.IntEnum):
     BUILD_DIR_NOT_DIR = enum.auto()
     BUILD_DIR_NOT_EMPTY = enum.auto()
     COMPILER_NOT_FOUND = enum.auto()
+    NO_SUPPORTED_COMPILERS_AVAILABLE = enum.auto()
 
 
 class EncodedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
