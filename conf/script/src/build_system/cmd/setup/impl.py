@@ -28,6 +28,13 @@ def _create_target_build_dirs(root_dir: Optional[Path] = None) -> list[Path]:
 
 def setup_build_system(root_dir: Optional[Path] = None):
     target_build_dirs = _create_target_build_dirs(root_dir)
-    # TODO
 
-    print(target_build_dirs, end=str())
+    # TODO : WIP
+    import mesonbuild.mesonmain
+
+    current_package_path = Path(__file__).parent.resolve(strict=True)
+
+    meson_launcher: str = str(current_package_path)
+    meson_cli_args: list[str] = ['-h']
+
+    mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
