@@ -5,7 +5,7 @@ import utils.error.cls_def
 import utils.more_path
 
 
-def create_target_build_dirs(root_dir: Optional[Path] = None):
+def create_target_build_dirs(root_dir: Optional[Path] = None) -> list[Path]:
     import build_system.cmd.hierarchy.clean_build_dir
     import build_system.cmd.hierarchy.create_build_dir
     import build_system.cmd.hierarchy.find_root_dir
@@ -25,4 +25,4 @@ def create_target_build_dirs(root_dir: Optional[Path] = None):
             raise utils.error.cls_def.BuildDirNotEmptyError()
 
     target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_target_build_dir_names()
-    build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_target_build_dirs(build_dir, target_build_dir_names)
+    return build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_target_build_dirs(build_dir, target_build_dir_names)
