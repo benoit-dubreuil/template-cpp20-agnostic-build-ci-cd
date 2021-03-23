@@ -12,7 +12,7 @@ def create_target_build_dirs(build_dir: Optional[Path] = None) -> list[Path]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
     if build_dir is None:
-        build_dir = build_system.cmd.hierarchy.create_build_dir.create_build_dir(root_dir=build_dir)
+        build_dir = build_system.cmd.hierarchy.create_build_dir.create_build_dir()
     else:
         if not build_dir.exists():
             raise utils.error.cls_def.BuildDirNotFoundError()
