@@ -1,6 +1,6 @@
 from typing import Final
 
-import build_system.cmd.setup.build_type
+import build_system.build_info.build_type
 import build_system.cmd.setup.required_host_info
 import build_system.compiler.family
 import build_system.compiler.host.architecture
@@ -8,15 +8,15 @@ import build_system.compiler.host.os_family
 import build_system.compiler.version
 
 
-def assemble_build_types() -> list[build_system.cmd.setup.build_type.BuildType]:
-    return list(build_system.cmd.setup.build_type.BuildType)
+def assemble_build_types() -> list[build_system.build_info.build_type.BuildType]:
+    return list(build_system.build_info.build_type.BuildType)
 
 
 def generate_build_subdir_name(os_family: build_system.compiler.host.os_family.OSFamily,
                                compiler_family: build_system.compiler.family.CompilerFamily,
                                compiler_version: build_system.compiler.version.CompilerVersion,
                                arch: build_system.compiler.host.architecture.Architecture,
-                               build_type: build_system.cmd.setup.build_type.BuildType) -> str:
+                               build_type: build_system.build_info.build_type.BuildType) -> str:
     sep: Final = '-'
 
     os_family_name = os_family.value
