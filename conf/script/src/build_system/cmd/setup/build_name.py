@@ -1,7 +1,7 @@
 from typing import Final
 
 import build_system.build_target.build_type
-import build_system.build_target.target_name
+import build_system.build_target.name
 import build_system.cmd.setup.required_host_info
 import build_system.compiler.compiler_instance
 import build_system.compiler.family
@@ -27,7 +27,7 @@ def generate_all_build_subdir_names() -> list[str]:
     build_dir_names = []
     for compiler_instance in supported_compiler_instances:
         for target_build_type in target_build_types:
-            target_name = build_system.build_target.target_name.TargetBuildName(compiler_instance=compiler_instance, arch=arch, target_build_type=target_build_type)
+            target_name = build_system.build_target.name.TargetBuildName(compiler_instance=compiler_instance, arch=arch, target_build_type=target_build_type)
             build_dir_names.append(str(target_name))
 
     return build_dir_names
