@@ -88,5 +88,15 @@ class BuildDirNotEmptyError(FileExistsError):
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_NOT_FOUND)
 class CompilerNotFoundError(FileNotFoundError):
 
+    def __init__(self, error_msg: str = 'Compiler at the supplied path does not exist or requires ungranted permissions'):
+        super().__init__(error_msg)
+
+
+class NoSupportedCompilersAvailableError(CompilerNotFoundError):
+
     def __init__(self):
-        super().__init__('Compiler at the supplied path does not exist or requires ungranted permissions')
+        super().__init__(error_msg='No supported compilers are available')
+
+    @staticmethod
+    def get_error_status() -> utils.error.status.ErrorStatus:
+        return utils.error.status.ErrorStatus.NO_SUPPORTED_COMPILERS_AVAILABLE
