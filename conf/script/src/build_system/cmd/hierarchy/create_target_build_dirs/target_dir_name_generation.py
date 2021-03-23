@@ -19,7 +19,7 @@ def _fetch_supported_compiler_instance() -> list[build_system.compiler.compiler_
     return build_system.cmd.setup.required_host_info.fetch_supported_compiler_instances_by_os(os_family)
 
 
-def generate_all_build_subdir_names() -> list[str]:
+def generate_target_build_dir_names() -> list[str]:
     supported_compiler_instances = _fetch_supported_compiler_instance()
     target_build_types = _assemble_target_build_types()
     arch = build_system.cmd.setup.required_host_info.detect_arch()

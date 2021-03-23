@@ -22,5 +22,5 @@ def setup_build_system(root_dir: Optional[Path] = None):
     build_system.cmd.hierarchy.clean_build_dir.clean_build_dir(build_dir=build_dir, ignore_errors=True)
     build_dir = build_system.cmd.hierarchy.create_build_dir.create_build_dir(root_dir=root_dir)
 
-    all_build_subdir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_all_build_subdir_names()
+    all_build_subdir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_target_build_dir_names()
     build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_build_subdirs(build_dir, all_build_subdir_names)
