@@ -10,7 +10,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     import build_system.cmd.hierarchy.find_root_dir
     import build_system.cmd.hierarchy.find_build_dir
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
-    import build_system.cmd.setup.create_build_subdirs
+    import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
     if root_dir is None:
         root_dir = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
@@ -23,4 +23,4 @@ def setup_build_system(root_dir: Optional[Path] = None):
     build_dir = build_system.cmd.hierarchy.create_build_dir.create_build_dir(root_dir=root_dir)
 
     all_build_subdir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_all_build_subdir_names()
-    build_system.cmd.setup.create_build_subdirs.create_all_build_subdirs(build_dir, all_build_subdir_names)
+    build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_build_subdirs(build_dir, all_build_subdir_names)
