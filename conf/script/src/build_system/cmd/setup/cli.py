@@ -3,7 +3,6 @@ import argparse
 import colorama
 
 import build_system.cmd.hierarchy.consts
-import build_system.cmd.hierarchy.find_build_dir
 import utils.cli.arg_parsing
 import utils.cli.try_cmd
 from utils.more_typing import AnyPath
