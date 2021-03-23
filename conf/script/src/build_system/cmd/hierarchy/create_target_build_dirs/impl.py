@@ -22,17 +22,24 @@ def _assure_build_dir_is_empty(build_dir):
         raise utils.error.cls_def.BuildDirNotEmptyError()
 
 
-def create_target_build_dirs(build_dir: Optional[Path] = None) -> list[Path]:
-    import build_system.cmd.hierarchy.clean_build_dir
+def _generate_target_build_dir_names():
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
-    import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
-
-    build_dir = _assure_build_dir_exists(build_dir)
-    _assure_build_dir_is_empty(build_dir)
 
     target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_target_build_dir_names()
 
     if len(target_build_dir_names) <= 0:
         raise utils.error.cls_def.NoSupportedCompilersAvailableError()
+
+    return target_build_dir_names
+
+
+def create_target_build_dirs(build_dir: Optional[Path] = None) -> list[Path]:
+    import build_system.cmd.hierarchy.clean_build_dir
+    import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
+
+    build_dir = _assure_build_dir_exists(build_dir)
+    _assure_build_dir_is_empty(build_dir)
+
+    target_build_dir_names = _generate_target_build_dir_names()
 
     return build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_target_build_dirs(build_dir, target_build_dir_names)
