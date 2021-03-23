@@ -44,8 +44,10 @@ class ManageClass:
                                             kwds={'metaclass': utils.error.meta.ErrorMeta},
                                             exec_body=lambda ns: ns.update(managed_class_namespace))
 
-            managed_class_init_code = lambda self, *args, **kwargs: super(managed_class, self).__init__(*args, **kwargs)
-            setattr(managed_class, '__init__', managed_class_init_code)
+            def __init__(self, *args, **kwargs):
+                super(managed_class, self).__init__(*args, **kwargs)
+
+            setattr(managed_class, '__init__', __init__)
 
             return managed_class
 
