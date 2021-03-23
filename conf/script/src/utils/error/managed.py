@@ -45,6 +45,7 @@ class ManageClass:
                                             exec_body=lambda ns: ns.update(managed_class_namespace))
 
             def __init__(self, *args, **kwargs):
+                # noinspection PyArgumentList
                 super(managed_class, self).__init__(*args, **kwargs)
 
             setattr(managed_class, '__init__', __init__)
