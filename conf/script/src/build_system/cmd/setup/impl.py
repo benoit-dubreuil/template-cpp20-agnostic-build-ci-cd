@@ -30,4 +30,4 @@ def setup_build_system(root_dir: Optional[Path] = None):
     target_build_dirs = _create_target_build_dirs(root_dir)
     # TODO
 
-    print(target_build_dirs)
+    print(target_build_dirs, end=str())
