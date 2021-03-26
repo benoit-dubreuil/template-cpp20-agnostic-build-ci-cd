@@ -1,11 +1,14 @@
 import abc
 import dataclasses
 import pathlib
+import typing
 
 import build_system.compiler.family
 import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
 import build_system.compiler.version
+import utils.cmd_integrity
+import utils.error.cls_def
 
 
 @dataclasses.dataclass(order=True, frozen=True)
@@ -31,5 +34,20 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
     @staticmethod
     @abc.abstractmethod
-    def _find_installation_dir_by_compiler_family():
+    def _find_installation_dir_by_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
         ...
+
+
+class GNUCompilerInstance(CompilerInstance):
+
+    @staticmethod
+    def _find_installation_dir_by_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
+        assert compiler_family == build_system.compiler.family.CompilerFamily.GCC \
+               or compiler_family == build_system.compiler.family.CompilerFamily.CLANG
+
+        compiler_location, compiler_instance_exists = utils.cmd_integrity.get_cmd_path(compiler_family)
+
+        if not compiler_instance_exists:
+            raise utils.error.cls_def.CompilerNotFoundError()
+
+        return compiler_location.parent
