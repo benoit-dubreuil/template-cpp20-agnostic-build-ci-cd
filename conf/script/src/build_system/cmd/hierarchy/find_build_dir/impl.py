@@ -20,8 +20,11 @@ def find_build_dir(root_dir: Optional[Path] = None) -> Path:
     try:
         build_dir.resolve(strict=True)
         build_dir = build_dir.absolute()
-    except FileNotFoundError:
-        raise utils.error.cls_def.BuildDirNotFoundError()
+    except Exception as raised_error:
+        supported_exception = utils.error.cls_def.BuildDirNotFoundError()
+        supported_exception.with_traceback(raised_error.__traceback__)
+
+        raise supported_exception
 
     if not build_dir.is_dir():
         raise utils.error.cls_def.BuildDirNotFoundError()

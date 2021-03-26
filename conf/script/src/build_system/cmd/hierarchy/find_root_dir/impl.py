@@ -14,7 +14,13 @@ def is_dir_root(root_dir: Path) -> bool:
 
 
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
-    current_path.resolve(strict=True)
+    try:
+        current_path.resolve(strict=True)
+    except Exception as raised_error:
+        supported_exception = utils.error.cls_def.RootDirNotFoundError()
+        supported_exception.with_traceback(raised_error.__traceback__)
+
+        raise supported_exception
 
     last_path = current_path
     current_path = current_path.parent

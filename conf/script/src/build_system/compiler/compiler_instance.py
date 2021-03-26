@@ -44,7 +44,13 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         if installation_dir is None:
             installation_dir = sub_cls_matching_os_family._find_installation_dir_by_compiler_family(compiler_family)
         else:
-            installation_dir.resolve(strict=True)
+            try:
+                installation_dir.resolve(strict=True)
+            except Exception as raised_error:
+                supported_exception = utils.error.cls_def.CompilerNotFoundError()
+                supported_exception.with_traceback(raised_error.__traceback__)
+
+                raise supported_exception
 
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 
@@ -97,8 +103,18 @@ class GNUCompilerInstance(CompilerInstance):
         object.__setattr__(self, 'executable_file', self.__get_executable_file_from_installation_dir())
 
     def __get_executable_file_from_installation_dir(self) -> Path:
-        executable_file = self.installation_dir / self.compiler_family.value
-        executable_file.resolve(strict=True)
+        executable_file, exists = utils.cmd_integrity.get_cmd_path(cmd=self.compiler_family.value, dir_path=self.installation_dir)
+
+        if not exists:
+            raise utils.error.cls_def.CompilerNotFoundError()
+
+        try:
+            executable_file.resolve(strict=True)
+        except Exception as raised_error:
+            supported_exception = utils.error.cls_def.CompilerNotFoundError()
+            supported_exception.with_traceback(raised_error.__traceback__)
+
+            raise supported_exception
 
         return executable_file
 

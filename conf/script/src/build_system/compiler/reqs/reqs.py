@@ -20,9 +20,11 @@ class CompilerReqs:
     def get_default_compiler_reqs_file_path() -> Path:
         default_compiler_reqs_filename: Final[Path] = Path('compiler-reqs.ini')
         package_dir = Path(__file__).parent
-        default_compiler_reqs_file = package_dir / default_compiler_reqs_filename
 
-        return default_compiler_reqs_file.resolve()
+        default_compiler_reqs_file = package_dir / default_compiler_reqs_filename
+        default_compiler_reqs_file.resolve(strict=True)
+
+        return default_compiler_reqs_file
 
     @classmethod
     def create_all_from_config_file(cls, file_path: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
