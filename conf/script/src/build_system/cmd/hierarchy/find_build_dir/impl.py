@@ -7,7 +7,7 @@ import build_system.cmd.hierarchy.find_root_dir
 import utils.error.cls_def
 
 
-def find_build_dir_path(root_dir: Optional[Path] = None) -> Path:
+def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> Path:
     if root_dir is None:
         root_dir = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
 
@@ -15,7 +15,7 @@ def find_build_dir_path(root_dir: Optional[Path] = None) -> Path:
 
 
 def find_build_dir(root_dir: Optional[Path] = None) -> Path:
-    build_dir = find_build_dir_path(root_dir)
+    build_dir = get_build_dir_path_relative_to_root_dir(root_dir)
 
     try:
         build_dir = build_dir.resolve(True)
