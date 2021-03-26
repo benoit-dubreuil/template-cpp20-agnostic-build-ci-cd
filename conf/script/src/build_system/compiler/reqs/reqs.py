@@ -36,8 +36,11 @@ class CompilerReqs:
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
             compiler_family = build_system.compiler.family.CompilerFamily(compiler_name)
             os_families = compiler_reqs_section.getosfamily(build_system.compiler.reqs.scheme.CompilerReqsScheme.OS.value)
-            compiler_version = cls.__create_from_config_compiler_reqs_section(compiler_reqs_section)
-            compiler_instance = build_system.compiler.compiler_instance.CompilerInstance(compiler_family, os_families, compiler_version)
+            compiler_version = cls.__read_min_version_from_config_compiler_reqs_section(compiler_reqs_section)
+
+            compiler_instance = build_system.compiler.compiler_instance.CompilerInstance(compiler_family=compiler_family,
+                                                                                         os_families=os_families,
+                                                                                         version=compiler_version)
 
             compiler_reqs = cls(compiler_instance)
             all_compilers_reqs[compiler_family] = compiler_reqs
@@ -45,7 +48,7 @@ class CompilerReqs:
         return all_compilers_reqs
 
     @staticmethod
-    def __create_from_config_compiler_reqs_section(config_compiler_reqs_section) -> build_system.compiler.version.CompilerVersion:
+    def __read_min_version_from_config_compiler_reqs_section(config_compiler_reqs_section) -> build_system.compiler.version.CompilerVersion:
         major = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MAJOR.value)
         minor = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MINOR.value, fallback=0)
 
