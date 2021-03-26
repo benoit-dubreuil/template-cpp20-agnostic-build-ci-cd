@@ -9,7 +9,7 @@ def _recreate_build_dir(root_dir: Optional[Path] = None) -> Path:
     import build_system.cmd.hierarchy.create_build_dir
     import build_system.cmd.hierarchy.find_build_dir
 
-    build_dir = build_system.cmd.hierarchy.find_build_dir.find_build_dir_path(root_dir=root_dir)
+    build_dir = build_system.cmd.hierarchy.find_build_dir.get_build_dir_path_relative_to_root_dir(root_dir=root_dir)
     build_system.cmd.hierarchy.clean_build_dir.clean_build_dir(build_dir=build_dir, ignore_errors=True)
     build_dir = build_system.cmd.hierarchy.create_build_dir.create_build_dir(root_dir=root_dir)
 
@@ -32,7 +32,9 @@ def setup_build_system(root_dir: Optional[Path] = None):
     # TODO : WIP
     import mesonbuild.mesonmain
 
-    current_package_path = Path(__file__).parent.resolve(strict=True)
+    current_package_path = Path(__file__).parent
+    current_package_path.resolve(strict=True)
+    current_package_path = current_package_path.absolute()
 
     meson_launcher: str = str(current_package_path)
     meson_cli_args: list[str] = ['-h']
