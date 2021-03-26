@@ -39,7 +39,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
                                        installation_dir: Optional[Path] = None) -> 'CompilerInstance':
         import build_system.cmd.compiler.host.get_info.version.fetch_by_criteria
 
-        sublcass_matching_os_family: Type[CompilerInstance] = cls.__checked_search_first_subclass_matching_os_family(compiler_family=compiler_family)
+        sub_cls_matching_os_family: Type[CompilerInstance] = cls.__checked_search_first_sub_cls_matching_os_family(compiler_family=compiler_family)
 
         if installation_dir is None:
             installation_dir = cls._find_installation_dir_by_compiler_family(compiler_family)
@@ -49,7 +49,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         return cls(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
 
     @classmethod
-    def __search_first_subclass_matching_os_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
+    def __search_first_sub_cls_matching_os_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
         subclasses: list[Type[CompilerInstance]] = cls.__subclasses__()
         sublcass_matching_os_family: Optional[Type[CompilerInstance]] = None
 
@@ -62,8 +62,8 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         return sublcass_matching_os_family
 
     @classmethod
-    def __checked_search_first_subclass_matching_os_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Type['CompilerInstance']:
-        sublcass_matching_os_family: Optional[Type[CompilerInstance]] = cls.__search_first_subclass_matching_os_family(compiler_family=compiler_family)
+    def __checked_search_first_sub_cls_matching_os_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Type['CompilerInstance']:
+        sublcass_matching_os_family: Optional[Type[CompilerInstance]] = cls.__search_first_sub_cls_matching_os_family(compiler_family=compiler_family)
 
         if sublcass_matching_os_family is None:
             error_msg: str = utils.error.format.format_error_msg('Comnpiler is not supported')
