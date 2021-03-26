@@ -27,12 +27,12 @@ def fetch_supported_compiler_instances_by_os(os_family: build_system.compiler.ho
 
     for compiler_reqs in filtered_compiler_reqs:
 
-        if os_family in compiler_reqs.compiler_instance.os_families:
+        if os_family in compiler_reqs.os_families:
 
-            installed_compiler_instance = build_system.compiler.compiler_instance.CompilerInstance.create_from_installed_compiler(
-                compiler_family=compiler_reqs.compiler_instance.compiler_family, os_family=os_family)
+            installed_compiler_instance = build_system.compiler.compiler_instance.CompilerInstance.create_from_installed_compiler(compiler_family=compiler_reqs.compiler_family,
+                                                                                                                                  os_family=os_family)
 
-            if installed_compiler_instance.version >= compiler_reqs.compiler_instance.version:
+            if installed_compiler_instance.version >= compiler_reqs.min_compiler_version:
                 supported_compiler_instances.append(installed_compiler_instance)
 
     return supported_compiler_instances
