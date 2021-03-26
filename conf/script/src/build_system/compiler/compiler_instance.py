@@ -42,11 +42,11 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         sub_cls_matching_os_family: Type[CompilerInstance] = cls.__checked_search_first_sub_cls_matching_os_family(compiler_family=compiler_family)
 
         if installation_dir is None:
-            installation_dir = cls._find_installation_dir_by_compiler_family(compiler_family)
+            installation_dir = sub_cls_matching_os_family._find_installation_dir_by_compiler_family(compiler_family)
 
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 
-        return cls(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
+        return sub_cls_matching_os_family(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
 
     @classmethod
     def __search_first_sub_cls_matching_os_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
