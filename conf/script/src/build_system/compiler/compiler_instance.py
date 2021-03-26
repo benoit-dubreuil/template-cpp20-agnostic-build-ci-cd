@@ -18,10 +18,13 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     @classmethod
     def create_from_installed_compiler(cls,
                                        compiler_family: build_system.compiler.family.CompilerFamily,
-                                       os_family: build_system.compiler.host.os_family.OSFamily) -> 'CompilerInstance':
+                                       os_family: build_system.compiler.host.os_family.OSFamily,
+                                       installation_dir: typing.Optional[pathlib.Path] = None) -> 'CompilerInstance':
         import build_system.cmd.compiler.host.get_info.version.fetch_by_criteria
 
-        installation_dir = cls._find_installation_dir_by_compiler_family()
+        if installation_dir is None:
+            installation_dir = cls._find_installation_dir_by_compiler_family()
+
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 
         return cls(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
