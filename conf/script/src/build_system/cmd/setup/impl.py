@@ -32,7 +32,9 @@ def setup_build_system(root_dir: Optional[Path] = None):
     # TODO : WIP
     import mesonbuild.mesonmain
 
-    current_package_path = Path(__file__).parent.resolve(strict=True)
+    current_package_path = Path(__file__).parent
+    current_package_path.resolve(strict=True)
+    current_package_path = current_package_path.absolute()
 
     meson_launcher: str = str(current_package_path)
     meson_cli_args: list[str] = ['-h']
