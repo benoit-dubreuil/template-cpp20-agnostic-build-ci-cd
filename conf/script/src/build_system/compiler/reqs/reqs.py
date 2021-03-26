@@ -12,7 +12,9 @@ import build_system.compiler.version
 
 @dataclass(frozen=True)
 class CompilerReqs:
-    compiler_instance: build_system.compiler.compiler_instance.CompilerInstance
+    compiler_family: build_system.compiler.family.CompilerFamily
+    os_families: list[build_system.compiler.host.os_family.OSFamily]
+    min_compiler_version: build_system.compiler.version.CompilerVersion
 
     @staticmethod
     def get_default_compiler_reqs_file_path() -> Path:
@@ -36,13 +38,9 @@ class CompilerReqs:
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
             compiler_family = build_system.compiler.family.CompilerFamily(compiler_name)
             os_families = compiler_reqs_section.getosfamily(build_system.compiler.reqs.scheme.CompilerReqsScheme.OS.value)
-            compiler_version = cls.__read_min_version_from_config_compiler_reqs_section(compiler_reqs_section)
+            min_compiler_version = cls.__read_min_version_from_config_compiler_reqs_section(compiler_reqs_section)
 
-            compiler_instance = build_system.compiler.compiler_instance.CompilerInstance(compiler_family=compiler_family,
-                                                                                         os_families=os_families,
-                                                                                         version=compiler_version)
-
-            compiler_reqs = cls(compiler_instance)
+            compiler_reqs = cls(compiler_family=compiler_family, os_families=os_families, min_compiler_version=min_compiler_version)
             all_compilers_reqs[compiler_family] = compiler_reqs
 
         return all_compilers_reqs
@@ -58,7 +56,7 @@ class CompilerReqs:
     def filter_by_os(cls,
                      all_compilers_reqs: dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs'],
                      os_family: build_system.compiler.host.os_family.OSFamily) -> list['CompilerReqs']:
-        return [compiler_reqs for compiler_family, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.compiler_instance.os_families]
+        return [compiler_reqs for compiler_family, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.os_families]
 
     @classmethod
     def _check_file_path_for_default_param(cls, file_path: Path) -> Path:
