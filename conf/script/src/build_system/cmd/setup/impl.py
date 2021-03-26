@@ -30,6 +30,8 @@ def setup_build_system(root_dir: Optional[Path] = None):
     target_build_dirs = _create_target_build_dirs(root_dir)
 
     # TODO : Execute this inside a 'Visual Studio 2019 Developer Command Prompt' for MSVC
+    # Voir C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build
+
     # TODO : WIP
     import mesonbuild.mesonmain
 
