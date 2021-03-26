@@ -23,7 +23,7 @@ def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
 
 
 def find_root_dir() -> Path:
-    current_path, last_path = _walk_parent_path()
+    current_path, last_path = _walk_parent_path(Path().absolute())
     is_last_path_root_dir = is_dir_root(last_path)
 
     while current_path != last_path and not is_last_path_root_dir:
