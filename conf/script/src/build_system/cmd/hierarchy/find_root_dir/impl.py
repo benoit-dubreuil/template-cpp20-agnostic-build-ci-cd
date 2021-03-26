@@ -14,10 +14,12 @@ def is_dir_root(root_dir: Path) -> bool:
 
 
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
-    current_path = current_path.resolve(True)
-    last_path = current_path
+    current_path.resolve(strict=True)
 
-    return current_path.parent, last_path
+    last_path = current_path
+    current_path = current_path.parent
+
+    return current_path, last_path
 
 
 def find_root_dir() -> Path:
