@@ -29,7 +29,7 @@ def find_location(compiler_installation_path: Optional[Path] = None) -> Optional
         try:
             found_compiler_installation_path = Path(found_compiler_installation_path.strip())
             found_compiler_installation_path.resolve(strict=True)
-
+            
             found_compiler_installation_path = found_compiler_installation_path.absolute()
 
         except FileNotFoundError as raised_error:
