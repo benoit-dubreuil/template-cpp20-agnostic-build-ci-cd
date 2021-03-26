@@ -45,15 +45,19 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
         return cls(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
 
+    @staticmethod
+    @abc.abstractmethod
+    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
+        raise NotImplementedError()
+
     @classmethod
     @abc.abstractmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> pathlib.Path:
         raise NotImplementedError()
 
-    @staticmethod
-    @abc.abstractmethod
-    def _assert_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
-        raise NotImplementedError()
+    @classmethod
+    def _assert_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily):
+        assert compiler_family in cls.get_supported_compiler_families()
 
 
 class GNUCompilerInstance(CompilerInstance):
@@ -72,9 +76,9 @@ class GNUCompilerInstance(CompilerInstance):
         return compiler_installation_dir
 
     @staticmethod
-    def _assert_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
-        assert compiler_family == build_system.compiler.family.CompilerFamily.GCC \
-               or compiler_family == build_system.compiler.family.CompilerFamily.CLANG
+    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
+        return [build_system.compiler.family.CompilerFamily.GCC,
+                build_system.compiler.family.CompilerFamily.CLANG]
 
 
 class MSVCCompilerInstance(CompilerInstance):
@@ -89,5 +93,5 @@ class MSVCCompilerInstance(CompilerInstance):
         return compiler_installation_dir
 
     @staticmethod
-    def _assert_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
-        assert compiler_family == build_system.compiler.family.CompilerFamily.MSVC
+    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
+        return [build_system.compiler.family.CompilerFamily.MSVC]
