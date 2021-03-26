@@ -43,6 +43,8 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
         if installation_dir is None:
             installation_dir = sub_cls_matching_os_family._find_installation_dir_by_compiler_family(compiler_family)
+        else:
+            installation_dir.resolve(strict=True)
 
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 
