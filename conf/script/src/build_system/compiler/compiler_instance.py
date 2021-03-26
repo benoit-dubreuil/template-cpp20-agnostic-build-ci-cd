@@ -110,6 +110,7 @@ class GNUCompilerInstance(CompilerInstance):
 
         try:
             executable_file.resolve(strict=True)
+            
         except Exception as raised_error:
             supported_exception = utils.error.cls_def.CompilerNotFoundError()
             supported_exception.with_traceback(raised_error.__traceback__)
