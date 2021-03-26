@@ -28,4 +28,4 @@ class EncodedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
     @staticmethod
     @abc.abstractmethod
     def get_error_status() -> ErrorStatus:
-        ...
+        raise NotImplementedError()

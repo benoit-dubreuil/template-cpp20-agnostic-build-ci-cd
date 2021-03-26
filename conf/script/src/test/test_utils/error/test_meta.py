@@ -32,7 +32,7 @@ class TestErrorMeta(unittest.TestCase):
 
             @abc.abstractmethod
             def dummy(self):
-                ...
+                raise NotImplementedError()
 
         class ErrorMetaImplChild(ErrorMetaImplParent, metaclass=utils.error.meta.ErrorMeta):
 
