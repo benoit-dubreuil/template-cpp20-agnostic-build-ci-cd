@@ -23,7 +23,7 @@ class CompilerReqs:
         return default_compiler_reqs_file.resolve()
 
     @classmethod
-    def create_all_from_file(cls, file_path: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
+    def create_all_from_config_file(cls, file_path: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
         file_path = cls._check_file_path_for_default_param(file_path)
         cls.assure_file_path_integrity(file_path)
 

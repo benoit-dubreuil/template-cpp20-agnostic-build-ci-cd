@@ -17,7 +17,7 @@ def fetch_os_family() -> build_system.compiler.host.os_family.OSFamily:
 
 
 def fetch_filtered_compilers_reqs_by_os(os_family: build_system.compiler.host.os_family.OSFamily) -> list[build_system.compiler.reqs.reqs.CompilerReqs]:
-    all_compilers_reqs = build_system.compiler.reqs.reqs.CompilerReqs.create_all_from_file()
+    all_compilers_reqs = build_system.compiler.reqs.reqs.CompilerReqs.create_all_from_config_file()
     return build_system.compiler.reqs.reqs.CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
 
 
