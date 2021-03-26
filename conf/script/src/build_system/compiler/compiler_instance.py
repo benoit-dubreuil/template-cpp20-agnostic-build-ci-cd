@@ -32,18 +32,21 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
         return cls(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
 
-    @staticmethod
+    @classmethod
     @abc.abstractmethod
-    def _find_installation_dir_by_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
+    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily):
         ...
 
 
 class GNUCompilerInstance(CompilerInstance):
 
-    @staticmethod
-    def _find_installation_dir_by_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
-        assert compiler_family == build_system.compiler.family.CompilerFamily.GCC \
-               or compiler_family == build_system.compiler.family.CompilerFamily.CLANG
+    def __init__(self, compiler_family: build_system.compiler.family.CompilerFamily, **kwargs) -> None:
+        self.__assert_compiler_family(compiler_family=compiler_family)
+        super().__init__(compiler_family=compiler_family, **kwargs)
+
+    @classmethod
+    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily):
+        cls.__assert_compiler_family(compiler_family=compiler_family)
 
         compiler_location, compiler_instance_exists = utils.cmd_integrity.get_cmd_path(compiler_family)
 
@@ -51,3 +54,8 @@ class GNUCompilerInstance(CompilerInstance):
             raise utils.error.cls_def.CompilerNotFoundError()
 
         return compiler_location.parent
+
+    @staticmethod
+    def __assert_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
+        assert compiler_family == build_system.compiler.family.CompilerFamily.GCC \
+               or compiler_family == build_system.compiler.family.CompilerFamily.CLANG
