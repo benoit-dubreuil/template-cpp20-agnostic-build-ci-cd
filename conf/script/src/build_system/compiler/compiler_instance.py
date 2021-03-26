@@ -67,7 +67,9 @@ class GNUCompilerInstance(CompilerInstance):
         if not compiler_instance_exists:
             raise utils.error.cls_def.CompilerNotFoundError()
 
-        return compiler_location.parent
+        compiler_installation_dir = compiler_location.parent
+
+        return compiler_installation_dir
 
     @staticmethod
     def _assert_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
@@ -79,7 +81,12 @@ class MSVCCompilerInstance(CompilerInstance):
 
     @classmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> pathlib.Path:
-        ...
+        import build_system.cmd.compiler.host.get_info.location.msvc
+
+        cls._assert_compiler_family(compiler_family=compiler_family)
+
+        compiler_installation_dir = build_system.cmd.compiler.host.get_info.location.msvc.find_location()
+        return compiler_installation_dir
 
     @staticmethod
     def _assert_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
