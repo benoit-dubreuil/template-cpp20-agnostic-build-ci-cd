@@ -88,7 +88,19 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         assert compiler_family in cls.get_supported_compiler_families()
 
 
+@dataclass(order=True, frozen=True)
 class GNUCompilerInstance(CompilerInstance):
+    executable_file: Path
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        object.__setattr__(self, 'executable_file', self.__get_executable_file_from_installation_dir())
+
+    def __get_executable_file_from_installation_dir(self) -> Path:
+        executable_file = self.installation_dir / self.compiler_family.value
+        executable_file.resolve(strict=True)
+
+        return executable_file
 
     @classmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
