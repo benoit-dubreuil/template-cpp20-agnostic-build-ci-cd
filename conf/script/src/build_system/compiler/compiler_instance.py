@@ -9,6 +9,7 @@ import build_system.compiler.version
 @dataclasses.dataclass(order=True, frozen=True)
 class CompilerInstance:
     compiler_family: build_system.compiler.family.CompilerFamily
+    # TODO : Make single, i.e. not list
     os_families: list[build_system.compiler.host.os_family.OSFamily]
     version: build_system.compiler.version.CompilerVersion
 
