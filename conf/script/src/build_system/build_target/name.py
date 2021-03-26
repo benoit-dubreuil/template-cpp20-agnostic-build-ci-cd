@@ -14,7 +14,7 @@ class TargetBuildName:
 
     def __str__(self) -> str:
         sep: typing.Final[str] = self.get_name_separator()
-        os_family_name = self.compiler_instance.get_current_os_family().value
+        os_family_name = self.compiler_instance.os_family.value
         arch_bit_name = self.arch.arch_to_bit_name()
         compiler_name = self.compiler_instance.compiler_family.value
         compiler_version_name = str(self.compiler_instance.version)
