@@ -73,3 +73,14 @@ class GNUCompilerInstance(CompilerInstance):
     def _assert_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
         assert compiler_family == build_system.compiler.family.CompilerFamily.GCC \
                or compiler_family == build_system.compiler.family.CompilerFamily.CLANG
+
+
+class MSVCCompilerInstance(CompilerInstance):
+
+    @classmethod
+    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> pathlib.Path:
+        ...
+
+    @staticmethod
+    def _assert_compiler_family(compiler_family: build_system.compiler.family.CompilerFamily):
+        assert compiler_family == build_system.compiler.family.CompilerFamily.MSVC
