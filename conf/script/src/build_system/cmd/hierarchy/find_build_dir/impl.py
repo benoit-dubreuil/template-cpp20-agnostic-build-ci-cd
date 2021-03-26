@@ -18,7 +18,8 @@ def find_build_dir(root_dir: Optional[Path] = None) -> Path:
     build_dir = get_build_dir_path_relative_to_root_dir(root_dir)
 
     try:
-        build_dir = build_dir.resolve(True)
+        build_dir.resolve(strict=True)
+        build_dir = build_dir.absolute()
     except FileNotFoundError:
         raise utils.error.cls_def.BuildDirNotFoundError()
 
