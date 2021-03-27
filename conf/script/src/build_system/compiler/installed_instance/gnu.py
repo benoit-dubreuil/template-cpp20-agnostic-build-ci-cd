@@ -2,12 +2,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import build_system.compiler.family
+import build_system.compiler.installed_instance.compiler_instance
 import utils.cmd_integrity
 import utils.error.cls_def
 
 
 @dataclass(order=True, frozen=True)
-class GNUCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
+class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_instance.CompilerInstance):
     executable_file: Path
 
     def __init__(self, **kwargs):

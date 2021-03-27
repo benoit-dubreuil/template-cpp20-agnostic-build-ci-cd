@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import build_system.compiler.family
+import build_system.compiler.installed_instance.compiler_instance
 
 
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
