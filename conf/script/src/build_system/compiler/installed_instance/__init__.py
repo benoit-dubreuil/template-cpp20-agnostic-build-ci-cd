@@ -1,2 +1,3 @@
-from build_system.compiler.installed_instance.compiler_instance import CompilerInstance, GNUCompilerInstance
+from build_system.compiler.installed_instance.compiler_instance import CompilerInstance
+from build_system.compiler.installed_instance.gnu import GNUCompilerInstance
 from build_system.compiler.installed_instance.msvc import MSVCCompilerInstance
