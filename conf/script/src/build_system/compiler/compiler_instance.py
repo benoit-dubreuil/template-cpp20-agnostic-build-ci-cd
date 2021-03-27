@@ -42,7 +42,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         sub_cls_matching_compiler_family: Type[CompilerInstance] = cls.__checked_search_first_sub_cls_matching_compiler_family(compiler_family=compiler_family)
 
         if installation_dir is None:
-            installation_dir = sub_cls_matching_compiler_family._find_installation_dir_by_compiler_family(compiler_family)
+            installation_dir = sub_cls_matching_compiler_family._find_installation_dir_by_compiler_family(compiler_family=compiler_family)
         else:
             try:
                 installation_dir.resolve(strict=True)
