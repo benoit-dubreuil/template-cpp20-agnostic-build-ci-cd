@@ -27,7 +27,7 @@ class BaseFormattedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
     @staticmethod
     @abc.abstractmethod
     def _format_msg(message: str) -> str:
-        ...
+        raise NotImplementedError()
 
 
 class FormattedErrorMixin(BaseFormattedErrorMixin):
