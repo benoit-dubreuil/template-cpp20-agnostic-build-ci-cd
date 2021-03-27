@@ -123,7 +123,7 @@ class GNUCompilerInstance(CompilerInstance):
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
         cls._assert_compiler_family(compiler_family=compiler_family)
 
-        compiler_location, compiler_instance_exists = utils.cmd_integrity.get_cmd_path(compiler_family)
+        compiler_location, compiler_instance_exists = utils.cmd_integrity.get_cmd_path(cmd=compiler_family.value)
 
         if not compiler_instance_exists:
             raise utils.error.cls_def.CompilerNotFoundError()
