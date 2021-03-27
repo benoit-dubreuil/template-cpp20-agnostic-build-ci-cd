@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
-import build_system.compiler.compiler_instance
+import build_system.compiler.installed_instance
 import build_system.compiler.family
 import build_system.compiler.host.os_family
 import build_system.compiler.reqs.scheme

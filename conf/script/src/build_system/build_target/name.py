@@ -2,13 +2,13 @@ import dataclasses
 import typing
 
 import build_system.build_target.build_type
-import build_system.compiler.compiler_instance
+import build_system.compiler.installed_instance
 import build_system.compiler.host.architecture
 
 
 @dataclasses.dataclass(order=True, frozen=True)
 class TargetBuildName:
-    compiler_instance: build_system.compiler.compiler_instance.CompilerInstance
+    compiler_instance: build_system.compiler.installed_instance.CompilerInstance
     arch: build_system.compiler.host.architecture.Architecture
     target_build_type: build_system.build_target.build_type.TargetBuildType
 
