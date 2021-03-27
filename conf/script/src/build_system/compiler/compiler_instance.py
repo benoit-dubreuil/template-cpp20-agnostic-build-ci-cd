@@ -39,10 +39,10 @@ class CompilerInstance(metaclass=abc.ABCMeta):
                                        installation_dir: Optional[Path] = None) -> 'CompilerInstance':
         import build_system.cmd.compiler.host.get_info.version.fetch_by_criteria
 
-        sub_cls_matching_os_family: Type[CompilerInstance] = cls.__checked_search_first_sub_cls_matching_os_family(compiler_family=compiler_family)
+        sub_cls_matching_compiler_family: Type[CompilerInstance] = cls.__checked_search_first_sub_cls_matching_compiler_family(compiler_family=compiler_family)
 
         if installation_dir is None:
-            installation_dir = sub_cls_matching_os_family._find_installation_dir_by_compiler_family(compiler_family)
+            installation_dir = sub_cls_matching_compiler_family._find_installation_dir_by_compiler_family(compiler_family)
         else:
             try:
                 installation_dir.resolve(strict=True)
@@ -54,30 +54,30 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 
-        return sub_cls_matching_os_family(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
+        return sub_cls_matching_compiler_family(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
 
     @classmethod
-    def __search_first_sub_cls_matching_os_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
+    def __search_first_sub_cls_matching_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
         subclasses: list[Type[CompilerInstance]] = cls.__subclasses__()
-        sublcass_matching_os_family: Optional[Type[CompilerInstance]] = None
+        sublcass_matching_compiler_family: Optional[Type[CompilerInstance]] = None
 
         while subclasses and subclasses:
             concrete_subclass = subclasses.pop(-1)
 
             if compiler_family in concrete_subclass.get_supported_compiler_families():
-                sublcass_matching_os_family = concrete_subclass
+                sublcass_matching_compiler_family = concrete_subclass
 
-        return sublcass_matching_os_family
+        return sublcass_matching_compiler_family
 
     @classmethod
-    def __checked_search_first_sub_cls_matching_os_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Type['CompilerInstance']:
-        sublcass_matching_os_family: Optional[Type[CompilerInstance]] = cls.__search_first_sub_cls_matching_os_family(compiler_family=compiler_family)
+    def __checked_search_first_sub_cls_matching_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Type['CompilerInstance']:
+        sublcass_matching_compiler_family: Optional[Type[CompilerInstance]] = cls.__search_first_sub_cls_matching_compiler_family(compiler_family=compiler_family)
 
-        if sublcass_matching_os_family is None:
+        if sublcass_matching_compiler_family is None:
             error_msg: str = utils.error.format.format_error_msg('Comnpiler is not supported')
             raise TypeError(error_msg)
 
-        return sublcass_matching_os_family
+        return sublcass_matching_compiler_family
 
     @staticmethod
     @abc.abstractmethod
@@ -110,7 +110,7 @@ class GNUCompilerInstance(CompilerInstance):
 
         try:
             executable_file.resolve(strict=True)
-            
+
         except Exception as raised_error:
             supported_exception = utils.error.cls_def.CompilerNotFoundError()
             supported_exception.with_traceback(raised_error.__traceback__)
