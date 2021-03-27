@@ -31,6 +31,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
 
     # TODO : Execute this inside a 'Visual Studio 2019 Developer Command Prompt' for MSVC
     # Voir C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build
+    # %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
 
     # TODO : WIP
     import mesonbuild.mesonmain
