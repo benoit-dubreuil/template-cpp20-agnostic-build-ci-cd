@@ -26,5 +26,10 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     @staticmethod
     def get_vcvars_prefix() -> str:
         return 'vcvars'
+
+    @staticmethod
+    def get_vcvars_extension() -> str:
+        return '.bat'
+
     def get_vcvars_dir(self) -> Path:
         return self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
