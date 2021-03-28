@@ -37,6 +37,9 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return '.bat'
 
     def __get_vcvars_dir(self) -> Path:
+        # TODO : Add custom exception
+        # TODO : try-catch
+        # TODO : Resolve
         return self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
 
     def __compute_vcvars_arch_batch_filename(self) -> str:
