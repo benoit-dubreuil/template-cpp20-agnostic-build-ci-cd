@@ -9,8 +9,9 @@ def _fetch_filtered_compilers_reqs_by_os(os_family: build_system.compiler.host.o
     return build_system.compiler.reqs.reqs.CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
 
 
-def fetch_by_os(os_family: build_system.compiler.host.os_family.OSFamily,
-                arch: build_system.compiler.host.architecture.Architecture) -> list[build_system.compiler.installed_instance.CompilerInstance]:
+def fetch_supported_installed_compiler_instances_by_os(os_family: build_system.compiler.host.os_family.OSFamily,
+                                                       arch: build_system.compiler.host.architecture.Architecture) \
+        -> list[build_system.compiler.installed_instance.CompilerInstance]:
     filtered_compiler_reqs = _fetch_filtered_compilers_reqs_by_os(os_family)
     supported_compiler_instances: list[build_system.compiler.installed_instance.CompilerInstance] = list()
 

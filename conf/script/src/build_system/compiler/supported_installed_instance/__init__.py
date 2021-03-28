@@ -1,1 +1,1 @@
-from build_system.compiler.supported_installed_instance.fetch_supported_installed_instances import fetch_by_os
+from build_system.compiler.supported_installed_instance.fetch_supported_installed_instances import fetch_supported_installed_compiler_instances_by_os as fetch_by_os
