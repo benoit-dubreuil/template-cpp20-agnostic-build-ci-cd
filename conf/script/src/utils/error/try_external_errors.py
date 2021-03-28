@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Callable, Type
 
 import utils.error.cls_def
@@ -5,6 +6,7 @@ import utils.error.managed
 from utils.error.cls_def import UnsupportedError
 
 
+# noinspection PyDefaultArgument
 def try_manage_external_errors(func_to_try: Callable,
                                external_errors_to_manage: {tuple[Type[Exception], ...]: Type[utils.error.managed.ManagedErrorMixin]} = {
                                    (Exception,): utils.error.cls_def.UnsupportedError}):
@@ -29,3 +31,11 @@ def try_manage_external_errors(func_to_try: Callable,
                     raise managed_error
 
         raise raised_error
+
+
+# noinspection PyDefaultArgument
+def try_manage_strict_path_resolving(path_to_resolve: Path,
+                                     external_errors_to_manage: {tuple[Type[Exception], ...]: Type[utils.error.managed.ManagedErrorMixin]} = {
+                                         (Exception,): utils.error.cls_def.UnsupportedError}):
+    try_manage_external_errors(func_to_try=lambda: path_to_resolve.resolve(strict=True),
+                               external_errors_to_manage=external_errors_to_manage)
