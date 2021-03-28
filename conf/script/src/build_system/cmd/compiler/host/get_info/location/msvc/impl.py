@@ -4,6 +4,7 @@ from typing import Final, Optional
 import vswhere
 
 import utils.error.cls_def
+import utils.error.try_external_errors
 
 _DEFAULT_REQUIRES: Final[list[str]] = [
     'Microsoft.VisualStudio.Component.VC.Tools.x86.x64',
@@ -26,16 +27,11 @@ def find_location(compiler_installation_path: Optional[Path] = None) -> Optional
         found_compiler_installation_path = vswhere.find_first(prop=_PROP_INSTALLATION_PATH, path=compiler_installation_path)
 
     if found_compiler_installation_path is not None:
-        try:
-            found_compiler_installation_path = Path(found_compiler_installation_path.strip())
-            found_compiler_installation_path.resolve(strict=True)
+        found_compiler_installation_path = Path(found_compiler_installation_path.strip())
 
-            found_compiler_installation_path = found_compiler_installation_path.absolute()
+        utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=found_compiler_installation_path,
+                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
 
-        except Exception as raised_error:
-            supported_exception = utils.error.cls_def.CompilerNotFoundError()
-            supported_exception.with_traceback(raised_error.__traceback__)
-
-            raise supported_exception
+        found_compiler_installation_path = found_compiler_installation_path.absolute()
 
     return found_compiler_installation_path
