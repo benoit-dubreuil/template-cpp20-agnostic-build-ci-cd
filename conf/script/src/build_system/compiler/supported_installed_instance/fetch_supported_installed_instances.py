@@ -1,3 +1,4 @@
+import build_system.compiler
 import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
 import build_system.compiler.installed_instance
@@ -27,3 +28,10 @@ def fetch_supported_installed_compiler_instances_by_os_and_arch(os_family: build
                 supported_compiler_instances.append(installed_compiler_instance)
 
     return supported_compiler_instances
+
+
+def fetch_supported_installed_compiler_instances() -> list[build_system.compiler.installed_instance.CompilerInstance]:
+    os_family = build_system.compiler.host.os_family.fetch_os_family()
+    arch = build_system.compiler.host.architecture.detect_arch()
+
+    return fetch_supported_installed_compiler_instances_by_os_and_arch(os_family=os_family, arch=arch)
