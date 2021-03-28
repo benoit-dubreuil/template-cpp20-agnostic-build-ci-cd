@@ -42,6 +42,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         vcvars_filename: str = self.__compute_vcvars_arch_batch_filename()
         vcvars_arch_batch_file = vcvars_dir / vcvars_filename
 
+        # TODO : Add custom exception
+        # TODO : try-catch
         vcvars_arch_batch_file.resolve(strict=True)
 
         return vcvars_arch_batch_file
