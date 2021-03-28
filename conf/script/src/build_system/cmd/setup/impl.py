@@ -32,7 +32,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     import build_system.compiler.supported_installed_instances
 
     host_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = build_system.compiler.supported_installed_instances.fetch_all()
-    target_build_dirs: list[Path] = _create_target_build_dirs(root_dir)
+    target_build_dirs: list[Path] = _create_target_build_dirs(root_dir=root_dir, supported_installed_compilers=host_compilers)
 
     # TODO : Execute this inside a 'Visual Studio 2019 Developer Command Prompt' for MSVC
     # Voir C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build
