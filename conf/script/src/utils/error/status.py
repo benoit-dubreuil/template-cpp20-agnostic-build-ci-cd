@@ -17,7 +17,7 @@ class ErrorStatus(enum.IntEnum):
     BUILD_DIR_NOT_EMPTY = enum.auto()
     COMPILER_NOT_FOUND = enum.auto()
     NO_SUPPORTED_COMPILERS_AVAILABLE = enum.auto()
-    COMPILER_MSVC_VCVARS_DIR_NOT_FOUND = enum.auto()
+    MSVC_COMPILER_VCVARS_DIR_NOT_FOUND = enum.auto()
 
 
 class EncodedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):

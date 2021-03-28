@@ -100,3 +100,10 @@ class NoSupportedCompilersAvailableError(CompilerNotFoundError):
     @staticmethod
     def get_error_status() -> utils.error.status.ErrorStatus:
         return utils.error.status.ErrorStatus.NO_SUPPORTED_COMPILERS_AVAILABLE
+
+
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.MSVC_COMPILER_VCVARS_DIR_NOT_FOUND)
+class MSVCCompilerVcvarsDirNotFoundError(FileNotFoundError):
+
+    def __init__(self):
+        super().__init__('MSVC compiler vcvars directory not found')
