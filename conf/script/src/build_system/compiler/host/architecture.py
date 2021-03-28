@@ -1,3 +1,4 @@
+import sys
 from enum import IntFlag, unique
 
 
@@ -11,3 +12,10 @@ class Architecture(IntFlag):
 
     def arch_to_bit_name(self) -> str:
         return str(self.value) + 'bit'
+
+
+def detect_arch() -> Architecture:
+    exclusive_max_word = sys.maxsize + 1
+    word_size = exclusive_max_word.bit_length()
+
+    return Architecture(word_size)

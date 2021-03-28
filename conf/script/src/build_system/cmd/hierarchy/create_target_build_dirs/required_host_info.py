@@ -1,8 +1,6 @@
-import sys
-
-import build_system.compiler.installed_instance
 import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
+import build_system.compiler.installed_instance
 import build_system.compiler.reqs.reqs
 
 
@@ -28,11 +26,3 @@ def fetch_supported_compiler_instances_by_os(os_family: build_system.compiler.ho
                 supported_compiler_instances.append(installed_compiler_instance)
 
     return supported_compiler_instances
-
-
-def detect_arch() -> build_system.compiler.host.architecture.Architecture:
-    exclusive_max_word = sys.maxsize + 1
-    word_size = exclusive_max_word.bit_length()
-
-    # noinspection PyArgumentList
-    return build_system.compiler.host.architecture.Architecture(word_size)
