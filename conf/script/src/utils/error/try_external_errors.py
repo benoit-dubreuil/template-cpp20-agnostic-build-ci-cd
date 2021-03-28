@@ -29,14 +29,3 @@ def try_manage_external_errors(func_to_try: Callable,
                     raise managed_error
 
         raise raised_error
-
-
-def tmp_success_func():
-    ...
-
-
-def tmp_fail_func():
-    raise FileNotFoundError()
-
-
-try_manage_external_errors(tmp_fail_func)
