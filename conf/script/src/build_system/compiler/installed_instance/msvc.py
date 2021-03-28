@@ -18,3 +18,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     @staticmethod
     def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
         return [build_system.compiler.family.CompilerFamily.MSVC]
+
+    @staticmethod
+    def get_vcvars_dir_relative_to_installation_dir() -> Path:
+        return Path('VC/Auxiliary/Build')
