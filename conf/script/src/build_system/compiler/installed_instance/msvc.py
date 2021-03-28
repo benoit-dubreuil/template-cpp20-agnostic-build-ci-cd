@@ -41,13 +41,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def __get_vcvars_dir(self) -> Path:
         vcvars_dir: Path = self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
 
-        try:
-            vcvars_dir.resolve(strict=True)
-        except Exception as raised_error:
-            supported_exception = utils.error.cls_def.MSVCCompilerVcvarsDirNotFoundError()
-            supported_exception.with_traceback(raised_error.__traceback__)
-
-            raise supported_exception
+        utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=vcvars_dir,
+                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.MSVCCompilerVcvarsDirNotFoundError})
 
         return vcvars_dir
 
