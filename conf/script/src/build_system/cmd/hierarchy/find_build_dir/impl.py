@@ -5,6 +5,7 @@ from typing import Optional
 import build_system.cmd.hierarchy.consts
 import build_system.cmd.hierarchy.find_root_dir
 import utils.error.cls_def
+import utils.error.try_external_errors
 
 
 def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> Path:
@@ -17,14 +18,10 @@ def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> 
 def find_build_dir(root_dir: Optional[Path] = None) -> Path:
     build_dir = get_build_dir_path_relative_to_root_dir(root_dir)
 
-    try:
-        build_dir.resolve(strict=True)
-        build_dir = build_dir.absolute()
-    except Exception as raised_error:
-        supported_exception = utils.error.cls_def.BuildDirNotFoundError()
-        supported_exception.with_traceback(raised_error.__traceback__)
+    utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=build_dir,
+                                                                     external_errors_to_manage={(Exception,): utils.error.cls_def.BuildDirNotFoundError})
 
-        raise supported_exception
+    build_dir = build_dir.absolute()
 
     if not build_dir.is_dir():
         raise utils.error.cls_def.BuildDirNotFoundError()
