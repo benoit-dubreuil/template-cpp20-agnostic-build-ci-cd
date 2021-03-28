@@ -13,20 +13,6 @@ class SuccessWarning(UserWarning):
         super().__init__('Success')
 
 
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.ARG_PARSER)
-class ArgParserError(RuntimeError):
-
-    def __init__(self, arg_parser_exception: Union[argparse.ArgumentError, argparse.ArgumentTypeError]):
-        error_msg = 'Argument parser error'
-        arg_parser_error_msg = str(arg_parser_exception)
-
-        if arg_parser_error_msg != str() and arg_parser_error_msg != str(None):
-            error_msg += '\n'
-            error_msg += arg_parser_error_msg
-
-        super().__init__(error_msg)
-
-
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.UNSUPPORTED)
 class UnsupportedError(RuntimeError):
 
@@ -41,6 +27,20 @@ class UnsupportedError(RuntimeError):
 
         if original_raised_error is not None:
             self.with_traceback(original_raised_error.__traceback__)
+
+
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.ARG_PARSER)
+class ArgParserError(RuntimeError):
+
+    def __init__(self, arg_parser_exception: Union[argparse.ArgumentError, argparse.ArgumentTypeError]):
+        error_msg = 'Argument parser error'
+        arg_parser_error_msg = str(arg_parser_exception)
+
+        if arg_parser_error_msg != str() and arg_parser_error_msg != str(None):
+            error_msg += '\n'
+            error_msg += arg_parser_error_msg
+
+        super().__init__(error_msg)
 
 
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.UNKNOWN_PARSED_ARG)

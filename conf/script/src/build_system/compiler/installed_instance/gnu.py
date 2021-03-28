@@ -5,6 +5,7 @@ import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.cmd_integrity
 import utils.error.cls_def
+import utils.error.try_external_errors
 
 
 @dataclass(order=True, frozen=True)
@@ -21,14 +22,8 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
         if not exists:
             raise utils.error.cls_def.CompilerNotFoundError()
 
-        try:
-            executable_file.resolve(strict=True)
-
-        except Exception as raised_error:
-            supported_exception = utils.error.cls_def.CompilerNotFoundError()
-            supported_exception.with_traceback(raised_error.__traceback__)
-
-            raise supported_exception
+        utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=executable_file,
+                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
 
         return executable_file
 
