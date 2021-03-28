@@ -16,12 +16,13 @@ def _recreate_build_dir(root_dir: Optional[Path] = None) -> Path:
     return build_dir
 
 
-def _create_target_build_dirs(root_dir: Optional[Path] = None) -> list[Path]:
+def _create_target_build_dirs(root_dir: Optional[Path] = None, supported_installed_compilers=None) -> list[Path]:
     import build_system.cmd.hierarchy.create_target_build_dirs
 
     root_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_root_dir_exists(root_dir=root_dir)
     build_dir = _recreate_build_dir(root_dir)
-    target_build_dirs = build_system.cmd.hierarchy.create_target_build_dirs.create_target_build_dirs(build_dir=build_dir)
+    target_build_dirs = build_system.cmd.hierarchy.create_target_build_dirs.create_target_build_dirs(build_dir=build_dir,
+                                                                                                     supported_installed_compilers=supported_installed_compilers)
 
     return target_build_dirs
 
