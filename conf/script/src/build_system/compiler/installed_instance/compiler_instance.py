@@ -10,6 +10,7 @@ import build_system.compiler.version
 import utils.cmd_integrity
 import utils.error.cls_def
 import utils.error.format
+import utils.error.try_external_errors
 
 
 @dataclass(order=True, frozen=True)
@@ -48,13 +49,8 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         if installation_dir is None:
             installation_dir = sub_cls_matching_compiler_family._find_installation_dir_by_compiler_family(compiler_family=compiler_family)
         else:
-            try:
-                installation_dir.resolve(strict=True)
-            except Exception as raised_error:
-                supported_exception = utils.error.cls_def.CompilerNotFoundError()
-                supported_exception.with_traceback(raised_error.__traceback__)
-
-                raise supported_exception
+            utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=installation_dir,
+                                                                             external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
 
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 
