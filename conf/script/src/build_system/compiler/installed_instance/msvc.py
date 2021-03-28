@@ -2,6 +2,7 @@ from pathlib import Path
 
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
+import utils.error.cls_def
 
 
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
@@ -37,10 +38,17 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return '.bat'
 
     def __get_vcvars_dir(self) -> Path:
-        # TODO : Add custom exception
-        # TODO : try-catch
-        # TODO : Resolve
-        return self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
+        vcvars_dir: Path = self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
+
+        try:
+            vcvars_dir.resolve(strict=True)
+        except Exception as raised_error:
+            supported_exception = utils.error.cls_def.MSVCCompilerVcvarsDirNotFoundError()
+            supported_exception.with_traceback(raised_error.__traceback__)
+
+            raise supported_exception
+
+        return vcvars_dir
 
     def __compute_vcvars_arch_batch_filename(self) -> str:
         return self.get_vcvars_prefix() + self.arch.value + self.get_vcvars_extension()
