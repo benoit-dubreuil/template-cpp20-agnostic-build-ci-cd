@@ -3,6 +3,7 @@ from pathlib import Path
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.error.cls_def
+import utils.error.try_external_errors
 
 
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
@@ -58,12 +59,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         vcvars_filename: str = self.__compute_vcvars_arch_batch_filename()
         vcvars_arch_batch_file = vcvars_dir / vcvars_filename
 
-        try:
-            vcvars_arch_batch_file.resolve(strict=True)
-        except Exception as raised_error:
-            supported_exception = utils.error.cls_def.MSVCCompilerVcvarsBatchFileNotFoundError()
-            supported_exception.with_traceback(raised_error.__traceback__)
-
-            raise supported_exception
+        utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=vcvars_arch_batch_file,
+                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.MSVCCompilerVcvarsBatchFileNotFoundError})
 
         return vcvars_arch_batch_file
