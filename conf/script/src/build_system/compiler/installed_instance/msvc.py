@@ -5,6 +5,11 @@ import build_system.compiler.installed_instance.compiler_instance
 
 
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
+    vcvars_arch_batch_file: Path
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        object.__setattr__(self, 'vcvars_arch_batch_file', self.__find_vcvars_batch_file())
 
     @classmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
