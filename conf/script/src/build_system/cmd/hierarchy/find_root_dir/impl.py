@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Final
 
 import utils.error.cls_def
+import utils.error.try_external_errors
 
 BUILD_SYSTEM_CONF_FILENAME: Final[str] = 'meson.build'
 
@@ -14,13 +15,8 @@ def is_dir_root(root_dir: Path) -> bool:
 
 
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
-    try:
-        current_path.resolve(strict=True)
-    except Exception as raised_error:
-        supported_exception = utils.error.cls_def.RootDirNotFoundError()
-        supported_exception.with_traceback(raised_error.__traceback__)
-
-        raise supported_exception
+    utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=current_path,
+                                                                     external_errors_to_manage={(Exception,): utils.error.cls_def.RootDirNotFoundError})
 
     last_path = current_path
     current_path = current_path.parent
