@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Optional, Type
 
 import build_system.compiler.family
+import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
 import build_system.compiler.version
 import utils.cmd_integrity
@@ -15,12 +16,14 @@ import utils.error.format
 class CompilerInstance(metaclass=abc.ABCMeta):
     compiler_family: build_system.compiler.family.CompilerFamily
     os_family: build_system.compiler.host.os_family.OSFamily
+    arch: build_system.compiler.host.architecture.Architecture
     version: build_system.compiler.version.CompilerVersion
     installation_dir: Path
 
     def __init__(self,
                  compiler_family: build_system.compiler.family.CompilerFamily,
                  os_family: build_system.compiler.host.os_family.OSFamily,
+                 arch: build_system.compiler.host.architecture.Architecture,
                  version: build_system.compiler.version.CompilerVersion,
                  installation_dir: Path
                  ):
@@ -28,6 +31,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
         object.__setattr__(self, 'compiler_family', compiler_family)
         object.__setattr__(self, 'os_family', os_family)
+        object.__setattr__(self, 'arch', arch)
         object.__setattr__(self, 'version', version)
         object.__setattr__(self, 'installation_dir', installation_dir)
 
@@ -35,6 +39,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def create_from_installed_compiler(cls,
                                        compiler_family: build_system.compiler.family.CompilerFamily,
                                        os_family: build_system.compiler.host.os_family.OSFamily,
+                                       arch: build_system.compiler.host.architecture.Architecture,
                                        installation_dir: Optional[Path] = None) -> 'CompilerInstance':
         import build_system.cmd.compiler.host.get_info.version.fetch_by_criteria
 
@@ -53,7 +58,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 
-        return sub_cls_matching_compiler_family(compiler_family=compiler_family, os_family=os_family, version=version, installation_dir=installation_dir)
+        return sub_cls_matching_compiler_family(compiler_family=compiler_family, os_family=os_family, arch=arch, version=version, installation_dir=installation_dir)
 
     @classmethod
     def __search_first_sub_cls_matching_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
