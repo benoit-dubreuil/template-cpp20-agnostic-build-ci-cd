@@ -1,29 +1,19 @@
-import platform
-import sys
-
-import build_system.compiler.installed_instance
+import build_system.compiler
 import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
+import build_system.compiler.installed_instance
 import build_system.compiler.reqs.reqs
 
 
-def fetch_os_name() -> str:
-    return platform.system().lower()
-
-
-def fetch_os_family() -> build_system.compiler.host.os_family.OSFamily:
-    # noinspection PyArgumentList
-    return build_system.compiler.host.os_family.OSFamily(fetch_os_name())
-
-
-def fetch_filtered_compilers_reqs_by_os(os_family: build_system.compiler.host.os_family.OSFamily) -> list[build_system.compiler.reqs.reqs.CompilerReqs]:
+def _fetch_filtered_compilers_reqs_by_os(os_family: build_system.compiler.host.os_family.OSFamily) -> list[build_system.compiler.reqs.reqs.CompilerReqs]:
     all_compilers_reqs = build_system.compiler.reqs.reqs.CompilerReqs.create_all_from_config_file()
     return build_system.compiler.reqs.reqs.CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
 
 
-def fetch_supported_compiler_instances_by_os(os_family: build_system.compiler.host.os_family.OSFamily,
-                                             arch: build_system.compiler.host.architecture.Architecture) -> list[build_system.compiler.installed_instance.CompilerInstance]:
-    filtered_compiler_reqs = fetch_filtered_compilers_reqs_by_os(os_family)
+def fetch_supported_installed_compiler_instances_by_os_and_arch(os_family: build_system.compiler.host.os_family.OSFamily,
+                                                                arch: build_system.compiler.host.architecture.Architecture) \
+        -> list[build_system.compiler.installed_instance.CompilerInstance]:
+    filtered_compiler_reqs = _fetch_filtered_compilers_reqs_by_os(os_family)
     supported_compiler_instances: list[build_system.compiler.installed_instance.CompilerInstance] = list()
 
     for compiler_reqs in filtered_compiler_reqs:
@@ -40,9 +30,8 @@ def fetch_supported_compiler_instances_by_os(os_family: build_system.compiler.ho
     return supported_compiler_instances
 
 
-def detect_arch() -> build_system.compiler.host.architecture.Architecture:
-    exclusive_max_word = sys.maxsize + 1
-    word_size = exclusive_max_word.bit_length()
+def fetch_supported_installed_compiler_instances() -> list[build_system.compiler.installed_instance.CompilerInstance]:
+    os_family = build_system.compiler.host.os_family.fetch_os_family()
+    arch = build_system.compiler.host.architecture.detect_arch()
 
-    # noinspection PyArgumentList
-    return build_system.compiler.host.architecture.Architecture(word_size)
+    return fetch_supported_installed_compiler_instances_by_os_and_arch(os_family=os_family, arch=arch)

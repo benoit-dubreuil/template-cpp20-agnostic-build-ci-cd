@@ -53,6 +53,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         vcvars_dir: Path = self.__get_vcvars_dir()
         vcvars_filename: str = self.__compute_vcvars_arch_batch_filename()
         vcvars_arch_batch_file = vcvars_dir / vcvars_filename
+        vcvars_arch_batch_file = vcvars_arch_batch_file.absolute()
 
         utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=vcvars_arch_batch_file,
                                                                          external_errors_to_manage={(Exception,): utils.error.cls_def.MSVCCompilerVcvarsBatchFileNotFoundError})
