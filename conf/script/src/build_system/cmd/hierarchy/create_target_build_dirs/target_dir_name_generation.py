@@ -1,5 +1,6 @@
 import build_system.build_target.build_type
 import build_system.build_target.name
+import build_system.compiler.host.os_family
 import build_system.compiler.installed_instance
 
 
@@ -10,7 +11,7 @@ def _assemble_target_build_types() -> list[build_system.build_target.build_type.
 def _fetch_supported_compiler_instance() -> list[build_system.compiler.installed_instance.CompilerInstance]:
     import build_system.cmd.hierarchy.create_target_build_dirs.required_host_info
 
-    os_family = build_system.cmd.hierarchy.create_target_build_dirs.required_host_info.fetch_os_family()
+    os_family = build_system.compiler.host.os_family.fetch_os_family()
     arch = build_system.cmd.hierarchy.create_target_build_dirs.required_host_info.detect_arch()
 
     return build_system.cmd.hierarchy.create_target_build_dirs.required_host_info.fetch_supported_compiler_instances_by_os(os_family=os_family, arch=arch)

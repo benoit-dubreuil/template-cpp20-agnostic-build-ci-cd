@@ -1,19 +1,9 @@
-import platform
 import sys
 
 import build_system.compiler.installed_instance
 import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
 import build_system.compiler.reqs.reqs
-
-
-def fetch_os_name() -> str:
-    return platform.system().lower()
-
-
-def fetch_os_family() -> build_system.compiler.host.os_family.OSFamily:
-    # noinspection PyArgumentList
-    return build_system.compiler.host.os_family.OSFamily(fetch_os_name())
 
 
 def fetch_filtered_compilers_reqs_by_os(os_family: build_system.compiler.host.os_family.OSFamily) -> list[build_system.compiler.reqs.reqs.CompilerReqs]:
