@@ -1,13 +1,13 @@
-from typing import Callable, Type, Union
+from typing import Callable, Type
 
-import utils.error.managed
 import utils.error.cls_def
+import utils.error.managed
 from utils.error.cls_def import UnsupportedError
 
 
 def try_manage_external_errors(func_to_try: Callable,
                                external_errors_to_manage: {tuple[Type[Exception], ...]: Type[utils.error.managed.ManagedErrorMixin]} = {
-                                   (Exception): utils.error.cls_def.UnsupportedError}):
+                                   (Exception,): utils.error.cls_def.UnsupportedError}):
     assert func_to_try is not None
     assert external_errors_to_manage is not None
     assert len(external_errors_to_manage) > 0
@@ -27,3 +27,16 @@ def try_manage_external_errors(func_to_try: Callable,
                     managed_error.with_traceback(raised_error.__traceback__)
 
                     raise managed_error
+
+        raise raised_error
+
+
+def tmp_success_func():
+    ...
+
+
+def tmp_fail_func():
+    raise FileNotFoundError()
+
+
+try_manage_external_errors(tmp_fail_func)
