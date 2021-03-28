@@ -51,7 +51,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return vcvars_dir
 
     def __compute_vcvars_arch_batch_filename(self) -> str:
-        return self.get_vcvars_prefix() + self.arch.value + self.get_vcvars_extension()
+        return self.get_vcvars_prefix() + str(self.arch.value) + self.get_vcvars_extension()
 
     def __find_vcvars_batch_file(self) -> Path:
         vcvars_dir: Path = self.__get_vcvars_dir()
