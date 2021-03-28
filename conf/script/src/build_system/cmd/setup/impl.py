@@ -43,8 +43,15 @@ def setup_build_system(root_dir: Optional[Path] = None):
 
     msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
     timeout_in_seconds: float = 20
+
+    arg_sep = ' '
+    cmd_interpreter = r'cmd'
+    cmd_interpreter_option = r'/k'
+    cmd_arg_vcvars_batch_file = '"' + str(msvc_compiler.vcvars_arch_batch_file) + '"'
+    formed_cmd = arg_sep.join([cmd_interpreter, cmd_interpreter_option, cmd_arg_vcvars_batch_file])
+
     # TODO : call set to get env vars, then exit cmd and set env vars to then be able to call meson
-    subprocess.run(r'cmd /k ' + '"' + str(msvc_compiler.vcvars_arch_batch_file) + '"', stdout=None, stderr=sys.stderr, check=True, timeout=timeout_in_seconds)
+    subprocess.run(formed_cmd, stdout=None, stderr=sys.stderr, check=True, timeout=timeout_in_seconds)
 
     # TODO : WIP
     import mesonbuild.mesonmain
