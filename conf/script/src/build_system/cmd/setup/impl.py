@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Optional
+from typing import Optional, cast
 
 import build_system.cmd.hierarchy.assure_arg_integrity
 
@@ -29,6 +29,7 @@ def _create_target_build_dirs(root_dir: Optional[Path] = None, supported_install
 
 def setup_build_system(root_dir: Optional[Path] = None):
     import build_system.compiler.installed_instance
+    import build_system.compiler.installed_instance.msvc
     import build_system.compiler.supported_installed_instances
 
     host_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = build_system.compiler.supported_installed_instances.fetch_all()
@@ -38,15 +39,12 @@ def setup_build_system(root_dir: Optional[Path] = None):
     # Voir C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build
     # %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
     import sys
-    import os
     import subprocess
 
-    env_vars_before = os.environ
-
+    msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
     timeout_in_seconds: float = 20
-    subprocess.run(shell=True, stderr=sys.stderr, check=True, timeout=timeout_in_seconds)
-
-    env_vars_after = os.environ
+    # TODO : call set to get env vars, then exit cmd and set env vars to then be able to call meson
+    subprocess.run(r'cmd /k ' + '"' + str(msvc_compiler.vcvars_arch_batch_file) + '"', stdout=None, stderr=sys.stderr, check=True, timeout=timeout_in_seconds)
 
     # TODO : WIP
     import mesonbuild.mesonmain
