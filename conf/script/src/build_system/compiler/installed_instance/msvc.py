@@ -23,5 +23,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def get_vcvars_dir_relative_to_installation_dir() -> Path:
         return Path('VC/Auxiliary/Build')
 
+    @staticmethod
+    def get_vcvars_prefix() -> str:
+        return 'vcvars'
     def get_vcvars_dir(self) -> Path:
         return self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
