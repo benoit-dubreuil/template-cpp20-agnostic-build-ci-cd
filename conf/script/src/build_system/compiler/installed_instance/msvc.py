@@ -54,7 +54,9 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
     def setup_env_vars(self) -> None:
         local_env_vars: dict[str, list[str]] = self.__interpret_local_en_vars()
-        vcvars_en_vars = self.__fetch_all_vcvars_env_vars()
+        all_vcvars_en_vars = self.__fetch_all_vcvars_env_vars()
+        vcvars_en_vars = self.__except_local_env_vars_from_vcvars_env_vars(local_env_vars=local_env_vars, all_vcvars_env_vars=all_vcvars_en_vars)
+
         object.__setattr__(self, 'vcvars_en_vars', vcvars_en_vars)
 
         self.__append_vcvars_to_local_env_vars()
@@ -97,7 +99,6 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
                 if matching_local_env_var_value[-1] != _ENV_VAR_MULTI_VALUES_SEP:
                     matching_local_env_var_value += _ENV_VAR_MULTI_VALUES_SEP
 
-                # Append in order to easily remove the env vars later
                 local_env_vars[vcvars_env_var_key] = matching_local_env_var_value + formatted_vcvars_env_var_value
             else:
                 local_env_vars[vcvars_env_var_key] = formatted_vcvars_env_var_value
@@ -119,6 +120,27 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
                 else:
                     local_env_vars[vcvars_env_var_key] = new_matching_local_env_var_value
 
+    @staticmethod
+    def __except_local_env_vars_from_vcvars_env_vars(local_env_vars: dict[str, list[str]], all_vcvars_env_vars: dict[str, list[str]]) -> dict[str, list[str]]:
+        vcvars_env_vars_except_local_env_vars: dict[str, list[str]] = {}
+
+        for vcvar_env_var_key, vcvar_env_var_value in all_vcvars_env_vars:
+            vcvar_env_var_value_except_local_env_var: list[str]
+
+            if vcvar_env_var_key in local_env_vars:
+                vcvar_env_var_value_except_local_env_var = []
+                local_env_var_value: list[str] = local_env_vars[vcvar_env_var_key]
+
+                for vcvar_env_var_value_element in vcvar_env_var_value:
+                    if vcvar_env_var_value_element not in local_env_var_value:
+                        vcvar_env_var_value_except_local_env_var.append(vcvar_env_var_value_element)
+            else:
+                vcvar_env_var_value_except_local_env_var = vcvar_env_var_value.copy()
+
+            if len(vcvar_env_var_value_except_local_env_var) > 0:
+                vcvars_env_vars_except_local_env_vars[vcvar_env_var_key] = vcvar_env_var_value_except_local_env_var
+
+        return vcvars_env_vars_except_local_env_vars
 
     @staticmethod
     def __interpret_local_en_vars() -> dict[str, list[str]]:
