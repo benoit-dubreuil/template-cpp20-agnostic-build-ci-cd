@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import final
 
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
@@ -6,6 +7,7 @@ import utils.error.cls_def
 import utils.error.try_external_errors
 
 
+@final
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
     vcvars_arch_batch_file: Path
 
