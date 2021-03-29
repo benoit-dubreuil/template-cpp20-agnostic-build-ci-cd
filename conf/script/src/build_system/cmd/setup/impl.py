@@ -43,7 +43,6 @@ def setup_build_system(root_dir: Optional[Path] = None):
         host_msvc_compiler.setup_env_vars()
         ...
         host_msvc_compiler.teardown_env_vars()
-        ...
 
     # TODO : WIP
     import mesonbuild.mesonmain
