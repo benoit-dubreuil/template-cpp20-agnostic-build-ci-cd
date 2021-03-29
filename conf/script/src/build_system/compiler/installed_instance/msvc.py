@@ -1,6 +1,9 @@
+import os
+import subprocess
 from pathlib import Path
-from typing import final
+from typing import Final, final
 
+import build_system.compiler
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.error.cls_def
@@ -75,3 +78,24 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
                                                                          external_errors_to_manage={(Exception,): utils.error.cls_def.MSVCCompilerVcvarsBatchFileNotFoundError})
 
         return vcvars_arch_batch_file
+
+    def __shell_get_vcvars_env_vars(self) -> str:
+        timeout_in_seconds: Final[float] = 20
+        arg_sep: Final[str] = ' '
+
+        shell_interpreter: Final[str] = r'cmd'
+        shell_interpreter_option_on_end: Final[str] = r'/c'
+        shell_interpreter_redirect_to_null: Final[str] = arg_sep.join([r'>', os.devnull, r' 2>&1'])
+        shell_logical_and: Final[str] = r'&&'
+
+        cmd_vcvars_batch_file: Final[str] = '"' + str(self.vcvars_arch_batch_file) + '"'
+        cmd_get_env_vars: Final[str] = r'set'
+
+        formed_cmd = arg_sep.join([shell_interpreter,
+                                   shell_interpreter_option_on_end,
+                                   cmd_vcvars_batch_file,
+                                   shell_interpreter_redirect_to_null,
+                                   shell_logical_and,
+                                   cmd_get_env_vars])
+
+        return subprocess.check_output(formed_cmd, text=True, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)

@@ -1,7 +1,5 @@
-import os
-import subprocess
 from pathlib import Path
-from typing import Final, Optional, cast
+from typing import Optional, cast
 
 import build_system.cmd.hierarchy.assure_arg_integrity
 import build_system.compiler.installed_instance
@@ -41,7 +39,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     target_build_dirs: list[(Path, build_system.compiler.installed_instance.CompilerInstance)] = _create_target_build_dirs(root_dir=root_dir,
                                                                                                                            supported_installed_compilers=host_compilers)
 
-    shell_get_env_vars_output: str = shell_get_vcvars_env_vars(host_msvc_compiler)
+    shell_get_env_vars_output: str = host_msvc_compiler.__shell_get_vcvars_env_vars()
     vcvars_en_vars: {str: list[str]} = interpret_shell_vcvars_en_vars(shell_get_env_vars_output)
 
     # TODO : WIP
@@ -67,25 +65,3 @@ def interpret_shell_vcvars_en_vars(shell_get_env_vars_output: str) -> {str: list
         vcvars_en_vars[env_var_key] = env_var_split_values
 
     return vcvars_en_vars
-
-
-def shell_get_vcvars_env_vars(host_msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance) -> str:
-    timeout_in_seconds: Final[float] = 20
-    arg_sep: Final[str] = ' '
-
-    shell_interpreter: Final[str] = r'cmd'
-    shell_interpreter_option_on_end: Final[str] = r'/c'
-    shell_interpreter_redirect_to_null: Final[str] = arg_sep.join([r'>', os.devnull, r' 2>&1'])
-    shell_logical_and: Final[str] = r'&&'
-
-    cmd_vcvars_batch_file: Final[str] = '"' + str(host_msvc_compiler.vcvars_arch_batch_file) + '"'
-    cmd_get_env_vars: Final[str] = r'set'
-
-    formed_cmd = arg_sep.join([shell_interpreter,
-                               shell_interpreter_option_on_end,
-                               cmd_vcvars_batch_file,
-                               shell_interpreter_redirect_to_null,
-                               shell_logical_and,
-                               cmd_get_env_vars])
-
-    return subprocess.check_output(formed_cmd, text=True, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
