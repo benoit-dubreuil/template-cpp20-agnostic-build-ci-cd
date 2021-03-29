@@ -40,6 +40,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     # %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
     import subprocess
     import os
+    import shlex
 
     msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
     timeout_in_seconds: float = 20
@@ -47,7 +48,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     arg_sep = ' '
     cmd_interpreter = r'cmd'
     cmd_interpreter_option_on_end = r'/c'
-    cmd_interpreter_redirect_to_null = r'> ' + os.devnull + r' 2>&1'
+    cmd_interpreter_redirect_to_null = shlex.join([r'>', os.devnull, r' 2>&1'])
     cmd_arg_vcvars_batch_file = '"' + str(msvc_compiler.vcvars_arch_batch_file) + '"'
     cmd_arg_get_env_vars = r'set'
 
