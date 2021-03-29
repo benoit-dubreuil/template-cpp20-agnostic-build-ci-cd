@@ -111,13 +111,13 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
                 matching_local_env_var_value = local_env_vars[vcvars_env_var_key]
 
-                matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvars_env_var_value, str())
-                matching_local_env_var_value = matching_local_env_var_value.strip(_ENV_VAR_MULTI_VALUES_SEP + ' ')
+                new_matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvars_env_var_value, str())
+                new_matching_local_env_var_value = new_matching_local_env_var_value.strip(_ENV_VAR_MULTI_VALUES_SEP + ' ')
 
-                if len(matching_local_env_var_value) <= 0:
+                if len(new_matching_local_env_var_value) <= 0:
                     del local_env_vars[vcvars_env_var_key]
                 else:
-                    local_env_vars[vcvars_env_var_key] = matching_local_env_var_value
+                    local_env_vars[vcvars_env_var_key] = new_matching_local_env_var_value
 
 
     @staticmethod
