@@ -92,11 +92,11 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def requires_env_vars_setup() -> bool:
         return False
 
-    @abc.abstractmethod
+    # Virtual method
     def setup_env_vars(self) -> None:
         raise NotImplementedError()
 
-    @abc.abstractmethod
+    # Virtual method
     def teardown_env_vars(self) -> None:
         raise NotImplementedError()
 
