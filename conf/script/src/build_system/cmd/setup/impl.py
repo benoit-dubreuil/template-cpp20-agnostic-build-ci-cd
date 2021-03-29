@@ -39,11 +39,11 @@ def setup_build_system(root_dir: Optional[Path] = None):
     host_msvc_compiler = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
     target_build_dirs: list[Path] = _create_target_build_dirs(root_dir=root_dir, supported_installed_compilers=host_compilers)
 
-    cmd_get_env_vars_output = shell_get_vcvars_env_vars(host_msvc_compiler)
+    shell_get_env_vars_output = shell_get_vcvars_env_vars(host_msvc_compiler)
 
     env_vars_post_vcvars_cmd: {str: list[str]} = {}
 
-    for env_var in cmd_get_env_vars_output.splitlines():
+    for env_var in shell_get_env_vars_output.splitlines():
         env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
         env_var_split_values = env_var_grouped_values.split(sep=';')
 
@@ -65,18 +65,20 @@ def setup_build_system(root_dir: Optional[Path] = None):
 def shell_get_vcvars_env_vars(host_msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance) -> str:
     timeout_in_seconds: Final[float] = 20
     arg_sep: Final[str] = ' '
-    cmd_interpreter: Final[str] = r'cmd'
-    cmd_interpreter_option_on_end: Final[str] = r'/c'
-    cmd_interpreter_redirect_to_null: Final[str] = arg_sep.join([r'>', os.devnull, r' 2>&1'])
-    cmd_arg_vcvars_batch_file: Final[str] = '"' + str(host_msvc_compiler.vcvars_arch_batch_file) + '"'
-    cmd_arg_and: Final[str] = r'&&'
-    cmd_arg_get_env_vars: Final[str] = r'set'
 
-    formed_cmd_get_env_var = arg_sep.join([cmd_interpreter,
-                                           cmd_interpreter_option_on_end,
-                                           cmd_arg_vcvars_batch_file,
-                                           cmd_interpreter_redirect_to_null,
-                                           cmd_arg_and,
-                                           cmd_arg_get_env_vars])
+    shell_interpreter: Final[str] = r'cmd'
+    shell_interpreter_option_on_end: Final[str] = r'/c'
+    shell_interpreter_redirect_to_null: Final[str] = arg_sep.join([r'>', os.devnull, r' 2>&1'])
+    shell_logical_and: Final[str] = r'&&'
 
-    return subprocess.check_output(formed_cmd_get_env_var, text=True, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
+    cmd_vcvars_batch_file: Final[str] = '"' + str(host_msvc_compiler.vcvars_arch_batch_file) + '"'
+    cmd_get_env_vars: Final[str] = r'set'
+
+    formed_cmd = arg_sep.join([shell_interpreter,
+                               shell_interpreter_option_on_end,
+                               cmd_vcvars_batch_file,
+                               shell_interpreter_redirect_to_null,
+                               shell_logical_and,
+                               cmd_get_env_vars])
+
+    return subprocess.check_output(formed_cmd, text=True, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
