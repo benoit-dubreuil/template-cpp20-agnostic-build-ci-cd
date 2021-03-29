@@ -20,7 +20,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         object.__setattr__(self, 'vcvars_arch_batch_file', self.__find_vcvars_batch_file())
-        object.__setattr__(self, 'vcvars_en_vars', [])
+        object.__setattr__(self, 'vcvars_en_vars', None)
 
     @classmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
@@ -58,8 +58,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         self.__append_vcvars_to_local_env_vars()
 
     def teardown_env_vars(self) -> None:
-        # TODO
-        ...
+        self.__remove_vcvars_from_local_env_vars()
+        object.__setattr__(self, 'vcvars_en_vars', None)
 
     def __get_vcvars_dir(self) -> Path:
         vcvars_dir: Path = self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
