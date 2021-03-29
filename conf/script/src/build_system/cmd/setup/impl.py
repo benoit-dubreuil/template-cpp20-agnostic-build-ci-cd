@@ -39,15 +39,8 @@ def setup_build_system(root_dir: Optional[Path] = None):
     host_msvc_compiler = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
     target_build_dirs: list[Path] = _create_target_build_dirs(root_dir=root_dir, supported_installed_compilers=host_compilers)
 
-    shell_get_env_vars_output = shell_get_vcvars_env_vars(host_msvc_compiler)
-
-    env_vars_post_vcvars_cmd: {str: list[str]} = {}
-
-    for env_var in shell_get_env_vars_output.splitlines():
-        env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
-        env_var_split_values = env_var_grouped_values.split(sep=';')
-
-        env_vars_post_vcvars_cmd[env_var_key] = env_var_split_values
+    shell_get_env_vars_output: str = shell_get_vcvars_env_vars(host_msvc_compiler)
+    vcvars_en_vars: {str: list[str]} = interpret_shell_vcvars_en_vars(shell_get_env_vars_output)
 
     # TODO : WIP
     import mesonbuild.mesonmain
@@ -60,6 +53,18 @@ def setup_build_system(root_dir: Optional[Path] = None):
     meson_cli_args: list[str] = ['-h']
 
     mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
+
+
+def interpret_shell_vcvars_en_vars(shell_get_env_vars_output: str) -> {str: list[str]}:
+    vcvars_en_vars: {str: list[str]} = {}
+
+    for env_var in shell_get_env_vars_output.splitlines():
+        env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
+        env_var_split_values = env_var_grouped_values.split(sep=';')
+
+        vcvars_en_vars[env_var_key] = env_var_split_values
+
+    return vcvars_en_vars
 
 
 def shell_get_vcvars_env_vars(host_msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance) -> str:
