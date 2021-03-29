@@ -1,5 +1,6 @@
 import os
 import subprocess
+import typing
 from pathlib import Path
 from typing import Final, final
 
@@ -116,6 +117,19 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
                     del local_env_vars[vcvars_env_var_key]
                 else:
                     local_env_vars[vcvars_env_var_key] = matching_local_env_var_value
+
+
+    @staticmethod
+    def __interpret_local_en_vars() -> {str: list[str]}:
+        local_env_vars: typing.MutableMapping[str, str] = os.environ
+        interpreted_local_env_vars: {str: list[str]} = {}
+
+        for env_var_key, env_var_value in local_env_vars.items():
+            if (env_var_value is not None) and (len(env_var_value) > 0):
+                split_values: list[str] = env_var_value.strip().split(sep=_ENV_VAR_MULTI_VALUES_SEP)
+                interpreted_local_env_vars[env_var_key] = split_values
+
+        return interpreted_local_env_vars
 
     def __fetch_all_vcvars_env_vars(self) -> {str: list[str]}:
         shell_env_vars: str = self.__shell_get_vcvars_env_vars()
