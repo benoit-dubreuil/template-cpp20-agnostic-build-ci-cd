@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import build_system.cmd.hierarchy.consts
+import build_system.compiler.installed_instance
 
 
 def create_target_build_dir(build_dir: Path, target_build_dir_name: str) -> Path:
@@ -10,11 +11,12 @@ def create_target_build_dir(build_dir: Path, target_build_dir_name: str) -> Path
     return target_build_dir
 
 
-def create_all_target_build_dirs(build_dir: Path, all_target_build_dir_names: list[str]) -> list[Path]:
-    all_target_build_dirs: list[Path] = []
+def create_all_target_build_dirs(build_dir: Path, all_target_build_dir_names: list[(str, build_system.compiler.installed_instance.CompilerInstance)]) \
+        -> list[(Path, build_system.compiler.installed_instance.CompilerInstance)]:
+    all_target_build_dirs: list[(Path, build_system.compiler.installed_instance.CompilerInstance)] = []
 
-    for target_build_dir_name in all_target_build_dir_names:
+    for target_build_dir_name, compiler_instance in all_target_build_dir_names:
         target_build_dir = create_target_build_dir(build_dir, target_build_dir_name)
-        all_target_build_dirs.append(target_build_dir)
+        all_target_build_dirs.append((target_build_dir, compiler_instance))
 
     return all_target_build_dirs
