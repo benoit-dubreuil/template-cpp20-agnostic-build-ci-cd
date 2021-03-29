@@ -55,8 +55,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         vcvars_en_vars = self.__fetch_all_vcvars_env_vars()
         object.__setattr__(self, 'vcvars_en_vars', vcvars_en_vars)
 
-        # TODO
-        ...
+        self.__append_vcvars_to_local_env_vars()
 
     def teardown_env_vars(self) -> None:
         # TODO
