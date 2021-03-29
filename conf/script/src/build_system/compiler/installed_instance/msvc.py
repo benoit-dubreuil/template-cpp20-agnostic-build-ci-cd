@@ -82,7 +82,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
         return vcvars_arch_batch_file
 
-    def __append_env_vars_locally(self):
+    def __append_vcvars_to_local_env_vars(self):
         env_var_multi_values_sep: Final[str] = ';'
         local_env_vars = os.environ
 
@@ -92,8 +92,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
                 if matching_local_env_var_value[-1] != env_var_multi_values_sep:
                     matching_local_env_var_value += env_var_multi_values_sep
-                # TODO
-                ...
+
+                local_env_vars[vcvars_env_var_key] = matching_local_env_var_value + vcvars_env_var_value
             else:
                 local_env_vars[vcvars_env_var_key] = vcvars_env_var_value
 
