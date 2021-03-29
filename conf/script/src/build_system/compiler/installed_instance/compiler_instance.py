@@ -92,6 +92,14 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def requires_env_vars_setup() -> bool:
         return False
 
+    @abc.abstractmethod
+    def setup_env_vars(self) -> None:
+        raise NotImplementedError()
+
+    @abc.abstractmethod
+    def teardown_env_vars(self) -> None:
+        raise NotImplementedError()
+
     @classmethod
     @abc.abstractmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
