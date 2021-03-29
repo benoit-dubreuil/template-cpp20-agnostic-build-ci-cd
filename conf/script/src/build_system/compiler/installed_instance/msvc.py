@@ -82,6 +82,17 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
         return vcvars_arch_batch_file
 
+    def __append_env_vars_locally(self):
+        local_env_vars = os.environ
+
+        for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_en_vars.items():
+            if vcvars_env_var_key in local_env_vars:
+                # TODO
+                ...
+            else:
+                # TODO
+                ...
+
     def __fetch_all_vcvars_env_vars(self) -> {str: list[str]}:
         shell_env_vars: str = self.__shell_get_vcvars_env_vars()
         vcvars_en_vars: {str: list[str]} = self.__interpret_shell_vcvars_en_vars(shell_env_vars=shell_env_vars)
