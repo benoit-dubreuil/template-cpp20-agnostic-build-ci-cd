@@ -90,8 +90,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
                 # TODO
                 ...
             else:
-                # TODO
-                ...
+                local_env_vars[vcvars_env_var_key] = vcvars_env_var_value
 
     def __fetch_all_vcvars_env_vars(self) -> {str: list[str]}:
         shell_env_vars: str = self.__shell_get_vcvars_env_vars()
