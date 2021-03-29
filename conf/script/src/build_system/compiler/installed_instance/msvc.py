@@ -86,7 +86,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         local_env_vars = os.environ
 
         for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_en_vars.items():
-            if vcvars_env_var_key in local_env_vars:
+            if vcvars_env_var_key in local_env_vars and len(local_env_vars[vcvars_env_var_key]) > 0:
                 # TODO
                 ...
             else:
