@@ -16,7 +16,7 @@ _ENV_VAR_MULTI_VALUES_SEP: Final[str] = ';'
 @final
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
     vcvars_arch_batch_file: Path
-    vcvars_en_vars: {str: list[str]}
+    vcvars_en_vars: dict[str, list[str]]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -120,9 +120,9 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
 
     @staticmethod
-    def __interpret_local_en_vars() -> {str: list[str]}:
+    def __interpret_local_en_vars() -> dict[str, list[str]]:
         local_env_vars: typing.MutableMapping[str, str] = os.environ
-        interpreted_local_env_vars: {str: list[str]} = {}
+        interpreted_local_env_vars: dict[str, list[str]] = {}
 
         for env_var_key, env_var_value in local_env_vars.items():
             if (env_var_value is not None) and (len(env_var_value) > 0):
@@ -131,16 +131,16 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
         return interpreted_local_env_vars
 
-    def __fetch_all_vcvars_env_vars(self) -> {str: list[str]}:
+    def __fetch_all_vcvars_env_vars(self) -> dict[str, list[str]]:
         shell_env_vars: str = self.__shell_get_vcvars_env_vars()
-        vcvars_en_vars: {str: list[str]} = self.__interpret_shell_vcvars_en_vars(shell_env_vars=shell_env_vars)
+        vcvars_en_vars: dict[str, list[str]] = self.__interpret_shell_vcvars_en_vars(shell_env_vars=shell_env_vars)
 
         assert len(vcvars_en_vars) > 0
         return vcvars_en_vars
 
     @staticmethod
-    def __interpret_shell_vcvars_en_vars(shell_env_vars: str) -> {str: list[str]}:
-        vcvars_en_vars: {str: list[str]} = {}
+    def __interpret_shell_vcvars_en_vars(shell_env_vars: str) -> dict[str, list[str]]:
+        vcvars_en_vars: dict[str, list[str]] = {}
 
         for env_var in shell_env_vars.splitlines():
             env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
