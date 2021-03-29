@@ -50,6 +50,9 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return True
 
     def setup_env_vars(self) -> None:
+        vcvars_en_vars = self.__fetch_all_vcvars_env_vars()
+        object.__setattr__(self, 'vcvars_en_vars', vcvars_en_vars)
+
         # TODO
         ...
 
