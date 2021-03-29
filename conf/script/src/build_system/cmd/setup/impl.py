@@ -62,7 +62,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
 
 
-def shell_get_vcvars_env_vars(host_msvc_compiler) -> str:
+def shell_get_vcvars_env_vars(host_msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance) -> str:
     timeout_in_seconds: Final[float] = 20
     arg_sep: Final[str] = ' '
     cmd_interpreter: Final[str] = r'cmd'
