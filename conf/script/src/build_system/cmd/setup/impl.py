@@ -22,7 +22,8 @@ def _recreate_build_dir(root_dir: Optional[Path] = None) -> Path:
 
 
 def _create_target_build_dirs(root_dir: Optional[Path] = None,
-                              supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.compiler_instance]] = None) -> list[Path]:
+                              supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.compiler_instance]] = None) \
+        -> list[(Path, build_system.compiler.installed_instance.CompilerInstance)]:
     import build_system.cmd.hierarchy.create_target_build_dirs
 
     root_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_root_dir_exists(root_dir=root_dir)

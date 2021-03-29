@@ -33,7 +33,8 @@ def _create_all_target_build_dirs(build_dir: Path,
 
 
 def create_target_build_dirs(build_dir: Optional[Path] = None,
-                             supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) -> list[Path]:
+                             supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[(Path, build_system.compiler.installed_instance.CompilerInstance)]:
     build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir=build_dir)
     _assure_build_dir_is_empty(build_dir)
 
