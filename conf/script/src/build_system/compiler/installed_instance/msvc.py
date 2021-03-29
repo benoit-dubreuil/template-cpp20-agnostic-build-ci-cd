@@ -29,10 +29,6 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return [build_system.compiler.family.CompilerFamily.MSVC]
 
     @staticmethod
-    def requires_env_vars_setup() -> bool:
-        return True
-
-    @staticmethod
     def get_vcvars_dir_relative_to_installation_dir() -> Path:
         return Path('VC/Auxiliary/Build')
 
@@ -43,6 +39,10 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     @staticmethod
     def get_vcvars_extension() -> str:
         return '.bat'
+
+    @staticmethod
+    def requires_env_vars_setup() -> bool:
+        return True
 
     def __get_vcvars_dir(self) -> Path:
         vcvars_dir: Path = self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
