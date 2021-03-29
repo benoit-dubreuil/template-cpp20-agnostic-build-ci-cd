@@ -58,16 +58,15 @@ def setup_build_system(root_dir: Optional[Path] = None):
                                            cmd_arg_and,
                                            cmd_arg_get_env_vars])
 
-    cmd_get_env_vars_output = subprocess.check_output(formed_cmd_get_env_var, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
-    cmd_get_env_vars_output = cmd_get_env_vars_output.decode()
+    cmd_get_env_vars_output: str = subprocess.check_output(formed_cmd_get_env_var, text=True, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
 
-    env_vars_post_vcvar: {str: list[str]} = {}
+    env_vars_post_vcvars_cmd: {str: list[str]} = {}
 
     for env_var in cmd_get_env_vars_output.splitlines():
         env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
         env_var_split_values = env_var_grouped_values.split(sep=';')
 
-        env_vars_post_vcvar[env_var_key] = env_var_split_values
+        env_vars_post_vcvars_cmd[env_var_key] = env_var_split_values
 
     # TODO : WIP
     import mesonbuild.mesonmain
