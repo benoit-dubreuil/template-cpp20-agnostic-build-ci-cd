@@ -9,6 +9,8 @@ import build_system.compiler.installed_instance.compiler_instance
 import utils.error.cls_def
 import utils.error.try_external_errors
 
+_ENV_VAR_MULTI_VALUES_SEP: Final[str] = ';'
+
 
 @final
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
@@ -83,19 +85,34 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return vcvars_arch_batch_file
 
     def __append_vcvars_to_local_env_vars(self):
-        env_var_multi_values_sep: Final[str] = ';'
         local_env_vars = os.environ
 
         for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_en_vars.items():
             if vcvars_env_var_key in local_env_vars and len(local_env_vars[vcvars_env_var_key]) > 0:
                 matching_local_env_var_value = local_env_vars[vcvars_env_var_key]
 
-                if matching_local_env_var_value[-1] != env_var_multi_values_sep:
-                    matching_local_env_var_value += env_var_multi_values_sep
+                if matching_local_env_var_value[-1] != _ENV_VAR_MULTI_VALUES_SEP:
+                    matching_local_env_var_value += _ENV_VAR_MULTI_VALUES_SEP
 
+                # Append in order to easily remove the env vars later
                 local_env_vars[vcvars_env_var_key] = matching_local_env_var_value + vcvars_env_var_value
             else:
                 local_env_vars[vcvars_env_var_key] = vcvars_env_var_value
+
+    def __remove_vcvars_from_local_env_vars(self):
+        local_env_vars = os.environ
+
+        for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_en_vars.items():
+            if vcvars_env_var_key in local_env_vars:
+                matching_local_env_var_value = local_env_vars[vcvars_env_var_key]
+
+                matching_local_env_var_value = matching_local_env_var_value.replace(vcvars_env_var_value, str())
+                matching_local_env_var_value = matching_local_env_var_value.strip(_ENV_VAR_MULTI_VALUES_SEP + ' ')
+
+                if len(matching_local_env_var_value) <= 0:
+                    del local_env_vars[vcvars_env_var_key]
+                else:
+                    local_env_vars[vcvars_env_var_key] = matching_local_env_var_value
 
     def __fetch_all_vcvars_env_vars(self) -> {str: list[str]}:
         shell_env_vars: str = self.__shell_get_vcvars_env_vars()
