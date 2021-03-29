@@ -124,7 +124,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def __except_local_env_vars_from_vcvars_env_vars(local_env_vars: dict[str, list[str]], all_vcvars_env_vars: dict[str, list[str]]) -> dict[str, list[str]]:
         vcvars_env_vars_except_local_env_vars: dict[str, list[str]] = {}
 
-        for vcvar_env_var_key, vcvar_env_var_value in all_vcvars_env_vars:
+        for vcvar_env_var_key, vcvar_env_var_value in all_vcvars_env_vars.items():
             vcvar_env_var_value_except_local_env_var: list[str]
 
             if vcvar_env_var_key in local_env_vars:
