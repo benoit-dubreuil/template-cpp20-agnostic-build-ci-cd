@@ -25,7 +25,8 @@ def _generate_target_build_dir_names(supported_installed_compilers: Optional[lis
 
 
 def _create_all_target_build_dirs(build_dir: Path,
-                                  supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None):
+                                  supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[(Path, build_system.compiler.installed_instance.CompilerInstance)]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
     target_build_dir_names = _generate_target_build_dir_names(supported_installed_compilers=supported_installed_compilers)
