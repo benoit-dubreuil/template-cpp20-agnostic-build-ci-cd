@@ -44,6 +44,14 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def requires_env_vars_setup() -> bool:
         return True
 
+    def setup_env_vars(self) -> None:
+        # TODO
+        ...
+
+    def teardown_env_vars(self) -> None:
+        # TODO
+        ...
+
     def __get_vcvars_dir(self) -> Path:
         vcvars_dir: Path = self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
 
