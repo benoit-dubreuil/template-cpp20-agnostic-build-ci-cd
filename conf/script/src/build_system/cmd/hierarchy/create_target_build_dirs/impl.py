@@ -12,7 +12,8 @@ def _assure_build_dir_is_empty(build_dir):
         raise utils.error.cls_def.BuildDirNotEmptyError()
 
 
-def _generate_target_build_dir_names(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None):
+def _generate_target_build_dir_names(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[(str, build_system.compiler.installed_instance.CompilerInstance)]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
 
     target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_target_build_dir_names(
@@ -25,7 +26,8 @@ def _generate_target_build_dir_names(supported_installed_compilers: Optional[lis
 
 
 def _create_all_target_build_dirs(build_dir: Path,
-                                  supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None):
+                                  supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[(Path, build_system.compiler.installed_instance.CompilerInstance)]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
     target_build_dir_names = _generate_target_build_dir_names(supported_installed_compilers=supported_installed_compilers)
@@ -33,7 +35,8 @@ def _create_all_target_build_dirs(build_dir: Path,
 
 
 def create_target_build_dirs(build_dir: Optional[Path] = None,
-                             supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) -> list[Path]:
+                             supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[(Path, build_system.compiler.installed_instance.CompilerInstance)]:
     build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir=build_dir)
     _assure_build_dir_is_empty(build_dir)
 
