@@ -38,7 +38,6 @@ def setup_build_system(root_dir: Optional[Path] = None):
     # TODO : Execute this inside a 'Visual Studio 2019 Developer Command Prompt' for MSVC
     # Voir C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build
     # %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-    import sys
     import subprocess
 
     msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
@@ -46,12 +45,20 @@ def setup_build_system(root_dir: Optional[Path] = None):
 
     arg_sep = ' '
     cmd_interpreter = r'cmd'
-    cmd_interpreter_option = r'/k'
+    cmd_interpreter_option_on_end = r'/c'
     cmd_arg_vcvars_batch_file = '"' + str(msvc_compiler.vcvars_arch_batch_file) + '"'
-    formed_cmd = arg_sep.join([cmd_interpreter, cmd_interpreter_option, cmd_arg_vcvars_batch_file])
+    cmd_arg_get_env_vars = r'set'
 
-    # TODO : call set to get env vars, then exit cmd and set env vars to then be able to call meson
-    subprocess.run(formed_cmd, stdout=None, stderr=sys.stderr, check=True, timeout=timeout_in_seconds)
+    formed_cmd_call_vcvars_batch_file = arg_sep.join([cmd_interpreter,
+                                                      cmd_interpreter_option_on_end,
+                                                      cmd_arg_vcvars_batch_file])
+
+    formed_cmd_get_env_var = arg_sep.join([cmd_interpreter,
+                                           cmd_interpreter_option_on_end,
+                                           cmd_arg_get_env_vars])
+
+    subprocess.check_call(formed_cmd_call_vcvars_batch_file, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
+    subprocess.check_output(formed_cmd_get_env_var, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
 
     # TODO : WIP
     import mesonbuild.mesonmain
