@@ -150,7 +150,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         for env_var_key, env_var_value in local_env_vars.items():
             if (env_var_value is not None) and (len(env_var_value) > 0):
                 split_values: list[str] = env_var_value.strip().split(sep=_ENV_VAR_MULTI_VALUES_SEP)
-                interpreted_local_env_vars[env_var_key] = split_values
+                interpreted_local_env_vars[env_var_key.upper()] = split_values
 
         return interpreted_local_env_vars
 
@@ -169,7 +169,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
             env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
             env_var_split_values = env_var_grouped_values.split(sep=';')
 
-            vcvars_en_vars[env_var_key] = env_var_split_values
+            vcvars_en_vars[env_var_key.upper()] = env_var_split_values
 
         return vcvars_en_vars
 
