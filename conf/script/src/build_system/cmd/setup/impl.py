@@ -40,7 +40,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
                                                                                                                            supported_installed_compilers=host_compilers)
 
     shell_get_env_vars_output: str = host_msvc_compiler.__shell_get_vcvars_env_vars()
-    vcvars_en_vars: {str: list[str]} = interpret_shell_vcvars_en_vars(shell_get_env_vars_output)
+    vcvars_en_vars: {str: list[str]} = host_msvc_compiler.__interpret_shell_vcvars_en_vars(shell_get_env_vars_output)
 
     # TODO : WIP
     import mesonbuild.mesonmain
@@ -53,15 +53,3 @@ def setup_build_system(root_dir: Optional[Path] = None):
     meson_cli_args: list[str] = ['-h']
 
     mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
-
-
-def interpret_shell_vcvars_en_vars(shell_get_env_vars_output: str) -> {str: list[str]}:
-    vcvars_en_vars: {str: list[str]} = {}
-
-    for env_var in shell_get_env_vars_output.splitlines():
-        env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
-        env_var_split_values = env_var_grouped_values.split(sep=';')
-
-        vcvars_en_vars[env_var_key] = env_var_split_values
-
-    return vcvars_en_vars

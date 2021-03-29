@@ -79,6 +79,18 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
         return vcvars_arch_batch_file
 
+    @staticmethod
+    def __interpret_shell_vcvars_en_vars(shell_get_env_vars_output: str) -> {str: list[str]}:
+        vcvars_en_vars: {str: list[str]} = {}
+
+        for env_var in shell_get_env_vars_output.splitlines():
+            env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
+            env_var_split_values = env_var_grouped_values.split(sep=';')
+
+            vcvars_en_vars[env_var_key] = env_var_split_values
+
+        return vcvars_en_vars
+
     def __shell_get_vcvars_env_vars(self) -> str:
         timeout_in_seconds: Final[float] = 20
         arg_sep: Final[str] = ' '
