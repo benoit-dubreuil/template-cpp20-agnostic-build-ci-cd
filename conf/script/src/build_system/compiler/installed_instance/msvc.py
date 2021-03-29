@@ -87,6 +87,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         local_env_vars = os.environ
 
         for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_en_vars.items():
+            formatted_vcvars_env_var_value = _ENV_VAR_MULTI_VALUES_SEP.join(vcvars_env_var_value)
+
             if vcvars_env_var_key in local_env_vars and len(local_env_vars[vcvars_env_var_key]) > 0:
                 matching_local_env_var_value = local_env_vars[vcvars_env_var_key]
 
@@ -94,18 +96,20 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
                     matching_local_env_var_value += _ENV_VAR_MULTI_VALUES_SEP
 
                 # Append in order to easily remove the env vars later
-                local_env_vars[vcvars_env_var_key] = matching_local_env_var_value + vcvars_env_var_value
+                local_env_vars[vcvars_env_var_key] = matching_local_env_var_value + formatted_vcvars_env_var_value
             else:
-                local_env_vars[vcvars_env_var_key] = vcvars_env_var_value
+                local_env_vars[vcvars_env_var_key] = formatted_vcvars_env_var_value
 
     def __remove_vcvars_from_local_env_vars(self):
         local_env_vars = os.environ
 
         for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_en_vars.items():
             if vcvars_env_var_key in local_env_vars:
+                formatted_vcvars_env_var_value = _ENV_VAR_MULTI_VALUES_SEP.join(vcvars_env_var_value)
+
                 matching_local_env_var_value = local_env_vars[vcvars_env_var_key]
 
-                matching_local_env_var_value = matching_local_env_var_value.replace(vcvars_env_var_value, str())
+                matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvars_env_var_value, str())
                 matching_local_env_var_value = matching_local_env_var_value.strip(_ENV_VAR_MULTI_VALUES_SEP + ' ')
 
                 if len(matching_local_env_var_value) <= 0:
