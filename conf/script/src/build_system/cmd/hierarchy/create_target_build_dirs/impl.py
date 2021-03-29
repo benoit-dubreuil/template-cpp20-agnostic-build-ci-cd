@@ -13,7 +13,7 @@ def _assure_build_dir_is_empty(build_dir):
 
 
 def _generate_target_build_dir_names(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> list[(Path, build_system.compiler.installed_instance.CompilerInstance)]:
+        -> list[(str, build_system.compiler.installed_instance.CompilerInstance)]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
 
     target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_target_build_dir_names(
