@@ -39,6 +39,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     # Voir C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build
     # %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
     import subprocess
+    import os
 
     msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
     timeout_in_seconds: float = 20
@@ -46,12 +47,14 @@ def setup_build_system(root_dir: Optional[Path] = None):
     arg_sep = ' '
     cmd_interpreter = r'cmd'
     cmd_interpreter_option_on_end = r'/c'
+    cmd_interpreter_redirect_to_null = r'> ' + os.devnull + r' 2>&1'
     cmd_arg_vcvars_batch_file = '"' + str(msvc_compiler.vcvars_arch_batch_file) + '"'
     cmd_arg_get_env_vars = r'set'
 
     formed_cmd_call_vcvars_batch_file = arg_sep.join([cmd_interpreter,
                                                       cmd_interpreter_option_on_end,
-                                                      cmd_arg_vcvars_batch_file])
+                                                      cmd_arg_vcvars_batch_file,
+                                                      cmd_interpreter_redirect_to_null])
 
     formed_cmd_get_env_var = arg_sep.join([cmd_interpreter,
                                            cmd_interpreter_option_on_end,
@@ -61,8 +64,13 @@ def setup_build_system(root_dir: Optional[Path] = None):
     cmd_get_env_vars_output = subprocess.check_output(formed_cmd_get_env_var, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
     cmd_get_env_vars_output = cmd_get_env_vars_output.decode()
 
-    for env_var_post_vcvar_cmd in cmd_get_env_vars_output.splitlines():
-        env_var_key, env_var_values = env_var_post_vcvar_cmd.split(sep='=', maxsplit=1)
+    env_vars_post_vcvar: {str: list[str]} = {}
+
+    for env_var in cmd_get_env_vars_output.splitlines():
+        env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
+        env_var_split_values = env_var_grouped_values.split(sep=';')
+
+        env_vars_post_vcvar[env_var_key] = env_var_split_values
 
     # TODO : WIP
     import mesonbuild.mesonmain
