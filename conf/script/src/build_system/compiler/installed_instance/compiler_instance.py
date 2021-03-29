@@ -1,7 +1,7 @@
 import abc
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Type
+from typing import Optional, Type, final
 
 import build_system.compiler.family
 import build_system.compiler.host.architecture
@@ -37,6 +37,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         object.__setattr__(self, 'installation_dir', installation_dir)
 
     @classmethod
+    @final
     def create_from_installed_compiler(cls,
                                        compiler_family: build_system.compiler.family.CompilerFamily,
                                        os_family: build_system.compiler.host.os_family.OSFamily,
@@ -87,11 +88,24 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
         raise NotImplementedError()
 
+    @staticmethod
+    def requires_env_vars_setup() -> bool:
+        return False
+
+    # Virtual method
+    def setup_env_vars(self) -> None:
+        raise NotImplementedError()
+
+    # Virtual method
+    def teardown_env_vars(self) -> None:
+        raise NotImplementedError()
+
     @classmethod
     @abc.abstractmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
         raise NotImplementedError()
 
     @classmethod
+    @final
     def _assert_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily):
         assert compiler_family in cls.get_supported_compiler_families()
