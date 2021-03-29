@@ -21,6 +21,6 @@ def generate_target_build_dir_names(supported_installed_compilers: list[build_sy
     for compiler_instance in host_compilers:
         for target_build_type in target_build_types:
             target_name = build_system.build_target.name.TargetBuildName(compiler_instance=compiler_instance, target_build_type=target_build_type)
-            build_dir_names.append(str(target_name))
+            build_dir_names.append((str(target_name), compiler_instance))
 
     return build_dir_names
