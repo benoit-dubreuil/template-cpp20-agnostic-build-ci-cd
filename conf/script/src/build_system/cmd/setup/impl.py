@@ -1,7 +1,11 @@
+import os
+import subprocess
 from pathlib import Path
-from typing import Optional, cast
+from typing import Final, Optional, cast
 
 import build_system.cmd.hierarchy.assure_arg_integrity
+import build_system.compiler.installed_instance
+import build_system.compiler.installed_instance.msvc
 
 
 def _recreate_build_dir(root_dir: Optional[Path] = None) -> Path:
@@ -16,7 +20,8 @@ def _recreate_build_dir(root_dir: Optional[Path] = None) -> Path:
     return build_dir
 
 
-def _create_target_build_dirs(root_dir: Optional[Path] = None, supported_installed_compilers=None) -> list[Path]:
+def _create_target_build_dirs(root_dir: Optional[Path] = None,
+                              supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.compiler_instance]] = None) -> list[Path]:
     import build_system.cmd.hierarchy.create_target_build_dirs
 
     root_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_root_dir_exists(root_dir=root_dir)
@@ -28,37 +33,13 @@ def _create_target_build_dirs(root_dir: Optional[Path] = None, supported_install
 
 
 def setup_build_system(root_dir: Optional[Path] = None):
-    import build_system.compiler.installed_instance
-    import build_system.compiler.installed_instance.msvc
     import build_system.compiler.supported_installed_instances
 
     host_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = build_system.compiler.supported_installed_instances.fetch_all()
-    target_build_dirs: list[Path] = _create_target_build_dirs(root_dir=root_dir, supported_installed_compilers=host_compilers)
+    host_msvc_compiler = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
+    target_build_dirs: list[Path] = _create_target_build_dirs(root_dir=root_dir, supported_installed_compilers=host_msvc_compiler)
 
-    # TODO : Execute this inside a 'Visual Studio 2019 Developer Command Prompt' for MSVC
-    # Voir C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build
-    # %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-    import subprocess
-    import os
-
-    msvc_compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
-    timeout_in_seconds: float = 20
-
-    arg_sep = ' '
-    cmd_interpreter = r'cmd'
-    cmd_interpreter_option_on_end = r'/c'
-    cmd_interpreter_redirect_to_null = arg_sep.join([r'>', os.devnull, r' 2>&1'])
-    cmd_arg_vcvars_batch_file = '"' + str(msvc_compiler.vcvars_arch_batch_file) + '"'
-    cmd_arg_and = r'&&'
-    cmd_arg_get_env_vars = r'set'
-    formed_cmd_get_env_var = arg_sep.join([cmd_interpreter,
-                                           cmd_interpreter_option_on_end,
-                                           cmd_arg_vcvars_batch_file,
-                                           cmd_interpreter_redirect_to_null,
-                                           cmd_arg_and,
-                                           cmd_arg_get_env_vars])
-
-    cmd_get_env_vars_output: str = subprocess.check_output(formed_cmd_get_env_var, text=True, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
+    cmd_get_env_vars_output = shell_get_vcvars_env_vars(host_msvc_compiler)
 
     env_vars_post_vcvars_cmd: {str: list[str]} = {}
 
@@ -79,3 +60,23 @@ def setup_build_system(root_dir: Optional[Path] = None):
     meson_cli_args: list[str] = ['-h']
 
     mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
+
+
+def shell_get_vcvars_env_vars(host_msvc_compiler) -> str:
+    timeout_in_seconds: Final[float] = 20
+    arg_sep: Final[str] = ' '
+    cmd_interpreter: Final[str] = r'cmd'
+    cmd_interpreter_option_on_end: Final[str] = r'/c'
+    cmd_interpreter_redirect_to_null: Final[str] = arg_sep.join([r'>', os.devnull, r' 2>&1'])
+    cmd_arg_vcvars_batch_file: Final[str] = '"' + str(host_msvc_compiler.vcvars_arch_batch_file) + '"'
+    cmd_arg_and: Final[str] = r'&&'
+    cmd_arg_get_env_vars: Final[str] = r'set'
+
+    formed_cmd_get_env_var = arg_sep.join([cmd_interpreter,
+                                           cmd_interpreter_option_on_end,
+                                           cmd_arg_vcvars_batch_file,
+                                           cmd_interpreter_redirect_to_null,
+                                           cmd_arg_and,
+                                           cmd_arg_get_env_vars])
+
+    return subprocess.check_output(formed_cmd_get_env_var, text=True, stderr=subprocess.DEVNULL, timeout=timeout_in_seconds)
