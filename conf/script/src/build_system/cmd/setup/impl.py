@@ -9,6 +9,10 @@ from build_system.cmd.setup.meson_utils import setup_host_compiler_target_build_
 
 
 def setup_build_system(root_dir: Optional[Path] = None):
+    import build_system.cmd.hierarchy.assure_arg_integrity
+
+    root_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_root_dir_exists(root_dir=root_dir)
+
     host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
     all_host_compilers_targets = create_all_host_compilers_targets_build_dirs(root_dir=root_dir,
                                                                               supported_installed_compilers=host_compilers)
