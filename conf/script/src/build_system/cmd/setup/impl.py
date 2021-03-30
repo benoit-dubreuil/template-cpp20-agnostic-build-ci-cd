@@ -37,7 +37,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     host_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = build_system.compiler.supported_installed_instances.fetch_all()
     host_msvc_compiler = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
     target_build_dirs: dict[(build_system.compiler.installed_instance.CompilerInstance, list[Path])] = _create_target_build_dirs(root_dir=root_dir,
-                                                                                                                           supported_installed_compilers=host_compilers)
+                                                                                                                                 supported_installed_compilers=host_compilers)
 
     if host_msvc_compiler.requires_env_vars_setup():
         host_msvc_compiler.setup_env_vars()
