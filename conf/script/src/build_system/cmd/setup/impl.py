@@ -1,8 +1,9 @@
 from pathlib import Path
-from typing import Optional
+from typing import Final, Optional
 
 import mesonbuild.mesonmain
 
+import build_system.build_target.build_target_cls
 import build_system.build_target.compiler_instance_targets
 import build_system.compiler.installed_instance
 import build_system.compiler.installed_instance.msvc
@@ -23,12 +24,13 @@ def setup_build_system(root_dir: Optional[Path] = None):
     mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
 
 
-def _setup_host_compiler_all_target_build_dirs(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                                               target_build_dirs: list[Path]):
+def _setup_host_compiler_all_target_build_dirs(host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets):
+    host_compiler: Final[build_system.compiler.installed_instance.CompilerInstance] = host_compiler_targets.compiler_instance
+
     if host_compiler.requires_env_vars_setup():
         host_compiler.setup_env_vars()
 
-    for target in target_build_dirs:
+    for target in host_compiler_targets.targets:
         _setup_host_compiler_target_build_dir(host_compiler=host_compiler, target_build_dir=target)
 
     if host_compiler.requires_env_vars_setup():
@@ -36,7 +38,7 @@ def _setup_host_compiler_all_target_build_dirs(host_compiler: build_system.compi
 
 
 def _setup_host_compiler_target_build_dir(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                                          target_build_dir: Path):
+                                          target_build_dir: build_system.build_target.build_target_cls.BuildTarget):
     # TODO
     ...
 
