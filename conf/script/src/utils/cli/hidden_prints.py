@@ -10,6 +10,6 @@ class HiddenPrints(contextlib.AbstractContextManager):
         self._original_stdout = sys.stdout
         sys.stdout = open(os.devnull, 'w')
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_value, traceback):
         sys.stdout.close()
         sys.stdout = self._original_stdout
