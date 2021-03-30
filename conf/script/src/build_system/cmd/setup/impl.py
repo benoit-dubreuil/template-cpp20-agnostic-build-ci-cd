@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import Optional
 
+import mesonbuild.mesonmain
+
 import build_system.cmd.hierarchy.assure_arg_integrity
 import build_system.compiler.installed_instance
 import build_system.compiler.installed_instance.msvc
@@ -57,8 +59,6 @@ def setup_build_system(root_dir: Optional[Path] = None):
                                                                                                                                  supported_installed_compilers=host_compilers)
 
     # TODO : WIP
-    import mesonbuild.mesonmain
-
     current_package_path = Path(__file__).parent
     current_package_path.resolve(strict=True)
     current_package_path = current_package_path.absolute()
