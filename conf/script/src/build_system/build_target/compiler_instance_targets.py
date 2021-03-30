@@ -20,3 +20,6 @@ class CompilerInstanceTargets:
             object.__setattr__(self, 'targets', [])
         else:
             object.__setattr__(self, 'targets', targets)
+
+    def __iter__(self):
+        return self.targets
