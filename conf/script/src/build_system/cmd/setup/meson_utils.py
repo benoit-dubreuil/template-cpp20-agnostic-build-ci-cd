@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Final
 
 import mesonbuild.mesonmain
 
@@ -11,7 +12,12 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
                                          target_build_dir: build_system.build_target.build_target_cls.BuildTarget):
     # TODO : WIP
     meson_launcher: str = _fetch_meson_launcher()
-    meson_cli_args: list[str] = ['-h']
+
+    meson_cli_arg_setup_cmd: Final[str] = r'setup'
+    meson_cli_arg_help: Final[str] = r'--help'
+
+    meson_cli_args: list[str] = [meson_cli_arg_setup_cmd,
+                                 meson_cli_arg_help]
 
     try:
         mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
