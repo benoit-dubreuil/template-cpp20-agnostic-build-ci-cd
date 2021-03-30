@@ -14,21 +14,10 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
                                          host_compiler: build_system.compiler.installed_instance.CompilerInstance,
                                          target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
                                          cli_mode: bool = False):
-    # TODO : WIP
     meson_launcher: str = _fetch_meson_launcher()
-
-    cli_kwarg_assignment_op: Final[str] = r'='
-
-    meson_cli_arg_setup_cmd: Final[str] = r'setup'
-    meson_cli_arg_help: Final[str] = r'--help'
-    meson_cli_arg_build_type: Final[str] = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.get_build_type().value
-    meson_cli_arg_build_dir: Final[str] = str(target_build_dir.dir)
-    meson_cli_arg_source_dir: Final[str] = str(root_dir)
-
-    meson_cli_args: list[str] = [meson_cli_arg_setup_cmd,
-                                 meson_cli_arg_build_type,
-                                 meson_cli_arg_build_dir,
-                                 meson_cli_arg_source_dir]
+    meson_cli_args = _generate_meson_cli_args(root_dir=root_dir,
+                                              host_compiler=host_compiler,
+                                              target_build_dir=target_build_dir)
 
     if cli_mode:
         print_target_info(host_compiler=host_compiler, target_build_dir=target_build_dir)
@@ -43,6 +32,27 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
 def _fetch_meson_launcher() -> str:
     current_package_path = _fetch_current_package_path()
     return str(current_package_path)
+
+
+def _generate_meson_cli_args(root_dir: Path,
+                             host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+                             target_build_dir: build_system.build_target.build_target_cls.BuildTarget):
+    cli_kwarg_assignment_op: Final[str] = r'='
+
+    meson_cli_arg_setup_cmd = r'setup'
+    meson_cli_arg_help = r'--help'
+
+    meson_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.get_build_type().value
+    meson_cli_arg_build_dir = str(target_build_dir.dir)
+    meson_cli_arg_source_dir = str(root_dir)
+
+    # TODO : WIP
+    meson_cli_args: list[str] = [meson_cli_arg_setup_cmd,
+                                 meson_cli_arg_build_type,
+                                 meson_cli_arg_build_dir,
+                                 meson_cli_arg_source_dir]
+
+    return meson_cli_args
 
 
 def _fetch_current_package_path() -> Path:
