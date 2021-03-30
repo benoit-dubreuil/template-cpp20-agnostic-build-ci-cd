@@ -52,6 +52,10 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def requires_env_vars_setup() -> bool:
         return True
 
+    @staticmethod
+    def meson_requires_env_default_compiler_setup() -> bool:
+        return False
+
     def setup_env_vars(self) -> None:
         local_env_vars: dict[str, list[str]] = self.__interpret_local_en_vars()
         all_vcvars_en_vars = self.__fetch_all_vcvars_env_vars()
