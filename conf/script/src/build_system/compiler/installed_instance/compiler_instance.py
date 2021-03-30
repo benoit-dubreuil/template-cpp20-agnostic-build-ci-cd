@@ -62,14 +62,20 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         # noinspection PyUnresolvedReferences
         import build_system.compiler.installed_instance.import_all_concrete_instances
 
-        subclasses: list[Type[CompilerInstance]] = cls.__subclasses__()
+        subclasses: list[Type[CompilerInstance]] = cls.__subclasses__().copy()
         sublcass_matching_compiler_family: Optional[Type[CompilerInstance]] = None
 
         while subclasses and subclasses:
             concrete_subclass = subclasses.pop(-1)
+            sub_subclasses = concrete_subclass.__subclasses__()
 
-            if compiler_family in concrete_subclass.get_supported_compiler_families() and len(concrete_subclass.__subclasses__()) <= 0:
-                sublcass_matching_compiler_family = concrete_subclass
+            if len(sub_subclasses) <= 0:
+
+                if compiler_family in concrete_subclass.get_supported_compiler_families():
+                    sublcass_matching_compiler_family = concrete_subclass
+
+            else:
+                subclasses.extend(sub_subclasses)
 
         return sublcass_matching_compiler_family
 
