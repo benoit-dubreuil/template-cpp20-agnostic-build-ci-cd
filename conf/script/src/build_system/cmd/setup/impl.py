@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Optional, cast
+from typing import Optional
 
 import build_system.cmd.hierarchy.assure_arg_integrity
 import build_system.compiler.installed_instance
@@ -32,17 +32,29 @@ def _create_target_build_dirs(root_dir: Optional[Path] = None,
     return target_build_dirs
 
 
+def _setup_host_compiler_target_build_dir(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+                                          target_build_dir: Path):
+    # TODO
+    ...
+
+
+def _setup_host_compiler_all_target_build_dirs(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+                                               target_build_dirs: list[Path]):
+    if host_compiler.requires_env_vars_setup():
+        host_compiler.setup_env_vars()
+
+    for target in target_build_dirs:
+        _setup_host_compiler_target_build_dir(host_compiler=host_compiler, target_build_dir=target)
+
+    if host_compiler.requires_env_vars_setup():
+        host_compiler.teardown_env_vars()
+
+
 def setup_build_system(root_dir: Optional[Path] = None):
     # TODO : Foreach compiler, foreach target build dir...
     host_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = build_system.compiler.supported_installed_instances.fetch_all()
-    host_msvc_compiler = cast(build_system.compiler.installed_instance.msvc.MSVCCompilerInstance, host_compilers[0])
     target_build_dirs: dict[(build_system.compiler.installed_instance.CompilerInstance, list[Path])] = _create_target_build_dirs(root_dir=root_dir,
                                                                                                                                  supported_installed_compilers=host_compilers)
-
-    if host_msvc_compiler.requires_env_vars_setup():
-        host_msvc_compiler.setup_env_vars()
-        ...
-        host_msvc_compiler.teardown_env_vars()
 
     # TODO : WIP
     import mesonbuild.mesonmain
