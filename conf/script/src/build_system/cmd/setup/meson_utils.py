@@ -13,7 +13,7 @@ from build_system.cmd.setup.cli_print_target_info import print_target_info
 def setup_host_compiler_target_build_dir(root_dir: Path,
                                          host_compiler: build_system.compiler.installed_instance.CompilerInstance,
                                          target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
-                                         cli_mode: bool = False):
+                                         cli_mode: bool):
     meson_launcher: str = _fetch_meson_launcher()
     meson_cli_args = _generate_meson_cli_args(root_dir=root_dir,
                                               host_compiler=host_compiler,
