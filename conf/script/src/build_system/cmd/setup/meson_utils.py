@@ -15,9 +15,12 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
 
     meson_cli_arg_setup_cmd: Final[str] = r'setup'
     meson_cli_arg_help: Final[str] = r'--help'
+    meson_cli_arg_build_dir: Final[str] = '"' + str(target_build_dir.dir) + '"'
+    meson_cli_arg_source_dir: Final[str] = '"' + str(root_dir) + '"'
 
     meson_cli_args: list[str] = [meson_cli_arg_setup_cmd,
-                                 meson_cli_arg_help]
+                                 meson_cli_arg_build_dir,
+                                 meson_cli_arg_source_dir]
 
     try:
         mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
