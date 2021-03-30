@@ -6,7 +6,8 @@ import build_system.build_target.build_target_cls
 import build_system.compiler.installed_instance
 
 
-def setup_host_compiler_target_build_dir(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+def setup_host_compiler_target_build_dir(root_dir: Path,
+                                         host_compiler: build_system.compiler.installed_instance.CompilerInstance,
                                          target_build_dir: build_system.build_target.build_target_cls.BuildTarget):
     # TODO : WIP
     meson_launcher: str = _fetch_meson_launcher()

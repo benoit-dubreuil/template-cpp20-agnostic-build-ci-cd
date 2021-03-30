@@ -18,17 +18,20 @@ def setup_build_system(root_dir: Optional[Path] = None):
                                                                               supported_installed_compilers=host_compilers)
 
     for host_compiler_targets in all_host_compilers_targets:
-        _setup_host_compiler_targets(host_compiler_targets=host_compiler_targets)
+        _setup_host_compiler_targets(root_dir=root_dir,
+                                     host_compiler_targets=host_compiler_targets)
 
 
-def _setup_host_compiler_targets(host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets):
+def _setup_host_compiler_targets(root_dir: Path, host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets):
     host_compiler: Final[build_system.compiler.installed_instance.CompilerInstance] = host_compiler_targets.compiler_instance
 
     if host_compiler.requires_env_vars_setup():
         host_compiler.setup_env_vars()
 
     for target in host_compiler_targets.targets:
-        setup_host_compiler_target_build_dir(host_compiler=host_compiler, target_build_dir=target)
+        setup_host_compiler_target_build_dir(root_dir=root_dir,
+                                             host_compiler=host_compiler,
+                                             target_build_dir=target)
 
     if host_compiler.requires_env_vars_setup():
         host_compiler.teardown_env_vars()
