@@ -13,12 +13,16 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
     # TODO : WIP
     meson_launcher: str = _fetch_meson_launcher()
 
+    cli_kwarg_assignment_op: Final[str] = r'='
+
     meson_cli_arg_setup_cmd: Final[str] = r'setup'
     meson_cli_arg_help: Final[str] = r'--help'
+    meson_cli_arg_build_type: Final[str] = r'-buildtype' + cli_kwarg_assignment_op + target_build_dir.get_build_type().value
     meson_cli_arg_build_dir: Final[str] = str(target_build_dir.dir)
     meson_cli_arg_source_dir: Final[str] = str(root_dir)
 
     meson_cli_args: list[str] = [meson_cli_arg_setup_cmd,
+                                 meson_cli_arg_build_type,
                                  meson_cli_arg_build_dir,
                                  meson_cli_arg_source_dir]
 
