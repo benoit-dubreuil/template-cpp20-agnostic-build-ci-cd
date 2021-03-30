@@ -9,7 +9,7 @@ def _assemble_target_build_types() -> list[build_system.build_target.build_type.
     return list(build_system.build_target.build_type.TargetBuildType)
 
 
-def generate_target_build_dir_names(supported_installed_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = None) \
+def generate_all_compiler_instances_targets(supported_installed_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     if supported_installed_compilers is None:
         host_compilers = build_system.compiler.supported_installed_instances.fetch_all()

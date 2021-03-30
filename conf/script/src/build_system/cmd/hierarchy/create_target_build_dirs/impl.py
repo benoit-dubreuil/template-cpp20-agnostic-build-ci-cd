@@ -35,7 +35,7 @@ def _generate_target_build_dir_names(supported_installed_compilers: Optional[lis
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
 
-    target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_target_build_dir_names(
+    target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_all_compiler_instances_targets(
         supported_installed_compilers=supported_installed_compilers)
 
     if len(target_build_dir_names) <= 0:
