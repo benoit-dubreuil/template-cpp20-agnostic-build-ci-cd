@@ -3,13 +3,14 @@ from typing import Optional
 
 import build_system.cmd.hierarchy.assure_arg_integrity
 import build_system.compiler.installed_instance
+import build_system.build_target.compiler_instance_targets
 import utils.error.cls_def
 import utils.more_path
 
 
 def create_target_build_dirs(build_dir: Optional[Path] = None,
                              supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> dict[build_system.compiler.installed_instance.CompilerInstance, list[Path]]:
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir=build_dir)
     _assure_build_dir_is_empty(build_dir)
 
@@ -23,7 +24,7 @@ def _assure_build_dir_is_empty(build_dir):
 
 def _create_all_target_build_dirs(build_dir: Path,
                                   supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> dict[build_system.compiler.installed_instance.CompilerInstance, list[Path]]:
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
     target_build_dir_names = _generate_target_build_dir_names(supported_installed_compilers=supported_installed_compilers)
@@ -31,7 +32,7 @@ def _create_all_target_build_dirs(build_dir: Path,
 
 
 def _generate_target_build_dir_names(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> dict[build_system.compiler.installed_instance.CompilerInstance, list[str]]:
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
 
     target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_target_build_dir_names(
