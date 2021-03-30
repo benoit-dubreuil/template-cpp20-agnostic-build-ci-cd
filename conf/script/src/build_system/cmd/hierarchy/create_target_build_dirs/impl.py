@@ -28,8 +28,9 @@ def _create_all_compiler_instances_target_build_dirs(build_dir: Path,
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
     all_compiler_instances_targets = _generate_all_compiler_instances_targets(supported_installed_compilers=supported_installed_compilers)
-    build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_compiler_instances_target_build_dirs(build_dir=build_dir,
-                                                                                                                            all_compiler_instances_targets=all_compiler_instances_targets)
+    build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_compiler_instances_target_build_dirs(
+        build_dir=build_dir,
+        all_compiler_instances_targets=all_compiler_instances_targets)
 
     return all_compiler_instances_targets
 
