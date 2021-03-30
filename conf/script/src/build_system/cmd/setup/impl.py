@@ -19,7 +19,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
                                                                               supported_installed_compilers=host_compilers)
 
     for host_compiler_targets in all_host_compilers_targets:
-        ...
+        _setup_host_compiler_targets(host_compiler_targets=host_compiler_targets)
 
     # TODO : WIP
     meson_launcher: str = fetch_meson_launcher()
