@@ -54,7 +54,7 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
             label_colored = label
 
         if color_info:
-            info_colored = colorama.Fore.CYAN + info + colorama.Style.RESET_ALL
+            info_colored = colorama.Fore.LIGHTBLACK_EX + info + colorama.Style.RESET_ALL
         else:
             info_colored = info
 
