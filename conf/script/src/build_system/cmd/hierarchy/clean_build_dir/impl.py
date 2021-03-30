@@ -2,8 +2,9 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-import utils.error.managed
+import build_system.cmd.hierarchy.assure_arg_integrity
 import utils.error.cls_def
+import utils.error.managed
 
 
 def clean_build_dir(build_dir: Optional[Path] = None, ignore_errors=False) -> bool:
@@ -17,11 +18,7 @@ def clean_build_dir(build_dir: Optional[Path] = None, ignore_errors=False) -> bo
         has_successfuly_cleaned_build = False
 
     try:
-        if build_dir is None:
-            build_dir = build_system.cmd.hierarchy.find_build_dir.find_build_dir()
-        else:
-            if not build_dir.exists():
-                raise utils.error.cls_def.BuildDirNotFoundError()
+        build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir=build_dir)
 
     except utils.error.managed.ManagedErrorMixin as raised_error:
         if not ignore_errors:

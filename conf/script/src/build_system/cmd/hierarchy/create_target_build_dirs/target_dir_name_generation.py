@@ -1,33 +1,62 @@
-from typing import Final
+from typing import Optional
 
+import build_system.build_target.build_target_cls
 import build_system.build_target.build_type
+import build_system.build_target.compiler_instance_targets
 import build_system.build_target.name
-import build_system.cmd.setup.required_host_info
-import build_system.compiler.compiler_instance
-import build_system.compiler.family
-import build_system.compiler.host.architecture
-import build_system.compiler.host.os_family
-import build_system.compiler.version
+import build_system.compiler.installed_instance
+import build_system.compiler.supported_installed_instances
+
+
+def generate_all_compiler_instances_targets(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+    host_compilers = _assure_host_compilers_are_fetched(supported_installed_compilers)
+    all_target_build_types = _assemble_target_build_types()
+    all_compiler_instances_targets = _generate_all_compiler_instances_targets_for_build_types(all_target_build_types, host_compilers)
+
+    return all_compiler_instances_targets
+
+
+def _assure_host_compilers_are_fetched(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[build_system.compiler.installed_instance.CompilerInstance]:
+    if supported_installed_compilers is None:
+        host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
+    else:
+        host_compilers = supported_installed_compilers
+
+    return host_compilers
 
 
 def _assemble_target_build_types() -> list[build_system.build_target.build_type.TargetBuildType]:
     return list(build_system.build_target.build_type.TargetBuildType)
 
 
-def _fetch_supported_compiler_instance() -> list[build_system.compiler.compiler_instance.CompilerInstance]:
-    os_family = build_system.cmd.setup.required_host_info.fetch_os_family()
-    return build_system.cmd.setup.required_host_info.fetch_supported_compiler_instances_by_os(os_family)
+def _generate_all_compiler_instances_targets_for_build_types(all_target_build_types: list[build_system.build_target.build_type.TargetBuildType],
+                                                             host_compilers: list[build_system.compiler.installed_instance.CompilerInstance]) \
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+    all_compiler_instances_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
+
+    for compiler_instance in host_compilers:
+        compiler_instance_targets = _generate_compiler_instance_targets(all_target_build_types=all_target_build_types,
+                                                                        compiler_instance=compiler_instance)
+
+        all_compiler_instances_targets.append(compiler_instance_targets)
+
+    return all_compiler_instances_targets
 
 
-def generate_target_build_dir_names() -> list[str]:
-    supported_compiler_instances = _fetch_supported_compiler_instance()
-    target_build_types = _assemble_target_build_types()
-    arch = build_system.cmd.setup.required_host_info.detect_arch()
+def _generate_compiler_instance_targets(all_target_build_types: list[build_system.build_target.build_type.TargetBuildType],
+                                        compiler_instance: build_system.compiler.installed_instance.CompilerInstance) \
+        -> build_system.build_target.compiler_instance_targets.CompilerInstanceTargets:
+    all_targets: list[build_system.build_target.build_target_cls.BuildTarget] = []
 
-    build_dir_names = []
-    for compiler_instance in supported_compiler_instances:
-        for target_build_type in target_build_types:
-            target_name = build_system.build_target.name.TargetBuildName(compiler_instance=compiler_instance, arch=arch, target_build_type=target_build_type)
-            build_dir_names.append(str(target_name))
+    for target_build_type in all_target_build_types:
+        target_build_name = build_system.build_target.name.TargetBuildName(compiler_instance=compiler_instance,
+                                                                           target_build_type=target_build_type)
 
-    return build_dir_names
+        target = build_system.build_target.build_target_cls.BuildTarget(build_name=target_build_name)
+        all_targets.append(target)
+
+    compiler_instance_targets = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
+                                                                                                            targets=all_targets)
+    return compiler_instance_targets

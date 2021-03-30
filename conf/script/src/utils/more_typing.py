@@ -1,4 +1,6 @@
+import os
 import pathlib
 import typing
 
-AnyPath = typing.TypeVar("AnyPath", pathlib.Path, str, bytes, type(None))
+PathLike = typing.TypeVar("PathLike", pathlib.Path, os.PathLike, str, bytes)
+AnyPath = typing.TypeVar("AnyPath", pathlib.Path, os.PathLike, str, bytes, type(None))
