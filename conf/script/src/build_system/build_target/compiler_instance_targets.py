@@ -10,4 +10,4 @@ class CompilerInstanceTargets:
     targets: list[build_system.build_target.build_target_cls.BuildTarget]
 
     def __iter__(self):
-        return self.targets
+        return self.targets.__iter__()
