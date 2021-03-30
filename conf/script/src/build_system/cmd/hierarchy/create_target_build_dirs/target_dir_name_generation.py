@@ -6,19 +6,11 @@ import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
 
 
-def _assemble_target_build_types() -> list[build_system.build_target.build_type.TargetBuildType]:
-    return list(build_system.build_target.build_type.TargetBuildType)
-
-
 def generate_all_compiler_instances_targets(supported_installed_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
-    if supported_installed_compilers is None:
-        host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
-    else:
-        host_compilers = supported_installed_compilers
-
-    all_compiler_instances_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
+    host_compilers = _assure_host_compilers_are_fetched(supported_installed_compilers)
     all_target_build_types = _assemble_target_build_types()
+    all_compiler_instances_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
 
     for compiler_instance in host_compilers:
         all_targets: list[build_system.build_target.build_target_cls.BuildTarget] = []
@@ -35,3 +27,15 @@ def generate_all_compiler_instances_targets(supported_installed_compilers: list[
         all_compiler_instances_targets.append(compiler_instance_targets)
 
     return all_compiler_instances_targets
+
+
+def _assemble_target_build_types() -> list[build_system.build_target.build_type.TargetBuildType]:
+    return list(build_system.build_target.build_type.TargetBuildType)
+
+
+def _assure_host_compilers_are_fetched(supported_installed_compilers):
+    if supported_installed_compilers is None:
+        host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
+    else:
+        host_compilers = supported_installed_compilers
+    return host_compilers
