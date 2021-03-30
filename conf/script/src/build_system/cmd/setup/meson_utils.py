@@ -48,7 +48,7 @@ def _generate_meson_cli_args(root_dir: Path,
     meson_cli_arg_build_dir = str(target_build_dir.dir)
     meson_cli_arg_source_dir = str(root_dir)
 
-    # TODO : WIP
+    # TODO : Machine files
     meson_cli_args: list[str] = [meson_cli_arg_setup_cmd,
                                  meson_cli_arg_build_type,
                                  meson_cli_arg_build_dir,
