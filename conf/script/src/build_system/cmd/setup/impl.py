@@ -16,9 +16,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
                                                                                                                                  supported_installed_compilers=host_compilers)
 
     # TODO : WIP
-    current_package_path = _fetch_current_package_path()
-
-    meson_launcher: str = str(current_package_path)
+    meson_launcher: str = _fetch_meson_launcher()
     meson_cli_args: list[str] = ['-h']
 
     mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
@@ -65,6 +63,11 @@ def _setup_host_compiler_target_build_dir(host_compiler: build_system.compiler.i
                                           target_build_dir: Path):
     # TODO
     ...
+
+
+def _fetch_meson_launcher() -> str:
+    current_package_path = _fetch_current_package_path()
+    return str(current_package_path)
 
 
 def _fetch_current_package_path() -> Path:
