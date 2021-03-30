@@ -50,7 +50,13 @@ class EnvDefaultCompiler(contextlib.AbstractContextManager):
         os.environ[_CXX] = self.compiler.get_cpp_compiler_name()
 
     def __uncache_c_compiler(self):
-        ...
+        if self.previous_c_compiler is None:
+            del os.environ[_CC]
+        else:
+            os.environ[_CC] = self.previous_c_compiler
 
     def __uncache_cpp_compiler(self):
-        ...
+        if self.previous_cpp_compiler is None:
+            del os.environ[_CXX]
+        else:
+            os.environ[_CXX] = self.previous_cpp_compiler
