@@ -1,5 +1,5 @@
 # noinspection PyUnresolvedReferences
-from build_system.compiler.installed_instance.gnu import GNUCompilerInstance
+from build_system.compiler.installed_instance.gcc import GCCCompilerInstance
 
 # noinspection PyUnresolvedReferences
 from build_system.compiler.installed_instance.msvc import MSVCCompilerInstance
