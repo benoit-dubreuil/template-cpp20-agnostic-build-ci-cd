@@ -11,8 +11,8 @@ def create_target_build_dir(build_dir: Path, target_build_dir_name: str) -> Path
     return target_build_dir
 
 
-def create_all_target_build_dirs(build_dir: Path, all_target_build_dir_names: dict[(build_system.compiler.installed_instance.CompilerInstance, list[str])]) \
-        -> dict[(build_system.compiler.installed_instance.CompilerInstance, list[Path])]:
+def create_all_target_build_dirs(build_dir: Path, all_target_build_dir_names: dict[build_system.compiler.installed_instance.CompilerInstance, list[str]]) \
+        -> dict[build_system.compiler.installed_instance.CompilerInstance, list[Path]]:
     all_target_build_dirs: dict[(build_system.compiler.installed_instance.CompilerInstance, list[Path])] = {}
 
     for compiler_instance in all_target_build_dir_names:
