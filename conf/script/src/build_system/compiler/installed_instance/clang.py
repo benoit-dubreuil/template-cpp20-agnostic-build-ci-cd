@@ -9,6 +9,9 @@ import build_system.compiler.installed_instance.gnu
 @dataclass(order=True, frozen=True)
 class ClangCompilerInstance(build_system.compiler.installed_instance.gnu.GNUCompilerInstance):
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     @staticmethod
     def get_c_compiler_name() -> str:
         return r'clang'
