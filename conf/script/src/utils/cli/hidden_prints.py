@@ -1,9 +1,10 @@
+import contextlib
 import os
 import sys
 
 
 # From: https://stackoverflow.com/a/45669280/2924010
-class HiddenPrints:
+class HiddenPrints(contextlib.AbstractContextManager):
 
     def __enter__(self):
         self._original_stdout = sys.stdout
