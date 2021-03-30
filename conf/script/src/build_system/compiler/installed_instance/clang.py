@@ -1,9 +1,11 @@
 from dataclasses import dataclass
+from typing import final
 
 import build_system.compiler.family
 import build_system.compiler.installed_instance.gnu
 
 
+@final
 @dataclass(order=True, frozen=True)
 class ClangCompilerInstance(build_system.compiler.installed_instance.gnu.GNUCompilerInstance):
 

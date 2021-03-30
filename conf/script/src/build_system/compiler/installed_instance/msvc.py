@@ -1,6 +1,7 @@
 import os
 import subprocess
 import typing
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Final, final
 
@@ -14,6 +15,7 @@ _ENV_VAR_MULTI_VALUES_SEP: Final[str] = ';'
 
 
 @final
+@dataclass(order=True, frozen=True)
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
     vcvars_arch_batch_file: Path
     vcvars_en_vars: dict[str, list[str]]
