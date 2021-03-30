@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+import build_system.compiler.family
 import build_system.compiler.installed_instance.gnu
 
 
@@ -13,3 +14,7 @@ class ClangCompilerInstance(build_system.compiler.installed_instance.gnu.GNUComp
     @staticmethod
     def get_cpp_compiler_name() -> str:
         return r'clang++'
+
+    @staticmethod
+    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
+        return [build_system.compiler.family.CompilerFamily.CLANG]
