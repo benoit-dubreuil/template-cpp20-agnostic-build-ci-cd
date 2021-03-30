@@ -22,12 +22,16 @@ class EnvDefaultCompiler(contextlib.AbstractContextManager):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        ...
+        self.__uncache_compilers()
         return False
 
     def __cache_compilers(self):
         self.__cache_c_compiler()
         self.__cache_cpp_compiler()
+
+    def __uncache_compilers(self):
+        self.__uncache_c_compiler()
+        self.__uncache_cpp_compiler()
 
     def __cache_c_compiler(self):
         if _CC in os.environ:
@@ -44,3 +48,9 @@ class EnvDefaultCompiler(contextlib.AbstractContextManager):
             self.previous_cpp_compiler = None
 
         os.environ[_CXX] = self.compiler.get_cpp_compiler_name()
+
+    def __uncache_c_compiler(self):
+        ...
+
+    def __uncache_cpp_compiler(self):
+        ...
