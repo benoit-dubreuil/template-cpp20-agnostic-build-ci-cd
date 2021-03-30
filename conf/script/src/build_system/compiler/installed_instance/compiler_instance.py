@@ -96,6 +96,14 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def meson_requires_env_default_compiler_setup() -> bool:
         return True
 
+    @staticmethod
+    def get_c_compiler_name() -> str:
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_cpp_compiler_name() -> str:
+        raise NotImplementedError()
+
     # Virtual method
     def setup_env_vars(self) -> None:
         raise NotImplementedError()
