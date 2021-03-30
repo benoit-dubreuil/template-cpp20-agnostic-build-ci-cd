@@ -28,7 +28,7 @@ def setup_build_system(root_dir: Optional[Path] = None):
     mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
 
 
-def _setup_host_compiler_all_target_build_dirs(host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets):
+def _setup_host_compiler_targets(host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets):
     host_compiler: Final[build_system.compiler.installed_instance.CompilerInstance] = host_compiler_targets.compiler_instance
 
     if host_compiler.requires_env_vars_setup():
