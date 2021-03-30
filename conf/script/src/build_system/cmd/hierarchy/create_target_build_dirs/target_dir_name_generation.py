@@ -10,12 +10,7 @@ def generate_all_compiler_instances_targets(supported_installed_compilers: list[
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     host_compilers = _assure_host_compilers_are_fetched(supported_installed_compilers)
     all_target_build_types = _assemble_target_build_types()
-    all_compiler_instances_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
-
-    for compiler_instance in host_compilers:
-        compiler_instance_targets = _generate_compiler_instance_targets(all_target_build_types=all_target_build_types,
-                                                                        compiler_instance=compiler_instance)
-        all_compiler_instances_targets.append(compiler_instance_targets)
+    all_compiler_instances_targets = _generate_all_compiler_instances_targets_for_build_types(all_target_build_types, host_compilers)
 
     return all_compiler_instances_targets
 
@@ -45,3 +40,15 @@ def _generate_compiler_instance_targets(all_target_build_types, compiler_instanc
     compiler_instance_targets = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
                                                                                                             targets=all_targets)
     return compiler_instance_targets
+
+
+def _generate_all_compiler_instances_targets_for_build_types(all_target_build_types, host_compilers):
+    all_compiler_instances_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
+
+    for compiler_instance in host_compilers:
+        compiler_instance_targets = _generate_compiler_instance_targets(all_target_build_types=all_target_build_types,
+                                                                        compiler_instance=compiler_instance)
+
+        all_compiler_instances_targets.append(compiler_instance_targets)
+
+    return all_compiler_instances_targets
