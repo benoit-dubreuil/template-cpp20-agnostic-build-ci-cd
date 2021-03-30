@@ -8,6 +8,7 @@ import build_system.build_target.build_target_cls
 import build_system.compiler.installed_instance
 import utils.cli.hidden_prints
 from build_system.cmd.setup.cli_print_target_info import print_target_info
+from build_system.cmd.setup.set_env_default_compiler import EnvDefaultCompiler
 
 
 def setup_host_compiler_target_build_dir(root_dir: Path,
@@ -24,7 +25,8 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
 
     try:
         with contextlib.nullcontext() if cli_mode else utils.cli.hidden_prints.HiddenPrints():
-            mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
+            with EnvDefaultCompiler(compiler=host_compiler) if host_compiler.meson_requires_env_default_compiler_setup() else contextlib.nullcontext():
+                mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
     except SystemExit:
         pass
 
