@@ -38,6 +38,9 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
         label_compiler_version_label = r'Compiler version'
         label_compiler_version_info = str(host_compiler.version)
 
+        label_compiler_arch_label = r'Compiler architecture'
+        label_compiler_arch_info = host_compiler.arch.arch_to_bit_name()
+
         label_compiler_installation_path_label = r'Compiler installation path'
         label_compiler_installation_path_info = str(host_compiler.installation_dir)
 
@@ -53,6 +56,11 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
                                       post_label_indent=post_label_indent,
                                       label=label_compiler_version_label,
                                       info=label_compiler_version_info)
+
+        print_indented_label_and_info(pre_label_indent=pre_label_indent,
+                                      post_label_indent=post_label_indent,
+                                      label=label_compiler_arch_label,
+                                      info=label_compiler_arch_info)
 
         print_indented_label_and_info(pre_label_indent=pre_label_indent,
                                       post_label_indent=post_label_indent,
