@@ -68,7 +68,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         while subclasses and subclasses:
             concrete_subclass = subclasses.pop(-1)
 
-            if compiler_family in concrete_subclass.get_supported_compiler_families():
+            if compiler_family in concrete_subclass.get_supported_compiler_families() and len(concrete_subclass.__subclasses__()) <= 0:
                 sublcass_matching_compiler_family = concrete_subclass
 
         return sublcass_matching_compiler_family
