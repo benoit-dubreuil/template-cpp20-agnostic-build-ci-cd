@@ -1,3 +1,4 @@
+import build_system.build_target.build_target_cls
 import build_system.build_target.build_type
 import build_system.build_target.compiler_instance_targets
 import build_system.build_target.name
@@ -16,10 +17,21 @@ def generate_all_compiler_instances_targets(supported_installed_compilers: list[
     else:
         host_compilers = supported_installed_compilers
 
-    build_dir_names_by_compiler_instance: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = {}
-    target_build_types = _assemble_target_build_types()
+    all_compiler_instances_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
+    all_target_build_types = _assemble_target_build_types()
 
     for compiler_instance in host_compilers:
-        build_dir_names_by_compiler_instance[compiler_instance] = target_build_types
+        all_targets: list[build_system.build_target.build_target_cls.BuildTarget] = []
 
-    return build_dir_names_by_compiler_instance
+        for target_build_type in all_target_build_types:
+            target_build_name = build_system.build_target.name.TargetBuildName(compiler_instance=compiler_instance,
+                                                                               target_build_type=target_build_type)
+
+            target = build_system.build_target.build_target_cls.BuildTarget(build_name=target_build_name)
+            all_targets.append(target)
+
+        compiler_instance_targets = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
+                                                                                                                targets=all_targets)
+        all_compiler_instances_targets.append(compiler_instance_targets)
+
+    return all_compiler_instances_targets
