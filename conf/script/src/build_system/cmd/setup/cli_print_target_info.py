@@ -6,6 +6,7 @@ import build_system.build_target.build_target_cls
 import build_system.compiler.installed_instance
 
 
+# TODO : Refactor
 def print_target_info(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
                       target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> None:
     def print_indented_label_and_info(pre_label_indent: str = str(),
