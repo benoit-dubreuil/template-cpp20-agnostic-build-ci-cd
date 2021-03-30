@@ -63,6 +63,34 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
 
         print(line)
 
+    def print_post_header_labels_and_info(pre_label_indent: str = str(),
+                                          post_label_indent: str = str(), ):
+
+        label_compiler_installation_path_label = r'Compiler installation path'
+        label_compiler_installation_path_info = str(host_compiler.installation_dir)
+
+        label_compiler_label = r'Compiler'
+        label_compiler_info = str(host_compiler.installation_dir)
+
+        label_build_type_label = r'Build type'
+        label_build_type_info = target_build_dir.get_build_type().value
+
+        print_indented_label_and_info(pre_label_indent=pre_label_indent,
+                                      post_label_indent=post_label_indent,
+                                      label=label_compiler_installation_path_label,
+                                      info=label_compiler_installation_path_info)
+
+        print_indented_label_and_info(pre_label_indent=pre_label_indent,
+                                      post_label_indent=post_label_indent,
+                                      label=label_compiler_label,
+                                      info=label_compiler_info,
+                                      color_info=True)
+
+        print_indented_label_and_info(pre_label_indent=pre_label_indent,
+                                      post_label_indent=post_label_indent,
+                                      label=label_build_type_label,
+                                      info=label_build_type_info)
+
     white_space: Final[str] = ' '
 
     header_label = r'Target'
@@ -70,28 +98,14 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
     post_header_indent = white_space * 6
     header_total_indent = (white_space * len(header_label)) + post_header_indent
 
-    post_sub_header_indent = white_space * 3
-
-    sub_header_compiler_label = r'Compiler'
-    sub_header_compiler_info = str(host_compiler.installation_dir)
-
-    sub_header_build_type_label = r'Build type'
-    sub_header_build_type_info = target_build_dir.get_build_type().value
+    post_label_indent = white_space * 3
 
     print_indented_label_and_info(post_label_indent=post_header_indent,
                                   label=header_colored_label,
                                   color_label=False)
 
-    print_indented_label_and_info(pre_label_indent=header_total_indent,
-                                  post_label_indent=post_sub_header_indent,
-                                  label=sub_header_compiler_label,
-                                  info=sub_header_compiler_info,
-                                  color_info=True)
-
-    print_indented_label_and_info(pre_label_indent=header_total_indent,
-                                  post_label_indent=post_sub_header_indent,
-                                  label=sub_header_build_type_label,
-                                  info=sub_header_build_type_info)
+    print_post_header_labels_and_info(pre_label_indent=header_total_indent,
+                                      post_label_indent=post_label_indent)
 
 
 def _fetch_current_package_path() -> Path:
