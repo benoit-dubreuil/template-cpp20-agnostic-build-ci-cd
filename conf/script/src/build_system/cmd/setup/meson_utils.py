@@ -64,26 +64,33 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
         print(line)
 
     def print_post_header_labels_and_info(pre_label_indent: str = str(),
-                                          post_label_indent: str = str(), ):
+                                          post_label_indent: str = str()):
+        label_compiler_family_label = r'Compiler family'
+        label_compiler_family_info = host_compiler.compiler_family.value
+
+        label_compiler_version_label = r'Compiler version'
+        label_compiler_version_info = str(host_compiler.version)
 
         label_compiler_installation_path_label = r'Compiler installation path'
         label_compiler_installation_path_info = str(host_compiler.installation_dir)
-
-        label_compiler_label = r'Compiler'
-        label_compiler_info = str(host_compiler.installation_dir)
 
         label_build_type_label = r'Build type'
         label_build_type_info = target_build_dir.get_build_type().value
 
         print_indented_label_and_info(pre_label_indent=pre_label_indent,
                                       post_label_indent=post_label_indent,
-                                      label=label_compiler_installation_path_label,
-                                      info=label_compiler_installation_path_info)
+                                      label=label_compiler_family_label,
+                                      info=label_compiler_family_info)
 
         print_indented_label_and_info(pre_label_indent=pre_label_indent,
                                       post_label_indent=post_label_indent,
-                                      label=label_compiler_label,
-                                      info=label_compiler_info,
+                                      label=label_compiler_version_label,
+                                      info=label_compiler_version_info)
+
+        print_indented_label_and_info(pre_label_indent=pre_label_indent,
+                                      post_label_indent=post_label_indent,
+                                      label=label_compiler_installation_path_label,
+                                      info=label_compiler_installation_path_info,
                                       color_info=True)
 
         print_indented_label_and_info(pre_label_indent=pre_label_indent,
