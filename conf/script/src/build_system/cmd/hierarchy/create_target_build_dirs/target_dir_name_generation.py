@@ -9,7 +9,7 @@ def _assemble_target_build_types() -> list[build_system.build_target.build_type.
 
 
 def generate_target_build_dir_names(supported_installed_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = None) \
-        -> list[(str, build_system.compiler.installed_instance.CompilerInstance)]:
+        -> dict[(build_system.compiler.installed_instance.CompilerInstance, list[str])]:
     if supported_installed_compilers is None:
         host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
     else:
@@ -17,10 +17,14 @@ def generate_target_build_dir_names(supported_installed_compilers: list[build_sy
 
     target_build_types = _assemble_target_build_types()
 
-    build_dir_names = []
+    build_dir_names_by_compiler_instance: dict[(build_system.compiler.installed_instance.CompilerInstance, list[str])] = {}
     for compiler_instance in host_compilers:
+        target_build_type_for_compiler_instance: list[str] = []
+
         for target_build_type in target_build_types:
             target_name = build_system.build_target.name.TargetBuildName(compiler_instance=compiler_instance, target_build_type=target_build_type)
-            build_dir_names.append((str(target_name), compiler_instance))
+            target_build_type_for_compiler_instance.append(str(target_name))
 
-    return build_dir_names
+        build_dir_names_by_compiler_instance[compiler_instance] = target_build_type_for_compiler_instance
+
+    return build_dir_names_by_compiler_instance
