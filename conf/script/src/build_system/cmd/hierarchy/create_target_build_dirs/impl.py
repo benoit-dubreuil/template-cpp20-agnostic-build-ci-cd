@@ -27,18 +27,21 @@ def _create_all_compiler_instances_target_build_dirs(build_dir: Path,
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
-    target_build_dir_names = _generate_all_compiler_instances_targets(supported_installed_compilers=supported_installed_compilers)
-    return build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_compiler_instances_target_build_dirs(build_dir, target_build_dir_names)
+    all_compiler_instances_targets = _generate_all_compiler_instances_targets(supported_installed_compilers=supported_installed_compilers)
+    build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_compiler_instances_target_build_dirs(build_dir=build_dir,
+                                                                                                                            all_compiler_instances_targets=all_compiler_instances_targets)
+
+    return all_compiler_instances_targets
 
 
 def _generate_all_compiler_instances_targets(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
 
-    target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_all_compiler_instances_targets(
+    all_compiler_instances_targets = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_all_compiler_instances_targets(
         supported_installed_compilers=supported_installed_compilers)
 
-    if len(target_build_dir_names) <= 0:
+    if len(all_compiler_instances_targets) <= 0:
         raise utils.error.cls_def.NoSupportedCompilersAvailableError()
 
-    return target_build_dir_names
+    return all_compiler_instances_targets
