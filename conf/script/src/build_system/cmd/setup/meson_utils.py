@@ -49,12 +49,12 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
                                       color_label: bool = True,
                                       color_info: bool = False) -> None:
         if color_label:
-            label_colored = colorama.Fore.LIGHTCYAN_EX + label + colorama.Style.RESET_ALL + ':'
+            label_colored = colorama.Fore.CYAN + label + colorama.Style.RESET_ALL + ':'
         else:
             label_colored = label
 
         if color_info:
-            info_colored = colorama.Fore.LIGHTBLACK_EX + info + colorama.Style.RESET_ALL
+            info_colored = colorama.Fore.CYAN + info + colorama.Style.RESET_ALL
         else:
             info_colored = info
 
@@ -66,7 +66,7 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
     white_space: Final[str] = ' '
 
     header_label = r'Target'
-    header_colored_label = colorama.Style.BRIGHT + colorama.Fore.LIGHTCYAN_EX + header_label + colorama.Style.RESET_ALL
+    header_colored_label = colorama.Fore.LIGHTCYAN_EX + header_label + colorama.Style.RESET_ALL
     post_header_indent = white_space * 6
     header_total_indent = (white_space * len(header_label)) + post_header_indent
 
@@ -74,6 +74,9 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
 
     sub_header_compiler_label = r'Compiler'
     sub_header_compiler_info = str(host_compiler.installation_dir)
+
+    sub_header_build_type_label = r'Build type'
+    sub_header_build_type_info = str(host_compiler.installation_dir)
 
     print_indented_label_and_info(post_label_indent=post_header_indent,
                                   label=header_colored_label,
@@ -84,6 +87,11 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
                                   label=sub_header_compiler_label,
                                   info=sub_header_compiler_info,
                                   color_info=True)
+
+    print_indented_label_and_info(pre_label_indent=header_total_indent,
+                                  post_label_indent=post_sub_header_indent,
+                                  label=sub_header_build_type_label,
+                                  info=sub_header_build_type_info)
 
 
 def _fetch_current_package_path() -> Path:
