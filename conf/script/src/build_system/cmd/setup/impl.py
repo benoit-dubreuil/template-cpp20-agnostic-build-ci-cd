@@ -8,15 +8,18 @@ import build_system.build_target.compiler_instance_targets
 import build_system.compiler.installed_instance
 import build_system.compiler.installed_instance.msvc
 import build_system.compiler.supported_installed_instances
-from build_system.cmd.setup.create_targets_dirs import create_all_compiler_instances_targets_build_dirs
+from build_system.cmd.setup.create_targets_dirs import create_all_host_instances_targets_build_dirs
 from build_system.cmd.setup.meson_utils import fetch_meson_launcher
 
 
 def setup_build_system(root_dir: Optional[Path] = None):
     # TODO : Foreach compiler, foreach target build dir...
     host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
-    target_build_dirs = create_all_compiler_instances_targets_build_dirs(root_dir=root_dir,
-                                                                         supported_installed_compilers=host_compilers)
+    all_host_instances_targets = create_all_host_instances_targets_build_dirs(root_dir=root_dir,
+                                                                              supported_installed_compilers=host_compilers)
+
+    for host_instance_targets in all_host_instances_targets:
+        ...
 
     # TODO : WIP
     meson_launcher: str = fetch_meson_launcher()
