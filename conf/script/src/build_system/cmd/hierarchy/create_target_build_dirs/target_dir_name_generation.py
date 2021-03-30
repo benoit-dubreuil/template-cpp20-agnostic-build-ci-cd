@@ -1,8 +1,8 @@
 import build_system.build_target.build_type
+import build_system.build_target.compiler_instance_targets
 import build_system.build_target.name
 import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
-import build_system.build_target.compiler_instance_targets
 
 
 def _assemble_target_build_types() -> list[build_system.build_target.build_type.TargetBuildType]:
