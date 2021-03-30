@@ -76,7 +76,7 @@ def _print_target_info(host_compiler: build_system.compiler.installed_instance.C
     sub_header_compiler_info = str(host_compiler.installation_dir)
 
     sub_header_build_type_label = r'Build type'
-    sub_header_build_type_info = str(host_compiler.installation_dir)
+    sub_header_build_type_info = target_build_dir.get_build_type().value
 
     print_indented_label_and_info(post_label_indent=post_header_indent,
                                   label=header_colored_label,
