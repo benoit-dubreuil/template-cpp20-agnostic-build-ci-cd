@@ -1,4 +1,3 @@
-import build_system.compiler
 import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
 import build_system.compiler.installed_instance

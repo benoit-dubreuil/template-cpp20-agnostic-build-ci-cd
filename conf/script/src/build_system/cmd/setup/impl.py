@@ -3,6 +3,7 @@ from typing import Optional
 
 import mesonbuild.mesonmain
 
+import build_system.build_target.compiler_instance_targets
 import build_system.cmd.hierarchy.assure_arg_integrity
 import build_system.compiler.installed_instance
 import build_system.compiler.installed_instance.msvc
@@ -11,9 +12,9 @@ import build_system.compiler.supported_installed_instances
 
 def setup_build_system(root_dir: Optional[Path] = None):
     # TODO : Foreach compiler, foreach target build dir...
-    host_compilers: list[build_system.compiler.installed_instance.CompilerInstance] = build_system.compiler.supported_installed_instances.fetch_all()
-    target_build_dirs: dict[(build_system.compiler.installed_instance.CompilerInstance, list[Path])] = _create_target_build_dirs(root_dir=root_dir,
-                                                                                                                                 supported_installed_compilers=host_compilers)
+    host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
+    target_build_dirs = _create_all_compiler_instances_targets_build_dirs(root_dir=root_dir,
+                                                                          supported_installed_compilers=host_compilers)
 
     # TODO : WIP
     meson_launcher: str = _fetch_meson_launcher()
@@ -22,9 +23,9 @@ def setup_build_system(root_dir: Optional[Path] = None):
     mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
 
 
-def _create_target_build_dirs(root_dir: Optional[Path] = None,
-                              supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.compiler_instance]] = None) \
-        -> dict[(build_system.compiler.installed_instance.CompilerInstance, list[Path])]:
+def _create_all_compiler_instances_targets_build_dirs(root_dir: Optional[Path] = None,
+                                                      supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.compiler_instance]] = None) \
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs
 
     root_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_root_dir_exists(root_dir=root_dir)

@@ -1,10 +1,20 @@
 from pathlib import Path
 from typing import Optional
 
+import build_system.build_target.compiler_instance_targets
 import build_system.cmd.hierarchy.assure_arg_integrity
 import build_system.compiler.installed_instance
 import utils.error.cls_def
 import utils.more_path
+
+
+def create_target_build_dirs(build_dir: Optional[Path] = None,
+                             supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+    build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir=build_dir)
+    _assure_build_dir_is_empty(build_dir)
+
+    return _create_all_compiler_instances_target_build_dirs(build_dir, supported_installed_compilers=supported_installed_compilers)
 
 
 def _assure_build_dir_is_empty(build_dir):
@@ -12,32 +22,27 @@ def _assure_build_dir_is_empty(build_dir):
         raise utils.error.cls_def.BuildDirNotEmptyError()
 
 
-def _generate_target_build_dir_names(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> dict[(build_system.compiler.installed_instance.CompilerInstance, list[str])]:
-    import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
-
-    target_build_dir_names = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_target_build_dir_names(
-        supported_installed_compilers=supported_installed_compilers)
-
-    if len(target_build_dir_names) <= 0:
-        raise utils.error.cls_def.NoSupportedCompilersAvailableError()
-
-    return target_build_dir_names
-
-
-def _create_all_target_build_dirs(build_dir: Path,
-                                  supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> dict[(build_system.compiler.installed_instance.CompilerInstance, list[Path])]:
+def _create_all_compiler_instances_target_build_dirs(build_dir: Path,
+                                                     supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
-    target_build_dir_names = _generate_target_build_dir_names(supported_installed_compilers=supported_installed_compilers)
-    return build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_target_build_dirs(build_dir, target_build_dir_names)
+    all_compiler_instances_targets = _generate_all_compiler_instances_targets(supported_installed_compilers=supported_installed_compilers)
+    build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_compiler_instances_target_build_dirs(
+        build_dir=build_dir,
+        all_compiler_instances_targets=all_compiler_instances_targets)
+
+    return all_compiler_instances_targets
 
 
-def create_target_build_dirs(build_dir: Optional[Path] = None,
-                             supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> dict[(build_system.compiler.installed_instance.CompilerInstance, list[Path])]:
-    build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir=build_dir)
-    _assure_build_dir_is_empty(build_dir)
+def _generate_all_compiler_instances_targets(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+    import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
 
-    return _create_all_target_build_dirs(build_dir, supported_installed_compilers=supported_installed_compilers)
+    all_compiler_instances_targets = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_all_compiler_instances_targets(
+        supported_installed_compilers=supported_installed_compilers)
+
+    if len(all_compiler_instances_targets) <= 0:
+        raise utils.error.cls_def.NoSupportedCompilersAvailableError()
+
+    return all_compiler_instances_targets
