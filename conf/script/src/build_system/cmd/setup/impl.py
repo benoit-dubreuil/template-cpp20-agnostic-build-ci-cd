@@ -28,9 +28,10 @@ def _setup_host_compiler_targets(root_dir: Path,
                                  cli_mode: bool):
     host_compiler: Final[build_system.compiler.installed_instance.CompilerInstance] = host_compiler_targets.compiler_instance
 
-    with host_compiler.create_env_vars_context_manager():
+    with host_compiler.create_env_vars_context_manager() as compiler_env_vars_manager:
         for target in host_compiler_targets.targets:
             setup_host_compiler_target_build_dir(root_dir=root_dir,
                                                  host_compiler=host_compiler,
                                                  target_build_dir=target,
+                                                 compiler_env_vars_manager=compiler_env_vars_manager,
                                                  cli_mode=cli_mode)

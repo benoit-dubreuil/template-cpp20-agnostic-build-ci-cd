@@ -1,4 +1,5 @@
 from typing import Final
+import contextlib
 
 import colorama
 
@@ -8,7 +9,8 @@ import build_system.compiler.installed_instance
 
 # TODO : Refactor
 def print_target_info(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                      target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> None:
+                      target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
+                      compiler_env_vars_manager: contextlib.AbstractContextManager) -> None:
     def print_indented_label_and_info(pre_label_indent: str = str(),
                                       post_label_indent: str = str(),
                                       label: str = str(),
