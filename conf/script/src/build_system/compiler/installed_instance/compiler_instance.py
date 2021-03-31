@@ -1,8 +1,8 @@
 import abc
+import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Type, final
-import contextlib
 
 import build_system.compiler.family
 import build_system.compiler.host.architecture
@@ -95,13 +95,8 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
         raise NotImplementedError()
 
-    @staticmethod
-    def requires_env_vars_setup() -> bool:
-        return False
-
-    @abc.abstractmethod
     def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
-        raise NotImplementedError()
+        return contextlib.nullcontext()
 
     @staticmethod
     def get_c_compiler_name() -> str:
