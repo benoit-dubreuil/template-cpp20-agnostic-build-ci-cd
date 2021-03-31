@@ -17,10 +17,12 @@ class CompilerReqs:
 
     @staticmethod
     def get_default_compiler_reqs_file_path() -> Path:
-        default_compiler_reqs_filename: Final[Path] = Path('compiler-reqs.ini')
-        package_dir = Path(__file__).parent
+        import build_system.cmd.hierarchy.find_conf_dir
 
-        default_compiler_reqs_file = package_dir / default_compiler_reqs_filename
+        default_compiler_reqs_filename: Final[Path] = Path('compiler-reqs.ini')
+        conf_build_system_dir: Path = build_system.cmd.hierarchy.find_conf_dir.find_conf_build_system_dir()
+
+        default_compiler_reqs_file = conf_build_system_dir / default_compiler_reqs_filename
         default_compiler_reqs_file.resolve(strict=True)
 
         return default_compiler_reqs_file
