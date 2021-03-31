@@ -15,7 +15,6 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
                                          target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
                                          compiler_env_vars_manager: contextlib.AbstractContextManager,
                                          cli_mode: bool):
-    meson_launcher: str = _fetch_meson_launcher()
     meson_cli_args = _generate_meson_cli_args(root_dir=root_dir,
                                               host_compiler=host_compiler,
                                               target_build_dir=target_build_dir)
@@ -25,16 +24,7 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
                           target_build_dir=target_build_dir,
                           compiler_env_vars_manager=compiler_env_vars_manager)
 
-    try:
-        with contextlib.nullcontext() if cli_mode else utils.cli.hidden_prints.HiddenPrints():
-            mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
-    except SystemExit:
-        pass
-
-
-def _fetch_meson_launcher() -> str:
-    current_package_path = _fetch_current_package_path()
-    return str(current_package_path)
+    _run_meson(cli_mode, meson_cli_args)
 
 
 def _generate_meson_cli_args(root_dir: Path,
@@ -56,6 +46,20 @@ def _generate_meson_cli_args(root_dir: Path,
                                  meson_cli_arg_source_dir]
 
     return meson_cli_args
+
+
+def _run_meson(cli_mode, meson_cli_args):
+    meson_launcher: str = _fetch_meson_launcher()
+    try:
+        with contextlib.nullcontext() if cli_mode else utils.cli.hidden_prints.HiddenPrints():
+            mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
+    except SystemExit:
+        pass
+
+
+def _fetch_meson_launcher() -> str:
+    current_package_path = _fetch_current_package_path()
+    return str(current_package_path)
 
 
 def _fetch_current_package_path() -> Path:
