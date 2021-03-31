@@ -7,6 +7,8 @@ import utils.error.try_external_errors
 
 
 def get_conf_build_system_dir_path_relative_to_conf_dir(conf_dir: Optional[Path] = None) -> Path:
+    import build_system.cmd.hierarchy.find_conf_dir.impl
+
     if conf_dir is None:
         conf_dir = build_system.cmd.hierarchy.find_conf_dir.find_conf_dir()
 
