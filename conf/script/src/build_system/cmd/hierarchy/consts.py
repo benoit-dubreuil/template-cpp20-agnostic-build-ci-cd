@@ -10,6 +10,5 @@ CONF_DIR_NAME: Final[str] = 'conf'
 
 ROOT_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{ROOT_STR}{DIR_STR}')
 BUILD_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{BUILD_DIR_NAME}{DIR_STR}')
-CONF_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{CONF_DIR_NAME}{DIR_STR}')
 
 BUILD_DIR_PERMISSIONS: Final[int] = 0o770
