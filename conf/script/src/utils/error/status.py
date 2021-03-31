@@ -15,6 +15,7 @@ class ErrorStatus(enum.IntEnum):
     BUILD_DIR_NOT_FOUND = enum.auto()
     BUILD_DIR_NOT_DIR = enum.auto()
     BUILD_DIR_NOT_EMPTY = enum.auto()
+    CONF_DIR_NOT_FOUND = enum.auto()
     COMPILER_NOT_FOUND = enum.auto()
     NO_SUPPORTED_COMPILERS_AVAILABLE = enum.auto()
     MSVC_COMPILER_VCVARS_DIR_NOT_FOUND = enum.auto()
