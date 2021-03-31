@@ -1,3 +1,4 @@
+import contextlib
 from pathlib import Path
 from typing import Final, Optional
 
@@ -6,6 +7,7 @@ import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
 from build_system.cmd.setup.create_targets_dirs import create_all_host_compilers_targets_build_dirs
 from build_system.cmd.setup.meson_utils import setup_host_compiler_target_build_dir
+from build_system.cmd.setup.set_env_default_compiler import EnvDefaultCompiler
 
 
 def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
@@ -31,11 +33,12 @@ def _setup_host_compiler_targets(root_dir: Path,
     if host_compiler.requires_env_vars_setup():
         host_compiler.setup_env_vars()
 
-    for target in host_compiler_targets.targets:
-        setup_host_compiler_target_build_dir(root_dir=root_dir,
-                                             host_compiler=host_compiler,
-                                             target_build_dir=target,
-                                             cli_mode=cli_mode)
+    with EnvDefaultCompiler(compiler=host_compiler) if host_compiler.meson_requires_env_default_compiler_setup() else contextlib.nullcontext():
+        for target in host_compiler_targets.targets:
+            setup_host_compiler_target_build_dir(root_dir=root_dir,
+                                                 host_compiler=host_compiler,
+                                                 target_build_dir=target,
+                                                 cli_mode=cli_mode)
 
     if host_compiler.requires_env_vars_setup():
         host_compiler.teardown_env_vars()

@@ -16,7 +16,7 @@ def get_conf_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> P
 
 
 def find_conf_dir(root_dir: Optional[Path] = None) -> Path:
-    conf_dir = get_conf_dir_path_relative_to_root_dir(root_dir)
+    conf_dir = get_conf_dir_path_relative_to_root_dir(root_dir=root_dir)
 
     utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=conf_dir,
                                                                      external_errors_to_manage={(Exception,): utils.error.cls_def.ConfDirNotFoundError})

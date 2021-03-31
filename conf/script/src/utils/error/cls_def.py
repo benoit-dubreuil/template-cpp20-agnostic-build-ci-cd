@@ -92,6 +92,20 @@ class ConfDirNotFoundError(FileNotFoundError):
         super().__init__('Conf directory not found')
 
 
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.CONF_BUILD_SYSTEM_DIR_NOT_FOUND)
+class ConfBuildSystemDirNotFoundError(FileNotFoundError):
+
+    def __init__(self):
+        super().__init__('Build system directory inside the conf directory not found')
+
+
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_REQS_NOT_FOUND)
+class CompilerReqsNotFoundError(FileNotFoundError):
+
+    def __init__(self):
+        super().__init__('Compiler requirements configuration file not found')
+
+
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_NOT_FOUND)
 class CompilerNotFoundError(FileNotFoundError):
 

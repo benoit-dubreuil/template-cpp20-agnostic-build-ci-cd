@@ -16,7 +16,7 @@ def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> 
 
 
 def find_build_dir(root_dir: Optional[Path] = None) -> Path:
-    build_dir = get_build_dir_path_relative_to_root_dir(root_dir)
+    build_dir = get_build_dir_path_relative_to_root_dir(root_dir=root_dir)
 
     utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=build_dir,
                                                                      external_errors_to_manage={(Exception,): utils.error.cls_def.BuildDirNotFoundError})
