@@ -71,12 +71,12 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
 
 
 def _concatenate_extension_to_machine_files(all_machine_files):
-    machine_file_extension: Final[str] = r'.ini'
+    extension: Final[str] = r'.ini'
 
     for i in range(len(all_machine_files)):
         machine_file = all_machine_files[i]
 
-        machine_file /= machine_file_extension
+        machine_file.with_suffix(extension)
         machine_file.resolve(strict=True)
 
         all_machine_files[i] = machine_file
