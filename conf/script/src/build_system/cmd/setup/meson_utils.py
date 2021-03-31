@@ -62,10 +62,13 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
                                      native_machine_files_dir / r'post-global']
 
     _concatenate_extension_to_machine_files(all_machine_files)
+    
+    all_machine_file_cli_args: list[str] = _machine_files_to_cli_args(all_machine_files=all_machine_files)
+    _insert_setup_cli_arg_cross_file(all_machine_file_cli_args=all_machine_file_cli_args)
 
     # TODO : Concatenate before setup_cli_arg_cross_file
 
-    return all_machine_files
+    return all_machine_file_cli_args
 
 
 def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> None:
@@ -78,6 +81,10 @@ def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> No
         machine_file.resolve(strict=True)
 
         all_machine_files[i] = machine_file
+
+
+def _machine_files_to_cli_args(all_machine_files: list[Path]) -> list[str]:
+    return [str(machine_file) for machine_file in all_machine_files]
 
 
 def _insert_setup_cli_arg_cross_file(all_machine_file_cli_args: list[str]) -> None:
