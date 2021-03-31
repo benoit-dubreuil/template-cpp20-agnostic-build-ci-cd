@@ -25,6 +25,10 @@ class EnvDefaultCompiler(contextlib.AbstractContextManager):
         self.__uncache_compilers()
         return False
 
+    def get_env_vars(self) -> dict[str, list[str]]:
+        return {_CC: [self.compiler.get_c_compiler_name()],
+                _CXX: [self.compiler.get_cpp_compiler_name()]}
+
     def __cache_compilers(self):
         self.__cache_c_compiler()
         self.__cache_cpp_compiler()
