@@ -100,7 +100,7 @@ def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> No
     for i in range(len(all_machine_files)):
         machine_file = all_machine_files[i]
 
-        machine_file.with_suffix(extension)
+        machine_file = machine_file.with_suffix(extension)
         machine_file.resolve(strict=True)
 
         all_machine_files[i] = machine_file
