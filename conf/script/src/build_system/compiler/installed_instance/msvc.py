@@ -15,6 +15,8 @@ import utils.error.try_external_errors
 @final
 @dataclass(order=True, frozen=True)
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
+    import build_system.compiler.installed_instance.set_env_msvc
+
     vcvars_arch_batch_file: Path
     vcvars_en_vars: dict[str, list[str]]
 
@@ -48,9 +50,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def get_vcvars_extension() -> str:
         return '.bat'
 
-    @staticmethod
-    def requires_env_vars_setup() -> bool:
-        return True
+    def create_env_vars_context_manager(self) -> build_system.compiler.installed_instance.set_env_msvc.EnvMSVC:
+        return build_system.compiler.installed_instance.set_env_msvc.EnvMSVC(self)
 
     def __find_vcvars_batch_file(self) -> Path:
         vcvars_dir: Path = self.__get_vcvars_dir()
