@@ -99,10 +99,12 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         return contextlib.nullcontext()
 
     @staticmethod
+    @abc.abstractmethod
     def get_c_compiler_name() -> str:
         raise NotImplementedError()
 
     @staticmethod
+    @abc.abstractmethod
     def get_cpp_compiler_name() -> str:
         raise NotImplementedError()
 
