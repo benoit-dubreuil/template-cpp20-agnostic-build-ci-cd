@@ -67,7 +67,7 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
     _concatenate_extension_to_machine_files(all_machine_files)
 
     all_machine_file_cli_args: list[str] = _machine_files_to_cli_args(all_machine_files=all_machine_files)
-    _insert_setup_cli_arg_cross_file(all_machine_file_cli_args=all_machine_file_cli_args)
+    _insert_setup_cli_arg_native_file(all_machine_file_cli_args=all_machine_file_cli_args)
 
     return all_machine_file_cli_args
 
@@ -110,12 +110,12 @@ def _machine_files_to_cli_args(all_machine_files: list[Path]) -> list[str]:
     return [str(machine_file) for machine_file in all_machine_files]
 
 
-def _insert_setup_cli_arg_cross_file(all_machine_file_cli_args: list[str]) -> None:
-    setup_cli_arg_cross_file: Final[str] = r'--cross-file'
+def _insert_setup_cli_arg_native_file(all_machine_file_cli_args: list[str]) -> None:
+    setup_cli_arg_native_file: Final[str] = r'--native-file'
     step: Final[int] = 2
 
     for i in range(0, len(all_machine_file_cli_args) * step, step):
-        all_machine_file_cli_args.insert(i, setup_cli_arg_cross_file)
+        all_machine_file_cli_args.insert(i, setup_cli_arg_native_file)
 
 
 def _run_meson(cli_mode, meson_cli_args):
