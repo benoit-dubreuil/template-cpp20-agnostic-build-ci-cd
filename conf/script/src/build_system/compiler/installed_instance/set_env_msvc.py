@@ -3,7 +3,6 @@ import os
 import subprocess
 from typing import Final, MutableMapping
 
-
 _ENV_VAR_MULTI_VALUES_SEP: Final[str] = ';'
 
 

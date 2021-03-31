@@ -1,11 +1,8 @@
 import os
-import subprocess
-import typing
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Final, final
+from typing import final
 
-import build_system.compiler
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.error.cls_def
@@ -15,8 +12,6 @@ import utils.error.try_external_errors
 @final
 @dataclass(order=True, frozen=True)
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
-    import build_system.compiler.installed_instance.set_env_msvc
-
     vcvars_arch_batch_file: Path
     vcvars_en_vars: dict[str, list[str]]
 
@@ -50,7 +45,10 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def get_vcvars_extension() -> str:
         return '.bat'
 
+    import build_system.compiler.installed_instance.set_env_msvc
+
     def create_env_vars_context_manager(self) -> build_system.compiler.installed_instance.set_env_msvc.EnvMSVC:
+        import build_system.compiler.installed_instance.set_env_msvc
         return build_system.compiler.installed_instance.set_env_msvc.EnvMSVC(self)
 
     def __find_vcvars_batch_file(self) -> Path:
