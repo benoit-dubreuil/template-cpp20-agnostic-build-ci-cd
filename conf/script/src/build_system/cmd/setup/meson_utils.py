@@ -15,9 +15,9 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
                                          target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
                                          compiler_env_vars_manager: contextlib.AbstractContextManager,
                                          cli_mode: bool):
-    meson_cli_args = _generate_meson_cli_args(root_dir=root_dir,
-                                              host_compiler=host_compiler,
-                                              target_build_dir=target_build_dir)
+    meson_cli_args = _generate_meson_setup_cli_args(root_dir=root_dir,
+                                                    host_compiler=host_compiler,
+                                                    target_build_dir=target_build_dir)
 
     if cli_mode:
         print_target_info(host_compiler=host_compiler,
@@ -27,28 +27,30 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
     _run_meson(cli_mode, meson_cli_args)
 
 
-def _generate_meson_cli_args(root_dir: Path,
-                             host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                             target_build_dir: build_system.build_target.build_target_cls.BuildTarget):
+def _generate_meson_setup_cli_args(root_dir: Path,
+                                   host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+                                   target_build_dir: build_system.build_target.build_target_cls.BuildTarget):
     cli_kwarg_assignment_op: Final[str] = r'='
 
-    meson_cli_arg_setup_cmd = r'setup'
+    cli_arg_setup_cmd = r'setup'
 
-    meson_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.get_build_type().value
-    meson_cli_arg_build_dir = str(target_build_dir.dir)
-    meson_cli_arg_source_dir = str(root_dir)
+    setup_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.get_build_type().value
+    setup_cli_arg_build_dir = str(target_build_dir.dir)
+    setup_cli_arg_source_dir = str(root_dir)
 
-    meson_cli_args: list[str] = [meson_cli_arg_setup_cmd,
-                                 meson_cli_arg_build_type,
+    meson_cli_args: list[str] = [cli_arg_setup_cmd,
+                                 setup_cli_arg_build_type,
                                  *(_generate_meson_machine_files_cli_args(host_compiler=host_compiler, target_build_dir=target_build_dir)),
-                                 meson_cli_arg_build_dir,
-                                 meson_cli_arg_source_dir]
+                                 setup_cli_arg_build_dir,
+                                 setup_cli_arg_source_dir]
 
     return meson_cli_args
 
 
 def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
                                            target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> list[str]:
+    setup_cli_arg_cross_file: Final[str] = r'--cross-file'
+
     machine_files: list[str] = []
 
     # TODO
