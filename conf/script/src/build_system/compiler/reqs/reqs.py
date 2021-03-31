@@ -29,8 +29,8 @@ class CompilerReqs:
 
     @classmethod
     def create_all_from_config_file(cls, config_file: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
-        config_file = cls._check_config_file_for_default_param(config_file)
-        cls._assure_config_file_integrity(config_file)
+        config_file = cls._check_config_file_for_default_param(config_file=config_file)
+        cls._assure_config_file_integrity(config_file=config_file)
 
         config = ConfigParser(converters=cls._get_config_parser_converters())
         config.read(config_file)
@@ -86,8 +86,8 @@ class CompilerReqs:
         return list(config.items())[1:]
 
     @staticmethod
-    def _assure_config_file_integrity(file_path: Path):
-        if not file_path.exists() or not file_path.is_file():
-            if file_path.is_dir():
+    def _assure_config_file_integrity(config_file: Path):
+        if not config_file.exists() or not config_file.is_file():
+            if config_file.is_dir():
                 raise IsADirectoryError()
             raise FileNotFoundError()
