@@ -13,6 +13,7 @@ from build_system.cmd.setup.cli_print_target_info import print_target_info
 def setup_host_compiler_target_build_dir(root_dir: Path,
                                          host_compiler: build_system.compiler.installed_instance.CompilerInstance,
                                          target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
+                                         compiler_env_vars_manager: contextlib.AbstractContextManager,
                                          cli_mode: bool):
     meson_launcher: str = _fetch_meson_launcher()
     meson_cli_args = _generate_meson_cli_args(root_dir=root_dir,
@@ -20,7 +21,9 @@ def setup_host_compiler_target_build_dir(root_dir: Path,
                                               target_build_dir=target_build_dir)
 
     if cli_mode:
-        print_target_info(host_compiler=host_compiler, target_build_dir=target_build_dir)
+        print_target_info(host_compiler=host_compiler,
+                          target_build_dir=target_build_dir,
+                          compiler_env_vars_manager=compiler_env_vars_manager)
 
     try:
         with contextlib.nullcontext() if cli_mode else utils.cli.hidden_prints.HiddenPrints():

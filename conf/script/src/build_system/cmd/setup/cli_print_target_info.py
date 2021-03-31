@@ -1,3 +1,4 @@
+import contextlib
 from typing import Final
 
 import colorama
@@ -8,7 +9,8 @@ import build_system.compiler.installed_instance
 
 # TODO : Refactor
 def print_target_info(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                      target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> None:
+                      target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
+                      compiler_env_vars_manager: contextlib.AbstractContextManager) -> None:
     def print_indented_label_and_info(pre_label_indent: str = str(),
                                       post_label_indent: str = str(),
                                       label: str = str(),
@@ -47,6 +49,18 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
         label_build_type_label = r'Build type'
         label_build_type_info = target_build_dir.get_build_type().value
 
+        label_env_vars_label = None
+        label_env_vars_info = None
+
+        # noinspection PyTypeChecker
+        if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
+            label_env_vars_label = r'Environment variables'
+
+            # noinspection PyUnresolvedReferences
+            compiler_env_vars: dict[str, list[str]] = compiler_env_vars_manager.get_env_vars()
+
+            label_env_vars_info = str(compiler_env_vars)
+
         print_indented_label_and_info(pre_label_indent=pre_label_indent,
                                       post_label_indent=post_label_indent,
                                       label=label_compiler_family_label,
@@ -72,6 +86,17 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
                                       post_label_indent=post_label_indent,
                                       label=label_build_type_label,
                                       info=label_build_type_info)
+
+        # noinspection PyTypeChecker
+        if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
+            assert label_env_vars_label is not None
+            assert label_env_vars_info is not None
+
+            print_indented_label_and_info(pre_label_indent=pre_label_indent,
+                                          post_label_indent=post_label_indent,
+                                          label=label_env_vars_label,
+                                          info=label_env_vars_info,
+                                          color_info=True)
 
     white_space: Final[str] = ' '
 

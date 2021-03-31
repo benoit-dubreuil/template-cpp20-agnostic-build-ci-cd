@@ -2,13 +2,13 @@ import contextlib
 import os
 from typing import Final, Optional
 
-import build_system.compiler.installed_instance.compiler_instance
-
 _CC: Final[str] = 'CC'
 _CXX: Final[str] = 'CXX'
 
 
 class EnvDefaultCompiler(contextlib.AbstractContextManager):
+    import build_system.compiler.installed_instance.compiler_instance
+
     previous_c_compiler: Optional[str]
     previous_cpp_compiler: Optional[str]
     compiler: build_system.compiler.installed_instance.compiler_instance.CompilerInstance
@@ -24,6 +24,10 @@ class EnvDefaultCompiler(contextlib.AbstractContextManager):
     def __exit__(self, exc_type, exc_value, traceback):
         self.__uncache_compilers()
         return False
+
+    def get_env_vars(self) -> dict[str, list[str]]:
+        return {_CC: [self.compiler.get_c_compiler_name()],
+                _CXX: [self.compiler.get_cpp_compiler_name()]}
 
     def __cache_compilers(self):
         self.__cache_c_compiler()

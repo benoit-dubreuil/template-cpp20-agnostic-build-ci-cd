@@ -1,4 +1,5 @@
 import abc
+import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Type, final
@@ -7,7 +8,6 @@ import build_system.compiler.family
 import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
 import build_system.compiler.version
-import utils.cmd_integrity
 import utils.error.cls_def
 import utils.error.format
 import utils.error.try_external_errors
@@ -94,28 +94,17 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
         raise NotImplementedError()
 
-    @staticmethod
-    def requires_env_vars_setup() -> bool:
-        return False
+    def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
+        return contextlib.nullcontext()
 
     @staticmethod
-    def meson_requires_env_default_compiler_setup() -> bool:
-        return True
-
-    @staticmethod
+    @abc.abstractmethod
     def get_c_compiler_name() -> str:
         raise NotImplementedError()
 
     @staticmethod
+    @abc.abstractmethod
     def get_cpp_compiler_name() -> str:
-        raise NotImplementedError()
-
-    # Virtual method
-    def setup_env_vars(self) -> None:
-        raise NotImplementedError()
-
-    # Virtual method
-    def teardown_env_vars(self) -> None:
         raise NotImplementedError()
 
     @classmethod
