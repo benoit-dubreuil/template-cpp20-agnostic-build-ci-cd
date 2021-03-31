@@ -87,7 +87,7 @@ class CompilerReqs:
 
     @staticmethod
     def _assure_config_file_integrity(config_file: Path):
-        if not config_file.exists() or not config_file.is_file():
-            if config_file.is_dir():
-                raise IsADirectoryError()
-            raise FileNotFoundError()
+        config_file.resolve(strict=True)
+
+        if config_file.is_dir():
+            raise IsADirectoryError()
