@@ -58,8 +58,6 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
     native_machine_files_dir.resolve(strict=True)
     native_machine_files_dir = native_machine_files_dir.absolute()
 
-    setup_cli_arg_cross_file: Final[str] = r'--cross-file'
-
     all_machine_files: list[Path] = [native_machine_files_dir / r'pre-global',
                                      native_machine_files_dir / r'post-global']
 
@@ -70,7 +68,7 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
     return all_machine_files
 
 
-def _concatenate_extension_to_machine_files(all_machine_files):
+def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> None:
     extension: Final[str] = r'.ini'
 
     for i in range(len(all_machine_files)):
@@ -80,6 +78,13 @@ def _concatenate_extension_to_machine_files(all_machine_files):
         machine_file.resolve(strict=True)
 
         all_machine_files[i] = machine_file
+
+
+def _insert_setup_cli_arg_cross_file(all_machine_file_cli_args: list[str]) -> None:
+    setup_cli_arg_cross_file: Final[str] = r'--cross-file'
+
+    for i in range(stop=len(all_machine_file_cli_args), step=2):
+        all_machine_file_cli_args.insert(i, setup_cli_arg_cross_file)
 
 
 def _run_meson(cli_mode, meson_cli_args):
