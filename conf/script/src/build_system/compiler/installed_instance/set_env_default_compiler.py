@@ -2,13 +2,13 @@ import contextlib
 import os
 from typing import Final, Optional
 
-import build_system.compiler.installed_instance.compiler_instance
-
 _CC: Final[str] = 'CC'
 _CXX: Final[str] = 'CXX'
 
 
 class EnvDefaultCompiler(contextlib.AbstractContextManager):
+    import build_system.compiler.installed_instance.compiler_instance
+
     previous_c_compiler: Optional[str]
     previous_cpp_compiler: Optional[str]
     compiler: build_system.compiler.installed_instance.compiler_instance.CompilerInstance

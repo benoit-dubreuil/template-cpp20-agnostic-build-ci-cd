@@ -7,7 +7,7 @@ import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
 from build_system.cmd.setup.create_targets_dirs import create_all_host_compilers_targets_build_dirs
 from build_system.cmd.setup.meson_utils import setup_host_compiler_target_build_dir
-from build_system.cmd.setup.set_env_default_compiler import EnvDefaultCompiler
+from build_system.compiler.installed_instance.set_env_default_compiler import EnvDefaultCompiler
 
 
 def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
