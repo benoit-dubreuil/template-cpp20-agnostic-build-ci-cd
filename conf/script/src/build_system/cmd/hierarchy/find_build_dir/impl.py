@@ -1,14 +1,14 @@
-import shutil
 from pathlib import Path
 from typing import Optional
 
 import build_system.cmd.hierarchy.consts
-import build_system.cmd.hierarchy.find_root_dir
 import utils.error.cls_def
 import utils.error.try_external_errors
 
 
 def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> Path:
+    import build_system.cmd.hierarchy.find_root_dir
+
     if root_dir is None:
         root_dir = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
 
