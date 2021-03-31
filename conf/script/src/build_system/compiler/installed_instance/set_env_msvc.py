@@ -1,7 +1,7 @@
 import contextlib
 import os
 import subprocess
-from typing import Final, MutableMapping
+from typing import Final, MutableMapping, Optional
 
 _ENV_VAR_MULTI_VALUES_SEP: Final[str] = ';'
 
@@ -10,10 +10,12 @@ class EnvMSVC(contextlib.AbstractContextManager):
     import build_system.compiler.installed_instance.msvc
 
     compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance
+    vcvars_env_vars: Optional[dict[str, list[str]]]
 
     def __init__(self, compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance) -> None:
         super().__init__()
         self.compiler = compiler
+        self.vcvars_env_vars = None
 
     def __enter__(self):
         self.__setup_env_vars()
@@ -25,21 +27,21 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
     def __setup_env_vars(self) -> None:
         local_env_vars: dict[str, list[str]] = self.__interpret_local_en_vars()
-        all_vcvars_en_vars = self.__fetch_all_vcvars_env_vars()
-        vcvars_en_vars = self.__except_local_env_vars_from_vcvars_env_vars(local_env_vars=local_env_vars, all_vcvars_env_vars=all_vcvars_en_vars)
+        all_vcvars_env_vars = self.__fetch_all_vcvars_env_vars()
+        vcvars_env_vars = self.__except_local_env_vars_from_vcvars_env_vars(local_env_vars=local_env_vars, all_vcvars_env_vars=all_vcvars_env_vars)
 
-        object.__setattr__(self, 'vcvars_en_vars', vcvars_en_vars)
+        self.vcvars_env_vars = vcvars_env_vars
 
         self.__append_vcvars_to_local_env_vars()
 
     def __teardown_env_vars(self) -> None:
         self.__remove_vcvars_from_local_env_vars()
-        object.__setattr__(self, 'vcvars_en_vars', None)
+        self.vcvars_env_vars = None
 
     def __append_vcvars_to_local_env_vars(self):
         local_env_vars = os.environ
 
-        for vcvars_env_var_key, vcvars_env_var_value in self.compiler.vcvars_en_vars.items():
+        for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_env_vars.items():
             formatted_vcvars_env_var_value = _ENV_VAR_MULTI_VALUES_SEP.join(vcvars_env_var_value)
 
             if vcvars_env_var_key in local_env_vars and len(local_env_vars[vcvars_env_var_key]) > 0:
@@ -55,7 +57,7 @@ class EnvMSVC(contextlib.AbstractContextManager):
     def __remove_vcvars_from_local_env_vars(self):
         local_env_vars = os.environ
 
-        for vcvars_env_var_key, vcvars_env_var_value in self.compiler.vcvars_en_vars.items():
+        for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_env_vars.items():
             if vcvars_env_var_key in local_env_vars:
                 formatted_vcvars_env_var_value = _ENV_VAR_MULTI_VALUES_SEP.join(vcvars_env_var_value)
 
@@ -106,22 +108,22 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
     def __fetch_all_vcvars_env_vars(self) -> dict[str, list[str]]:
         shell_env_vars: str = self.__shell_get_vcvars_env_vars()
-        vcvars_en_vars: dict[str, list[str]] = self.__interpret_shell_vcvars_en_vars(shell_env_vars=shell_env_vars)
+        vcvars_env_vars: dict[str, list[str]] = self.__interpret_shell_vcvars_env_vars(shell_env_vars=shell_env_vars)
 
-        assert len(vcvars_en_vars) > 0
-        return vcvars_en_vars
+        assert len(vcvars_env_vars) > 0
+        return vcvars_env_vars
 
     @staticmethod
-    def __interpret_shell_vcvars_en_vars(shell_env_vars: str) -> dict[str, list[str]]:
-        vcvars_en_vars: dict[str, list[str]] = {}
+    def __interpret_shell_vcvars_env_vars(shell_env_vars: str) -> dict[str, list[str]]:
+        vcvars_env_vars: dict[str, list[str]] = {}
 
         for env_var in shell_env_vars.splitlines():
             env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
             env_var_split_values = env_var_grouped_values.split(sep=';')
 
-            vcvars_en_vars[env_var_key.upper()] = env_var_split_values
+            vcvars_env_vars[env_var_key.upper()] = env_var_split_values
 
-        return vcvars_en_vars
+        return vcvars_env_vars
 
     def __shell_get_vcvars_env_vars(self) -> str:
         timeout_in_seconds: Final[float] = 20

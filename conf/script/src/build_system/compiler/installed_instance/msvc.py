@@ -13,12 +13,10 @@ import utils.error.try_external_errors
 @dataclass(order=True, frozen=True)
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
     vcvars_arch_batch_file: Path
-    vcvars_en_vars: dict[str, list[str]]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         object.__setattr__(self, 'vcvars_arch_batch_file', self.__find_vcvars_batch_file())
-        object.__setattr__(self, 'vcvars_en_vars', None)
 
     @classmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
