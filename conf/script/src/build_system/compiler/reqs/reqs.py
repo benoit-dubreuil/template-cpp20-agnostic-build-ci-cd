@@ -7,6 +7,8 @@ import build_system.compiler.family
 import build_system.compiler.host.os_family
 import build_system.compiler.reqs.scheme
 import build_system.compiler.version
+import utils.error.cls_def
+import utils.error.try_external_errors
 
 
 @dataclass(frozen=True)
@@ -87,7 +89,8 @@ class CompilerReqs:
 
     @staticmethod
     def _assure_config_file_integrity(config_file: Path):
-        config_file.resolve(strict=True)
+        utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=config_file,
+                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerReqsNotFoundError})
 
         if config_file.is_dir():
-            raise IsADirectoryError()
+            raise utils.error.cls_def.CompilerReqsNotFoundError()
