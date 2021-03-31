@@ -61,6 +61,7 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
     # TODO : Add missing machine files
     all_machine_files: list[Path] = [meson_machine_files_dir / r'pre-global',
                                      native_machine_files_dir / r'native',
+                                     _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, host_compiler=host_compiler),
                                      meson_machine_files_dir / r'post-global']
 
     _concatenate_extension_to_machine_files(all_machine_files)
@@ -69,6 +70,17 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
     _insert_setup_cli_arg_cross_file(all_machine_file_cli_args=all_machine_file_cli_args)
 
     return all_machine_file_cli_args
+
+
+def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
+                                               host_compiler: build_system.compiler.installed_instance.CompilerInstance) -> Path:
+    compiler_machine_files_dir_name: Final[str] = r'compiler'
+
+    compiler_machine_files_dir: Path = native_machine_files_dir / compiler_machine_files_dir_name
+    compiler_machine_files_dir.resolve(strict=True)
+    compiler_machine_files_dir = native_machine_files_dir.absolute()
+
+    return compiler_machine_files_dir / host_compiler.compiler_family.value
 
 
 def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> None:
