@@ -58,15 +58,14 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
     native_machine_files_dir.resolve(strict=True)
     native_machine_files_dir = native_machine_files_dir.absolute()
 
+    # TODO : Add missing machine files
     all_machine_files: list[Path] = [native_machine_files_dir / r'pre-global',
                                      native_machine_files_dir / r'post-global']
 
     _concatenate_extension_to_machine_files(all_machine_files)
-    
+
     all_machine_file_cli_args: list[str] = _machine_files_to_cli_args(all_machine_files=all_machine_files)
     _insert_setup_cli_arg_cross_file(all_machine_file_cli_args=all_machine_file_cli_args)
-
-    # TODO : Concatenate before setup_cli_arg_cross_file
 
     return all_machine_file_cli_args
 
