@@ -1,3 +1,4 @@
+import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -26,6 +27,10 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
                                                                          external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
 
         return executable_file
+
+    def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
+        import build_system.compiler.installed_instance.set_env_default_compiler
+        return build_system.compiler.installed_instance.set_env_default_compiler.EnvDefaultCompiler(compiler=self)
 
     @classmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
