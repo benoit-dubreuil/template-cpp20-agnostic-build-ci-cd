@@ -33,19 +33,27 @@ def _generate_meson_cli_args(root_dir: Path,
     cli_kwarg_assignment_op: Final[str] = r'='
 
     meson_cli_arg_setup_cmd = r'setup'
-    meson_cli_arg_help = r'--help'
 
     meson_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.get_build_type().value
     meson_cli_arg_build_dir = str(target_build_dir.dir)
     meson_cli_arg_source_dir = str(root_dir)
 
-    # TODO : Machine files
     meson_cli_args: list[str] = [meson_cli_arg_setup_cmd,
                                  meson_cli_arg_build_type,
+                                 *(_generate_meson_machine_files_cli_args(host_compiler=host_compiler, target_build_dir=target_build_dir)),
                                  meson_cli_arg_build_dir,
                                  meson_cli_arg_source_dir]
 
     return meson_cli_args
+
+
+def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+                                           target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> list[str]:
+    machine_files: list[str] = []
+
+    # TODO
+
+    return machine_files
 
 
 def _run_meson(cli_mode, meson_cli_args):
