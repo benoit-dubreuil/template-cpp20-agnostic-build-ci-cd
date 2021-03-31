@@ -1,4 +1,4 @@
-import os
+import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import final
@@ -45,10 +45,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def get_vcvars_extension() -> str:
         return '.bat'
 
-    # TODO
-    import build_system.compiler.installed_instance.set_env_msvc
-
-    def create_env_vars_context_manager(self) -> build_system.compiler.installed_instance.set_env_msvc.EnvMSVC:
+    def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
         import build_system.compiler.installed_instance.set_env_msvc
         return build_system.compiler.installed_instance.set_env_msvc.EnvMSVC(self)
 
