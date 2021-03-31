@@ -49,6 +49,9 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
         label_build_type_label = r'Build type'
         label_build_type_info = target_build_dir.get_build_type().value
 
+        label_env_vars_label = None
+        label_env_vars_info = None
+
         # noinspection PyTypeChecker
         if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
             label_env_vars_label = r'Environment variables'
@@ -86,10 +89,14 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
 
         # noinspection PyTypeChecker
         if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
+            assert label_env_vars_label is not None
+            assert label_env_vars_info is not None
+
             print_indented_label_and_info(pre_label_indent=pre_label_indent,
                                           post_label_indent=post_label_indent,
                                           label=label_env_vars_label,
-                                          info=label_env_vars_info)
+                                          info=label_env_vars_info,
+                                          color_info=True)
 
     white_space: Final[str] = ' '
 
