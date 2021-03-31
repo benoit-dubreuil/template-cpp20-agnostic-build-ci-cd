@@ -49,11 +49,15 @@ def _generate_meson_setup_cli_args(root_dir: Path,
 
 def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
                                            target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> list[str]:
+    import build_system.cmd.hierarchy.find_conf_dir
+
+    native_dir: Final[str] = r'native'
     setup_cli_arg_cross_file: Final[str] = r'--cross-file'
+    meson_machine_files_dir: Final[Path] = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
 
     machine_files: list[str] = []
 
-    # TODO
+    # TODO : Concatenate before setup_cli_arg_cross_file
 
     return machine_files
 
