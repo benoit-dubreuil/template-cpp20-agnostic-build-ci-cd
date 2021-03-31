@@ -78,7 +78,7 @@ def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
 
     compiler_machine_files_dir: Path = native_machine_files_dir / compiler_machine_files_dir_name
     compiler_machine_files_dir.resolve(strict=True)
-    compiler_machine_files_dir = native_machine_files_dir.absolute()
+    compiler_machine_files_dir = compiler_machine_files_dir.absolute()
 
     return compiler_machine_files_dir / host_compiler.compiler_family.value
 
@@ -89,7 +89,7 @@ def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
 
     build_type_machine_files_dir: Path = native_machine_files_dir / build_type_machine_files_dir_name
     build_type_machine_files_dir.resolve(strict=True)
-    build_type_machine_files_dir = native_machine_files_dir.absolute()
+    build_type_machine_files_dir = build_type_machine_files_dir.absolute()
 
     return build_type_machine_files_dir / target_build_dir.get_build_type().value
 
