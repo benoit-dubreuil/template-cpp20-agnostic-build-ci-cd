@@ -112,8 +112,9 @@ def _machine_files_to_cli_args(all_machine_files: list[Path]) -> list[str]:
 
 def _insert_setup_cli_arg_cross_file(all_machine_file_cli_args: list[str]) -> None:
     setup_cli_arg_cross_file: Final[str] = r'--cross-file'
+    step: Final[int] = 2
 
-    for i in range(0, len(all_machine_file_cli_args), 2):
+    for i in range(0, len(all_machine_file_cli_args) * step, step):
         all_machine_file_cli_args.insert(i, setup_cli_arg_cross_file)
 
 
