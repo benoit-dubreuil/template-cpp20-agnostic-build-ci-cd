@@ -25,6 +25,10 @@ class EnvMSVC(contextlib.AbstractContextManager):
         self.__teardown_env_vars()
         return False
 
+    def get_env_vars(self) -> dict[str, list[str]]:
+        assert self.vcvars_env_vars is not None
+        return self.vcvars_env_vars
+
     def __setup_env_vars(self) -> None:
         local_env_vars: dict[str, list[str]] = self.__interpret_local_en_vars()
         all_vcvars_env_vars = self.__fetch_all_vcvars_env_vars()
