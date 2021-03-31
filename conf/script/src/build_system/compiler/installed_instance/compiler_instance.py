@@ -8,7 +8,6 @@ import build_system.compiler.family
 import build_system.compiler.host.architecture
 import build_system.compiler.host.os_family
 import build_system.compiler.version
-import utils.cmd_integrity
 import utils.error.cls_def
 import utils.error.format
 import utils.error.try_external_errors
