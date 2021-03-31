@@ -60,6 +60,7 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
 
     # TODO : Add missing machine files
     all_machine_files: list[Path] = [meson_machine_files_dir / r'pre-global',
+                                     native_machine_files_dir / r'native',
                                      meson_machine_files_dir / r'post-global']
 
     _concatenate_extension_to_machine_files(all_machine_files)
