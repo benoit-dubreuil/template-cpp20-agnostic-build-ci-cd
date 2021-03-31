@@ -28,12 +28,12 @@ class CompilerReqs:
         return default_compiler_reqs_file
 
     @classmethod
-    def create_all_from_config_file(cls, file_path: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
-        file_path = cls._check_file_path_for_default_param(file_path)
-        cls.assure_file_path_integrity(file_path)
+    def create_all_from_config_file(cls, config_file: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
+        config_file = cls._check_config_file_for_default_param(config_file)
+        cls.assure_file_path_integrity(config_file)
 
         config = ConfigParser(converters=cls._get_config_parser_converters())
-        config.read(file_path)
+        config.read(config_file)
 
         filtered_section_options_pairs = cls._filter_config_default_section(config)
         all_compilers_reqs = {}
@@ -63,7 +63,7 @@ class CompilerReqs:
         return [compiler_reqs for compiler_family, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.os_families]
 
     @classmethod
-    def _check_file_path_for_default_param(cls, file_path: Path) -> Path:
+    def _check_config_file_for_default_param(cls, file_path: Path) -> Path:
         return file_path if file_path is not None else cls.get_default_compiler_reqs_file_path()
 
     @classmethod
