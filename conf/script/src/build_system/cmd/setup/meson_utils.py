@@ -55,8 +55,10 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
     setup_cli_arg_cross_file: Final[str] = r'--cross-file'
 
     meson_machine_files_dir: Final[Path] = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
-    native_machine_files_dir: Final[Path] = meson_machine_files_dir / native_dir_name
+    native_machine_files_dir: Path = meson_machine_files_dir / native_dir_name
+
     native_machine_files_dir.resolve(strict=True)
+    native_machine_files_dir = native_machine_files_dir.absolute()
 
     machine_files: list[str] = []
 
