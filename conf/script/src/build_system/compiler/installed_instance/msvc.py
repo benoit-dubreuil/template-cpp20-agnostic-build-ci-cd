@@ -47,7 +47,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
     def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
         import build_system.compiler.installed_instance.set_env_msvc
-        return build_system.compiler.installed_instance.set_env_msvc.EnvMSVC(self)
+        return build_system.compiler.installed_instance.set_env_msvc.EnvMSVC(compiler=self)
 
     @staticmethod
     def get_c_compiler_name() -> str:
