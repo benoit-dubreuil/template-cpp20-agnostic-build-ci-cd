@@ -1,5 +1,5 @@
-from typing import Final
 import contextlib
+from typing import Final
 
 import colorama
 
@@ -49,6 +49,15 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
         label_build_type_label = r'Build type'
         label_build_type_info = target_build_dir.get_build_type().value
 
+        # noinspection PyTypeChecker
+        if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
+            label_env_vars_label = r'Environment variables'
+
+            # noinspection PyUnresolvedReferences
+            compiler_env_vars: dict[str, list[str]] = compiler_env_vars_manager.get_env_vars()
+
+            label_env_vars_info = str(compiler_env_vars)
+
         print_indented_label_and_info(pre_label_indent=pre_label_indent,
                                       post_label_indent=post_label_indent,
                                       label=label_compiler_family_label,
@@ -74,6 +83,13 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
                                       post_label_indent=post_label_indent,
                                       label=label_build_type_label,
                                       info=label_build_type_info)
+
+        # noinspection PyTypeChecker
+        if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
+            print_indented_label_and_info(pre_label_indent=pre_label_indent,
+                                          post_label_indent=post_label_indent,
+                                          label=label_env_vars_label,
+                                          info=label_env_vars_info)
 
     white_space: Final[str] = ' '
 
