@@ -50,9 +50,11 @@ def _generate_meson_cli_args(root_dir: Path,
 
 def _run_meson(cli_mode, meson_cli_args):
     meson_launcher: str = _fetch_meson_launcher()
+
     try:
         with contextlib.nullcontext() if cli_mode else utils.cli.hidden_prints.HiddenPrints():
             mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
+
     except SystemExit:
         pass
 
