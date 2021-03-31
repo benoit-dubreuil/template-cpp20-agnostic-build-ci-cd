@@ -17,17 +17,17 @@ class CompilerReqs:
     os_families: list[build_system.compiler.host.os_family.OSFamily]
     min_compiler_version: build_system.compiler.version.CompilerVersion
 
-    @staticmethod
-    def get_default_compiler_reqs_file_path() -> Path:
+    @classmethod
+    def get_defaul_config_file(cls) -> Path:
         import build_system.cmd.hierarchy.find_conf_dir
 
-        default_compiler_reqs_filename: Final[Path] = Path('compiler-reqs.ini')
+        default_config_filename: Final[Path] = Path('compiler-reqs.ini')
         conf_build_system_dir: Path = build_system.cmd.hierarchy.find_conf_dir.find_conf_build_system_dir()
 
-        default_compiler_reqs_file = conf_build_system_dir / default_compiler_reqs_filename
-        default_compiler_reqs_file.resolve(strict=True)
+        default_config_file = conf_build_system_dir / default_config_filename
+        cls._assure_config_file_integrity(config_file=default_config_file)
 
-        return default_compiler_reqs_file
+        return default_config_file
 
     @classmethod
     def create_all_from_config_file(cls, config_file: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
@@ -66,7 +66,7 @@ class CompilerReqs:
 
     @classmethod
     def _check_config_file_for_default_param(cls, config_file: Path) -> Path:
-        return config_file if config_file is not None else cls.get_default_compiler_reqs_file_path()
+        return config_file if config_file is not None else cls.get_defaul_config_file()
 
     @classmethod
     def _get_config_parser_converters(cls):
