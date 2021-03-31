@@ -58,10 +58,10 @@ def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.
     native_machine_files_dir.resolve(strict=True)
     native_machine_files_dir = native_machine_files_dir.absolute()
 
-    # TODO : Add missing machine files
     all_machine_files: list[Path] = [meson_machine_files_dir / r'pre-global',
                                      native_machine_files_dir / r'native',
                                      _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, host_compiler=host_compiler),
+                                     _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, target_build_dir=target_build_dir),
                                      meson_machine_files_dir / r'post-global']
 
     _concatenate_extension_to_machine_files(all_machine_files)
@@ -81,6 +81,17 @@ def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
     compiler_machine_files_dir = native_machine_files_dir.absolute()
 
     return compiler_machine_files_dir / host_compiler.compiler_family.value
+
+
+def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
+                                                 target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> Path:
+    build_type_machine_files_dir_name: Final[str] = r'build_type'
+
+    build_type_machine_files_dir: Path = native_machine_files_dir / build_type_machine_files_dir_name
+    build_type_machine_files_dir.resolve(strict=True)
+    build_type_machine_files_dir = native_machine_files_dir.absolute()
+
+    return build_type_machine_files_dir / target_build_dir.get_build_type().value
 
 
 def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> None:
