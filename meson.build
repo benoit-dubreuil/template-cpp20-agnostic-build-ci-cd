@@ -7,6 +7,6 @@ project('template-repo-cpp-ecosystem',
 
 src_dir = 'src'
 
-exe = executable('template_repo_cpp_ecosystem', src_dir / 'Main.cpp')
+exe = executable('template_cpp_ecosystem', src_dir / 'Main.cpp')
 
 test('basic', exe)
