@@ -1,4 +1,4 @@
-#include <iostream>
+import std.core;
 
 int main() {
     constexpr char space[] = "   ";
