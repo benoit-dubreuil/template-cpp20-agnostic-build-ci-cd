@@ -1,14 +1,12 @@
-project('template-repo-cpp-ecosystem', 'cpp',
-  version : '0.1',
-  default_options : ['c_std=c17',
-                     'cpp_std=c++17',
-                     'warning_level=3',
-                     'b_ndebug=if-release'])
+project('template-repo-cpp-ecosystem',
+  'cpp',
+  version: '0.1',
+  meson_version: '>=0.57.1')
 
 # TODO : Set prefix -> where to install the project
 
-src_dir = 'src/'
+src_dir = 'src'
 
-exe = executable('template_repo_cpp_ecosystem', src_dir + 'Main.cpp')
+exe = executable('template_cpp_ecosystem', src_dir / 'Main.cpp')
 
 test('basic', exe)
