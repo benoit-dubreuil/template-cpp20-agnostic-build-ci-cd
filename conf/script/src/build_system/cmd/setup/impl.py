@@ -1,6 +1,8 @@
+import contextlib
 from pathlib import Path
 from typing import Final, Optional
 
+import build_system.build_target.build_target_cls
 import build_system.build_target.compiler_instance_targets
 import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
@@ -30,8 +32,20 @@ def _setup_host_all_compiler_targets(root_dir: Path,
 
     with host_compiler.create_env_vars_context_manager() as compiler_env_vars_manager:
         for target in host_compiler_targets.targets:
-            setup_host_compiler_target_build_dir(root_dir=root_dir,
-                                                 host_compiler=host_compiler,
-                                                 target_build_dir=target,
-                                                 compiler_env_vars_manager=compiler_env_vars_manager,
-                                                 cli_mode=cli_mode)
+            _setup_host_compiler_target(root_dir=root_dir,
+                                        host_compiler=host_compiler,
+                                        compiler_env_vars_manager=compiler_env_vars_manager,
+                                        target=target,
+                                        cli_mode=cli_mode)
+
+
+def _setup_host_compiler_target(root_dir: Path,
+                                host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+                                compiler_env_vars_manager: contextlib.AbstractContextManager,
+                                target: build_system.build_target.build_target_cls.BuildTarget,
+                                cli_mode: bool):
+    setup_host_compiler_target_build_dir(root_dir=root_dir,
+                                         host_compiler=host_compiler,
+                                         compiler_env_vars_manager=compiler_env_vars_manager,
+                                         target_build_dir=target,
+                                         cli_mode=cli_mode)
