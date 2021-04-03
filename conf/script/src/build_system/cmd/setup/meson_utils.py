@@ -10,11 +10,11 @@ import utils.cli.hidden_prints
 from build_system.cmd.setup.cli_print_target_info import print_target_info
 
 
-def setup_host_compiler_target_build_dir(root_dir: Path,
-                                         host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                                         target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
-                                         compiler_env_vars_manager: contextlib.AbstractContextManager,
-                                         cli_mode: bool):
+def setup_host_compiler_target(root_dir: Path,
+                               host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+                               target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
+                               compiler_env_vars_manager: contextlib.AbstractContextManager,
+                               cli_mode: bool):
     meson_cli_args = _generate_meson_setup_cli_args(root_dir=root_dir,
                                                     host_compiler=host_compiler,
                                                     target_build_dir=target_build_dir)
