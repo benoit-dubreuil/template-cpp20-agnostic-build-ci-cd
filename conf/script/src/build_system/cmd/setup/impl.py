@@ -20,12 +20,12 @@ def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
                                                                               supported_installed_compilers=host_compilers)
 
     for host_compiler_targets in all_host_compilers_targets:
-        _setup_host_all_compiler_targets(root_dir=root_dir,
+        _setup_host_compiler_all_targets(root_dir=root_dir,
                                          host_compiler_targets=host_compiler_targets,
                                          cli_mode=cli_mode)
 
 
-def _setup_host_all_compiler_targets(root_dir: Path,
+def _setup_host_compiler_all_targets(root_dir: Path,
                                      host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets,
                                      cli_mode: bool):
     host_compiler: Final[build_system.compiler.installed_instance.CompilerInstance] = host_compiler_targets.compiler_instance
