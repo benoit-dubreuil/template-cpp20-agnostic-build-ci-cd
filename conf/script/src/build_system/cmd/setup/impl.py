@@ -9,13 +9,13 @@ import build_system.compiler.supported_installed_instances
 
 def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
     from build_system.cmd.setup import setup_steps
-    from build_system.cmd.setup.create_targets_dirs import create_all_host_compilers_targets_build_dirs
+    from build_system.cmd.setup.create_targets_dirs import create_host_compilers_targets_build_dirs
 
     root_dir = setup_steps.get_verified_root_dir(unverified_root_dir=root_dir)
+    host_compilers = setup_steps.fetch_host_compilers()
 
-    host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
-    all_host_compilers_targets = create_all_host_compilers_targets_build_dirs(root_dir=root_dir,
-                                                                              supported_installed_compilers=host_compilers)
+    all_host_compilers_targets = create_host_compilers_targets_build_dirs(root_dir=root_dir,
+                                                                          supported_installed_compilers=host_compilers)
 
     _setup_all_host_compilers_targets(root_dir=root_dir,
                                       all_host_compilers_targets=all_host_compilers_targets,

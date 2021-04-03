@@ -5,8 +5,8 @@ import build_system.build_target.compiler_instance_targets
 import build_system.compiler.installed_instance
 
 
-def create_all_host_compilers_targets_build_dirs(root_dir: Path,
-                                                 supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.compiler_instance]] = None) \
+def create_host_compilers_targets_build_dirs(root_dir: Path,
+                                             supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.compiler_instance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs
     import build_system.cmd.hierarchy.assure_arg_integrity
