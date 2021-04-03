@@ -16,13 +16,13 @@ def get_verified_root_dir(unverified_root_dir: Optional[Path] = None) -> Path:
     return unverified_root_dir
 
 
-def assure_build_dir_exists(build_dir: Optional[Path] = None) -> Path:
+def get_verified_build_dir(unverified_build_dir: Optional[Path] = None) -> Path:
     import build_system.cmd.hierarchy.create_build_dir
 
-    if build_dir is None:
-        build_dir = build_system.cmd.hierarchy.create_build_dir.create_build_dir()
+    if unverified_build_dir is None:
+        unverified_build_dir = build_system.cmd.hierarchy.create_build_dir.create_build_dir()
     else:
-        if not build_dir.exists():
+        if not unverified_build_dir.exists():
             raise utils.error.cls_def.BuildDirNotFoundError()
 
-    return build_dir
+    return unverified_build_dir
