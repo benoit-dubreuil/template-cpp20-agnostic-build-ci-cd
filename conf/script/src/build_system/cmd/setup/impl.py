@@ -19,6 +19,14 @@ def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
     all_host_compilers_targets = create_all_host_compilers_targets_build_dirs(root_dir=root_dir,
                                                                               supported_installed_compilers=host_compilers)
 
+    _setup_all_host_compilers_targets(root_dir=root_dir,
+                                      all_host_compilers_targets=all_host_compilers_targets,
+                                      cli_mode=cli_mode)
+
+
+def _setup_all_host_compilers_targets(root_dir: Path,
+                                      all_host_compilers_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
+                                      cli_mode: bool):
     for host_compiler_targets in all_host_compilers_targets:
         _setup_host_compiler_all_targets(root_dir=root_dir,
                                          host_compiler_targets=host_compiler_targets,
