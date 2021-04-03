@@ -8,10 +8,10 @@ import build_system.compiler.supported_installed_instances
 
 
 def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
-    import build_system.cmd.hierarchy.assure_arg_integrity
+    from build_system.cmd.setup import setup_steps
     from build_system.cmd.setup.create_targets_dirs import create_all_host_compilers_targets_build_dirs
 
-    root_dir = build_system.cmd.hierarchy.assure_arg_integrity.get_verified_root_dir(unverified_root_dir=root_dir)
+    root_dir = setup_steps.get_verified_root_dir(unverified_root_dir=root_dir)
 
     host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
     all_host_compilers_targets = create_all_host_compilers_targets_build_dirs(root_dir=root_dir,
