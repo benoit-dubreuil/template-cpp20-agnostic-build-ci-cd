@@ -5,12 +5,11 @@ import build_system.build_target.build_target_cls
 import build_system.build_target.compiler_instance_targets
 import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
-from build_system.cmd.setup.create_targets_dirs import create_all_host_compilers_targets_build_dirs
-from build_system.cmd.setup.meson_utils import setup_host_compiler_target
 
 
 def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
     import build_system.cmd.hierarchy.assure_arg_integrity
+    from build_system.cmd.setup.create_targets_dirs import create_all_host_compilers_targets_build_dirs
 
     root_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_root_dir_exists(root_dir=root_dir)
 
@@ -35,6 +34,8 @@ def _setup_all_host_compilers_targets(root_dir: Path,
 def _setup_host_compiler_all_targets(root_dir: Path,
                                      host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets,
                                      cli_mode: bool):
+    from build_system.cmd.setup.meson_utils import setup_host_compiler_target
+
     host_compiler: Final[build_system.compiler.installed_instance.CompilerInstance] = host_compiler_targets.compiler_instance
 
     with host_compiler.create_env_vars_context_manager() as compiler_env_vars_manager:
