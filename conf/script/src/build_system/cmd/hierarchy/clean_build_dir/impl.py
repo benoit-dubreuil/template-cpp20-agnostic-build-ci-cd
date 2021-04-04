@@ -18,7 +18,7 @@ def clean_build_dir(build_dir: Optional[Path] = None, ignore_errors=False) -> bo
         has_successfuly_cleaned_build = False
 
     try:
-        build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir=build_dir)
+        build_dir = build_system.cmd.hierarchy.assure_arg_integrity.get_verified_build_dir(unverified_build_dir=build_dir)
 
     except utils.error.managed.ManagedErrorMixin as raised_error:
         if not ignore_errors:

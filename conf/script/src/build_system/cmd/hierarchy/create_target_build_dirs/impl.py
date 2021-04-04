@@ -11,7 +11,7 @@ import utils.more_path
 def create_target_build_dirs(build_dir: Optional[Path] = None,
                              supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
-    build_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_build_dir_exists(build_dir=build_dir)
+    build_dir = build_system.cmd.hierarchy.assure_arg_integrity.get_verified_build_dir(unverified_build_dir=build_dir)
     _assure_build_dir_is_empty(build_dir)
 
     return _create_all_compiler_instances_target_build_dirs(build_dir, supported_installed_compilers=supported_installed_compilers)
