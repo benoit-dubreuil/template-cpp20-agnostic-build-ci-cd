@@ -15,14 +15,14 @@ def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
     targets = setup_steps.create_targets_build_dirs(root_dir=root_dir, host_compilers=host_compilers)
 
     _setup_targets(root_dir=root_dir,
-                   all_host_compilers_targets=targets,
+                   host_compilers_targets=targets,
                    cli_mode=cli_mode)
 
 
 def _setup_targets(root_dir: Path,
-                   all_host_compilers_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
+                   host_compilers_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
                    cli_mode: bool):
-    for host_compiler_targets in all_host_compilers_targets:
+    for host_compiler_targets in host_compilers_targets:
         _setup_host_compiler_targets(root_dir=root_dir,
                                      host_compiler_targets=host_compiler_targets,
                                      cli_mode=cli_mode)
