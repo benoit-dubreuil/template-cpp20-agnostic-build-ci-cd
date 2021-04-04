@@ -13,10 +13,7 @@ def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
     root_dir = setup_steps.get_verified_root_dir(unverified_root_dir=root_dir)
     host_compilers = setup_steps.fetch_host_compilers()
     targets = setup_steps.create_targets_build_dirs(root_dir=root_dir, host_compilers=host_compilers)
-
-    _setup_targets(root_dir=root_dir,
-                   host_compilers_targets=targets,
-                   cli_mode=cli_mode)
+    _setup_targets(root_dir=root_dir, host_compilers_targets=targets, cli_mode=cli_mode)
 
 
 def _setup_targets(root_dir: Path,
