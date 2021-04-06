@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import final
 
+import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.error.cls_def
@@ -12,8 +13,6 @@ import utils.error.try_external_errors
 @final
 @dataclass(order=True, frozen=True)
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
-    from build_system.compiler.build_option.sanitizer import CompilerSanitizer
-
     vcvars_arch_batch_file: Path
 
     def __init__(self, **kwargs):
@@ -35,7 +34,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
     @staticmethod
     def get_supported_sanitizers() -> list[CompilerSanitizer]:
-        return [CompilerSanitizer.NONE, CompilerSanitizer.ADDRESS]
+        return [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE,
+                build_system.compiler.build_option.sanitizer.CompilerSanitizer.ADDRESS]
 
     @staticmethod
     def get_vcvars_dir_relative_to_installation_dir() -> Path:
