@@ -8,8 +8,8 @@ import build_system.compiler.installed_instance
 
 @dataclasses.dataclass(order=True)
 class BuildTarget:
-    compiler_instance: build_system.compiler.installed_instance.CompilerInstance
-    target_build_type: build_system.compiler.build_option.build_type.TargetBuildType
+    compiler_instance: Final[build_system.compiler.installed_instance.CompilerInstance]
+    target_build_type: Final[build_system.compiler.build_option.build_type.TargetBuildType]
 
     dir: Optional[pathlib.Path]
 
