@@ -2,6 +2,7 @@ import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 
+import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.cmd_integrity
@@ -49,3 +50,7 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
     def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
         return [build_system.compiler.family.CompilerFamily.GCC,
                 build_system.compiler.family.CompilerFamily.CLANG]
+
+    @staticmethod
+    def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
+        return list(build_system.compiler.build_option.sanitizer.CompilerSanitizer)
