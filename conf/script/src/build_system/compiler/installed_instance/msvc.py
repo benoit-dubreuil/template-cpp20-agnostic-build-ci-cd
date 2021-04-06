@@ -33,7 +33,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return [build_system.compiler.family.CompilerFamily.MSVC]
 
     @staticmethod
-    def get_supported_sanitizers() -> list[CompilerSanitizer]:
+    def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
         return [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE,
                 build_system.compiler.build_option.sanitizer.CompilerSanitizer.ADDRESS]
 
