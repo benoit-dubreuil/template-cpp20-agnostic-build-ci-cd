@@ -12,6 +12,8 @@ import utils.error.try_external_errors
 @final
 @dataclass(order=True, frozen=True)
 class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
+    from build_system.compiler.build_option.sanitizer import CompilerSanitizer
+
     vcvars_arch_batch_file: Path
 
     def __init__(self, **kwargs):
@@ -30,6 +32,10 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     @staticmethod
     def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
         return [build_system.compiler.family.CompilerFamily.MSVC]
+
+    @staticmethod
+    def get_supported_sanitizers() -> list[CompilerSanitizer]:
+        return [CompilerSanitizer.NONE, CompilerSanitizer.ADDRESS]
 
     @staticmethod
     def get_vcvars_dir_relative_to_installation_dir() -> Path:
