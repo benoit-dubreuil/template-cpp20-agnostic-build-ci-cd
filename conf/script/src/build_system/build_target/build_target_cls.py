@@ -12,7 +12,6 @@ class BuildTarget:
     compiler_instance: build_system.compiler.installed_instance.CompilerInstance
     target_build_type: build_system.build_target.build_type.TargetBuildType
 
-    name: Final[build_system.build_target.name.TargetBuildName]
     dir: Optional[pathlib.Path]
 
     def __init__(self,
