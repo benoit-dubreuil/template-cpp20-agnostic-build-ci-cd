@@ -1,6 +1,6 @@
 import dataclasses
 import pathlib
-import typing
+from typing import Final, Optional
 
 import build_system.build_target.name
 import build_system.build_target.build_type
@@ -13,8 +13,8 @@ class BuildTarget:
     compiler_instance: build_system.compiler.installed_instance.CompilerInstance
     target_build_type: build_system.build_target.build_type.TargetBuildType
 
-    name: typing.Final[build_system.build_target.name.TargetBuildName]
-    dir: typing.Optional[pathlib.Path]
+    name: Final[build_system.build_target.name.TargetBuildName]
+    dir: Optional[pathlib.Path]
 
     def __init__(self, build_name: build_system.build_target.name.TargetBuildName) -> None:
         self.name = build_name
