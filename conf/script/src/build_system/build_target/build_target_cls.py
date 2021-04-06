@@ -15,8 +15,11 @@ class BuildTarget:
     name: Final[build_system.build_target.name.TargetBuildName]
     dir: Optional[pathlib.Path]
 
-    def __init__(self, build_name: build_system.build_target.name.TargetBuildName) -> None:
-        self.name = build_name
+    def __init__(self,
+                 compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+                 target_build_type: build_system.build_target.build_type.TargetBuildType) -> None:
+        self.compiler_instance = compiler_instance
+        self.target_build_type = target_build_type
         self.dir = None
 
     def form_name(self):
