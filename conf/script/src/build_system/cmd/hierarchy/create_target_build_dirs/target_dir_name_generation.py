@@ -1,8 +1,8 @@
 from typing import Optional
 
 import build_system.build_target.build_target_cls
-import build_system.build_target.build_type
 import build_system.build_target.compiler_instance_targets
+import build_system.compiler.build_option.build_type
 import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
 
@@ -26,11 +26,11 @@ def _assure_host_compilers_are_fetched(supported_installed_compilers: Optional[l
     return host_compilers
 
 
-def _assemble_target_build_types() -> list[build_system.build_target.build_type.TargetBuildType]:
-    return list(build_system.build_target.build_type.TargetBuildType)
+def _assemble_target_build_types() -> list[build_system.compiler.build_option.build_type.TargetBuildType]:
+    return list(build_system.compiler.build_option.build_type.TargetBuildType)
 
 
-def _generate_all_compiler_instances_targets_for_build_types(all_target_build_types: list[build_system.build_target.build_type.TargetBuildType],
+def _generate_all_compiler_instances_targets_for_build_types(all_target_build_types: list[build_system.compiler.build_option.build_type.TargetBuildType],
                                                              host_compilers: list[build_system.compiler.installed_instance.CompilerInstance]) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     all_compiler_instances_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
@@ -44,7 +44,7 @@ def _generate_all_compiler_instances_targets_for_build_types(all_target_build_ty
     return all_compiler_instances_targets
 
 
-def _generate_compiler_instance_targets(all_target_build_types: list[build_system.build_target.build_type.TargetBuildType],
+def _generate_compiler_instance_targets(all_target_build_types: list[build_system.compiler.build_option.build_type.TargetBuildType],
                                         compiler_instance: build_system.compiler.installed_instance.CompilerInstance) \
         -> build_system.build_target.compiler_instance_targets.CompilerInstanceTargets:
     all_targets: list[build_system.build_target.build_target_cls.BuildTarget] = []
