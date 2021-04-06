@@ -2,6 +2,7 @@ import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 
+import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.cmd_integrity
@@ -11,8 +12,6 @@ import utils.error.try_external_errors
 
 @dataclass(order=True, frozen=True)
 class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_instance.CompilerInstance):
-    from build_system.compiler.build_option.sanitizer import CompilerSanitizer
-
     executable_file: Path
 
     def __init__(self, **kwargs):
@@ -53,5 +52,5 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
                 build_system.compiler.family.CompilerFamily.CLANG]
 
     @staticmethod
-    def get_supported_sanitizers() -> list[CompilerSanitizer]:
-        return list(CompilerSanitizer)
+    def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
+        return list(build_system.compiler.build_option.sanitizer.CompilerSanitizer)
