@@ -4,10 +4,15 @@ import typing
 
 import build_system.build_target.name
 import build_system.build_target.build_type
+import build_system.compiler.host.architecture
+import build_system.compiler.installed_instance
 
 
 @dataclasses.dataclass(order=True)
 class BuildTarget:
+    compiler_instance: build_system.compiler.installed_instance.CompilerInstance
+    target_build_type: build_system.build_target.build_type.TargetBuildType
+
     name: typing.Final[build_system.build_target.name.TargetBuildName]
     dir: typing.Optional[pathlib.Path]
 
