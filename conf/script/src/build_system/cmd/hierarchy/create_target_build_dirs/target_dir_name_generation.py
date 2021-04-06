@@ -1,6 +1,6 @@
 from typing import Optional
 
-import build_system.build_target.build_target_cls
+import build_system.build_target.build_target
 import build_system.build_target.compiler_instance_targets
 import build_system.compiler.build_option.build_type
 import build_system.compiler.installed_instance
@@ -47,10 +47,10 @@ def _generate_all_compiler_instances_targets_for_build_types(all_target_build_ty
 def _generate_compiler_instance_targets(all_target_build_types: list[build_system.compiler.build_option.build_type.TargetBuildType],
                                         compiler_instance: build_system.compiler.installed_instance.CompilerInstance) \
         -> build_system.build_target.compiler_instance_targets.CompilerInstanceTargets:
-    all_targets: list[build_system.build_target.build_target_cls.BuildTarget] = []
+    all_targets: list[build_system.build_target.build_target.BuildTarget] = []
 
     for target_build_type in all_target_build_types:
-        target = build_system.build_target.build_target_cls.BuildTarget(compiler_instance=compiler_instance, target_build_type=target_build_type)
+        target = build_system.build_target.build_target.BuildTarget(compiler_instance=compiler_instance, target_build_type=target_build_type)
         all_targets.append(target)
 
     compiler_instance_targets = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
