@@ -26,3 +26,7 @@ class BuildTarget:
 
     def get_build_type(self) -> build_system.build_target.build_type.TargetBuildType:
         return self.name.target_build_type
+
+    @staticmethod
+    def get_name_separator() -> str:
+        return '-'
