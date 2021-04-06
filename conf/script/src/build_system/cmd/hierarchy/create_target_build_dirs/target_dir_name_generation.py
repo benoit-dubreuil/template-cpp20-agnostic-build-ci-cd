@@ -3,7 +3,6 @@ from typing import Optional
 import build_system.build_target.build_target_cls
 import build_system.build_target.build_type
 import build_system.build_target.compiler_instance_targets
-import build_system.build_target.name
 import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
 
@@ -51,10 +50,7 @@ def _generate_compiler_instance_targets(all_target_build_types: list[build_syste
     all_targets: list[build_system.build_target.build_target_cls.BuildTarget] = []
 
     for target_build_type in all_target_build_types:
-        target_build_name = build_system.build_target.name.TargetBuildName(compiler_instance=compiler_instance,
-                                                                           target_build_type=target_build_type)
-
-        target = build_system.build_target.build_target_cls.BuildTarget(build_name=target_build_name)
+        target = build_system.build_target.build_target_cls.BuildTarget(compiler_instance=compiler_instance, target_build_type=target_build_type)
         all_targets.append(target)
 
     compiler_instance_targets = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
