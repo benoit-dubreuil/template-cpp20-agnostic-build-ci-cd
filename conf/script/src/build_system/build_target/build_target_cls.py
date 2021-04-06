@@ -20,13 +20,13 @@ class BuildTarget:
         self.dir = None
 
     def form_name(self):
-        return str(self.name)
+        return str(self)
 
     def compute_target_build_dir(self, project_build_dir: pathlib.Path):
         self.dir = project_build_dir / self.form_name()
 
     def get_build_type(self) -> build_system.build_target.build_type.TargetBuildType:
-        return self.name.target_build_type
+        return self.target_build_type
 
     @staticmethod
     def get_name_separator() -> str:
