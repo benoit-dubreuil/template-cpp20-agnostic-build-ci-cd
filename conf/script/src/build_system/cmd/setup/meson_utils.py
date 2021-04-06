@@ -4,7 +4,7 @@ from typing import Final
 
 import mesonbuild.mesonmain
 
-import build_system.build_target.build_target_cls
+import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 import utils.cli.hidden_prints
 from build_system.cmd.setup.cli_print_target_info import print_target_info
@@ -12,7 +12,7 @@ from build_system.cmd.setup.cli_print_target_info import print_target_info
 
 def setup_target(root_dir: Path,
                  host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                 target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
+                 target_build_dir: build_system.build_target.build_target.BuildTarget,
                  compiler_env_vars_manager: contextlib.AbstractContextManager,
                  cli_mode: bool):
     meson_cli_args = _generate_meson_setup_cli_args(root_dir=root_dir,
@@ -29,7 +29,7 @@ def setup_target(root_dir: Path,
 
 def _generate_meson_setup_cli_args(root_dir: Path,
                                    host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                                   target_build_dir: build_system.build_target.build_target_cls.BuildTarget):
+                                   target_build_dir: build_system.build_target.build_target.BuildTarget):
     cli_kwarg_assignment_op: Final[str] = r'='
 
     cli_arg_setup_cmd = r'setup'
@@ -51,7 +51,7 @@ def _generate_meson_setup_cli_args(root_dir: Path,
 
 
 def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                                           target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> list[str]:
+                                           target_build_dir: build_system.build_target.build_target.BuildTarget) -> list[str]:
     import build_system.cmd.hierarchy.find_conf_dir
 
     native_dir_name: Final[str] = r'native'
@@ -87,7 +87,7 @@ def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
 
 
 def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
-                                                 target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> Path:
+                                                 target_build_dir: build_system.build_target.build_target.BuildTarget) -> Path:
     build_type_machine_files_dir_name: Final[str] = r'build_type'
 
     build_type_machine_files_dir: Path = native_machine_files_dir / build_type_machine_files_dir_name
