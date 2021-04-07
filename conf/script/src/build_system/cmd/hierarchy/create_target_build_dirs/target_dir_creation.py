@@ -6,8 +6,8 @@ import build_system.cmd.hierarchy.consts
 
 
 def create_all_compiler_instances_target_build_dirs(build_dir: Path,
-                                                    all_compiler_instances_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]) -> None:
-    for compiler_instance_targets in all_compiler_instances_targets:
+                                                    targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]) -> None:
+    for compiler_instance_targets in targets:
         for build_target in compiler_instance_targets:
             _create_compiler_instance_target_build_dir(build_dir=build_dir, compiler_instance_target=build_target)
 

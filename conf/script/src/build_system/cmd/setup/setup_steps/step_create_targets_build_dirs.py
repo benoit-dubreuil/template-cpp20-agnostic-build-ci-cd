@@ -10,7 +10,7 @@ def create_targets_build_dirs(root_dir: Path,
     from build_system.cmd.hierarchy.create_target_build_dirs import create_target_build_dirs
 
     build_dir = _recreate_build_dir(root_dir)
-    target_build_dirs = create_target_build_dirs(build_dir=build_dir, supported_installed_compilers=host_compilers)
+    target_build_dirs = create_target_build_dirs(build_dir=build_dir, compiler_instances=host_compilers)
 
     return target_build_dirs
 

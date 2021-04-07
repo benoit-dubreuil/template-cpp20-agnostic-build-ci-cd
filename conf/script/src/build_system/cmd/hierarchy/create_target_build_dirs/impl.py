@@ -9,12 +9,12 @@ import utils.more_path
 
 
 def create_target_build_dirs(build_dir: Optional[Path] = None,
-                             supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+                             compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     build_dir = build_system.cmd.hierarchy.assure_arg_integrity.get_verified_build_dir(unverified_build_dir=build_dir)
     _assure_build_dir_is_empty(build_dir)
 
-    return _create_all_compiler_instances_target_build_dirs(build_dir, supported_installed_compilers=supported_installed_compilers)
+    return _create_all_compiler_instances_target_build_dirs(build_dir, compiler_instances=compiler_instances)
 
 
 def _assure_build_dir_is_empty(build_dir):
@@ -23,16 +23,16 @@ def _assure_build_dir_is_empty(build_dir):
 
 
 def _create_all_compiler_instances_target_build_dirs(build_dir: Path,
-                                                     supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+                                                     compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation
 
-    all_compiler_instances_targets = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.checked_generate_targets(
-        compiler_instances=supported_installed_compilers)
+    targets = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.checked_generate_targets(
+        compiler_instances=compiler_instances)
 
     build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_compiler_instances_target_build_dirs(
         build_dir=build_dir,
-        all_compiler_instances_targets=all_compiler_instances_targets)
+        targets=targets)
 
-    return all_compiler_instances_targets
+    return targets
