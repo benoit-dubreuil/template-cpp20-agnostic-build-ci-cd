@@ -54,8 +54,8 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
                                            build_target: build_system.build_target.build_target.BuildTarget) -> list[str]:
     import build_system.cmd.hierarchy.find_conf_dir
 
-    meson_machine_files_dir: Final[Path] = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
-    native_machine_files_dir: Final[Path] = _find_native_machine_files_dir(meson_machine_files_dir=meson_machine_files_dir)
+    meson_machine_files_dir = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
+    native_machine_files_dir = _find_native_machine_files_dir(meson_machine_files_dir=meson_machine_files_dir)
 
     machine_files = _assemble_machine_files(compiler_instance=compiler_instance,
                                             build_target=build_target,
