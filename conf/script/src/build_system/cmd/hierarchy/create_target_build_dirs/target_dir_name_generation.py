@@ -30,11 +30,11 @@ def generate_targets(compiler_instances: Optional[list[build_system.compiler.ins
 def _get_compiler_instances(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.compiler.installed_instance.CompilerInstance]:
     if compiler_instances is None:
-        host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
+        fetched_compiler_instances = build_system.compiler.supported_installed_instances.fetch_all()
     else:
-        host_compilers = compiler_instances
+        fetched_compiler_instances = compiler_instances
 
-    return host_compilers
+    return fetched_compiler_instances
 
 
 def _get_build_types() -> list[build_system.compiler.build_option.build_type.TargetBuildType]:
