@@ -22,7 +22,7 @@ def _setup_compiler_instance_targets(root_dir: Path,
     with compiler_instance.create_env_vars_context_manager() as compiler_env_vars_manager:
         for target in compiler_instance_targets.build_targets:
             setup_target(root_dir=root_dir,
-                         host_compiler=compiler_instance,
+                         compiler_instance=compiler_instance,
                          compiler_env_vars_manager=compiler_env_vars_manager,
                          target_build_dir=target,
                          cli_mode=cli_mode)
