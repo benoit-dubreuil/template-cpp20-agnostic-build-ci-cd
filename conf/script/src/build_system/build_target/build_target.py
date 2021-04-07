@@ -31,9 +31,6 @@ class BuildTarget:
     def compute_target_build_dir(self, project_build_dir: pathlib.Path):
         self.dir = project_build_dir / self.form_name()
 
-    def get_build_type(self) -> build_system.compiler.build_option.build_type.TargetBuildType:
-        return self.target_build_type
-
     @staticmethod
     def get_name_separator() -> str:
         return '-'

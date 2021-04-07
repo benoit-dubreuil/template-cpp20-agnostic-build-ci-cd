@@ -47,7 +47,7 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
         label_compiler_installation_path_info = str(host_compiler.installation_dir)
 
         label_build_type_label = r'Build type'
-        label_build_type_info = target_build_dir.get_build_type().value
+        label_build_type_info = target_build_dir.target_build_type.value
 
         label_env_vars_label = None
         label_env_vars_info = None

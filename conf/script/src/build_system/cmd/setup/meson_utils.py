@@ -36,7 +36,7 @@ def _generate_meson_setup_cli_args(root_dir: Path,
 
     setup_cli_fatal_warnings = r'--fatal-meson-warnings'
 
-    setup_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.get_build_type().value
+    setup_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.target_build_type.value
     setup_cli_arg_build_dir = str(target_build_dir.dir)
     setup_cli_arg_source_dir = str(root_dir)
 
@@ -94,7 +94,7 @@ def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
     build_type_machine_files_dir.resolve(strict=True)
     build_type_machine_files_dir = build_type_machine_files_dir.absolute()
 
-    return build_type_machine_files_dir / target_build_dir.get_build_type().value
+    return build_type_machine_files_dir / target_build_dir.target_build_type.value
 
 
 def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> None:
