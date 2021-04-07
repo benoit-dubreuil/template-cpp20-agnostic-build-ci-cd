@@ -7,10 +7,10 @@ import build_system.compiler.installed_instance
 def create_targets_build_dirs(root_dir: Path,
                               host_compilers: list[build_system.compiler.installed_instance.CompilerInstance]) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
-    from build_system.cmd.hierarchy.create_target_build_dirs import create_target_build_dirs
+    from build_system.cmd.hierarchy.create_target_build_dirs import create_targets_build_dirs
 
     build_dir = _recreate_build_dir(root_dir)
-    target_build_dirs = create_target_build_dirs(build_dir=build_dir, compiler_instances=host_compilers)
+    target_build_dirs = create_targets_build_dirs(build_dir=build_dir, compiler_instances=host_compilers)
 
     return target_build_dirs
 

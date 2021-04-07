@@ -8,8 +8,8 @@ import utils.error.cls_def
 import utils.more_path
 
 
-def create_target_build_dirs(build_dir: Optional[Path] = None,
-                             compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+def create_targets_build_dirs(build_dir: Optional[Path] = None,
+                              compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     build_dir = build_system.cmd.hierarchy.assure_arg_integrity.get_verified_build_dir(unverified_build_dir=build_dir)
     _assure_build_dir_is_empty(build_dir)
