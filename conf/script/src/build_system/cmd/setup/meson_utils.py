@@ -62,8 +62,6 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
                                             meson_machine_files_dir=meson_machine_files_dir,
                                             native_machine_files_dir=native_machine_files_dir)
 
-    _concatenate_extension_to_machine_files(machine_files=machine_files)
-
     machine_files_cli_args: list[str] = _machine_files_to_cli_args(machine_files=machine_files)
     _insert_setup_cli_arg_native_file(machine_files_cli_args=machine_files_cli_args)
 
@@ -76,9 +74,9 @@ def _assemble_machine_files(compiler_instance: build_system.compiler.installed_i
                             native_machine_files_dir: Path) -> list[Path]:
     return [meson_machine_files_dir / r'pre-global',
             native_machine_files_dir / r'native',
-            _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
-            _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
-            _generate_meson_sanitizer_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+            _find_compiler_machine_file(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
+            _find_build_type_machine_file(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+            _find_sanitizer_machine_file(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
             meson_machine_files_dir / r'post-global']
 
 
@@ -109,40 +107,28 @@ def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
     return native_machine_files_dir
 
 
-def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
-                                               compiler_instance: build_system.compiler.installed_instance.CompilerInstance) -> Path:
+def _find_compiler_machine_file(native_machine_files_dir: Path,
+                                compiler_instance: build_system.compiler.installed_instance.CompilerInstance) -> Path:
     compiler_machine_files_dir_name: Final[str] = r'compiler'
     compiler_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=compiler_machine_files_dir_name)
 
     return compiler_machine_files_dir / compiler_instance.compiler_family.value
 
 
-def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
-                                                 build_target: build_system.build_target.build_target.BuildTarget) -> Path:
+def _find_build_type_machine_file(native_machine_files_dir: Path,
+                                  build_target: build_system.build_target.build_target.BuildTarget) -> Path:
     build_type_machine_files_dir_name: Final[str] = r'build_type'
     build_type_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=build_type_machine_files_dir_name)
 
     return build_type_machine_files_dir / build_target.target_build_type.value
 
 
-def _generate_meson_sanitizer_machine_file_path(native_machine_files_dir: Path,
-                                                build_target: build_system.build_target.build_target.BuildTarget) -> Path:
+def _find_sanitizer_machine_file(native_machine_files_dir: Path,
+                                 build_target: build_system.build_target.build_target.BuildTarget) -> Path:
     sanitizer_machine_files_dir_name: Final[str] = r'sanitizer'
     sanitizer_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=sanitizer_machine_files_dir_name)
 
     return sanitizer_machine_files_dir / build_target.sanitizer.value
-
-
-def _concatenate_extension_to_machine_files(machine_files: list[Path]) -> None:
-    extension: Final[str] = r'.ini'
-
-    for i in range(len(machine_files)):
-        machine_file = machine_files[i]
-
-        machine_file = machine_file.with_suffix(extension)
-        machine_file.resolve(strict=True)
-
-        machine_files[i] = machine_file
 
 
 def _machine_files_to_cli_args(machine_files: list[Path]) -> list[str]:
