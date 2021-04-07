@@ -65,6 +65,7 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
                                      native_machine_files_dir / r'native',
                                      _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
                                      _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+                                     _generate_meson_sanitizer_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
                                      meson_machine_files_dir / r'post-global']
 
     _concatenate_extension_to_machine_files(all_machine_files)
