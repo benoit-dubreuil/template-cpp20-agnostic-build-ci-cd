@@ -7,6 +7,7 @@ import mesonbuild.mesonmain
 import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 import utils.cli.hidden_prints
+from build_system.cmd.setup.cli_print_meson_cmd import print_meson_cmd
 from build_system.cmd.setup.cli_print_target_info import print_target_info
 from build_system.cmd.setup.meson_machine_file_cli_args import generate_meson_machine_files_cli_args
 
@@ -24,6 +25,8 @@ def setup_target(root_dir: Path,
         print_target_info(compiler_instance=compiler_instance,
                           target_build_dir=build_target,
                           compiler_env_vars_manager=compiler_env_vars_manager)
+
+        print_meson_cmd(meson_cli_args=meson_cli_args)
 
     _run_meson(cli_mode, meson_cli_args)
 
