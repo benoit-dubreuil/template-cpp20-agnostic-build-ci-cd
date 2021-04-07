@@ -23,6 +23,7 @@ class BuildTarget:
         self.compiler_instance = compiler_instance
         self.target_build_type = target_build_type
         self.sanitizer = sanitizer
+
         self.dir = None
 
     def form_name(self):
@@ -43,5 +44,6 @@ class BuildTarget:
         compiler_name = self.compiler_instance.compiler_family.value
         compiler_version_name = str(self.compiler_instance.version)
         target_build_type_name = self.target_build_type.value
+        sanitizer_name = self.sanitizer.value + sep + 'san'
 
-        return os_family_name + sep + arch_bit_name + sep + compiler_name + sep + compiler_version_name + sep + target_build_type_name
+        return os_family_name + sep + arch_bit_name + sep + compiler_name + sep + compiler_version_name + sep + target_build_type_name + sep + sanitizer_name
