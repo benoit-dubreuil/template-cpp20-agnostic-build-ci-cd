@@ -8,7 +8,7 @@ import build_system.compiler.supported_installed_instances
 import utils.error.cls_def
 
 
-def checked_generate_compiler_instances_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+def checked_generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     targets = generate_compiler_instances_targets(supported_installed_compilers=compiler_instances)
 
