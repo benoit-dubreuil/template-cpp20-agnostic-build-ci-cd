@@ -31,7 +31,7 @@ def _create_all_compiler_instances_target_build_dirs(build_dir: Path,
     targets = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.checked_generate_targets(
         compiler_instances=compiler_instances)
 
-    build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_all_compiler_instances_target_build_dirs(
+    build_system.cmd.hierarchy.create_target_build_dirs.target_dir_creation.create_targets_build_dirs(
         build_dir=build_dir,
         targets=targets)
 
