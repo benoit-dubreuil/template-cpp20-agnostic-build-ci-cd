@@ -62,7 +62,7 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
                                             meson_machine_files_dir=meson_machine_files_dir,
                                             native_machine_files_dir=native_machine_files_dir)
 
-    _concatenate_extension_to_machine_files(machine_files)
+    _concatenate_extension_to_machine_files(machine_files=machine_files)
 
     machine_files_cli_args: list[str] = _machine_files_to_cli_args(machine_files=machine_files)
     _insert_setup_cli_arg_native_file(machine_files_cli_args=machine_files_cli_args)
