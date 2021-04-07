@@ -20,7 +20,7 @@ def setup_target(root_dir: Path,
                                                     target_build_dir=target_build_dir)
 
     if cli_mode:
-        print_target_info(host_compiler=compiler_instance,
+        print_target_info(compiler_instance=compiler_instance,
                           target_build_dir=target_build_dir,
                           compiler_env_vars_manager=compiler_env_vars_manager)
 
