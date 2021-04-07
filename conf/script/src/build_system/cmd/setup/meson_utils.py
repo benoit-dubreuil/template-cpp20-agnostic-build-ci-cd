@@ -116,10 +116,7 @@ def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
 def _generate_meson_sanitizer_machine_file_path(native_machine_files_dir: Path,
                                                 build_target: build_system.build_target.build_target.BuildTarget) -> Path:
     sanitizer_machine_files_dir_name: Final[str] = r'sanitizer'
-
-    sanitizer_machine_files_dir: Path = native_machine_files_dir / sanitizer_machine_files_dir_name
-    sanitizer_machine_files_dir.resolve(strict=True)
-    sanitizer_machine_files_dir = sanitizer_machine_files_dir.absolute()
+    sanitizer_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=sanitizer_machine_files_dir_name)
 
     return sanitizer_machine_files_dir / build_target.sanitizer.value
 
