@@ -10,7 +10,7 @@ import build_system.compiler.supported_installed_instances
 def generate_all_compiler_instances_targets(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     host_compilers = _assure_host_compilers_are_fetched(supported_installed_compilers)
-    all_target_build_types = _assemble_target_build_types()
+    all_target_build_types = _get_target_build_types()
     all_compiler_instances_targets = _generate_all_compiler_instances_targets_for_build_types(all_target_build_types, host_compilers)
 
     return all_compiler_instances_targets
@@ -26,7 +26,7 @@ def _assure_host_compilers_are_fetched(supported_installed_compilers: Optional[l
     return host_compilers
 
 
-def _assemble_target_build_types() -> list[build_system.compiler.build_option.build_type.TargetBuildType]:
+def _get_target_build_types() -> list[build_system.compiler.build_option.build_type.TargetBuildType]:
     return list(build_system.compiler.build_option.build_type.TargetBuildType)
 
 
