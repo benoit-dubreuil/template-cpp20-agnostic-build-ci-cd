@@ -80,9 +80,7 @@ def _combine_build_options(compiler_instance: build_system.compiler.installed_in
                            build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
         -> list[tuple[build_system.compiler.build_option.build_type.TargetBuildType, build_system.compiler.build_option.sanitizer.CompilerSanitizer]]:
     supported_sanitizers: Final[list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]] = compiler_instance.get_supported_sanitizers()
-
-    combined_build_options: list[tuple[build_system.compiler.build_option.build_type.TargetBuildType,
-                                       build_system.compiler.build_option.sanitizer.CompilerSanitizer]] = []
+    combined_build_options = []
 
     for build_type in build_types:
         filtered_sanitizers: list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]
