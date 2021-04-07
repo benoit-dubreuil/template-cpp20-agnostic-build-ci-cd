@@ -82,8 +82,8 @@ def _assemble_machine_files(compiler_instance: build_system.compiler.installed_i
             meson_machine_files_dir / r'post-global']
 
 
-def _find_machine_files_dir(meson_machine_files_dir: Path, machine_files_dir_name: str) -> Path:
-    machine_files_dir: Path = meson_machine_files_dir / machine_files_dir_name
+def _find_machine_files_dir(parent_machine_files_dir: Path, machine_files_dir_name: str) -> Path:
+    machine_files_dir: Path = parent_machine_files_dir / machine_files_dir_name
     machine_files_dir.resolve(strict=True)
     machine_files_dir = machine_files_dir.absolute()
 
@@ -92,7 +92,7 @@ def _find_machine_files_dir(meson_machine_files_dir: Path, machine_files_dir_nam
 
 def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
     native_dir_name: Final[str] = r'native'
-    native_machine_files_dir = _find_machine_files_dir(meson_machine_files_dir=meson_machine_files_dir, machine_files_dir_name=native_dir_name)
+    native_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=meson_machine_files_dir, machine_files_dir_name=native_dir_name)
 
     return native_machine_files_dir
 
@@ -100,10 +100,7 @@ def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
 def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
                                                compiler_instance: build_system.compiler.installed_instance.CompilerInstance) -> Path:
     compiler_machine_files_dir_name: Final[str] = r'compiler'
-
-    compiler_machine_files_dir: Path = native_machine_files_dir / compiler_machine_files_dir_name
-    compiler_machine_files_dir.resolve(strict=True)
-    compiler_machine_files_dir = compiler_machine_files_dir.absolute()
+    compiler_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=compiler_machine_files_dir_name)
 
     return compiler_machine_files_dir / compiler_instance.compiler_family.value
 
