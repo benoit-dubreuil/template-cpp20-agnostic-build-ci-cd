@@ -11,9 +11,9 @@ def generate_all_compiler_instances_targets(supported_installed_compilers: Optio
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     compiler_instances = _get_compiler_instances(supported_installed_compilers=supported_installed_compilers)
     all_target_build_types = _get_target_build_types()
-    all_compiler_instances_targets = _generate_targets(all_target_build_types, compiler_instances)
+    targets = _generate_targets(all_target_build_types, compiler_instances)
 
-    return all_compiler_instances_targets
+    return targets
 
 
 def _get_compiler_instances(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
