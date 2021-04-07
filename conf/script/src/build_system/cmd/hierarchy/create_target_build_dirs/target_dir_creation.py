@@ -12,6 +12,7 @@ def create_targets_build_dirs(build_dir: Path,
             _create_target_build_dir_of_compiler_instance(build_dir=build_dir, target_of_compiler_instance=build_target)
 
 
-def _create_target_build_dir_of_compiler_instance(build_dir: Path, target_of_compiler_instance: build_system.build_target.build_target.BuildTarget) -> None:
+def _create_target_build_dir_of_compiler_instance(build_dir: Path,
+                                                  target_of_compiler_instance: build_system.build_target.build_target.BuildTarget) -> None:
     target_of_compiler_instance.compute_target_build_dir(project_build_dir=build_dir)
     target_of_compiler_instance.dir.mkdir(mode=build_system.cmd.hierarchy.consts.BUILD_DIR_PERMISSIONS, exist_ok=True)
