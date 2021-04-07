@@ -58,12 +58,12 @@ def _generate_targets(build_types: list[build_system.compiler.build_option.build
 def _generate_compiler_instance_targets(build_types: list[build_system.compiler.build_option.build_type.TargetBuildType],
                                         compiler_instance: build_system.compiler.installed_instance.CompilerInstance) \
         -> build_system.build_target.compiler_instance_targets.CompilerInstanceTargets:
-    all_targets: list[build_system.build_target.build_target.BuildTarget] = []
+    targets: list[build_system.build_target.build_target.BuildTarget] = []
 
     for target_build_type in build_types:
         target = build_system.build_target.build_target.BuildTarget(compiler_instance=compiler_instance, target_build_type=target_build_type)
-        all_targets.append(target)
+        targets.append(target)
 
     compiler_instance_targets = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
-                                                                                                            targets=all_targets)
+                                                                                                            targets=targets)
     return compiler_instance_targets
