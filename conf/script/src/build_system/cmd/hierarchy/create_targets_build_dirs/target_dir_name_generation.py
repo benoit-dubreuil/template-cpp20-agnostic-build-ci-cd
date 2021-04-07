@@ -3,10 +3,10 @@ from typing import Final, Optional
 import build_system.build_target.build_target
 import build_system.build_target.compiler_instance_targets
 import build_system.compiler.build_option.build_type
+import build_system.compiler.build_option.sanitizer
 import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
 import utils.error.cls_def
-from build_system.compiler.build_option.sanitizer import CompilerSanitizer
 
 
 def checked_generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
@@ -58,7 +58,10 @@ def _generate_targets(compiler_instances: list[build_system.compiler.installed_i
 def _generate_targets_of_compiler_instance(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                                            build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
         -> build_system.build_target.compiler_instance_targets.CompilerInstanceTargets:
-    supported_sanitizers: Final[list[CompilerSanitizer]] = compiler_instance.get_supported_sanitizers()
+    supported_sanitizers: Final[list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]] = compiler_instance.get_supported_sanitizers()
+
+    combined_build_options = _combine_build_options(compiler_instance=compiler_instance, build_types=build_types)
+
     build_targets: list[build_system.build_target.build_target.BuildTarget] = []
 
     for build_type in build_types:
@@ -71,3 +74,27 @@ def _generate_targets_of_compiler_instance(compiler_instance: build_system.compi
     targets_of_compiler_instance = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
                                                                                                                build_targets=build_targets)
     return targets_of_compiler_instance
+
+
+def _combine_build_options(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+                           build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
+        -> list[tuple[build_system.compiler.build_option.build_type.TargetBuildType, build_system.compiler.build_option.sanitizer.CompilerSanitizer]]:
+    supported_sanitizers: Final[list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]] = compiler_instance.get_supported_sanitizers()
+
+    combined_build_options: list[tuple[build_system.compiler.build_option.build_type.TargetBuildType,
+                                       build_system.compiler.build_option.sanitizer.CompilerSanitizer]] = []
+
+    for build_type in build_types:
+        filtered_sanitizers: list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]
+
+        if build_type == build_system.compiler.build_option.build_type.TargetBuildType.RELEASE:
+            filtered_sanitizers = [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE]
+        else:
+            filtered_sanitizers = supported_sanitizers
+
+        build_options_combination = [build_type] * len(filtered_sanitizers)
+        build_options_combination = list(zip(build_options_combination, filtered_sanitizers))
+
+        combined_build_options.append(*build_options_combination)
+
+    return combined_build_options
