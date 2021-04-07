@@ -3,13 +3,13 @@ from typing import Final
 
 import colorama
 
-import build_system.build_target.build_target_cls
+import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 
 
 # TODO : Refactor
 def print_target_info(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                      target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
+                      target_build_dir: build_system.build_target.build_target.BuildTarget,
                       compiler_env_vars_manager: contextlib.AbstractContextManager) -> None:
     def print_indented_label_and_info(pre_label_indent: str = str(),
                                       post_label_indent: str = str(),
@@ -47,7 +47,7 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
         label_compiler_installation_path_info = str(host_compiler.installation_dir)
 
         label_build_type_label = r'Build type'
-        label_build_type_info = target_build_dir.get_build_type().value
+        label_build_type_info = target_build_dir.target_build_type.value
 
         label_env_vars_label = None
         label_env_vars_info = None
