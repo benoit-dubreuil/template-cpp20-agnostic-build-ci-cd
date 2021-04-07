@@ -64,7 +64,7 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
     all_machine_files: list[Path] = [meson_machine_files_dir / r'pre-global',
                                      native_machine_files_dir / r'native',
                                      _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
-                                     _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, target_build_dir=target_build_dir),
+                                     _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=target_build_dir),
                                      meson_machine_files_dir / r'post-global']
 
     _concatenate_extension_to_machine_files(all_machine_files)
@@ -87,14 +87,25 @@ def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
 
 
 def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
-                                                 target_build_dir: build_system.build_target.build_target.BuildTarget) -> Path:
+                                                 build_target: build_system.build_target.build_target.BuildTarget) -> Path:
     build_type_machine_files_dir_name: Final[str] = r'build_type'
 
     build_type_machine_files_dir: Path = native_machine_files_dir / build_type_machine_files_dir_name
     build_type_machine_files_dir.resolve(strict=True)
     build_type_machine_files_dir = build_type_machine_files_dir.absolute()
 
-    return build_type_machine_files_dir / target_build_dir.target_build_type.value
+    return build_type_machine_files_dir / build_target.target_build_type.value
+
+
+def _generate_meson_sanitizer_machine_file_path(native_machine_files_dir: Path,
+                                                build_target: build_system.build_target.build_target.BuildTarget) -> Path:
+    sanitizer_machine_files_dir_name: Final[str] = r'sanitizer'
+
+    sanitizer_machine_files_dir: Path = native_machine_files_dir / sanitizer_machine_files_dir_name
+    sanitizer_machine_files_dir.resolve(strict=True)
+    sanitizer_machine_files_dir = sanitizer_machine_files_dir.absolute()
+
+    return sanitizer_machine_files_dir / build_target.sanitizer.value
 
 
 def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> None:
