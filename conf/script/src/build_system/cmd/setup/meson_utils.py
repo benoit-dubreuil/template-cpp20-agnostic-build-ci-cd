@@ -73,6 +73,7 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
 
 
 def _find_native_machine_files_dir(meson_machine_files_dir) -> Path:
+def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
     native_dir_name: Final[str] = r'native'
 
     native_machine_files_dir: Path = meson_machine_files_dir / native_dir_name
