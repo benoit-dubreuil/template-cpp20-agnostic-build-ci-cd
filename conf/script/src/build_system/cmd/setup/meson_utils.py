@@ -4,17 +4,17 @@ from typing import Final
 
 import mesonbuild.mesonmain
 
-import build_system.build_target.build_target
+import build_system.build_target.build_target_cls
 import build_system.compiler.installed_instance
 import utils.cli.hidden_prints
 from build_system.cmd.setup.cli_print_target_info import print_target_info
 
 
-def setup_target(root_dir: Path,
-                 host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                 target_build_dir: build_system.build_target.build_target.BuildTarget,
-                 compiler_env_vars_manager: contextlib.AbstractContextManager,
-                 cli_mode: bool):
+def setup_host_compiler_target_build_dir(root_dir: Path,
+                                         host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+                                         target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
+                                         compiler_env_vars_manager: contextlib.AbstractContextManager,
+                                         cli_mode: bool):
     meson_cli_args = _generate_meson_setup_cli_args(root_dir=root_dir,
                                                     host_compiler=host_compiler,
                                                     target_build_dir=target_build_dir)
@@ -29,14 +29,14 @@ def setup_target(root_dir: Path,
 
 def _generate_meson_setup_cli_args(root_dir: Path,
                                    host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                                   target_build_dir: build_system.build_target.build_target.BuildTarget):
+                                   target_build_dir: build_system.build_target.build_target_cls.BuildTarget):
     cli_kwarg_assignment_op: Final[str] = r'='
 
     cli_arg_setup_cmd = r'setup'
 
     setup_cli_fatal_warnings = r'--fatal-meson-warnings'
 
-    setup_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.target_build_type.value
+    setup_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.get_build_type().value
     setup_cli_arg_build_dir = str(target_build_dir.dir)
     setup_cli_arg_source_dir = str(root_dir)
 
@@ -51,7 +51,7 @@ def _generate_meson_setup_cli_args(root_dir: Path,
 
 
 def _generate_meson_machine_files_cli_args(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                                           target_build_dir: build_system.build_target.build_target.BuildTarget) -> list[str]:
+                                           target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> list[str]:
     import build_system.cmd.hierarchy.find_conf_dir
 
     native_dir_name: Final[str] = r'native'
@@ -87,14 +87,14 @@ def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
 
 
 def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
-                                                 target_build_dir: build_system.build_target.build_target.BuildTarget) -> Path:
+                                                 target_build_dir: build_system.build_target.build_target_cls.BuildTarget) -> Path:
     build_type_machine_files_dir_name: Final[str] = r'build_type'
 
     build_type_machine_files_dir: Path = native_machine_files_dir / build_type_machine_files_dir_name
     build_type_machine_files_dir.resolve(strict=True)
     build_type_machine_files_dir = build_type_machine_files_dir.absolute()
 
-    return build_type_machine_files_dir / target_build_dir.target_build_type.value
+    return build_type_machine_files_dir / target_build_dir.get_build_type().value
 
 
 def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> None:
