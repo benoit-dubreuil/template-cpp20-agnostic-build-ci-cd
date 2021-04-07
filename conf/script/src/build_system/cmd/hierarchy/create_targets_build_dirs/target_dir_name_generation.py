@@ -87,12 +87,7 @@ def _combine_build_options(compiler_instance: build_system.compiler.installed_in
     combined_build_options = []
 
     for build_type in build_types:
-        filtered_sanitizers: list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]
-
-        if build_type == build_system.compiler.build_option.build_type.TargetBuildType.RELEASE:
-            filtered_sanitizers = [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE]
-        else:
-            filtered_sanitizers = supported_sanitizers
+        filtered_sanitizers = _filter_sanitizers_by_build_type(build_type=build_type, sanitizers=supported_sanitizers)
 
         build_options_combination = [build_type] * len(filtered_sanitizers)
         build_options_combination = list(zip(build_options_combination, filtered_sanitizers))
@@ -100,3 +95,14 @@ def _combine_build_options(compiler_instance: build_system.compiler.installed_in
         combined_build_options.extend(build_options_combination)
 
     return combined_build_options
+
+
+def _filter_sanitizers_by_build_type(build_type: build_system.compiler.build_option.build_type.TargetBuildType,
+                                     sanitizers: list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]) \
+        -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
+    if build_type == build_system.compiler.build_option.build_type.TargetBuildType.RELEASE:
+        filtered_sanitizers = [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE]
+    else:
+        filtered_sanitizers = sanitizers
+
+    return filtered_sanitizers
