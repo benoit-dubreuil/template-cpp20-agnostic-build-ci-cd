@@ -8,7 +8,7 @@ import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 import utils.cli.hidden_prints
 from build_system.cmd.setup.cli_print_target_info import print_target_info
-from build_system.cmd.setup.find_meson_machine_file import _find_build_type_machine_file, _find_compiler_machine_file, _find_native_machine_files_dir, _find_sanitizer_machine_file
+from build_system.cmd.setup.find_meson_machine_file import find_build_type_machine_file, find_compiler_machine_file, find_native_machine_files_dir, find_sanitizer_machine_file
 
 
 def setup_target(root_dir: Path,
@@ -56,7 +56,7 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
     import build_system.cmd.hierarchy.find_conf_dir
 
     meson_machine_files_dir = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
-    native_machine_files_dir = _find_native_machine_files_dir(meson_machine_files_dir=meson_machine_files_dir)
+    native_machine_files_dir = find_native_machine_files_dir(meson_machine_files_dir=meson_machine_files_dir)
 
     machine_files = _assemble_machine_files(compiler_instance=compiler_instance,
                                             build_target=build_target,
@@ -75,9 +75,9 @@ def _assemble_machine_files(compiler_instance: build_system.compiler.installed_i
                             native_machine_files_dir: Path) -> list[Path]:
     return [meson_machine_files_dir / r'pre-global',
             native_machine_files_dir / r'native',
-            _find_compiler_machine_file(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
-            _find_build_type_machine_file(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
-            _find_sanitizer_machine_file(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+            find_compiler_machine_file(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
+            find_build_type_machine_file(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+            find_sanitizer_machine_file(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
             meson_machine_files_dir / r'post-global']
 
 
