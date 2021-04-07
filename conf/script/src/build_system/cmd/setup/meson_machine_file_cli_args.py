@@ -28,12 +28,12 @@ def _assemble_machine_files(compiler_instance: build_system.compiler.installed_i
                             build_target: build_system.build_target.build_target.BuildTarget,
                             meson_machine_files_dir: Path,
                             native_machine_files_dir: Path) -> list[Path]:
-    return [meson_machine_files_dir / r'pre-global',
-            native_machine_files_dir / r'native',
+    return [meson_machine_files_dir / r'pre-global.ini',
+            native_machine_files_dir / r'native.ini',
             find_compiler_machine_file(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
             find_build_type_machine_file(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
             find_sanitizer_machine_file(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
-            meson_machine_files_dir / r'post-global']
+            meson_machine_files_dir / r'post-global.ini']
 
 
 def _machine_files_to_cli_args(machine_files: list[Path]) -> list[str]:
