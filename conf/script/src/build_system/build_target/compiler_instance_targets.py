@@ -7,7 +7,7 @@ import build_system.compiler.installed_instance
 @dataclasses.dataclass(order=True, frozen=True)
 class CompilerInstanceTargets:
     compiler_instance: build_system.compiler.installed_instance.CompilerInstance
-    targets: list[build_system.build_target.build_target.BuildTarget]
+    build_targets: list[build_system.build_target.build_target.BuildTarget]
 
     def __iter__(self):
-        return self.targets.__iter__()
+        return self.build_targets.__iter__()
