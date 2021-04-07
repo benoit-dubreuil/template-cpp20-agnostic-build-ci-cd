@@ -6,10 +6,10 @@ import build_system.compiler.installed_instance
 
 
 def setup_targets(root_dir: Path,
-                  host_compilers_targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
+                  targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
                   cli_mode: bool):
-    for host_compiler_targets in host_compilers_targets:
-        _setup_host_compiler_targets(root_dir=root_dir, host_compiler_targets=host_compiler_targets, cli_mode=cli_mode)
+    for compiler_instance_targets in targets:
+        _setup_host_compiler_targets(root_dir=root_dir, host_compiler_targets=compiler_instance_targets, cli_mode=cli_mode)
 
 
 def _setup_host_compiler_targets(root_dir: Path,
