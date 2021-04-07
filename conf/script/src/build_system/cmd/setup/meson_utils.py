@@ -70,12 +70,17 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
     return machine_files_cli_args
 
 
+def _find_machine_files_dir(meson_machine_files_dir: Path, machine_files_dir_name: str) -> Path:
+    machine_files_dir: Path = meson_machine_files_dir / machine_files_dir_name
+    machine_files_dir.resolve(strict=True)
+    machine_files_dir = machine_files_dir.absolute()
+
+    return machine_files_dir
+
+
 def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
     native_dir_name: Final[str] = r'native'
-
-    native_machine_files_dir: Path = meson_machine_files_dir / native_dir_name
-    native_machine_files_dir.resolve(strict=True)
-    native_machine_files_dir = native_machine_files_dir.absolute()
+    native_machine_files_dir = _find_machine_files_dir(meson_machine_files_dir=meson_machine_files_dir, machine_files_dir_name=native_dir_name)
 
     return native_machine_files_dir
 
