@@ -125,16 +125,16 @@ def _generate_meson_sanitizer_machine_file_path(native_machine_files_dir: Path,
     return sanitizer_machine_files_dir / build_target.sanitizer.value
 
 
-def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> None:
+def _concatenate_extension_to_machine_files(machine_files: list[Path]) -> None:
     extension: Final[str] = r'.ini'
 
-    for i in range(len(all_machine_files)):
-        machine_file = all_machine_files[i]
+    for i in range(len(machine_files)):
+        machine_file = machine_files[i]
 
         machine_file = machine_file.with_suffix(extension)
         machine_file.resolve(strict=True)
 
-        all_machine_files[i] = machine_file
+        machine_files[i] = machine_file
 
 
 def _machine_files_to_cli_args(machine_files: list[Path]) -> list[str]:
