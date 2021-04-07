@@ -8,7 +8,7 @@ import build_system.compiler.installed_instance
 
 
 # TODO : Refactor
-def print_target_info(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
+def print_target_info(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                       target_build_dir: build_system.build_target.build_target.BuildTarget,
                       compiler_env_vars_manager: contextlib.AbstractContextManager) -> None:
     def print_indented_label_and_info(pre_label_indent: str = str(),
@@ -35,16 +35,16 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
     def print_post_header_labels_and_info(pre_label_indent: str = str(),
                                           post_label_indent: str = str()):
         label_compiler_family_label = r'Compiler family'
-        label_compiler_family_info = host_compiler.compiler_family.value
+        label_compiler_family_info = compiler_instance.compiler_family.value
 
         label_compiler_version_label = r'Compiler version'
-        label_compiler_version_info = str(host_compiler.version)
+        label_compiler_version_info = str(compiler_instance.version)
 
         label_compiler_arch_label = r'Compiler architecture'
-        label_compiler_arch_info = host_compiler.arch.arch_to_bit_name()
+        label_compiler_arch_info = compiler_instance.arch.arch_to_bit_name()
 
         label_compiler_installation_path_label = r'Compiler installation path'
-        label_compiler_installation_path_info = str(host_compiler.installation_dir)
+        label_compiler_installation_path_info = str(compiler_instance.installation_dir)
 
         label_build_type_label = r'Build type'
         label_build_type_info = target_build_dir.target_build_type.value
