@@ -108,10 +108,7 @@ def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
 def _generate_meson_build_type_machine_file_path(native_machine_files_dir: Path,
                                                  build_target: build_system.build_target.build_target.BuildTarget) -> Path:
     build_type_machine_files_dir_name: Final[str] = r'build_type'
-
-    build_type_machine_files_dir: Path = native_machine_files_dir / build_type_machine_files_dir_name
-    build_type_machine_files_dir.resolve(strict=True)
-    build_type_machine_files_dir = build_type_machine_files_dir.absolute()
+    build_type_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=build_type_machine_files_dir_name)
 
     return build_type_machine_files_dir / build_target.target_build_type.value
 
