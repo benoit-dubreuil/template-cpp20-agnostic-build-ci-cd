@@ -9,12 +9,12 @@ def setup_targets(root_dir: Path,
                   targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
                   cli_mode: bool):
     for compiler_instance_targets in targets:
-        _setup_host_compiler_targets(root_dir=root_dir, host_compiler_targets=compiler_instance_targets, cli_mode=cli_mode)
+        _setup_compiler_instance_targets(root_dir=root_dir, host_compiler_targets=compiler_instance_targets, cli_mode=cli_mode)
 
 
-def _setup_host_compiler_targets(root_dir: Path,
-                                 host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets,
-                                 cli_mode: bool):
+def _setup_compiler_instance_targets(root_dir: Path,
+                                     host_compiler_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets,
+                                     cli_mode: bool):
     from build_system.cmd.setup.meson_utils import setup_target
 
     host_compiler: Final[build_system.compiler.installed_instance.CompilerInstance] = host_compiler_targets.compiler_instance
