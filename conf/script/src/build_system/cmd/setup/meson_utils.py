@@ -61,19 +61,19 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
     native_machine_files_dir.resolve(strict=True)
     native_machine_files_dir = native_machine_files_dir.absolute()
 
-    all_machine_files: list[Path] = [meson_machine_files_dir / r'pre-global',
-                                     native_machine_files_dir / r'native',
-                                     _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
-                                     _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
-                                     _generate_meson_sanitizer_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
-                                     meson_machine_files_dir / r'post-global']
+    machine_files: list[Path] = [meson_machine_files_dir / r'pre-global',
+                                 native_machine_files_dir / r'native',
+                                 _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
+                                 _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+                                 _generate_meson_sanitizer_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+                                 meson_machine_files_dir / r'post-global']
 
-    _concatenate_extension_to_machine_files(all_machine_files)
+    _concatenate_extension_to_machine_files(machine_files)
 
-    all_machine_file_cli_args: list[str] = _machine_files_to_cli_args(all_machine_files=all_machine_files)
-    _insert_setup_cli_arg_native_file(all_machine_file_cli_args=all_machine_file_cli_args)
+    machine_files_cli_args: list[str] = _machine_files_to_cli_args(machine_files=machine_files)
+    _insert_setup_cli_arg_native_file(machine_files_cli_args=machine_files_cli_args)
 
-    return all_machine_file_cli_args
+    return machine_files_cli_args
 
 
 def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
@@ -121,16 +121,16 @@ def _concatenate_extension_to_machine_files(all_machine_files: list[Path]) -> No
         all_machine_files[i] = machine_file
 
 
-def _machine_files_to_cli_args(all_machine_files: list[Path]) -> list[str]:
-    return [str(machine_file) for machine_file in all_machine_files]
+def _machine_files_to_cli_args(machine_files: list[Path]) -> list[str]:
+    return [str(machine_file) for machine_file in machine_files]
 
 
-def _insert_setup_cli_arg_native_file(all_machine_file_cli_args: list[str]) -> None:
+def _insert_setup_cli_arg_native_file(machine_files_cli_args: list[str]) -> None:
     setup_cli_arg_native_file: Final[str] = r'--native-file'
     step: Final[int] = 2
 
-    for i in range(0, len(all_machine_file_cli_args) * step, step):
-        all_machine_file_cli_args.insert(i, setup_cli_arg_native_file)
+    for i in range(0, len(machine_files_cli_args) * step, step):
+        machine_files_cli_args.insert(i, setup_cli_arg_native_file)
 
 
 def _run_meson(cli_mode, meson_cli_args):
