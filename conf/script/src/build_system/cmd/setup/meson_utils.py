@@ -55,14 +55,12 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
     import build_system.cmd.hierarchy.find_conf_dir
 
     meson_machine_files_dir: Final[Path] = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
-    native_machine_files_dir: Final[Path] = _find_native_machine_files_dir(meson_machine_files_dir)
+    native_machine_files_dir: Final[Path] = _find_native_machine_files_dir(meson_machine_files_dir=meson_machine_files_dir)
 
-    machine_files: list[Path] = [meson_machine_files_dir / r'pre-global',
-                                 native_machine_files_dir / r'native',
-                                 _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
-                                 _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
-                                 _generate_meson_sanitizer_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
-                                 meson_machine_files_dir / r'post-global']
+    machine_files = _assemble_machine_files(compiler_instance=compiler_instance,
+                                            build_target=build_target,
+                                            meson_machine_files_dir=meson_machine_files_dir,
+                                            native_machine_files_dir=native_machine_files_dir)
 
     _concatenate_extension_to_machine_files(machine_files)
 
@@ -72,7 +70,6 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
     return machine_files_cli_args
 
 
-def _find_native_machine_files_dir(meson_machine_files_dir) -> Path:
 def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
     native_dir_name: Final[str] = r'native'
 
@@ -81,6 +78,18 @@ def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
     native_machine_files_dir = native_machine_files_dir.absolute()
 
     return native_machine_files_dir
+
+
+def _assemble_machine_files(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+                            build_target: build_system.build_target.build_target.BuildTarget,
+                            meson_machine_files_dir: Path,
+                            native_machine_files_dir: Path) -> list[Path]:
+    return [meson_machine_files_dir / r'pre-global',
+            native_machine_files_dir / r'native',
+            _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
+            _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+            _generate_meson_sanitizer_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
+            meson_machine_files_dir / r'post-global']
 
 
 def _generate_meson_compiler_machine_file_path(native_machine_files_dir: Path,
