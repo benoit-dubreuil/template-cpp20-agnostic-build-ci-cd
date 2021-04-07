@@ -39,10 +39,10 @@ def _generate_all_compiler_instances_targets(supported_installed_compilers: Opti
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     import build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation
 
-    all_compiler_instances_targets = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_compiler_instances_targets(
+    targets = build_system.cmd.hierarchy.create_target_build_dirs.target_dir_name_generation.generate_compiler_instances_targets(
         supported_installed_compilers=supported_installed_compilers)
 
-    if len(all_compiler_instances_targets) <= 0:
+    if len(targets) <= 0:
         raise utils.error.cls_def.NoSupportedCompilersAvailableError()
 
-    return all_compiler_instances_targets
+    return targets
