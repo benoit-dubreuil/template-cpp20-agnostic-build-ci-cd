@@ -24,5 +24,5 @@ def _setup_compiler_instance_targets(root_dir: Path,
             setup_target(root_dir=root_dir,
                          compiler_instance=compiler_instance,
                          compiler_env_vars_manager=compiler_env_vars_manager,
-                         target_build_dir=target,
+                         build_target=target,
                          cli_mode=cli_mode)

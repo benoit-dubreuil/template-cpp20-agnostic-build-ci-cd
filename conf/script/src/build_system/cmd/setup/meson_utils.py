@@ -12,16 +12,16 @@ from build_system.cmd.setup.cli_print_target_info import print_target_info
 
 def setup_target(root_dir: Path,
                  compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                 target_build_dir: build_system.build_target.build_target.BuildTarget,
+                 build_target: build_system.build_target.build_target.BuildTarget,
                  compiler_env_vars_manager: contextlib.AbstractContextManager,
                  cli_mode: bool):
     meson_cli_args = _generate_meson_setup_cli_args(root_dir=root_dir,
                                                     compiler_instance=compiler_instance,
-                                                    target_build_dir=target_build_dir)
+                                                    build_target=build_target)
 
     if cli_mode:
         print_target_info(compiler_instance=compiler_instance,
-                          target_build_dir=target_build_dir,
+                          target_build_dir=build_target,
                           compiler_env_vars_manager=compiler_env_vars_manager)
 
     _run_meson(cli_mode, meson_cli_args)
@@ -29,21 +29,21 @@ def setup_target(root_dir: Path,
 
 def _generate_meson_setup_cli_args(root_dir: Path,
                                    compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                                   target_build_dir: build_system.build_target.build_target.BuildTarget):
+                                   build_target: build_system.build_target.build_target.BuildTarget):
     cli_kwarg_assignment_op: Final[str] = r'='
 
     cli_arg_setup_cmd = r'setup'
 
     setup_cli_fatal_warnings = r'--fatal-meson-warnings'
 
-    setup_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + target_build_dir.target_build_type.value
-    setup_cli_arg_build_dir = str(target_build_dir.dir)
+    setup_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + build_target.target_build_type.value
+    setup_cli_arg_build_dir = str(build_target.dir)
     setup_cli_arg_source_dir = str(root_dir)
 
     meson_cli_args: list[str] = [cli_arg_setup_cmd,
                                  setup_cli_fatal_warnings,
                                  setup_cli_arg_build_type,
-                                 *(_generate_meson_machine_files_cli_args(compiler_instance=compiler_instance, target_build_dir=target_build_dir)),
+                                 *(_generate_meson_machine_files_cli_args(compiler_instance=compiler_instance, build_target=build_target)),
                                  setup_cli_arg_build_dir,
                                  setup_cli_arg_source_dir]
 
@@ -51,7 +51,7 @@ def _generate_meson_setup_cli_args(root_dir: Path,
 
 
 def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                                           target_build_dir: build_system.build_target.build_target.BuildTarget) -> list[str]:
+                                           build_target: build_system.build_target.build_target.BuildTarget) -> list[str]:
     import build_system.cmd.hierarchy.find_conf_dir
 
     native_dir_name: Final[str] = r'native'
@@ -64,7 +64,7 @@ def _generate_meson_machine_files_cli_args(compiler_instance: build_system.compi
     all_machine_files: list[Path] = [meson_machine_files_dir / r'pre-global',
                                      native_machine_files_dir / r'native',
                                      _generate_meson_compiler_machine_file_path(native_machine_files_dir=native_machine_files_dir, compiler_instance=compiler_instance),
-                                     _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=target_build_dir),
+                                     _generate_meson_build_type_machine_file_path(native_machine_files_dir=native_machine_files_dir, build_target=build_target),
                                      meson_machine_files_dir / r'post-global']
 
     _concatenate_extension_to_machine_files(all_machine_files)
