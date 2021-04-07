@@ -10,7 +10,7 @@ import utils.error.cls_def
 
 def checked_generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
-    targets = generate_targets(supported_installed_compilers=compiler_instances)
+    targets = generate_targets(compiler_instances=compiler_instances)
 
     if len(targets) <= 0:
         raise utils.error.cls_def.NoSupportedCompilersAvailableError()
@@ -18,9 +18,9 @@ def checked_generate_targets(compiler_instances: Optional[list[build_system.comp
     return targets
 
 
-def generate_targets(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+def generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
-    compiler_instances = _get_compiler_instances(supported_installed_compilers=supported_installed_compilers)
+    compiler_instances = _get_compiler_instances(supported_installed_compilers=compiler_instances)
     all_target_build_types = _get_target_build_types()
     targets = _generate_targets(all_target_build_types, compiler_instances)
 
