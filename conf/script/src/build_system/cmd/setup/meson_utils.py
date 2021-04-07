@@ -90,6 +90,18 @@ def _find_machine_files_dir(parent_machine_files_dir: Path, machine_files_dir_na
     return machine_files_dir
 
 
+def _find_machine_file(parent_machine_files_dir: Path, machine_files_dir_name: str, machine_file_name: str) -> Path:
+    extension: Final[str] = r'.ini'
+
+    machine_files_dir: Path = _find_machine_files_dir(parent_machine_files_dir=parent_machine_files_dir, machine_files_dir_name=machine_files_dir_name)
+
+    machine_file: Path = machine_files_dir / machine_file_name
+    machine_file = machine_file.with_suffix(extension)
+    machine_file.resolve(strict=True)
+
+    return machine_file
+
+
 def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
     native_dir_name: Final[str] = r'native'
     native_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=meson_machine_files_dir, machine_files_dir_name=native_dir_name)
