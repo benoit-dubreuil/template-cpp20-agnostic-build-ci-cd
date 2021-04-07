@@ -110,25 +110,37 @@ def _find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
 def _find_compiler_machine_file(native_machine_files_dir: Path,
                                 compiler_instance: build_system.compiler.installed_instance.CompilerInstance) -> Path:
     compiler_machine_files_dir_name: Final[str] = r'compiler'
-    compiler_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=compiler_machine_files_dir_name)
+    compiler_machine_file_name: str = compiler_instance.compiler_family.value
 
-    return compiler_machine_files_dir / compiler_instance.compiler_family.value
+    compiler_machine_file = _find_machine_file(parent_machine_files_dir=native_machine_files_dir,
+                                               machine_files_dir_name=compiler_machine_files_dir_name,
+                                               machine_file_name=compiler_machine_file_name)
+
+    return compiler_machine_file
 
 
 def _find_build_type_machine_file(native_machine_files_dir: Path,
                                   build_target: build_system.build_target.build_target.BuildTarget) -> Path:
     build_type_machine_files_dir_name: Final[str] = r'build_type'
-    build_type_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=build_type_machine_files_dir_name)
+    build_type_file_name: str = build_target.target_build_type.value
 
-    return build_type_machine_files_dir / build_target.target_build_type.value
+    build_type_file = _find_machine_file(parent_machine_files_dir=native_machine_files_dir,
+                                         machine_files_dir_name=build_type_machine_files_dir_name,
+                                         machine_file_name=build_type_file_name)
+
+    return build_type_file
 
 
 def _find_sanitizer_machine_file(native_machine_files_dir: Path,
                                  build_target: build_system.build_target.build_target.BuildTarget) -> Path:
     sanitizer_machine_files_dir_name: Final[str] = r'sanitizer'
-    sanitizer_machine_files_dir = _find_machine_files_dir(parent_machine_files_dir=native_machine_files_dir, machine_files_dir_name=sanitizer_machine_files_dir_name)
+    sanitizer_file_name: str = build_target.sanitizer.value
 
-    return sanitizer_machine_files_dir / build_target.sanitizer.value
+    sanitizer_file = _find_machine_file(parent_machine_files_dir=native_machine_files_dir,
+                                        machine_files_dir_name=sanitizer_machine_files_dir_name,
+                                        machine_file_name=sanitizer_file_name)
+
+    return sanitizer_file
 
 
 def _machine_files_to_cli_args(machine_files: list[Path]) -> list[str]:
