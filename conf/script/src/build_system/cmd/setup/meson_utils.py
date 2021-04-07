@@ -8,7 +8,7 @@ import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 import utils.cli.hidden_prints
 from build_system.cmd.setup.cli_print_target_info import print_target_info
-from build_system.cmd.setup.meson_machine_file_cli_args import _generate_meson_machine_files_cli_args
+from build_system.cmd.setup.meson_machine_file_cli_args import generate_meson_machine_files_cli_args
 
 
 def setup_target(root_dir: Path,
@@ -44,7 +44,7 @@ def _generate_meson_setup_cli_args(root_dir: Path,
     meson_cli_args: list[str] = [cli_arg_setup_cmd,
                                  setup_cli_fatal_warnings,
                                  setup_cli_arg_build_type,
-                                 *(_generate_meson_machine_files_cli_args(compiler_instance=compiler_instance, build_target=build_target)),
+                                 *(generate_meson_machine_files_cli_args(compiler_instance=compiler_instance, build_target=build_target)),
                                  setup_cli_arg_build_dir,
                                  setup_cli_arg_source_dir]
 
