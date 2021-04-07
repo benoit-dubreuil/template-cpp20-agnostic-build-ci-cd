@@ -5,6 +5,17 @@ import build_system.build_target.compiler_instance_targets
 import build_system.compiler.build_option.build_type
 import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
+import utils.error.cls_def
+
+
+def checked_generate_compiler_instances_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+    targets = generate_compiler_instances_targets(supported_installed_compilers=compiler_instances)
+
+    if len(targets) <= 0:
+        raise utils.error.cls_def.NoSupportedCompilersAvailableError()
+
+    return targets
 
 
 def generate_compiler_instances_targets(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
