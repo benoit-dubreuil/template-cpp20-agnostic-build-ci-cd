@@ -3,6 +3,7 @@ import pathlib
 from typing import Final, Optional
 
 import build_system.compiler.build_option.build_type
+import build_system.compiler.build_option.sanitizer
 import build_system.compiler.installed_instance
 
 
@@ -10,14 +11,18 @@ import build_system.compiler.installed_instance
 class BuildTarget:
     compiler_instance: Final[build_system.compiler.installed_instance.CompilerInstance]
     target_build_type: Final[build_system.compiler.build_option.build_type.TargetBuildType]
+    sanitizer: Final[build_system.compiler.build_option.sanitizer.CompilerSanitizer]
 
     dir: Optional[pathlib.Path]
 
     def __init__(self,
                  compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                 target_build_type: build_system.compiler.build_option.build_type.TargetBuildType) -> None:
+                 target_build_type: build_system.compiler.build_option.build_type.TargetBuildType,
+                 sanitizer: build_system.compiler.build_option.sanitizer.CompilerSanitizer = build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE) \
+            -> None:
         self.compiler_instance = compiler_instance
         self.target_build_type = target_build_type
+        self.sanitizer = sanitizer
         self.dir = None
 
     def form_name(self):
