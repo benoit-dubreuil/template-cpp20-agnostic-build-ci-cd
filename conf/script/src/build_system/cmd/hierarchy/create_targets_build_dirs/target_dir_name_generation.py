@@ -97,6 +97,6 @@ def _combine_build_options(compiler_instance: build_system.compiler.installed_in
         build_options_combination = [build_type] * len(filtered_sanitizers)
         build_options_combination = list(zip(build_options_combination, filtered_sanitizers))
 
-        combined_build_options.append(*build_options_combination)
+        combined_build_options.extend(build_options_combination)
 
     return combined_build_options
