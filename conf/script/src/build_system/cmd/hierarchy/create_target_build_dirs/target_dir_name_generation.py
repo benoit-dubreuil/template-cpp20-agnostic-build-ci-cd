@@ -47,23 +47,23 @@ def _generate_targets(build_types: list[build_system.compiler.build_option.build
     targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
 
     for compiler_instance in compiler_instances:
-        compiler_instance_targets = _generate_compiler_instance_targets(build_types=build_types,
-                                                                        compiler_instance=compiler_instance)
+        compiler_instance_targets = _generate_targets_of_compiler_instance(build_types=build_types,
+                                                                           compiler_instance=compiler_instance)
 
         targets.append(compiler_instance_targets)
 
     return targets
 
 
-def _generate_compiler_instance_targets(build_types: list[build_system.compiler.build_option.build_type.TargetBuildType],
-                                        compiler_instance: build_system.compiler.installed_instance.CompilerInstance) \
+def _generate_targets_of_compiler_instance(build_types: list[build_system.compiler.build_option.build_type.TargetBuildType],
+                                           compiler_instance: build_system.compiler.installed_instance.CompilerInstance) \
         -> build_system.build_target.compiler_instance_targets.CompilerInstanceTargets:
-    targets: list[build_system.build_target.build_target.BuildTarget] = []
+    build_targets: list[build_system.build_target.build_target.BuildTarget] = []
 
     for build_type in build_types:
-        target = build_system.build_target.build_target.BuildTarget(compiler_instance=compiler_instance, target_build_type=build_type)
-        targets.append(target)
+        build_target = build_system.build_target.build_target.BuildTarget(compiler_instance=compiler_instance, target_build_type=build_type)
+        build_targets.append(build_target)
 
-    compiler_instance_targets = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
-                                                                                                            targets=targets)
-    return compiler_instance_targets
+    targets_of_compiler_instance = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
+                                                                                                            targets=build_targets)
+    return targets_of_compiler_instance
