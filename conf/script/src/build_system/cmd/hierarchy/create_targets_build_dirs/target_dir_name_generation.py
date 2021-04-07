@@ -58,11 +58,11 @@ def _generate_targets(compiler_instances: list[build_system.compiler.installed_i
 def _generate_targets_of_compiler_instance(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                                            build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
         -> build_system.build_target.compiler_instance_targets.CompilerInstanceTargets:
-    sanitizers: Final[list[CompilerSanitizer]] = compiler_instance.get_supported_sanitizers()
+    supported_sanitizers: Final[list[CompilerSanitizer]] = compiler_instance.get_supported_sanitizers()
     build_targets: list[build_system.build_target.build_target.BuildTarget] = []
 
     for build_type in build_types:
-        for sanitizer in sanitizers:
+        for sanitizer in supported_sanitizers:
             build_target = build_system.build_target.build_target.BuildTarget(compiler_instance=compiler_instance,
                                                                               target_build_type=build_type,
                                                                               sanitizer=sanitizer)
