@@ -7,7 +7,7 @@ import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
 
 
-def generate_all_compiler_instances_targets(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+def generate_compiler_instances_targets(supported_installed_compilers: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
     compiler_instances = _get_compiler_instances(supported_installed_compilers=supported_installed_compilers)
     all_target_build_types = _get_target_build_types()
