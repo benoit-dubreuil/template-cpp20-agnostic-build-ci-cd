@@ -59,7 +59,7 @@ def _generate_meson_setup_cli_args(root_dir: Path,
 
 
 def _run_meson(cli_mode, meson_cli_args):
-    meson_launcher: str = _fetch_meson_launcher()
+    meson_launcher: str = _find_meson_launcher()
 
     try:
         with contextlib.nullcontext() if cli_mode else utils.cli.hidden_prints.HiddenPrints():
@@ -69,7 +69,7 @@ def _run_meson(cli_mode, meson_cli_args):
         pass
 
 
-def _fetch_meson_launcher() -> str:
+def _find_meson_launcher() -> str:
     venv_interpreter = Path(sys.executable)
     venv_scripts_dir = venv_interpreter.parent
 
