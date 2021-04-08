@@ -23,8 +23,21 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def post_setup(self, context: types.SimpleNamespace) -> None:
-        pip_cmd_args: list[str] = self.__assemble_pip_cmd_args(context=context)
+    def upgrade_dependencies(self, context: types.SimpleNamespace) -> None:
+        print(f'Upgrade dependecies : pip, setuptools')
+        print('-------------------------------------')
+
+        super().upgrade_dependencies(context=context)
+
+        self.__install_reqs(context=context)
+
+    @classmethod
+    def __install_reqs(cls, context: types.SimpleNamespace) -> None:
+        pip_cmd_args: list[str] = cls.__assemble_pip_cmd_args(context=context)
+
+        print()
+        print('Install requirements.txt using pip')
+        print('----------------------------------')
 
         subprocess.check_call(pip_cmd_args)
 
