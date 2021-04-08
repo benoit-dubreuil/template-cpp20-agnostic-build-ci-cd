@@ -10,6 +10,7 @@ SCRIPT_DIR.resolve(strict=True)
 VENV_RELATIVE_DIR: Final[Path] = Path('conf') / 'script' / 'venv'
 
 VENV_DIR: Final[Path] = SCRIPT_DIR / VENV_RELATIVE_DIR
+VENV_PIP_DIR: Final[Path] = VENV_DIR / 'Lib' / 'site-packages' / 'pip'
 
 venv.create(env_dir=VENV_DIR,
             system_site_packages=False,
