@@ -11,7 +11,7 @@ import utils.cli.hidden_prints
 import utils.cmd_integrity
 import utils.error.cls_def
 from build_system.cmd.hierarchy.consts import BUILD_SYSTEM_NAME
-from build_system.cmd.setup.cli_print_meson_cmd import print_meson_cmd
+from build_system.cmd.setup.cli_print_meson_cmd import print_meson_cmd, print_meson_main_file
 from build_system.cmd.setup.cli_print_target_info import print_target_info
 from build_system.cmd.setup.meson_machine_file_cli_args import generate_meson_machine_files_cli_args
 
@@ -59,7 +59,7 @@ def _generate_meson_setup_cli_args(root_dir: Path,
 
 
 def _run_meson(cli_mode, meson_cli_args):
-    meson_launcher: str = _find_meson_launcher()
+    meson_launcher: str = _find_meson_launcher(cli_mode=cli_mode)
 
     try:
         with contextlib.nullcontext() if cli_mode else utils.cli.hidden_prints.HiddenPrints():
@@ -69,7 +69,7 @@ def _run_meson(cli_mode, meson_cli_args):
         pass
 
 
-def _find_meson_launcher() -> str:
+def _find_meson_launcher(cli_mode: bool) -> str:
     venv_interpreter = Path(sys.executable)
     venv_scripts_dir = venv_interpreter.parent
 
@@ -77,5 +77,8 @@ def _find_meson_launcher() -> str:
 
     if not meson_main_file_exists:
         raise utils.error.cls_def.MesonMainFileNotFoundError()
+
+    if cli_mode:
+        print_meson_main_file(meson_main_file=meson_main_file)
 
     return str(meson_main_file)

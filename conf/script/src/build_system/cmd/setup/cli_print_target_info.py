@@ -1,8 +1,6 @@
 import contextlib
 from typing import Final
 
-import colorama
-
 import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 
@@ -11,24 +9,27 @@ import build_system.compiler.installed_instance
 def print_target_info(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                       target_build_dir: build_system.build_target.build_target.BuildTarget,
                       compiler_env_vars_manager: contextlib.AbstractContextManager) -> None:
+    from build_system.cmd.setup.cli_color import colorize_label, colorize_path, colorize_header_laber
+
     def print_indented_label_and_info(pre_label_indent: str = str(),
                                       post_label_indent: str = str(),
                                       label: str = str(),
                                       info: str = str(),
                                       color_label: bool = True,
                                       color_info: bool = False) -> None:
+
         if color_label:
-            label_colored = colorama.Fore.CYAN + label + colorama.Style.RESET_ALL + ':'
+            label_colorized = colorize_label(label=label) + ':'
         else:
-            label_colored = label
+            label_colorized = label
 
         if color_info:
-            info_colored = colorama.Fore.LIGHTBLACK_EX + info + colorama.Style.RESET_ALL
+            info_colorized = colorize_path(path_info=info)
         else:
-            info_colored = info
+            info_colorized = info
 
-        label_formatted = pre_label_indent + label_colored + post_label_indent
-        line = label_formatted + info_colored
+        label_formatted = pre_label_indent + label_colorized + post_label_indent
+        line = label_formatted + info_colorized
 
         print(line)
 
@@ -101,14 +102,14 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
     white_space: Final[str] = ' '
 
     header_label = r'Target'
-    header_colored_label = colorama.Fore.LIGHTCYAN_EX + header_label + colorama.Style.RESET_ALL
+    header_colorized_label = colorize_header_laber(header=header_label)
     post_header_indent = white_space * 6
     header_total_indent = (white_space * len(header_label)) + post_header_indent
 
     post_label_indent = white_space * 3
 
     print_indented_label_and_info(post_label_indent=post_header_indent,
-                                  label=header_colored_label,
+                                  label=header_colorized_label,
                                   color_label=False)
 
     print_post_header_labels_and_info(pre_label_indent=header_total_indent,
