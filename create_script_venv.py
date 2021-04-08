@@ -11,7 +11,9 @@ VENV_RELATIVE_DIR: Final[Path] = Path('conf') / 'script' / 'venv'
 
 VENV_DIR: Final[Path] = SCRIPT_DIR / VENV_RELATIVE_DIR
 
-if __name__ == '__main__':
-    print('WIP')
-
-# py -m venv . --upgrade-deps --clear
+venv.create(env_dir=VENV_DIR,
+            system_site_packages=False,
+            clear=True,
+            symlinks=False,  # See Windows warning https://docs.python.org/3/library/venv.html#creating-virtual-environments
+            with_pip=True,
+            upgrade_deps=True)
