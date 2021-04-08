@@ -17,3 +17,6 @@ venv.create(env_dir=VENV_DIR,
             symlinks=False,  # See Windows warning https://docs.python.org/3/library/venv.html#creating-virtual-environments
             with_pip=True,
             upgrade_deps=True)
+
+def pip_install_reqs() -> None:
+    ...
