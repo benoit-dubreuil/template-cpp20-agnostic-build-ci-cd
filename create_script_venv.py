@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import subprocess
 import types
 import venv
 from pathlib import Path
@@ -24,7 +25,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
 
     def post_setup(self, context: types.SimpleNamespace) -> None:
         pip_cmd_args: list[str] = self.__assemble_pip_cmd_args(context=context)
-        ...
+        subprocess.check_output(pip_cmd_args, stderr=subprocess.STDOUT)
 
     @staticmethod
     def __assemble_pip_cmd_args(context: types.SimpleNamespace) -> list[str]:
