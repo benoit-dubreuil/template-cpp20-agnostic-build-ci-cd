@@ -23,6 +23,11 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
         super().__init__(*args, **kwargs)
 
     def post_setup(self, context: types.SimpleNamespace) -> None:
+        pip_cmd_args: list[str] = self.__assemble_pip_cmd_args(context=context)
+        ...
+
+    @staticmethod
+    def __assemble_pip_cmd_args(context: types.SimpleNamespace) -> list[str]:
         module_option: Final[str] = '-m'
         pip_arg: Final[str] = 'pip'
         pip_install_arg: Final[str] = 'install'
@@ -36,7 +41,8 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
                                    pip_install_arg,
                                    pip_install_reqs_option,
                                    REQS_FILE]
-        ...
+
+        return pip_cmd_args
 
 
 venv_builder = EnvBuilderInstallReqs(system_site_packages=False,
