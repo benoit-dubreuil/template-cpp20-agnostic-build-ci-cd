@@ -4,6 +4,7 @@ import utils.cli.arg
 
 DIR_STR: Final[str] = 'dir'
 ROOT_STR: Final[str] = 'root'
+BUILD_SYSTEM_NAME: Final[str] = 'meson'
 
 BUILD_DIR_NAME: Final[str] = 'build'
 CONF_DIR_NAME: Final[str] = 'conf'
