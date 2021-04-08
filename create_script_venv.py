@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import venv
+import types
 from pathlib import Path
 from typing import Final
 
@@ -13,16 +14,23 @@ SCRIPT_DIR.resolve(strict=True)
 REQS_FILE: Final[Path] = SCRIPT_DIR / 'requirements.txt'
 REQS_FILE.resolve(strict=True)
 
-VENV_DIR: Final[Path] = ROOT_DIR / 'venv'
-VENV_PIP_DIR: Final[Path] = VENV_DIR / 'Lib' / 'site-packages' / 'pip'
+VENV_SUPPLIED_DIR: Final[Path] = ROOT_DIR / 'venv'
 
-venv.create(env_dir=VENV_DIR,
-            system_site_packages=False,
-            clear=True,
-            symlinks=False,  # See Windows warning https://docs.python.org/3/library/venv.html#creating-virtual-environments
-            with_pip=True,
-            upgrade_deps=True)
+PIP_CMD_ARGS: Final[list[str]] = []
 
 
-def pip_install_reqs() -> None:
-    ...
+class EnvBuilderInstallReqs(venv.EnvBuilder):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def post_setup(self, context: types.SimpleNamespace):
+        ...
+
+
+venv_builder = EnvBuilderInstallReqs(system_site_packages=False,
+                                     clear=True,
+                                     with_pip=True,
+                                     upgrade_deps=True)
+
+venv_builder.create(env_dir=VENV_SUPPLIED_DIR)
