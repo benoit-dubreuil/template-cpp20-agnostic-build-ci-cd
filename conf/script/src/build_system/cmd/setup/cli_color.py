@@ -3,7 +3,7 @@ import colorama
 from utils.more_typing import PathLike
 
 
-def colorize_header(header: str) -> str:
+def colorize_header_laber(header: str) -> str:
     return colorama.Fore.LIGHTCYAN_EX + header + colorama.Style.RESET_ALL
 
 
