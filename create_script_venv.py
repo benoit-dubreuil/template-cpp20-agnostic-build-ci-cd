@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import venv
 import types
+import venv
 from pathlib import Path
 from typing import Final
 
@@ -16,15 +16,26 @@ REQS_FILE.resolve(strict=True)
 
 VENV_SUPPLIED_DIR: Final[Path] = ROOT_DIR / 'venv'
 
-PIP_CMD_ARGS: Final[list[str]] = []
-
 
 class EnvBuilderInstallReqs(venv.EnvBuilder):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def post_setup(self, context: types.SimpleNamespace):
+    def post_setup(self, context: types.SimpleNamespace) -> None:
+        module_option: Final[str] = '-m'
+        pip_arg: Final[str] = 'pip'
+        pip_install_arg: Final[str] = 'install'
+        pip_install_reqs_option: Final[str] = '-r'
+
+        venv_python = str(context.env_exe)
+
+        pip_cmd_args: list[str] = [venv_python,
+                                   module_option,
+                                   pip_arg,
+                                   pip_install_arg,
+                                   pip_install_reqs_option,
+                                   REQS_FILE]
         ...
 
 
