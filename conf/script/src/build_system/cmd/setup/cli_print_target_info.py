@@ -19,17 +19,17 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
                                       color_info: bool = False) -> None:
 
         if color_label:
-            label_colored = colorize_label(label=label) + ':'
+            label_colorized = colorize_label(label=label) + ':'
         else:
-            label_colored = label
+            label_colorized = label
 
         if color_info:
-            info_colored = colorize_path(path_info=info)
+            info_colorized = colorize_path(path_info=info)
         else:
-            info_colored = info
+            info_colorized = info
 
-        label_formatted = pre_label_indent + label_colored + post_label_indent
-        line = label_formatted + info_colored
+        label_formatted = pre_label_indent + label_colorized + post_label_indent
+        line = label_formatted + info_colorized
 
         print(line)
 
@@ -102,14 +102,14 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
     white_space: Final[str] = ' '
 
     header_label = r'Target'
-    header_colored_label = colorize_header_laber(header=header_label)
+    header_colorized_label = colorize_header_laber(header=header_label)
     post_header_indent = white_space * 6
     header_total_indent = (white_space * len(header_label)) + post_header_indent
 
     post_label_indent = white_space * 3
 
     print_indented_label_and_info(post_label_indent=post_header_indent,
-                                  label=header_colored_label,
+                                  label=header_colorized_label,
                                   color_label=False)
 
     print_post_header_labels_and_info(pre_label_indent=header_total_indent,

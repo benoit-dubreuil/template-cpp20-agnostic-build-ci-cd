@@ -22,7 +22,7 @@ def print_meson_cmd(meson_cli_args: list[str]) -> None:
 
     meson_cli_cmd_and_args = [BUILD_SYSTEM_NAME, *meson_cli_args]
     meson_cli_full_cmd = ' '.join(meson_cli_cmd_and_args)
-    colored_meson_cmd = colorize_path(path_info=meson_cli_full_cmd)
+    colorized_meson_cmd = colorize_path(path_info=meson_cli_full_cmd)
 
     print(meson_cmd_label, end=str())
-    print(colored_meson_cmd)
+    print(colorized_meson_cmd)
