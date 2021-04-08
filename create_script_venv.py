@@ -26,8 +26,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
     def post_setup(self, context: types.SimpleNamespace) -> None:
         pip_cmd_args: list[str] = self.__assemble_pip_cmd_args(context=context)
 
-        print('Installing requirements.txt using pip')
-        subprocess.check_output(pip_cmd_args, stderr=subprocess.STDOUT)
+        subprocess.check_call(pip_cmd_args)
 
     @staticmethod
     def __assemble_pip_cmd_args(context: types.SimpleNamespace) -> list[str]:
