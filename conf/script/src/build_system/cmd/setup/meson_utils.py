@@ -1,4 +1,5 @@
 import contextlib
+import sys
 from pathlib import Path
 from typing import Final
 
@@ -7,6 +8,8 @@ import mesonbuild.mesonmain
 import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 import utils.cli.hidden_prints
+import utils.cmd_integrity
+from build_system.cmd.hierarchy.consts import BUILD_SYSTEM_NAME
 from build_system.cmd.setup.cli_print_meson_cmd import print_meson_cmd
 from build_system.cmd.setup.cli_print_target_info import print_target_info
 from build_system.cmd.setup.meson_machine_file_cli_args import generate_meson_machine_files_cli_args
@@ -66,13 +69,9 @@ def _run_meson(cli_mode, meson_cli_args):
 
 
 def _fetch_meson_launcher() -> str:
-    current_package_path = _fetch_current_package_path()
-    return str(current_package_path)
+    venv_interpreter = Path(sys.executable)
+    venv_scripts_dir = venv_interpreter.parent
 
+    meson_main_file, meson_main_file_exists = utils.cmd_integrity.get_cmd_path(cmd=BUILD_SYSTEM_NAME, dir_path=venv_scripts_dir)
 
-def _fetch_current_package_path() -> Path:
-    current_package_path = Path(__file__).parent
-    current_package_path.resolve(strict=True)
-    current_package_path = current_package_path.absolute()
-
-    return current_package_path
+    return str(meson_main_file)
