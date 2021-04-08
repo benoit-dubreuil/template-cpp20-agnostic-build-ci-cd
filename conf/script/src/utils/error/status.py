@@ -8,7 +8,7 @@ import utils.error.meta
 class ErrorStatus(enum.IntEnum):
     SUCCESS = 0
     UNSUPPORTED = 1
-    
+
     ARG_PARSER = 2
 
     UNKNOWN_PARSED_ARG = enum.auto()
