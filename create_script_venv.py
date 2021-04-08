@@ -5,4 +5,4 @@ import venv
 if __name__ == '__main__':
     print('WIP')
 
-# py -m venv . --upgrade-deps
+# py -m venv . --upgrade-deps --clear
