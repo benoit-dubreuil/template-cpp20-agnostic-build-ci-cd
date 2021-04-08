@@ -1,16 +1,14 @@
 from pathlib import Path
-from typing import Final
 
 import utils.error.cls_def
 import utils.error.try_external_errors
-
-BUILD_SYSTEM_CONF_FILENAME: Final[str] = 'meson.build'
+from build_system.cmd.hierarchy.consts import BUILD_SYSTEM_CONF_FILE_NAME
 
 
 def is_dir_root(root_dir: Path) -> bool:
     assert root_dir.is_dir()
 
-    build_system_conf_file = root_dir / BUILD_SYSTEM_CONF_FILENAME
+    build_system_conf_file = root_dir / BUILD_SYSTEM_CONF_FILE_NAME
     return build_system_conf_file.is_file()
 
 

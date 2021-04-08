@@ -4,6 +4,7 @@ import utils.cli.arg
 
 DIR_STR: Final[str] = 'dir'
 ROOT_STR: Final[str] = 'root'
+BUILD_SYSTEM_NAME: Final[str] = 'meson'
 
 BUILD_DIR_NAME: Final[str] = 'build'
 CONF_DIR_NAME: Final[str] = 'conf'
@@ -14,3 +15,5 @@ ROOT_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{ROOT_STR}{DI
 BUILD_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{BUILD_DIR_NAME}{DIR_STR}')
 
 BUILD_DIR_PERMISSIONS: Final[int] = 0o770
+
+BUILD_SYSTEM_CONF_FILE_NAME: Final[str] = f'{BUILD_SYSTEM_NAME}.build'
