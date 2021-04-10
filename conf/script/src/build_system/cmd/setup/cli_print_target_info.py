@@ -47,11 +47,14 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
         label_compiler_installation_path_label = r'Compiler installation path'
         label_compiler_installation_path_info = str(compiler_instance.installation_dir)
 
-        label_build_type_label = r'Build type'
-        label_build_type_info = target.target_build_type.value
+        label_export_shell_env_vars_symlink_label = r'Export shell env vars symlink'
+        label_export_shell_env_vars_symlink_info = None
 
         label_env_vars_label = None
         label_env_vars_info = None
+
+        label_build_type_label = r'Build type'
+        label_build_type_info = target.target_build_type.value
 
         # noinspection PyTypeChecker
         if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
@@ -97,6 +100,15 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
                                           post_label_indent=post_label_indent,
                                           label=label_env_vars_label,
                                           info=label_env_vars_info,
+                                          color_info=True)
+
+        if target.export_shell_env_vars_symlink is not None:
+            label_export_shell_env_vars_symlink_info = str(target.export_shell_env_vars_symlink)
+
+            print_indented_label_and_info(pre_label_indent=pre_label_indent,
+                                          post_label_indent=post_label_indent,
+                                          label=label_export_shell_env_vars_symlink_label,
+                                          info=label_export_shell_env_vars_symlink_info,
                                           color_info=True)
 
     white_space: Final[str] = ' '
