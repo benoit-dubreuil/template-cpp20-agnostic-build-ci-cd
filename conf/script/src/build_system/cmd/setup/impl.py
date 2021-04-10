@@ -9,3 +9,4 @@ def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
     host_compilers = setup_steps.fetch_host_compilers()
     targets = setup_steps.create_targets_build_dirs(root_dir=root_dir, compiler_instances=host_compilers)
     setup_steps.setup_targets(root_dir=root_dir, targets=targets, cli_mode=cli_mode)
+    setup_steps.create_symlinks_to_compilers_export_shell_env_vars_script(targets=targets)
