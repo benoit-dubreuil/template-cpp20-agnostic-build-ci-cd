@@ -2,7 +2,7 @@ import abc
 import contextlib
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Type, final
+from typing import NoReturn, Optional, Type, final
 
 import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
@@ -101,6 +101,16 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
     def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
         return contextlib.nullcontext()
+
+    @staticmethod
+    def has_export_shell_env_vars_script() -> bool:
+        return False
+
+    def get_export_shell_env_vars_script(self) -> NoReturn:
+        raise NotImplementedError()
+
+    def get_export_shell_env_vars_script_extension(self) -> NoReturn:
+        raise NotImplementedError()
 
     @staticmethod
     @abc.abstractmethod

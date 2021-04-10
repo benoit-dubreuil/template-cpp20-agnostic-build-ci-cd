@@ -27,7 +27,7 @@ def setup_target(root_dir: Path,
 
     if cli_mode:
         print_target_info(compiler_instance=compiler_instance,
-                          target_build_dir=build_target,
+                          target=build_target,
                           compiler_env_vars_manager=compiler_env_vars_manager)
 
         print_meson_cmd(meson_cli_args=meson_cli_args)

@@ -54,6 +54,16 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return build_system.compiler.installed_instance.set_env_msvc.EnvMSVC(compiler=self)
 
     @staticmethod
+    def has_export_shell_env_vars_script() -> bool:
+        return True
+
+    def get_export_shell_env_vars_script(self) -> Path:
+        return self.vcvars_arch_batch_file
+
+    def get_export_shell_env_vars_script_extension(self) -> str:
+        return self.get_vcvars_extension()
+
+    @staticmethod
     def get_c_compiler_name() -> str:
         return 'cl'
 
