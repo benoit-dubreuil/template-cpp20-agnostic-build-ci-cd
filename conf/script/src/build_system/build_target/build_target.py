@@ -29,9 +29,6 @@ class BuildTarget:
     def form_name(self):
         return str(self)
 
-    def compute_target_build_dir(self, project_build_dir: pathlib.Path):
-        self.dir = project_build_dir / self.form_name()
-
     @staticmethod
     def get_name_separator() -> str:
         return '-'
