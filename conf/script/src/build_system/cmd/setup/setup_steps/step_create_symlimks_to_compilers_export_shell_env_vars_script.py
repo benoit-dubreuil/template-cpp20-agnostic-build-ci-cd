@@ -20,7 +20,6 @@ def _create_symlinks_to_compilers_export_shell_env_vars__script(target: build_sy
     export_shell_env_vars_script: Path = target.compiler_instance.get_export_shell_env_vars_script()
 
     symlink = target.script_dir / TARGET_SCRIPT_EXPORT_SHELL_ENV_VARS_NAME
-    symlink = symlink.with_suffix(target.compiler_instance.get_export_shell_env_vars_script_extension())
     symlink.symlink_to(target=export_shell_env_vars_script, target_is_directory=False)
 
     target.export_shell_env_vars_symlink = symlink
