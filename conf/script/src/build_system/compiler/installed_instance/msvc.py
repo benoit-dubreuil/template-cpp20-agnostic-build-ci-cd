@@ -60,6 +60,9 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def get_export_shell_env_vars_script(self) -> Path:
         return self.vcvars_arch_batch_file
 
+    def get_export_shell_env_vars_script_extension(self) -> str:
+        return self.get_vcvars_extension()
+
     @staticmethod
     def get_c_compiler_name() -> str:
         return 'cl'

@@ -109,6 +109,9 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def get_export_shell_env_vars_script(self) -> NoReturn:
         raise NotImplementedError()
 
+    def get_export_shell_env_vars_script_extension(self) -> NoReturn:
+        raise NotImplementedError()
+
     @staticmethod
     @abc.abstractmethod
     def get_c_compiler_name() -> str:
