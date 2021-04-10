@@ -14,6 +14,7 @@ class BuildTarget:
     sanitizer: Final[build_system.compiler.build_option.sanitizer.CompilerSanitizer]
 
     dir: Optional[pathlib.Path]
+    script_dir: Optional[pathlib.Path]
 
     def __init__(self,
                  compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
