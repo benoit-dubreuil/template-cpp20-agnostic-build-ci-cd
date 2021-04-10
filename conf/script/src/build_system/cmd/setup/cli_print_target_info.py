@@ -102,7 +102,7 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
                                           info=label_env_vars_info,
                                           color_info=True)
 
-        if target.export_shell_env_vars_symlink is not None:
+        if hasattr(target, 'export_shell_env_vars_symlink') and target.export_shell_env_vars_symlink is not None:
             label_export_shell_env_vars_symlink_info = str(target.export_shell_env_vars_symlink)
 
             print_indented_label_and_info(pre_label_indent=pre_label_indent,
