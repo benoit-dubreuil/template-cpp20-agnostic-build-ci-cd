@@ -103,6 +103,10 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         return contextlib.nullcontext()
 
     @staticmethod
+    def has_set_shell_env_vars_script() -> bool:
+        return False
+
+    @staticmethod
     @abc.abstractmethod
     def get_c_compiler_name() -> str:
         raise NotImplementedError()
