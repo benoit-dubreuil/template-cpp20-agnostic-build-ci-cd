@@ -14,6 +14,7 @@ class BuildTarget:
     sanitizer: Final[build_system.compiler.build_option.sanitizer.CompilerSanitizer]
 
     dir: Optional[pathlib.Path]
+    script_dir: Optional[pathlib.Path]
 
     def __init__(self,
                  compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
@@ -28,9 +29,6 @@ class BuildTarget:
 
     def form_name(self):
         return str(self)
-
-    def compute_target_build_dir(self, project_build_dir: pathlib.Path):
-        self.dir = project_build_dir / self.form_name()
 
     @staticmethod
     def get_name_separator() -> str:

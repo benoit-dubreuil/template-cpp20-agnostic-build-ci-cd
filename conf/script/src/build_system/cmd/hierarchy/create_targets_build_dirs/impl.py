@@ -25,14 +25,13 @@ def _assure_build_dir_is_empty(build_dir):
 def _unchecked_create_targets_build_dirs(build_dir: Path,
                                          compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
-    import build_system.cmd.hierarchy.create_targets_build_dirs.target_dir_name_generation
-    import build_system.cmd.hierarchy.create_targets_build_dirs.target_dir_creation
+    from build_system.cmd.hierarchy.create_targets_build_dirs.target_dir_name_generation import checked_generate_targets
+    from build_system.cmd.hierarchy.create_targets_build_dirs.target_dir_creation import create_targets_build_dirs
+    from build_system.cmd.hierarchy.create_targets_build_dirs.target_script_dir_creation import create_targets_script_dirs
 
-    targets = build_system.cmd.hierarchy.create_targets_build_dirs.target_dir_name_generation.checked_generate_targets(
-        compiler_instances=compiler_instances)
+    targets = checked_generate_targets(compiler_instances=compiler_instances)
 
-    build_system.cmd.hierarchy.create_targets_build_dirs.target_dir_creation.create_targets_build_dirs(
-        build_dir=build_dir,
-        targets=targets)
+    create_targets_build_dirs(build_dir=build_dir, targets=targets)
+    create_targets_script_dirs(targets=targets)
 
     return targets
