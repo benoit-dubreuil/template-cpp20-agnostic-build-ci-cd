@@ -7,7 +7,7 @@ import build_system.compiler.installed_instance
 
 # TODO : Refactor
 def print_target_info(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                      target_build_dir: build_system.build_target.build_target.BuildTarget,
+                      target: build_system.build_target.build_target.BuildTarget,
                       compiler_env_vars_manager: contextlib.AbstractContextManager) -> None:
     from build_system.cmd.setup.cli_color import colorize_label, colorize_path, colorize_header_laber
 
@@ -48,7 +48,7 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
         label_compiler_installation_path_info = str(compiler_instance.installation_dir)
 
         label_build_type_label = r'Build type'
-        label_build_type_info = target_build_dir.target_build_type.value
+        label_build_type_info = target.target_build_type.value
 
         label_env_vars_label = None
         label_env_vars_info = None
