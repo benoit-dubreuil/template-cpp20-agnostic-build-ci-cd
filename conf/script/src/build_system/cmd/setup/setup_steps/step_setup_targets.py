@@ -11,6 +11,9 @@ def setup_targets(root_dir: Path,
     for compiler_instance_targets in targets:
         _setup_compiler_instance_targets(root_dir=root_dir, compiler_instance_targets=compiler_instance_targets, cli_mode=cli_mode)
 
+    if cli_mode:
+        print()
+
 
 def _setup_compiler_instance_targets(root_dir: Path,
                                      compiler_instance_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets,
