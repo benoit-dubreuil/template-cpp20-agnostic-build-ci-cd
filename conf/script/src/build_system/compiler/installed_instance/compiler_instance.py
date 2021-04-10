@@ -103,7 +103,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         return contextlib.nullcontext()
 
     @staticmethod
-    def has_set_shell_env_vars_script() -> bool:
+    def has_export_shell_env_vars_script() -> bool:
         return False
 
     @staticmethod
