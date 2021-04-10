@@ -15,6 +15,7 @@ class BuildTarget:
 
     dir: Optional[pathlib.Path]
     script_dir: Optional[pathlib.Path]
+    export_shell_env_vars_symlink: Optional[pathlib.Path]
 
     def __init__(self,
                  compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
