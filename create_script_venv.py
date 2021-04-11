@@ -47,7 +47,8 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
 
     @staticmethod
     def __create_src_path_config_file(context: SimpleNamespace) -> None:
-        tmp: Final[str] = ''
+        path_config_file_dotless_extension: Final[str] = 'pth'
+        src_path_config_file_name: Final[str] = '.'.join([CONF_DIR_NAME, SCRIPT_DIR_NAME, SRC_DIR_NAME, path_config_file_dotless_extension])
 
         context.env_dir
         # TODO
