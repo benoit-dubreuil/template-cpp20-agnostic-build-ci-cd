@@ -9,13 +9,20 @@ from typing import Final
 ROOT_DIR: Final[Path] = Path().absolute()
 ROOT_DIR.resolve(strict=True)
 
-SCRIPT_DIR: Final[Path] = ROOT_DIR / Path('conf') / 'script'
+CONF_DIR_NAME: Final[str] = 'conf'
+CONF_DIR: Final[Path] = ROOT_DIR / CONF_DIR_NAME
+CONF_DIR.resolve(strict=True)
+
+SCRIPT_DIR_NAME: Final[str] = 'script'
+SCRIPT_DIR: Final[Path] = CONF_DIR / SCRIPT_DIR_NAME
 SCRIPT_DIR.resolve(strict=True)
 
-SRC_DIR: Final[Path] = SCRIPT_DIR / 'src'
+SRC_DIR_NAME: Final[str] = 'src'
+SRC_DIR: Final[Path] = SCRIPT_DIR / SRC_DIR_NAME
 SRC_DIR.resolve(strict=True)
 
-REQS_FILE: Final[Path] = SCRIPT_DIR / 'requirements.txt'
+REQS_FILE_NAME: Final[str] = 'requirements.txt'
+REQS_FILE: Final[Path] = SCRIPT_DIR / REQS_FILE_NAME
 REQS_FILE.resolve(strict=True)
 
 VENV_SUPPLIED_DIR: Final[Path] = SCRIPT_DIR / 'venv'
@@ -35,10 +42,13 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
         self.__install_reqs(context=context)
 
     def post_setup(self, context: SimpleNamespace) -> None:
-        self.__create_path_config_file(context=context)
+        self.__create_src_path_config_file(context=context)
 
     @staticmethod
-    def __create_path_config_file(context: SimpleNamespace) -> None:
+    def __create_src_path_config_file(context: SimpleNamespace) -> None:
+        tmp: Final[str] = ''
+
+        context.env_dir
         # TODO
         ...
 
