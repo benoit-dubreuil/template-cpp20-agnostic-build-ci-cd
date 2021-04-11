@@ -50,8 +50,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
         path_config_file_dotless_extension: Final[str] = 'pth'
         src_path_config_file_name: Final[str] = '.'.join([CONF_DIR_NAME, SCRIPT_DIR_NAME, SRC_DIR_NAME, path_config_file_dotless_extension])
 
-        context.env_dir
-        # TODO
+        src_path_config_file: Path = context.env_dir / src_path_config_file_name
         ...
 
     @classmethod
