@@ -25,7 +25,8 @@ REQS_FILE_NAME: Final[str] = 'requirements.txt'
 REQS_FILE: Final[Path] = SCRIPT_DIR / REQS_FILE_NAME
 REQS_FILE.resolve(strict=True)
 
-VENV_DIR: Final[Path] = SCRIPT_DIR / 'venv'
+VENV_DIR_NAME: Final[str] = 'venv'
+VENV_DIR: Final[Path] = SCRIPT_DIR / VENV_DIR_NAME
 
 
 class EnvBuilderInstallReqs(venv.EnvBuilder):
