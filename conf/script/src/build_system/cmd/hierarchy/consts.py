@@ -16,6 +16,6 @@ TARGET_SCRIPT_EXPORT_SHELL_ENV_VARS_NAME = 'export_shell_env'
 ROOT_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{ROOT_STR}{DIR_STR}')
 BUILD_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{BUILD_DIR_NAME}{DIR_STR}')
 
-BUILD_DIR_PERMISSIONS: Final[int] = 0o022
+BUILD_DIR_PERMISSIONS: Final[int] = 0o770
 
 BUILD_SYSTEM_CONF_FILE_NAME: Final[str] = f'{BUILD_SYSTEM_NAME}.build'
