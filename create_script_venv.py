@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import subprocess
-import types
 import venv
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Final
 
 ROOT_DIR: Final[Path] = Path().absolute()
@@ -23,7 +23,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def upgrade_dependencies(self, context: types.SimpleNamespace) -> None:
+    def upgrade_dependencies(self, context: SimpleNamespace) -> None:
         print(f'Upgrade dependecies : pip, setuptools')
         print('-------------------------------------')
 
@@ -32,7 +32,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
         self.__install_reqs(context=context)
 
     @classmethod
-    def __install_reqs(cls, context: types.SimpleNamespace) -> None:
+    def __install_reqs(cls, context: SimpleNamespace) -> None:
         pip_cmd_args: list[str] = cls.__assemble_pip_cmd_args(context=context)
 
         print()
@@ -42,7 +42,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
         subprocess.check_call(pip_cmd_args)
 
     @staticmethod
-    def __assemble_pip_cmd_args(context: types.SimpleNamespace) -> list[str]:
+    def __assemble_pip_cmd_args(context: SimpleNamespace) -> list[str]:
         module_option: Final[str] = '-m'
         pip_arg: Final[str] = 'pip'
         pip_install_arg: Final[str] = 'install'
