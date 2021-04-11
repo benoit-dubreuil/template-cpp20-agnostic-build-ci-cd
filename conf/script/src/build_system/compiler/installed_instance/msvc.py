@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import final
 
-import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.error.cls_def
@@ -31,11 +30,6 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     @staticmethod
     def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
         return [build_system.compiler.family.CompilerFamily.MSVC]
-
-    @staticmethod
-    def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
-        return [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE,
-                build_system.compiler.build_option.sanitizer.CompilerSanitizer.ADDRESS]
 
     @staticmethod
     def get_vcvars_dir_relative_to_installation_dir() -> Path:
