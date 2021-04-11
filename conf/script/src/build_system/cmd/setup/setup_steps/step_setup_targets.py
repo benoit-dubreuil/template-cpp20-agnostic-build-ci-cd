@@ -22,10 +22,10 @@ def _setup_compiler_instance_targets(root_dir: Path,
 
     compiler_instance: Final[build_system.compiler.installed_instance.CompilerInstance] = compiler_instance_targets.compiler_instance
 
-    with compiler_instance.create_env_vars_context_manager() as compiler_env_vars_manager:
+    with compiler_instance.create_env_context_manager() as compiler_env_manager:
         for target in compiler_instance_targets.build_targets:
             setup_target(root_dir=root_dir,
                          compiler_instance=compiler_instance,
-                         compiler_env_vars_manager=compiler_env_vars_manager,
+                         compiler_env_manager=compiler_env_manager,
                          build_target=target,
                          cli_mode=cli_mode)

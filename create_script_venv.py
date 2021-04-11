@@ -1,21 +1,33 @@
 #!/usr/bin/env python3
 
+import os
 import subprocess
-import types
 import venv
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Final
 
 ROOT_DIR: Final[Path] = Path().absolute()
 ROOT_DIR.resolve(strict=True)
 
-SCRIPT_DIR: Final[Path] = ROOT_DIR / Path('conf') / 'script'
+CONF_DIR_NAME: Final[str] = 'conf'
+CONF_DIR: Final[Path] = ROOT_DIR / CONF_DIR_NAME
+CONF_DIR.resolve(strict=True)
+
+SCRIPT_DIR_NAME: Final[str] = 'script'
+SCRIPT_DIR: Final[Path] = CONF_DIR / SCRIPT_DIR_NAME
 SCRIPT_DIR.resolve(strict=True)
 
-REQS_FILE: Final[Path] = SCRIPT_DIR / 'requirements.txt'
+SRC_DIR_NAME: Final[str] = 'src'
+SRC_DIR: Final[Path] = SCRIPT_DIR / SRC_DIR_NAME
+SRC_DIR.resolve(strict=True)
+
+REQS_FILE_NAME: Final[str] = 'requirements.txt'
+REQS_FILE: Final[Path] = SCRIPT_DIR / REQS_FILE_NAME
 REQS_FILE.resolve(strict=True)
 
-VENV_SUPPLIED_DIR: Final[Path] = SCRIPT_DIR / 'venv'
+VENV_DIR_NAME: Final[str] = 'venv'
+VENV_DIR: Final[Path] = SCRIPT_DIR / VENV_DIR_NAME
 
 
 class EnvBuilderInstallReqs(venv.EnvBuilder):
@@ -23,7 +35,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-    def upgrade_dependencies(self, context: types.SimpleNamespace) -> None:
+    def upgrade_dependencies(self, context: SimpleNamespace) -> None:
         print(f'Upgrade dependecies : pip, setuptools')
         print('-------------------------------------')
 
@@ -31,8 +43,24 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
 
         self.__install_reqs(context=context)
 
+    def post_setup(self, context: SimpleNamespace) -> None:
+        self.__create_src_path_config_file()
+
+    @staticmethod
+    def __create_src_path_config_file() -> None:
+        path_config_file_dotless_extension: Final[str] = 'pth'
+        src_path_config_file_name: Final[str] = '.'.join([CONF_DIR_NAME, SCRIPT_DIR_NAME, SRC_DIR_NAME, path_config_file_dotless_extension])
+        file_mode: Final[int] = 0o770
+
+        print(VENV_DIR)
+        src_path_config_file: Path = VENV_DIR / src_path_config_file_name
+        src_path_config_file.touch(mode=file_mode, exist_ok=True)
+
+        src_path_config: str = os.path.relpath(path=SRC_DIR, start=VENV_DIR)
+        src_path_config_file.write_text(data=src_path_config)
+
     @classmethod
-    def __install_reqs(cls, context: types.SimpleNamespace) -> None:
+    def __install_reqs(cls, context: SimpleNamespace) -> None:
         pip_cmd_args: list[str] = cls.__assemble_pip_cmd_args(context=context)
 
         print()
@@ -42,7 +70,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
         subprocess.check_call(pip_cmd_args)
 
     @staticmethod
-    def __assemble_pip_cmd_args(context: types.SimpleNamespace) -> list[str]:
+    def __assemble_pip_cmd_args(context: SimpleNamespace) -> list[str]:
         module_option: Final[str] = '-m'
         pip_arg: Final[str] = 'pip'
         pip_install_arg: Final[str] = 'install'
@@ -65,4 +93,4 @@ venv_builder = EnvBuilderInstallReqs(system_site_packages=False,
                                      with_pip=True,
                                      upgrade_deps=True)
 
-venv_builder.create(env_dir=VENV_SUPPLIED_DIR)
+venv_builder.create(env_dir=VENV_DIR)
