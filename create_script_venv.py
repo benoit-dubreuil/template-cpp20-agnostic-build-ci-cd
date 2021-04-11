@@ -31,6 +31,14 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
 
         self.__install_reqs(context=context)
 
+    def post_setup(self, context: SimpleNamespace) -> None:
+        self.__create_path_config_file(context=context)
+
+    @staticmethod
+    def __create_path_config_file(context: SimpleNamespace) -> None:
+        # TODO
+        ...
+
     @classmethod
     def __install_reqs(cls, context: SimpleNamespace) -> None:
         pip_cmd_args: list[str] = cls.__assemble_pip_cmd_args(context=context)
