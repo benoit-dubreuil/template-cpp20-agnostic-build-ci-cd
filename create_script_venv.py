@@ -25,7 +25,7 @@ REQS_FILE_NAME: Final[str] = 'requirements.txt'
 REQS_FILE: Final[Path] = SCRIPT_DIR / REQS_FILE_NAME
 REQS_FILE.resolve(strict=True)
 
-VENV_SUPPLIED_DIR: Final[Path] = SCRIPT_DIR / 'venv'
+VENV_DIR: Final[Path] = SCRIPT_DIR / 'venv'
 
 
 class EnvBuilderInstallReqs(venv.EnvBuilder):
@@ -86,4 +86,4 @@ venv_builder = EnvBuilderInstallReqs(system_site_packages=False,
                                      with_pip=True,
                                      upgrade_deps=True)
 
-venv_builder.create(env_dir=VENV_SUPPLIED_DIR)
+venv_builder.create(env_dir=VENV_DIR)
