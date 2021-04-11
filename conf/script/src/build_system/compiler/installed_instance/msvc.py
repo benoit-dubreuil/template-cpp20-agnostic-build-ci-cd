@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import final
 
+import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.error.cls_def
@@ -32,6 +33,11 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return [build_system.compiler.family.CompilerFamily.MSVC]
 
     @staticmethod
+    def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
+        return [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE,
+                build_system.compiler.build_option.sanitizer.CompilerSanitizer.ADDRESS]
+
+    @staticmethod
     def get_vcvars_dir_relative_to_installation_dir() -> Path:
         return Path('VC/Auxiliary/Build')
 
@@ -46,6 +52,16 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
         import build_system.compiler.installed_instance.set_env_msvc
         return build_system.compiler.installed_instance.set_env_msvc.EnvMSVC(compiler=self)
+
+    @staticmethod
+    def has_export_shell_env_vars_script() -> bool:
+        return True
+
+    def get_export_shell_env_vars_script(self) -> Path:
+        return self.vcvars_arch_batch_file
+
+    def get_export_shell_env_vars_script_extension(self) -> str:
+        return self.get_vcvars_extension()
 
     @staticmethod
     def get_c_compiler_name() -> str:

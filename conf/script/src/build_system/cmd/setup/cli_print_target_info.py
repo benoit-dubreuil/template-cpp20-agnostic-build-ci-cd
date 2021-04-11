@@ -1,56 +1,57 @@
 import contextlib
 from typing import Final
 
-import colorama
-
-import build_system.build_target.build_target_cls
+import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 
 
 # TODO : Refactor
-def print_target_info(host_compiler: build_system.compiler.installed_instance.CompilerInstance,
-                      target_build_dir: build_system.build_target.build_target_cls.BuildTarget,
+def print_target_info(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+                      target: build_system.build_target.build_target.BuildTarget,
                       compiler_env_vars_manager: contextlib.AbstractContextManager) -> None:
+    from build_system.cmd.setup.cli_color import colorize_label, colorize_path, colorize_header_laber
+
     def print_indented_label_and_info(pre_label_indent: str = str(),
                                       post_label_indent: str = str(),
                                       label: str = str(),
                                       info: str = str(),
                                       color_label: bool = True,
                                       color_info: bool = False) -> None:
+
         if color_label:
-            label_colored = colorama.Fore.CYAN + label + colorama.Style.RESET_ALL + ':'
+            label_colorized = colorize_label(label=label) + ':'
         else:
-            label_colored = label
+            label_colorized = label
 
         if color_info:
-            info_colored = colorama.Fore.LIGHTBLACK_EX + info + colorama.Style.RESET_ALL
+            info_colorized = colorize_path(path_info=info)
         else:
-            info_colored = info
+            info_colorized = info
 
-        label_formatted = pre_label_indent + label_colored + post_label_indent
-        line = label_formatted + info_colored
+        label_formatted = pre_label_indent + label_colorized + post_label_indent
+        line = label_formatted + info_colorized
 
         print(line)
 
     def print_post_header_labels_and_info(pre_label_indent: str = str(),
                                           post_label_indent: str = str()):
         label_compiler_family_label = r'Compiler family'
-        label_compiler_family_info = host_compiler.compiler_family.value
+        label_compiler_family_info = compiler_instance.compiler_family.value
 
         label_compiler_version_label = r'Compiler version'
-        label_compiler_version_info = str(host_compiler.version)
+        label_compiler_version_info = str(compiler_instance.version)
 
         label_compiler_arch_label = r'Compiler architecture'
-        label_compiler_arch_info = host_compiler.arch.arch_to_bit_name()
+        label_compiler_arch_info = compiler_instance.arch.arch_to_bit_name()
 
         label_compiler_installation_path_label = r'Compiler installation path'
-        label_compiler_installation_path_info = str(host_compiler.installation_dir)
-
-        label_build_type_label = r'Build type'
-        label_build_type_info = target_build_dir.get_build_type().value
+        label_compiler_installation_path_info = str(compiler_instance.installation_dir)
 
         label_env_vars_label = None
         label_env_vars_info = None
+
+        label_build_type_label = r'Build type'
+        label_build_type_info = target.target_build_type.value
 
         # noinspection PyTypeChecker
         if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
@@ -101,14 +102,14 @@ def print_target_info(host_compiler: build_system.compiler.installed_instance.Co
     white_space: Final[str] = ' '
 
     header_label = r'Target'
-    header_colored_label = colorama.Fore.LIGHTCYAN_EX + header_label + colorama.Style.RESET_ALL
+    header_colorized_label = colorize_header_laber(header=header_label)
     post_header_indent = white_space * 6
     header_total_indent = (white_space * len(header_label)) + post_header_indent
 
     post_label_indent = white_space * 3
 
     print_indented_label_and_info(post_label_indent=post_header_indent,
-                                  label=header_colored_label,
+                                  label=header_colorized_label,
                                   color_label=False)
 
     print_post_header_labels_and_info(pre_label_indent=header_total_indent,

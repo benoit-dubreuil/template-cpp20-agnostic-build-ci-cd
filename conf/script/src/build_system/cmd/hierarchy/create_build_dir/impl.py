@@ -8,7 +8,7 @@ import utils.error.cls_def
 
 
 def create_build_dir(root_dir: Optional[Path] = None) -> Path:
-    root_dir = build_system.cmd.hierarchy.assure_arg_integrity.assure_root_dir_exists(root_dir=root_dir)
+    root_dir = build_system.cmd.hierarchy.assure_arg_integrity.get_verified_root_dir(unverified_root_dir=root_dir)
     build_dir = build_system.cmd.hierarchy.find_build_dir.get_build_dir_path_relative_to_root_dir(root_dir=root_dir)
 
     if build_dir.exists():

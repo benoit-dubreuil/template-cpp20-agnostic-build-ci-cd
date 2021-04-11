@@ -99,6 +99,13 @@ class ConfBuildSystemDirNotFoundError(FileNotFoundError):
         super().__init__('Build system directory inside the conf directory not found')
 
 
+@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.MESON_MAIN_FILE_NOT_FOUND)
+class MesonMainFileNotFoundError(FileNotFoundError):
+
+    def __init__(self):
+        super().__init__("Meson's (build system) main file, i.e. Meson's standalone executable, not found.")
+
+
 @utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.MESON_MACHINE_FILES_DIR_NOT_FOUND)
 class MesonMachineFilesDirNotFoundError(FileNotFoundError):
 
