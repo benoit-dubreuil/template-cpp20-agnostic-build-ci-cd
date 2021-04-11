@@ -29,7 +29,7 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
 
         return executable_file
 
-    def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
+    def create_env_context_manager(self) -> contextlib.AbstractContextManager:
         import build_system.compiler.installed_instance.set_env_default_compiler
         return build_system.compiler.installed_instance.set_env_default_compiler.EnvDefaultCompiler(compiler=self)
 

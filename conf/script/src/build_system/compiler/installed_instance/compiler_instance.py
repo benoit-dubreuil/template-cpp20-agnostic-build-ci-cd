@@ -99,17 +99,17 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
         return [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE]
 
-    def create_env_vars_context_manager(self) -> contextlib.AbstractContextManager:
+    def create_env_context_manager(self) -> contextlib.AbstractContextManager:
         return contextlib.nullcontext()
 
     @staticmethod
-    def has_export_shell_env_vars_script() -> bool:
+    def has_export_shell_env_script() -> bool:
         return False
 
-    def get_export_shell_env_vars_script(self) -> NoReturn:
+    def get_export_shell_env_script(self) -> NoReturn:
         raise NotImplementedError()
 
-    def get_export_shell_env_vars_script_extension(self) -> NoReturn:
+    def get_export_shell_env_script_extension(self) -> NoReturn:
         raise NotImplementedError()
 
     @staticmethod
