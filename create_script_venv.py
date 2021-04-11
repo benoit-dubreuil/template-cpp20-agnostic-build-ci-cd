@@ -49,7 +49,7 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
     def __create_src_path_config_file() -> None:
         path_config_file_dotless_extension: Final[str] = 'pth'
         src_path_config_file_name: Final[str] = '.'.join([CONF_DIR_NAME, SCRIPT_DIR_NAME, SRC_DIR_NAME, path_config_file_dotless_extension])
-        umask: Final[int] = 0o022
+        umask: Final[int] = 0o000
 
         print(VENV_DIR)
         src_path_config_file: Path = VENV_DIR / src_path_config_file_name
