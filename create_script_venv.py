@@ -53,7 +53,9 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
 
         src_path_config_file: Path = context.env_dir / src_path_config_file_name
         src_path_config_file.touch(mode=umask, exist_ok=True)
-        ...
+
+        src_path_config: Path = SRC_DIR.relative_to(src_path_config_file)
+        src_path_config_file.write_text(data=str(src_path_config))
 
     @classmethod
     def __install_reqs(cls, context: SimpleNamespace) -> None:
