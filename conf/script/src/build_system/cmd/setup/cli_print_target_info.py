@@ -8,7 +8,7 @@ import build_system.compiler.installed_instance
 # TODO : Refactor
 def print_target_info(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                       target: build_system.build_target.build_target.BuildTarget,
-                      compiler_env_vars_manager: contextlib.AbstractContextManager) -> None:
+                      compiler_env_manager: contextlib.AbstractContextManager) -> None:
     from build_system.cmd.setup.cli_color import colorize_label, colorize_path, colorize_header_laber
 
     def print_indented_label_and_info(pre_label_indent: str = str(),
@@ -47,20 +47,20 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
         label_compiler_installation_path_label = r'Compiler installation path'
         label_compiler_installation_path_info = str(compiler_instance.installation_dir)
 
-        label_env_vars_label = None
-        label_env_vars_info = None
+        label_env_label = None
+        label_env_info = None
 
         label_build_type_label = r'Build type'
         label_build_type_info = target.target_build_type.value
 
         # noinspection PyTypeChecker
-        if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
-            label_env_vars_label = r'Environment variables'
+        if not isinstance(compiler_env_manager, contextlib.nullcontext):
+            label_env_label = r'Environment variables'
 
             # noinspection PyUnresolvedReferences
-            compiler_env_vars: dict[str, list[str]] = compiler_env_vars_manager.get_env_vars()
+            compiler_env: dict[str, list[str]] = compiler_env_manager.get_env()
 
-            label_env_vars_info = str(compiler_env_vars)
+            label_env_info = str(compiler_env)
 
         print_indented_label_and_info(pre_label_indent=pre_label_indent,
                                       post_label_indent=post_label_indent,
@@ -89,14 +89,14 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
                                       info=label_build_type_info)
 
         # noinspection PyTypeChecker
-        if not isinstance(compiler_env_vars_manager, contextlib.nullcontext):
-            assert label_env_vars_label is not None
-            assert label_env_vars_info is not None
+        if not isinstance(compiler_env_manager, contextlib.nullcontext):
+            assert label_env_label is not None
+            assert label_env_info is not None
 
             print_indented_label_and_info(pre_label_indent=pre_label_indent,
                                           post_label_indent=post_label_indent,
-                                          label=label_env_vars_label,
-                                          info=label_env_vars_info,
+                                          label=label_env_label,
+                                          info=label_env_info,
                                           color_info=True)
 
     white_space: Final[str] = ' '

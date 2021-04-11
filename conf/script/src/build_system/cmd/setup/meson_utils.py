@@ -19,7 +19,7 @@ from build_system.cmd.setup.meson_machine_file_cli_args import generate_meson_ma
 def setup_target(root_dir: Path,
                  compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                  build_target: build_system.build_target.build_target.BuildTarget,
-                 compiler_env_vars_manager: contextlib.AbstractContextManager,
+                 compiler_env_manager: contextlib.AbstractContextManager,
                  cli_mode: bool):
     meson_cli_args = _generate_meson_setup_cli_args(root_dir=root_dir,
                                                     compiler_instance=compiler_instance,
@@ -28,7 +28,7 @@ def setup_target(root_dir: Path,
     if cli_mode:
         print_target_info(compiler_instance=compiler_instance,
                           target=build_target,
-                          compiler_env_vars_manager=compiler_env_vars_manager)
+                          compiler_env_manager=compiler_env_manager)
 
         print_meson_cmd(meson_cli_args=meson_cli_args)
 
