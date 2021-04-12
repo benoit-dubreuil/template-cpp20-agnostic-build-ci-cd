@@ -19,7 +19,7 @@ def generate_meson_machine_files_args(compiler_instance: build_system.compiler.i
                                             native_machine_files_dir=native_machine_files_dir)
 
     machine_files_args: list[str] = _machine_files_to_args(machine_files=machine_files)
-    _insert_setup_cli_arg_native_file(machine_files_args=machine_files_args)
+    _insert_setup_arg_native_file(machine_files_args=machine_files_args)
 
     return machine_files_args
 
@@ -40,7 +40,7 @@ def _machine_files_to_args(machine_files: list[Path]) -> list[str]:
     return [str(machine_file) for machine_file in machine_files]
 
 
-def _insert_setup_cli_arg_native_file(machine_files_args: list[str]) -> None:
+def _insert_setup_arg_native_file(machine_files_args: list[str]) -> None:
     setup_cli_arg_native_file: Final[str] = r'--native-file'
     step: Final[int] = 2
 
