@@ -9,7 +9,7 @@ import build_system.compiler.installed_instance
 def print_target_info(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                       target: build_system.build_target.build_target.BuildTarget,
                       compiler_env_manager: contextlib.AbstractContextManager) -> None:
-    from build_system.cmd.setup.cli_color import colorize_label, colorize_path, colorize_header_laber
+    from build_system.cmd.setup.cli.cli_color import colorize_label, colorize_path, colorize_header_laber
 
     def print_indented_label_and_info(pre_label_indent: str = str(),
                                       post_label_indent: str = str(),

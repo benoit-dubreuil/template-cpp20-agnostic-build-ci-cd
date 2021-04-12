@@ -15,7 +15,7 @@ def create_symlinks_to_compilers_export_shell_env_script(targets: list[build_sys
 
 def _create_symlinks_to_compilers_export_shell_env__script(target: build_system.build_target.build_target.BuildTarget,
                                                            cli_mode: bool):
-    from build_system.cmd.setup.cli_print_symlink_to_compiler_export_shell_env import print_symlink_to_compiler_export_shell_env_script
+    from build_system.cmd.setup.cli.cli_print_symlink_to_compiler_export_shell_env import print_symlink_to_compiler_export_shell_env_script
 
     export_shell_env_script: Path = target.compiler_instance.get_export_shell_env_script()
 
