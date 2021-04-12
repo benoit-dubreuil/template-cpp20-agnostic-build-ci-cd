@@ -1,3 +1,8 @@
+import os
+from pathlib import Path
+
+import javaproperties
+
 from pathlib import Path
 
 import javaproperties
@@ -21,3 +26,13 @@ def _save_compiler_target_env(target: build_system.build_target.build_target.Bui
 
     encoded_env: str = javaproperties.dumps(props= ..., timestamp=False, ensure_ascii=False)
     ...
+
+
+def _multi_line_compiler_env_to_single_line(compiler_env: [dict[str, list[str]]]) -> [dict[str, str]]:
+    single_line_compiler_env: [dict[str, str]] = {}
+
+    for env_key, env_value in compiler_env:
+        single_line_env_value: str = os.path.sep.join(env_value)
+        single_line_compiler_env[env_key] = single_line_env_value
+
+    return single_line_compiler_env
