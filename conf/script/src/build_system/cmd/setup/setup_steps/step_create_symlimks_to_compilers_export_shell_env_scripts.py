@@ -2,7 +2,7 @@ from pathlib import Path
 
 import build_system.build_target.build_target
 import build_system.build_target.compiler_instance_targets
-from build_system.cmd.hierarchy.consts import TARGET_SCRIPT_EXPORT_SHELL_ENV_VARS_NAME
+from build_system.cmd.hierarchy.consts import TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME
 
 
 def create_symlinks_to_compilers_export_shell_env_scripts(targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
@@ -19,7 +19,7 @@ def _create_symlink_to_compiler_export_shell_env_script(target: build_system.bui
 
     export_shell_env_script: Path = target.compiler_instance.get_export_shell_env_script()
 
-    symlink = target.script_dir / TARGET_SCRIPT_EXPORT_SHELL_ENV_VARS_NAME
+    symlink = target.script_dir / TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME
     symlink.symlink_to(target=export_shell_env_script, target_is_directory=False)
 
     target.export_shell_env_symlink = symlink
