@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import javaproperties
 import build_system.build_target.build_target
 import build_system.build_target.compiler_instance_targets
 from build_system.cmd.hierarchy.consts import TARGET_SCRIPT_COMPILER_ENV_NAME, BUILD_DIR_PERMISSIONS
@@ -17,4 +18,6 @@ def _save_compiler_target_env(target: build_system.build_target.build_target.Bui
                               cli_mode: bool) -> None:
     target_compiler_env: Path = target.script_dir / TARGET_SCRIPT_COMPILER_ENV_NAME
     target_compiler_env.touch(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
+
+    encoded_env: str = javaproperties.dumps(props= ..., timestamp=False, ensure_ascii=False)
     ...
