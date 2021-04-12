@@ -5,8 +5,8 @@ import build_system.build_target.compiler_instance_targets
 from build_system.cmd.hierarchy.consts import TARGET_SCRIPT_EXPORT_SHELL_ENV_VARS_NAME
 
 
-def create_symlinks_to_compilers_export_shell_env_script(targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
-                                                         cli_mode: bool) -> None:
+def create_symlinks_to_compilers_export_shell_env_scripts(targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
+                                                          cli_mode: bool) -> None:
     for compiler_instance_targets in targets:
         if compiler_instance_targets.compiler_instance.has_export_shell_env_script():
             for target in compiler_instance_targets:
