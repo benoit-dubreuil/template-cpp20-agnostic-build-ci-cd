@@ -1,7 +1,7 @@
 import contextlib
 from dataclasses import dataclass
 from pathlib import Path
-from typing import final, Optional
+from typing import Optional, final
 
 import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
@@ -74,6 +74,9 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
 
     def cache_vcvars_as_compiler_env(self, vcvars: dict[str, list[str]]) -> None:
         object.__setattr__(self, 'cached_compiler_env', vcvars)
+
+    def has_cached_compiler_env(self) -> bool:
+        return self.cached_compiler_env is not None
 
     def __find_vcvars_batch_file(self) -> Path:
         vcvars_dir: Path = self.__get_vcvars_dir()
