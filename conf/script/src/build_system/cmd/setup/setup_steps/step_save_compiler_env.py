@@ -21,7 +21,8 @@ def _save_compiler_target_env(target: build_system.build_target.build_target.Bui
     target_compiler_env_file: Path = target.script_dir / TARGET_SCRIPT_COMPILER_ENV_NAME
     target_compiler_env_file.touch(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
 
-    encoded_env: str = javaproperties.dumps(props= ..., timestamp=False, ensure_ascii=False)
+    assert target.compiler_instance.has_cached_compiler_env()
+    target_compiler_env: dict[str, str] = _multi_line_compiler_env_to_single_line(compiler_env=target.compiler_instance.cached_compiler_env)
     ...
 
 
