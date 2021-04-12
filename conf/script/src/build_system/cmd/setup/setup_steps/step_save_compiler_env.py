@@ -9,9 +9,9 @@ def save_compiler_instances_targets_env(targets: list[build_system.build_target.
     for compiler_instance_targets in targets:
         if compiler_instance_targets.compiler_instance.has_export_shell_env_script():
             for target in compiler_instance_targets:
-                _save_target_env(target=target, cli_mode=cli_mode)
+                _save_compiler_target_env(target=target, cli_mode=cli_mode)
 
 
-def _save_target_env(target: build_system.build_target.build_target.BuildTarget,
-                     cli_mode: bool) -> None:
+def _save_compiler_target_env(target: build_system.build_target.build_target.BuildTarget,
+                              cli_mode: bool) -> None:
     ...
