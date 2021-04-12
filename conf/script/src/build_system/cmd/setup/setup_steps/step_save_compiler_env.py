@@ -18,12 +18,17 @@ def save_compiler_instances_targets_env(targets: list[build_system.build_target.
 
 def _save_compiler_target_env(target: build_system.build_target.build_target.BuildTarget,
                               cli_mode: bool) -> None:
+    from build_system.cmd.setup.cli.compiler_env import print_compiler_env_file
+
     encoded_env = _encode_env(target=target)
 
     env_file = _create_target_compiler_env_file(target=target)
     env_file.write_text(data=encoded_env, encoding=UTF_8)
 
     _cache_target_compiler_env_file(target=target, env_file=env_file)
+
+    if cli_mode:
+        print_compiler_env_file(target=target)
 
 
 def _encode_env(target: build_system.build_target.build_target.BuildTarget) -> str:
