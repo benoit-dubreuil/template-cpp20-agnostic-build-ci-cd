@@ -4,7 +4,7 @@ import build_system.build_target.build_target
 
 
 def print_symlink_to_compiler_export_shell_env_script(target: build_system.build_target.build_target.BuildTarget) -> None:
-    from build_system.cmd.setup.cli_color import colorize_label, colorize_path
+    from build_system.cmd.setup.cli.colorize import colorize_label, colorize_path
 
     label: Final[str] = colorize_label(label='Symlink to compiler export shell env vars script') + ': '
 
