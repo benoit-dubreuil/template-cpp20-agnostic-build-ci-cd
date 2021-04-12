@@ -6,8 +6,8 @@ import build_system.compiler.installed_instance
 from build_system.cmd.setup.find_meson_machine_file import find_build_type_machine_file, find_compiler_machine_file, find_native_machine_files_dir, find_sanitizer_machine_file
 
 
-def generate_meson_machine_files_cli_args(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                                          build_target: build_system.build_target.build_target.BuildTarget) -> list[str]:
+def generate_meson_machine_files_args(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+                                      build_target: build_system.build_target.build_target.BuildTarget) -> list[str]:
     import build_system.cmd.hierarchy.find_conf_dir
 
     meson_machine_files_dir = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
