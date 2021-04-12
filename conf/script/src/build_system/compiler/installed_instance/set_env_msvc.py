@@ -46,13 +46,13 @@ class EnvMSVC(contextlib.AbstractContextManager):
         local_env = os.environ
 
         for vcvar_key, vcvar_value in self.vcvars.items():
-            formatted_vcvar_value = os.path.sep.join(vcvar_value)
+            formatted_vcvar_value = os.pathsep.join(vcvar_value)
 
             if vcvar_key in local_env and len(local_env[vcvar_key]) > 0:
                 matching_local_env_var_value = local_env[vcvar_key]
 
-                if matching_local_env_var_value[-1] != os.path.sep:
-                    matching_local_env_var_value += os.path.sep
+                if matching_local_env_var_value[-1] != os.pathsep:
+                    matching_local_env_var_value += os.pathsep
 
                 local_env[vcvar_key] = matching_local_env_var_value + formatted_vcvar_value
             else:
@@ -63,13 +63,13 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
         for vcvar_key, vcvar_value in self.vcvars.items():
             if vcvar_key in local_env:
-                formatted_vcvar_value = os.path.sep.join(vcvar_value)
+                formatted_vcvar_value = os.pathsep.join(vcvar_value)
 
                 matching_local_env_var_value = local_env[vcvar_key]
 
                 # Replace instead of search -> KISS
                 new_matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvar_value, str())
-                new_matching_local_env_var_value = new_matching_local_env_var_value.strip(os.path.sep + ' ')
+                new_matching_local_env_var_value = new_matching_local_env_var_value.strip(os.pathsep + ' ')
 
                 if len(new_matching_local_env_var_value) <= 0:
                     del local_env[vcvar_key]
@@ -105,7 +105,7 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
         for env_var_key, env_var_value in local_env.items():
             if (env_var_value is not None) and (len(env_var_value) > 0):
-                split_values: list[str] = env_var_value.strip().split(sep=os.path.sep)
+                split_values: list[str] = env_var_value.strip().split(sep=os.pathsep)
                 interpreted_local_env[env_var_key.upper()] = split_values
 
         return interpreted_local_env
