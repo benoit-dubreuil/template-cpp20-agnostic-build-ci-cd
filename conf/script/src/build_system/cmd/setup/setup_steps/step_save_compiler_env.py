@@ -20,9 +20,10 @@ def _save_compiler_target_env(target: build_system.build_target.build_target.Bui
                               cli_mode: bool) -> None:
     encoded_env = _encode_env(target=target)
 
-    target_compiler_env_file = _create_target_compiler_env_file(target=target)
-    target_compiler_env_file.write_text(data=encoded_env, encoding=UTF_8)
-    target.compiler_env_file = target_compiler_env_file
+    env_file = _create_target_compiler_env_file(target=target)
+    env_file.write_text(data=encoded_env, encoding=UTF_8)
+
+    target.compiler_env_file = env_file
 
 
 def _encode_env(target: build_system.build_target.build_target.BuildTarget) -> str:
