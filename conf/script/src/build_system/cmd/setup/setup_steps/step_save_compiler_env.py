@@ -25,7 +25,7 @@ def _save_compiler_target_env(target: build_system.build_target.build_target.Bui
     target_compiler_env: dict[str, str] = _multi_line_compiler_env_to_single_line(compiler_env=target.compiler_instance.cached_compiler_env)
     encoded_env: str = javaproperties.dumps(props=target_compiler_env, timestamp=False, ensure_ascii=False)
 
-    ...
+    target_compiler_env_file.write_text(data=encoded_env, encoding=UTF_8)
 
 
 def _multi_line_compiler_env_to_single_line(compiler_env: [dict[str, list[str]]]) -> [dict[str, str]]:
