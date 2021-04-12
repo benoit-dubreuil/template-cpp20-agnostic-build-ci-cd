@@ -18,7 +18,7 @@ def generate_meson_machine_files_args(compiler_instance: build_system.compiler.i
                                             meson_machine_files_dir=meson_machine_files_dir,
                                             native_machine_files_dir=native_machine_files_dir)
 
-    machine_files_cli_args: list[str] = _machine_files_to_cli_args(machine_files=machine_files)
+    machine_files_cli_args: list[str] = _machine_files_to_args(machine_files=machine_files)
     _insert_setup_cli_arg_native_file(machine_files_cli_args=machine_files_cli_args)
 
     return machine_files_cli_args
@@ -36,7 +36,7 @@ def _assemble_machine_files(compiler_instance: build_system.compiler.installed_i
             meson_machine_files_dir / r'post-global.ini']
 
 
-def _machine_files_to_cli_args(machine_files: list[Path]) -> list[str]:
+def _machine_files_to_args(machine_files: list[Path]) -> list[str]:
     return [str(machine_file) for machine_file in machine_files]
 
 
