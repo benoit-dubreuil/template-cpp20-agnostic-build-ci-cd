@@ -45,8 +45,8 @@ class EnvMSVC(contextlib.AbstractContextManager):
     def __append_vcvars_to_local_env(self):
         local_env = os.environ
 
-        for vcvar_key, vcvars_var_value in self.vcvars.items():
-            formatted_vcvars_var_value = os.path.sep.join(vcvars_var_value)
+        for vcvar_key, vcvar_value in self.vcvars.items():
+            formatted_vcvar_value = os.path.sep.join(vcvar_value)
 
             if vcvar_key in local_env and len(local_env[vcvar_key]) > 0:
                 matching_local_env_var_value = local_env[vcvar_key]
@@ -54,21 +54,21 @@ class EnvMSVC(contextlib.AbstractContextManager):
                 if matching_local_env_var_value[-1] != os.path.sep:
                     matching_local_env_var_value += os.path.sep
 
-                local_env[vcvar_key] = matching_local_env_var_value + formatted_vcvars_var_value
+                local_env[vcvar_key] = matching_local_env_var_value + formatted_vcvar_value
             else:
-                local_env[vcvar_key] = formatted_vcvars_var_value
+                local_env[vcvar_key] = formatted_vcvar_value
 
     def __remove_vcvars_from_local_env(self):
         local_env = os.environ
 
-        for vcvar_key, vcvars_var_value in self.vcvars.items():
+        for vcvar_key, vcvar_value in self.vcvars.items():
             if vcvar_key in local_env:
-                formatted_vcvars_var_value = os.path.sep.join(vcvars_var_value)
+                formatted_vcvar_value = os.path.sep.join(vcvar_value)
 
                 matching_local_env_var_value = local_env[vcvar_key]
 
                 # Replace instead of search -> KISS
-                new_matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvars_var_value, str())
+                new_matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvar_value, str())
                 new_matching_local_env_var_value = new_matching_local_env_var_value.strip(os.path.sep + ' ')
 
                 if len(new_matching_local_env_var_value) <= 0:
