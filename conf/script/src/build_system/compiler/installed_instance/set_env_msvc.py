@@ -3,8 +3,6 @@ import os
 import subprocess
 from typing import Final, MutableMapping, Optional
 
-_ENV_VAR_MULTI_VALUES_SEP: Final[str] = ';'
-
 
 class EnvMSVC(contextlib.AbstractContextManager):
     import build_system.compiler.installed_instance.msvc
@@ -46,13 +44,13 @@ class EnvMSVC(contextlib.AbstractContextManager):
         local_env = os.environ
 
         for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_env.items():
-            formatted_vcvars_env_var_value = _ENV_VAR_MULTI_VALUES_SEP.join(vcvars_env_var_value)
+            formatted_vcvars_env_var_value = os.path.sep.join(vcvars_env_var_value)
 
             if vcvars_env_var_key in local_env and len(local_env[vcvars_env_var_key]) > 0:
                 matching_local_env_var_value = local_env[vcvars_env_var_key]
 
-                if matching_local_env_var_value[-1] != _ENV_VAR_MULTI_VALUES_SEP:
-                    matching_local_env_var_value += _ENV_VAR_MULTI_VALUES_SEP
+                if matching_local_env_var_value[-1] != os.path.sep:
+                    matching_local_env_var_value += os.path.sep
 
                 local_env[vcvars_env_var_key] = matching_local_env_var_value + formatted_vcvars_env_var_value
             else:
@@ -63,13 +61,13 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
         for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_env.items():
             if vcvars_env_var_key in local_env:
-                formatted_vcvars_env_var_value = _ENV_VAR_MULTI_VALUES_SEP.join(vcvars_env_var_value)
+                formatted_vcvars_env_var_value = os.path.sep.join(vcvars_env_var_value)
 
                 matching_local_env_var_value = local_env[vcvars_env_var_key]
 
                 # Replace instead of search -> KISS
                 new_matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvars_env_var_value, str())
-                new_matching_local_env_var_value = new_matching_local_env_var_value.strip(_ENV_VAR_MULTI_VALUES_SEP + ' ')
+                new_matching_local_env_var_value = new_matching_local_env_var_value.strip(os.path.sep + ' ')
 
                 if len(new_matching_local_env_var_value) <= 0:
                     del local_env[vcvars_env_var_key]
@@ -105,7 +103,7 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
         for env_var_key, env_var_value in local_env.items():
             if (env_var_value is not None) and (len(env_var_value) > 0):
-                split_values: list[str] = env_var_value.strip().split(sep=_ENV_VAR_MULTI_VALUES_SEP)
+                split_values: list[str] = env_var_value.strip().split(sep=os.path.sep)
                 interpreted_local_env[env_var_key.upper()] = split_values
 
         return interpreted_local_env
