@@ -9,7 +9,7 @@ _ENV_VAR_MULTI_VALUES_SEP: Final[str] = ';'
 class EnvMSVC(contextlib.AbstractContextManager):
     import build_system.compiler.installed_instance.msvc
 
-    compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance
+    compiler: Final[build_system.compiler.installed_instance.msvc.MSVCCompilerInstance]
     vcvars: Optional[dict[str, list[str]]]
 
     def __init__(self, compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance) -> None:
