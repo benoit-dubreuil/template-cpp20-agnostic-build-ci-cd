@@ -7,7 +7,7 @@ import build_system.compiler.installed_instance
 
 def setup_targets(root_dir: Path,
                   targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
-                  cli_mode: bool):
+                  cli_mode: bool) -> None:
     for compiler_instance_targets in targets:
         _setup_compiler_instance_targets(root_dir=root_dir, compiler_instance_targets=compiler_instance_targets, cli_mode=cli_mode)
 
@@ -17,7 +17,7 @@ def setup_targets(root_dir: Path,
 
 def _setup_compiler_instance_targets(root_dir: Path,
                                      compiler_instance_targets: build_system.build_target.compiler_instance_targets.CompilerInstanceTargets,
-                                     cli_mode: bool):
+                                     cli_mode: bool) -> None:
     from build_system.cmd.setup.meson_utils import setup_target
 
     compiler_instance: Final[build_system.compiler.installed_instance.CompilerInstance] = compiler_instance_targets.compiler_instance

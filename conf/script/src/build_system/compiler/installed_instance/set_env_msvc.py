@@ -7,16 +7,18 @@ from typing import Final, MutableMapping, Optional
 class EnvMSVC(contextlib.AbstractContextManager):
     import build_system.compiler.installed_instance.msvc
 
-    compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance
-    vcvars_env: Optional[dict[str, list[str]]]
+    compiler: Final[build_system.compiler.installed_instance.msvc.MSVCCompilerInstance]
+    vcvars: Optional[dict[str, list[str]]]
 
     def __init__(self, compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance) -> None:
         super().__init__()
         self.compiler = compiler
-        self.vcvars_env = None
+        self.vcvars = None
 
     def __enter__(self):
         self.__setup_env()
+        self.compiler.cache_vcvars_as_compiler_env(vcvars=self.vcvars)
+
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -24,61 +26,61 @@ class EnvMSVC(contextlib.AbstractContextManager):
         return False
 
     def get_env(self) -> dict[str, list[str]]:
-        assert self.vcvars_env is not None
-        return self.vcvars_env
+        assert self.vcvars is not None
+        return self.vcvars
 
     def __setup_env(self) -> None:
         local_env: dict[str, list[str]] = self.__interpret_local_en_vars()
-        all_vcvars_env = self.__fetch_all_vcvars_env()
-        vcvars_env = self.__except_local_env_from_vcvars_env(local_env=local_env, all_vcvars_env=all_vcvars_env)
+        all_vcvars = self.__fetch_all_vcvars()
+        vcvars = self.__except_local_env_from_vcvars(local_env=local_env, all_vcvars=all_vcvars)
 
-        self.vcvars_env = vcvars_env
+        self.vcvars = vcvars
 
         self.__append_vcvars_to_local_env()
 
     def __teardown_env(self) -> None:
         self.__remove_vcvars_from_local_env()
-        self.vcvars_env = None
+        self.vcvars = None
 
     def __append_vcvars_to_local_env(self):
         local_env = os.environ
 
-        for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_env.items():
-            formatted_vcvars_env_var_value = os.path.sep.join(vcvars_env_var_value)
+        for vcvar_key, vcvar_value in self.vcvars.items():
+            formatted_vcvar_value = os.pathsep.join(vcvar_value)
 
-            if vcvars_env_var_key in local_env and len(local_env[vcvars_env_var_key]) > 0:
-                matching_local_env_var_value = local_env[vcvars_env_var_key]
+            if vcvar_key in local_env and len(local_env[vcvar_key]) > 0:
+                matching_local_env_var_value = local_env[vcvar_key]
 
-                if matching_local_env_var_value[-1] != os.path.sep:
-                    matching_local_env_var_value += os.path.sep
+                if matching_local_env_var_value[-1] != os.pathsep:
+                    matching_local_env_var_value += os.pathsep
 
-                local_env[vcvars_env_var_key] = matching_local_env_var_value + formatted_vcvars_env_var_value
+                local_env[vcvar_key] = matching_local_env_var_value + formatted_vcvar_value
             else:
-                local_env[vcvars_env_var_key] = formatted_vcvars_env_var_value
+                local_env[vcvar_key] = formatted_vcvar_value
 
     def __remove_vcvars_from_local_env(self):
         local_env = os.environ
 
-        for vcvars_env_var_key, vcvars_env_var_value in self.vcvars_env.items():
-            if vcvars_env_var_key in local_env:
-                formatted_vcvars_env_var_value = os.path.sep.join(vcvars_env_var_value)
+        for vcvar_key, vcvar_value in self.vcvars.items():
+            if vcvar_key in local_env:
+                formatted_vcvar_value = os.pathsep.join(vcvar_value)
 
-                matching_local_env_var_value = local_env[vcvars_env_var_key]
+                matching_local_env_var_value = local_env[vcvar_key]
 
                 # Replace instead of search -> KISS
-                new_matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvars_env_var_value, str())
-                new_matching_local_env_var_value = new_matching_local_env_var_value.strip(os.path.sep + ' ')
+                new_matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvar_value, str())
+                new_matching_local_env_var_value = new_matching_local_env_var_value.strip(os.pathsep + ' ')
 
                 if len(new_matching_local_env_var_value) <= 0:
-                    del local_env[vcvars_env_var_key]
+                    del local_env[vcvar_key]
                 else:
-                    local_env[vcvars_env_var_key] = new_matching_local_env_var_value
+                    local_env[vcvar_key] = new_matching_local_env_var_value
 
     @staticmethod
-    def __except_local_env_from_vcvars_env(local_env: dict[str, list[str]], all_vcvars_env: dict[str, list[str]]) -> dict[str, list[str]]:
-        vcvars_env_except_local_env: dict[str, list[str]] = {}
+    def __except_local_env_from_vcvars(local_env: dict[str, list[str]], all_vcvars: dict[str, list[str]]) -> dict[str, list[str]]:
+        vcvars_except_local_env: dict[str, list[str]] = {}
 
-        for vcvar_env_var_key, vcvar_env_var_value in all_vcvars_env.items():
+        for vcvar_env_var_key, vcvar_env_var_value in all_vcvars.items():
             vcvar_env_var_value_except_local_env_var: list[str]
 
             if vcvar_env_var_key in local_env:
@@ -92,9 +94,9 @@ class EnvMSVC(contextlib.AbstractContextManager):
                 vcvar_env_var_value_except_local_env_var = vcvar_env_var_value.copy()
 
             if len(vcvar_env_var_value_except_local_env_var) > 0:
-                vcvars_env_except_local_env[vcvar_env_var_key] = vcvar_env_var_value_except_local_env_var
+                vcvars_except_local_env[vcvar_env_var_key] = vcvar_env_var_value_except_local_env_var
 
-        return vcvars_env_except_local_env
+        return vcvars_except_local_env
 
     @staticmethod
     def __interpret_local_en_vars() -> dict[str, list[str]]:
@@ -103,31 +105,31 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
         for env_var_key, env_var_value in local_env.items():
             if (env_var_value is not None) and (len(env_var_value) > 0):
-                split_values: list[str] = env_var_value.strip().split(sep=os.path.sep)
+                split_values: list[str] = env_var_value.strip().split(sep=os.pathsep)
                 interpreted_local_env[env_var_key.upper()] = split_values
 
         return interpreted_local_env
 
-    def __fetch_all_vcvars_env(self) -> dict[str, list[str]]:
-        shell_env: str = self.__shell_get_vcvars_env()
-        vcvars_env: dict[str, list[str]] = self.__interpret_shell_vcvars_env(shell_env=shell_env)
+    def __fetch_all_vcvars(self) -> dict[str, list[str]]:
+        shell_env: str = self.__shell_get_vcvars()
+        vcvars: dict[str, list[str]] = self.__interpret_shell_vcvars(shell_env=shell_env)
 
-        assert len(vcvars_env) > 0
-        return vcvars_env
+        assert len(vcvars) > 0
+        return vcvars
 
     @staticmethod
-    def __interpret_shell_vcvars_env(shell_env: str) -> dict[str, list[str]]:
-        vcvars_env: dict[str, list[str]] = {}
+    def __interpret_shell_vcvars(shell_env: str) -> dict[str, list[str]]:
+        vcvars: dict[str, list[str]] = {}
 
         for env_var in shell_env.splitlines():
             env_var_key, env_var_grouped_values = env_var.split(sep='=', maxsplit=1)
             env_var_split_values = env_var_grouped_values.split(sep=';')
 
-            vcvars_env[env_var_key.upper()] = env_var_split_values
+            vcvars[env_var_key.upper()] = env_var_split_values
 
-        return vcvars_env
+        return vcvars
 
-    def __shell_get_vcvars_env(self) -> str:
+    def __shell_get_vcvars(self) -> str:
         timeout_in_seconds: Final[float] = 20
         arg_sep: Final[str] = ' '
 
