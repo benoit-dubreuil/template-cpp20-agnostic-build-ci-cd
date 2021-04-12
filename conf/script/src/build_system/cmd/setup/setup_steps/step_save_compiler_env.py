@@ -55,7 +55,7 @@ def _cache_target_compiler_env_file(target: build_system.build_target.build_targ
 def _multi_line_compiler_env_to_single_line(compiler_env: [dict[str, list[str]]]) -> [dict[str, str]]:
     single_line_compiler_env: [dict[str, str]] = {}
 
-    for env_key, env_value in compiler_env:
+    for env_key, env_value in compiler_env.items():
         single_line_env_value: str = os.path.sep.join(env_value)
         single_line_compiler_env[env_key] = single_line_env_value
 
