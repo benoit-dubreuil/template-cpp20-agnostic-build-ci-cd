@@ -19,6 +19,8 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
     def __enter__(self):
         self.__setup_env()
+        self.compiler.cache_vcvars_as_compiler_env(vcvars=self.vcvars)
+
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):

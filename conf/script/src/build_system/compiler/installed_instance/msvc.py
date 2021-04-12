@@ -72,7 +72,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def get_cpp_compiler_name() -> str:
         return 'cl'
 
-    def _cache_vcvars_as_compiler_env(self, vcvars: dict[str, list[str]]) -> None:
+    def cache_vcvars_as_compiler_env(self, vcvars: dict[str, list[str]]) -> None:
         object.__setattr__(self, 'cached_compiler_env', vcvars)
 
     def __find_vcvars_batch_file(self) -> Path:
