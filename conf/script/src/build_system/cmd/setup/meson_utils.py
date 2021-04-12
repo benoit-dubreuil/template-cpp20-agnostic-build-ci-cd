@@ -13,7 +13,7 @@ import utils.error.cls_def
 from build_system.cmd.hierarchy.consts import BUILD_SYSTEM_NAME
 from build_system.cmd.setup.cli.meson import print_meson_cmd, print_meson_main_file
 from build_system.cmd.setup.cli.target_info import print_target_info
-from build_system.cmd.setup.meson_machine_file_cli_args import generate_meson_machine_files_args
+from build_system.cmd.setup.meson_machine_file_args import generate_meson_machine_files_args
 
 
 def setup_target(root_dir: Path,
