@@ -12,6 +12,7 @@ CONF_BUILD_SYSTEM_DIR_NAME: Final[str] = f'{BUILD_DIR_NAME}-system'
 MESON_MACHINE_FILES_DIR_NAME: Final[str] = 'machine'
 TARGET_SCRIPT_DIR_NAME = 'script'
 TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME = 'export_shell_env'
+TARGET_SCRIPT_COMPILER_ENV_NAME = 'compiler.env'
 
 ROOT_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{ROOT_STR}{DIR_STR}')
 BUILD_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{BUILD_DIR_NAME}{DIR_STR}')
