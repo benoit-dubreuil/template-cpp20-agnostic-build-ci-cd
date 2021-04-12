@@ -41,8 +41,8 @@ def _machine_files_to_args(machine_files: list[Path]) -> list[str]:
 
 
 def _insert_setup_arg_native_file(machine_files_args: list[str]) -> None:
-    setup_cli_arg_native_file: Final[str] = r'--native-file'
+    setup_arg_native_file: Final[str] = r'--native-file'
     step: Final[int] = 2
 
     for i in range(0, len(machine_files_args) * step, step):
-        machine_files_args.insert(i, setup_cli_arg_native_file)
+        machine_files_args.insert(i, setup_arg_native_file)
