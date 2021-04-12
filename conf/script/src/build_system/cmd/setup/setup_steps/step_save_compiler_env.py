@@ -18,14 +18,20 @@ def save_compiler_instances_targets_env(targets: list[build_system.build_target.
 
 def _save_compiler_target_env(target: build_system.build_target.build_target.BuildTarget,
                               cli_mode: bool) -> None:
-    target_compiler_env_file = _create_target_compiler_env_file(target=target)
+    encoded_env = _encode_env(target=target)
 
+    target_compiler_env_file = _create_target_compiler_env_file(target=target)
+    target_compiler_env_file.write_text(data=encoded_env, encoding=UTF_8)
+    target.compiler_env_file = target_compiler_env_file
+
+
+def _encode_env(target: build_system.build_target.build_target.BuildTarget) -> str:
     assert target.compiler_instance.has_cached_compiler_env()
+
     target_compiler_env: dict[str, str] = _multi_line_compiler_env_to_single_line(compiler_env=target.compiler_instance.cached_compiler_env)
     encoded_env: str = javaproperties.dumps(props=target_compiler_env, timestamp=False, ensure_ascii=False)
 
-    target_compiler_env_file.write_text(data=encoded_env, encoding=UTF_8)
-    target.compiler_env_file = target_compiler_env_file
+    return encoded_env
 
 
 def _create_target_compiler_env_file(target: build_system.build_target.build_target.BuildTarget) -> Path:
