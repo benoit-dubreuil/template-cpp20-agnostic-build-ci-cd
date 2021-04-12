@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import encodings
 import os
 import subprocess
 import venv
@@ -51,13 +52,14 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
         path_config_file_dotless_extension: Final[str] = 'pth'
         src_path_config_file_name: Final[str] = '.'.join([CONF_DIR_NAME, SCRIPT_DIR_NAME, SRC_DIR_NAME, path_config_file_dotless_extension])
         file_mode: Final[int] = 0o770
+        encoding: Final[str] = encodings.utf_8.getregentry().name
 
         print(VENV_DIR)
         src_path_config_file: Path = VENV_DIR / src_path_config_file_name
         src_path_config_file.touch(mode=file_mode, exist_ok=True)
 
         src_path_config: str = os.path.relpath(path=SRC_DIR, start=VENV_DIR)
-        src_path_config_file.write_text(data=src_path_config)
+        src_path_config_file.write_text(data=src_path_config, encoding=encoding)
 
     @classmethod
     def __install_reqs(cls, context: SimpleNamespace) -> None:
