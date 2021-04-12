@@ -18,8 +18,8 @@ def save_compiler_instances_targets_env(targets: list[build_system.build_target.
 
 def _save_compiler_target_env(target: build_system.build_target.build_target.BuildTarget,
                               cli_mode: bool) -> None:
-    target_compiler_env: Path = target.script_dir / TARGET_SCRIPT_COMPILER_ENV_NAME
-    target_compiler_env.touch(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
+    target_compiler_env_file: Path = target.script_dir / TARGET_SCRIPT_COMPILER_ENV_NAME
+    target_compiler_env_file.touch(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
 
     encoded_env: str = javaproperties.dumps(props= ..., timestamp=False, ensure_ascii=False)
     ...
