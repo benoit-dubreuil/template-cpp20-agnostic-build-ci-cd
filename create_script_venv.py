@@ -54,12 +54,18 @@ class EnvBuilderInstallReqs(venv.EnvBuilder):
         file_mode: Final[int] = 0o770
         encoding: Final[str] = encodings.utf_8.getregentry().name
 
-        print(VENV_DIR)
+        print(f'Create src path config file')
+        print('----------------------------')
+        print('VEnv dir:', VENV_DIR)
+
         src_path_config_file: Path = VENV_DIR / src_path_config_file_name
         src_path_config_file.touch(mode=file_mode, exist_ok=True)
+        print('Src path config file:', src_path_config_file)
 
         src_path_config: str = os.path.relpath(path=SRC_DIR, start=VENV_DIR)
         src_path_config_file.write_text(data=src_path_config, encoding=encoding)
+
+        print()
 
     @classmethod
     def __install_reqs(cls, context: SimpleNamespace) -> None:
