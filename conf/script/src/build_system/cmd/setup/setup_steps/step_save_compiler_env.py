@@ -3,12 +3,9 @@ from pathlib import Path
 
 import javaproperties
 
-from pathlib import Path
-
-import javaproperties
 import build_system.build_target.build_target
 import build_system.build_target.compiler_instance_targets
-from build_system.cmd.hierarchy.consts import TARGET_SCRIPT_COMPILER_ENV_NAME, BUILD_DIR_PERMISSIONS
+from build_system.cmd.hierarchy.consts import BUILD_DIR_PERMISSIONS, TARGET_SCRIPT_COMPILER_ENV_NAME, UTF_8
 
 
 def save_compiler_instances_targets_env(targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
