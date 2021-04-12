@@ -23,7 +23,7 @@ def _save_compiler_target_env(target: build_system.build_target.build_target.Bui
     env_file = _create_target_compiler_env_file(target=target)
     env_file.write_text(data=encoded_env, encoding=UTF_8)
 
-    target.compiler_env_file = env_file
+    _cache_target_compiler_env_file(target=target, env_file=env_file)
 
 
 def _encode_env(target: build_system.build_target.build_target.BuildTarget) -> str:
@@ -40,6 +40,11 @@ def _create_target_compiler_env_file(target: build_system.build_target.build_tar
     target_compiler_env_file.touch(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
 
     return target_compiler_env_file
+
+
+def _cache_target_compiler_env_file(target: build_system.build_target.build_target.BuildTarget,
+                                    env_file: Path) -> None:
+    target.compiler_env_file = env_file
 
 
 def _multi_line_compiler_env_to_single_line(compiler_env: [dict[str, list[str]]]) -> [dict[str, str]]:
