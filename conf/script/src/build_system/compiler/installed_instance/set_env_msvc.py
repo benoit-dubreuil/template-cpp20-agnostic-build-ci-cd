@@ -45,36 +45,36 @@ class EnvMSVC(contextlib.AbstractContextManager):
     def __append_vcvars_to_local_env(self):
         local_env = os.environ
 
-        for vcvars_var_key, vcvars_var_value in self.vcvars.items():
+        for vcvar_key, vcvars_var_value in self.vcvars.items():
             formatted_vcvars_var_value = _ENV_VAR_MULTI_VALUES_SEP.join(vcvars_var_value)
 
-            if vcvars_var_key in local_env and len(local_env[vcvars_var_key]) > 0:
-                matching_local_env_var_value = local_env[vcvars_var_key]
+            if vcvar_key in local_env and len(local_env[vcvar_key]) > 0:
+                matching_local_env_var_value = local_env[vcvar_key]
 
                 if matching_local_env_var_value[-1] != _ENV_VAR_MULTI_VALUES_SEP:
                     matching_local_env_var_value += _ENV_VAR_MULTI_VALUES_SEP
 
-                local_env[vcvars_var_key] = matching_local_env_var_value + formatted_vcvars_var_value
+                local_env[vcvar_key] = matching_local_env_var_value + formatted_vcvars_var_value
             else:
-                local_env[vcvars_var_key] = formatted_vcvars_var_value
+                local_env[vcvar_key] = formatted_vcvars_var_value
 
     def __remove_vcvars_from_local_env(self):
         local_env = os.environ
 
-        for vcvars_var_key, vcvars_var_value in self.vcvars.items():
-            if vcvars_var_key in local_env:
+        for vcvar_key, vcvars_var_value in self.vcvars.items():
+            if vcvar_key in local_env:
                 formatted_vcvars_var_value = _ENV_VAR_MULTI_VALUES_SEP.join(vcvars_var_value)
 
-                matching_local_env_var_value = local_env[vcvars_var_key]
+                matching_local_env_var_value = local_env[vcvar_key]
 
                 # Replace instead of search -> KISS
                 new_matching_local_env_var_value = matching_local_env_var_value.replace(formatted_vcvars_var_value, str())
                 new_matching_local_env_var_value = new_matching_local_env_var_value.strip(_ENV_VAR_MULTI_VALUES_SEP + ' ')
 
                 if len(new_matching_local_env_var_value) <= 0:
-                    del local_env[vcvars_var_key]
+                    del local_env[vcvar_key]
                 else:
-                    local_env[vcvars_var_key] = new_matching_local_env_var_value
+                    local_env[vcvar_key] = new_matching_local_env_var_value
 
     @staticmethod
     def __except_local_env_from_vcvars(local_env: dict[str, list[str]], all_vcvars: dict[str, list[str]]) -> dict[str, list[str]]:
