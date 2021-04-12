@@ -19,7 +19,7 @@ def _create_symlink_to_compiler_export_shell_env_script(target: build_system.bui
 
     export_shell_env_script: Path = target.compiler_instance.get_export_shell_env_script()
 
-    symlink = target.script_dir / TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME
+    symlink: Path = target.script_dir / TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME
     symlink.symlink_to(target=export_shell_env_script, target_is_directory=False)
 
     target.export_shell_env_symlink = symlink
