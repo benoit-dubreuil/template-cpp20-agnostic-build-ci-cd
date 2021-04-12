@@ -12,7 +12,7 @@ BUILD_SYSTEM_CONF_FILE_NAME: Final[str] = f'{BUILD_SYSTEM_NAME}.build'
 BUILD_DIR_NAME: Final[str] = 'build'
 TARGET_SCRIPT_DIR_NAME = 'script'
 TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME = 'export_shell_env'
-TARGET_SCRIPT_COMPILER_ENV_NAME = 'compiler.env'
+TARGET_SCRIPT_COMPILER_ENV_NAME = 'compiler_env.properties'
 
 CONF_DIR_NAME: Final[str] = 'conf'
 CONF_BUILD_SYSTEM_DIR_NAME: Final[str] = f'{BUILD_DIR_NAME}-system'
