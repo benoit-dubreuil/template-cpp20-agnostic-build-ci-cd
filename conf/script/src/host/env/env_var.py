@@ -105,3 +105,20 @@ class _EnvVarKeyIt(Iterator[_T_Key]):
         self.__has_itered_over_env = True
 
         return self.__env_var.get_env_key()
+
+
+class _EnvVarValueIt(Iterator[_T_Values]):
+    __has_itered_over_env: bool
+    __env_var: EnvVar
+
+    def __init__(self, env_var: EnvVar) -> None:
+        self.__has_itered_over_env = False
+        self.__env_var = env_var
+
+    def __next__(self) -> _T_Values:
+        if self.__has_itered_over_env:
+            raise StopIteration()
+
+        self.__has_itered_over_env = True
+
+        return self.__env_var.get_env_values()
