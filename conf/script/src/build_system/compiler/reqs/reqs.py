@@ -6,6 +6,7 @@ from typing import Final
 import build_system.compiler.family
 import build_system.compiler.reqs.scheme
 import build_system.compiler.version
+import host.os_family
 import utils.error.cls_def
 import utils.error.try_external_errors
 
