@@ -14,6 +14,21 @@ _T_Single_Value = PathLike
 _T_Values = list[_T_Single_Value]
 
 
+# Forward declaration
+class _EnvVarKeyIt(Iterator[_T_Key]):
+    pass
+
+
+# Forward declaration
+class _EnvVarValueIt(Iterator[_T_Values]):
+    pass
+
+
+# Forward declaration
+class _EnvVarJoinedValues(Iterator[_T_Single_Value]):
+    pass
+
+
 @dataclass(init=False, order=True)
 class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
     __env_key: _T_Key
