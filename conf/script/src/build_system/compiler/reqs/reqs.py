@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Final
 
 import build_system.compiler.family
-import build_system.compiler.host.os_family
 import build_system.compiler.reqs.scheme
 import build_system.compiler.version
 import utils.error.cls_def
@@ -14,7 +13,7 @@ import utils.error.try_external_errors
 @dataclass(frozen=True)
 class CompilerReqs:
     compiler_family: build_system.compiler.family.CompilerFamily
-    os_families: list[build_system.compiler.host.os_family.OSFamily]
+    os_families: list[host.os_family.OSFamily]
     min_compiler_version: build_system.compiler.version.CompilerVersion
 
     @classmethod
@@ -61,7 +60,7 @@ class CompilerReqs:
     @classmethod
     def filter_by_os(cls,
                      all_compilers_reqs: dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs'],
-                     os_family: build_system.compiler.host.os_family.OSFamily) -> list['CompilerReqs']:
+                     os_family: host.os_family.OSFamily) -> list['CompilerReqs']:
         return [compiler_reqs for compiler_family, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.os_families]
 
     @classmethod
@@ -81,7 +80,7 @@ class CompilerReqs:
     @staticmethod
     def _get_config_parser_os_family_converter():
         # noinspection PyArgumentList
-        return {'osfamily': lambda whole_option: [build_system.compiler.host.os_family.OSFamily(split_options.strip()) for split_options in whole_option.split(',')]}
+        return {'osfamily': lambda whole_option: [host.os_family.OSFamily(split_options.strip()) for split_options in whole_option.split(',')]}
 
     @staticmethod
     def _filter_config_default_section(config: ConfigParser):
