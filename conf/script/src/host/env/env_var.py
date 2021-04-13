@@ -1,5 +1,6 @@
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
+
 from utils.more_typing import PathLike
 
 
@@ -14,3 +15,11 @@ class EnvVar:
 
     def join_values(self) -> str:
         return os.pathsep.join(self.values)
+
+    def __str__(self) -> str:
+        assert self.key_name is not None
+        assert self.values is not None
+
+        joined_values = self.join_values()
+
+        return f'{self.key_name}={joined_values}'
