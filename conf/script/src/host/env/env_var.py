@@ -1,10 +1,13 @@
 import collections.abc
 import os
 import typing
+from collections.abc import Iterator
 from dataclasses import dataclass
-from typing import Iterator
+from typing import Final
 
 from utils.more_typing import PathLike
+
+_ENV_VAR_ITEM_COUNT: Final[int] = 1
 
 _T_Key = PathLike
 _T_Single_Val = PathLike
@@ -32,7 +35,7 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Multi_Val]):
         return self.__env_values
 
     def __len__(self) -> int:
-        return 1
+        return _ENV_VAR_ITEM_COUNT
 
     def __iter__(self) -> Iterator[_T_Key]:
         # TODO
