@@ -23,9 +23,15 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
         self.__env_key = key_name if key_name is not None else str()
         self.__env_values = values if values is not None else _T_Values()
 
+    def get_env_key(self) -> _T_Key:
+        return self.__env_key
+
+    def get_env_values(self) -> _T_Values:
+        return self.__env_values
+
     def __contains__(self, key: _T_Key) -> bool:
         self.__verify_key_type(key=key)
-        return key is self.__env_key or key == self.__env_key
+        env_key: _T_Key = self.get_env_key()
 
         return key is env_key or key == env_key
 
@@ -33,7 +39,7 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
         if key not in self:
             raise KeyError()
 
-        return self.__env_values
+        return self.get_env_values()
 
     def __len__(self) -> int:
         return _ENV_VAR_ITEM_COUNT
@@ -48,10 +54,10 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
 
         joined_values = self.join_values()
 
-        return f'{self.__env_key}={joined_values}'
+        return f'{self.get_env_key()}={joined_values}'
 
     def join_values(self) -> str:
-        return os.pathsep.join(self.__env_values)
+        return os.pathsep.join(self.get_env_values())
 
     @staticmethod
     def __verify_key_type(key: _T_Key) -> None:
