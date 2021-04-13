@@ -60,8 +60,7 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
         return _ENV_VAR_ITEM_COUNT
 
     def __iter__(self) -> Iterator[_T_Key]:
-        # TODO
-        ...
+        return _EnvVarKeyIt(env_var=self)
 
     def __str__(self) -> str:
         assert self.__env_key is not None
