@@ -7,6 +7,8 @@ from typing import NoReturn, Optional, Type, final
 import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
 import build_system.compiler.version
+import host.architecture
+import host.os_family
 import utils.error.cls_def
 import utils.error.format
 import utils.error.try_external_errors
