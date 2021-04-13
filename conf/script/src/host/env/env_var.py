@@ -10,25 +10,26 @@ from utils.more_typing import PathLike
 _ENV_VAR_ITEM_COUNT: Final[int] = 1
 
 _T_Key = PathLike
-_T_Single_Val = PathLike
-_T_Multi_Val = list[_T_Single_Val]
+_T_Single_Value = PathLike
+_T_Values = list[_T_Single_Value]
 
 
 @dataclass(init=False, order=True)
-class EnvVar(collections.abc.Mapping[_T_Key, _T_Multi_Val]):
+class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
     __env_key: _T_Key
-    __env_values: _T_Multi_Val
+    __env_values: _T_Values
 
     def __init__(self, key_name=None, values=None) -> None:
-        self.values()
         self.__env_key = key_name if key_name is not None else str()
-        self.__env_values = values if values is not None else _T_Multi_Val()
+        self.__env_values = values if values is not None else _T_Values()
 
     def __contains__(self, key: _T_Key) -> bool:
         self.__verify_key_type(key=key)
         return key is self.__env_key or key == self.__env_key
 
-    def __getitem__(self, key: _T_Key) -> _T_Multi_Val:
+        return key is env_key or key == env_key
+
+    def __getitem__(self, key: _T_Key) -> _T_Values:
         if key not in self:
             raise KeyError()
 
@@ -58,11 +59,11 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Multi_Val]):
             raise TypeError()
 
     @staticmethod
-    def __verify_single_value_type(single_value: _T_Single_Val) -> None:
-        if not isinstance(single_value, typing.get_args(_T_Key)):
+    def __verify_single_value_type(single_value: _T_Single_Value) -> None:
+        if not isinstance(single_value, typing.get_args(_T_Single_Value)):
             raise TypeError()
 
     @staticmethod
-    def __verify_multi_value_type(multi_value: _T_Multi_Val) -> None:
-        if not isinstance(multi_value, typing.get_args(_T_Single_Val)):
+    def __verify_values_type(values: _T_Values) -> None:
+        if not isinstance(values, typing.get_args(_T_Values)):
             raise TypeError()
