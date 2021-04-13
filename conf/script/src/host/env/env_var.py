@@ -6,11 +6,10 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Final, Generic, TypeVar, final
 
-from utils.more_typing import PathLike
+from utils.more_typing import PathLike, T_PathLike
 
 _ENV_VAR_ITEM_COUNT: Final[int] = 1
 
-_T = TypeVar('_T')
 _T_Key = PathLike
 _T_Single_Value = PathLike
 _T_Values = list[_T_Single_Value]
@@ -97,7 +96,7 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
             raise TypeError()
 
 
-class _EnvVarSingleIt(Generic[_T], Iterator[_T], metaclass=abc.ABCMeta):
+class _EnvVarSingleIt(Generic[T_PathLike], Iterator[T_PathLike], metaclass=abc.ABCMeta):
     _has_itered_over_env: bool
     __env_var: Final[EnvVar]
 
@@ -110,7 +109,7 @@ class _EnvVarSingleIt(Generic[_T], Iterator[_T], metaclass=abc.ABCMeta):
         return self.__env_var
 
     @final
-    def __next__(self) -> _T:
+    def __next__(self) -> T_PathLike:
         self.__verify_has_next()
         self._has_itered_over_env = True
 
@@ -121,7 +120,7 @@ class _EnvVarSingleIt(Generic[_T], Iterator[_T], metaclass=abc.ABCMeta):
             raise StopIteration()
 
     @abc.abstractmethod
-    def _peek_next(self) -> _T:
+    def _peek_next(self) -> T_PathLike:
         raise NotImplementedError()
 
 
