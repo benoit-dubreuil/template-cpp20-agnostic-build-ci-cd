@@ -1,14 +1,16 @@
+import abc
 import collections.abc
 import os
 import typing
 from collections.abc import Iterator
 from dataclasses import dataclass
-from typing import Final
+from typing import Final, Generic, TypeVar, final
 
 from utils.more_typing import PathLike
 
 _ENV_VAR_ITEM_COUNT: Final[int] = 1
 
+_T = TypeVar('_T')
 _T_Key = PathLike
 _T_Single_Value = PathLike
 _T_Values = list[_T_Single_Value]
@@ -95,35 +97,43 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
             raise TypeError()
 
 
-class _EnvVarKeyIt(Iterator[_T_Key]):
-    __has_itered_over_env: bool
-    __env_var: EnvVar
+class _EnvVarSingleIt(Generic[_T], Iterator[_T], metaclass=abc.ABCMeta):
+    _has_itered_over_env: bool
+    __env_var: Final[EnvVar]
 
     def __init__(self, env_var: EnvVar) -> None:
-        self.__has_itered_over_env = False
+        self._has_itered_over_env = False
         self.__env_var = env_var
 
-    def __next__(self) -> _T_Key:
-        if self.__has_itered_over_env:
+    @final
+    def get_env_var(self) -> EnvVar:
+        return self.__env_var
+
+    @final
+    def __next__(self) -> _T:
+        self.__verify_has_next()
+        self._has_itered_over_env = True
+
+        return self.get_env_var().get_env_key()
+
+    def __verify_has_next(self):
+        if self._has_itered_over_env:
             raise StopIteration()
 
-        self.__has_itered_over_env = True
+    @abc.abstractmethod
+    def _peek_next(self) -> _T:
+        raise NotImplementedError()
 
-        return self.__env_var.get_env_key()
+
+@final
+class _EnvVarKeyIt(_EnvVarSingleIt[_T_Key]):
+
+    def _peek_next(self) -> _T_Key:
+        return self.get_env_var().get_env_key()
 
 
-class _EnvVarValuesIt(Iterator[_T_Values]):
-    __has_itered_over_env: bool
-    __env_var: EnvVar
+@final
+class _EnvVarValuesIt(_EnvVarSingleIt[_T_Key]):
 
-    def __init__(self, env_var: EnvVar) -> None:
-        self.__has_itered_over_env = False
-        self.__env_var = env_var
-
-    def __next__(self) -> _T_Values:
-        if self.__has_itered_over_env:
-            raise StopIteration()
-
-        self.__has_itered_over_env = True
-
-        return self.__env_var.get_env_values()
+    def _peek_next(self) -> _T_Values:
+        return self.get_env_var().get_env_key()
