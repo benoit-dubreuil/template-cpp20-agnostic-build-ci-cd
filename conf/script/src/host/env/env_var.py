@@ -88,3 +88,20 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
     def __verify_values_type(values: _T_Values) -> None:
         if not isinstance(values, typing.get_args(_T_Values)):
             raise TypeError()
+
+
+class _EnvVarKeyIt(Iterator[_T_Key]):
+    __has_itered_over_env: bool
+    __env_var: EnvVar
+
+    def __init__(self, env_var: EnvVar) -> None:
+        self.__has_itered_over_env = False
+        self.__env_var = env_var
+
+    def __next__(self) -> _T_Key:
+        if self.__has_itered_over_env:
+            raise StopIteration()
+
+        self.__has_itered_over_env = True
+
+        return self.__env_var.get_env_key()
