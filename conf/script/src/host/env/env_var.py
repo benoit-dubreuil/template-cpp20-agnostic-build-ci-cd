@@ -134,5 +134,5 @@ class _EnvVarKeyIt(_EnvVarSingleIt[_T_Key]):
 @final
 class _EnvVarValuesIt(_EnvVarSingleIt[_T_Key]):
 
-    def _peek_next(self) -> _T_Values:
+    def _peek_next(self) -> _T_Key:
         return self.get_env_var().get_env_key()
