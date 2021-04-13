@@ -1,6 +1,7 @@
-import host.architecture
 import build_system.compiler.installed_instance
 import build_system.compiler.reqs.reqs
+import host.architecture
+import host.os_family
 
 
 def _fetch_filtered_compilers_reqs_by_os(os_family: host.os_family.OSFamily) -> list[build_system.compiler.reqs.reqs.CompilerReqs]:
