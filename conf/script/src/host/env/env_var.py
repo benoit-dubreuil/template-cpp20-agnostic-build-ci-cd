@@ -31,10 +31,6 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Multi_Val]):
 
         return self.__env_values
 
-    def __eq__(self, o: object) -> bool:
-        # TODO
-        return super().__eq__(o)
-
     def __len__(self) -> int:
         return 1
 
