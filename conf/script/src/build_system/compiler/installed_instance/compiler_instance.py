@@ -6,9 +6,9 @@ from typing import NoReturn, Optional, Type, final
 
 import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
-import build_system.compiler.host.architecture
-import build_system.compiler.host.os_family
 import build_system.compiler.version
+import host.architecture
+import host.os_family
 import utils.error.cls_def
 import utils.error.format
 import utils.error.try_external_errors
@@ -17,15 +17,15 @@ import utils.error.try_external_errors
 @dataclass(order=True, frozen=True)
 class CompilerInstance(metaclass=abc.ABCMeta):
     compiler_family: build_system.compiler.family.CompilerFamily
-    os_family: build_system.compiler.host.os_family.OSFamily
-    arch: build_system.compiler.host.architecture.Architecture
+    os_family: host.os_family.OSFamily
+    arch: host.architecture.Architecture
     version: build_system.compiler.version.CompilerVersion
     installation_dir: Path
 
     def __init__(self,
                  compiler_family: build_system.compiler.family.CompilerFamily,
-                 os_family: build_system.compiler.host.os_family.OSFamily,
-                 arch: build_system.compiler.host.architecture.Architecture,
+                 os_family: host.os_family.OSFamily,
+                 arch: host.architecture.Architecture,
                  version: build_system.compiler.version.CompilerVersion,
                  installation_dir: Path
                  ):
@@ -41,8 +41,8 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     @final
     def create_from_installed_compiler(cls,
                                        compiler_family: build_system.compiler.family.CompilerFamily,
-                                       os_family: build_system.compiler.host.os_family.OSFamily,
-                                       arch: build_system.compiler.host.architecture.Architecture,
+                                       os_family: host.os_family.OSFamily,
+                                       arch: host.architecture.Architecture,
                                        installation_dir: Optional[Path] = None) -> 'CompilerInstance':
         import build_system.cmd.compiler.host.get_info.version.fetch_by_criteria
 
