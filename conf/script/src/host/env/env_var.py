@@ -20,7 +20,7 @@ class _EnvVarKeyIt(Iterator[_T_Key]):
 
 
 # Forward declaration
-class _EnvVarValueIt(Iterator[_T_Values]):
+class _EnvVarValuesIt(Iterator[_T_Values]):
     pass
 
 
@@ -44,6 +44,12 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
     def get_env_values(self) -> _T_Values:
         return self.__env_values
 
+    def iter_key(self):
+        return _EnvVarKeyIt(env_var=self)
+
+    def iter_values(self):
+        return _EnvVarValuesIt(env_var=self)
+
     def __contains__(self, key: _T_Key) -> bool:
         self.__verify_key_type(key=key)
         env_key: _T_Key = self.get_env_key()
@@ -60,7 +66,7 @@ class EnvVar(collections.abc.Mapping[_T_Key, _T_Values]):
         return _ENV_VAR_ITEM_COUNT
 
     def __iter__(self) -> Iterator[_T_Key]:
-        return _EnvVarKeyIt(env_var=self)
+        return self.iter_key()
 
     def __str__(self) -> str:
         assert self.__env_key is not None
@@ -106,7 +112,7 @@ class _EnvVarKeyIt(Iterator[_T_Key]):
         return self.__env_var.get_env_key()
 
 
-class _EnvVarValueIt(Iterator[_T_Values]):
+class _EnvVarValuesIt(Iterator[_T_Values]):
     __has_itered_over_env: bool
     __env_var: EnvVar
 
