@@ -9,15 +9,17 @@ import host.env.env_var_fwd as _fwd
 
 
 @dataclass(init=False, order=True)
-class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
+class EnvVar(typing.Generic[_fwd.T_Key, _fwd.T_Single_Value], collections.abc.Mapping[_fwd.T_Key, list[_fwd.T_Single_Value]]):
     __env_key: _fwd.T_Key
-    __env_values: _fwd.T_Values
+    __env_values: list[_fwd.T_Single_Value]
 
     __ENV_VAR_ITEM_COUNT: Final[int] = 1
 
-    def __init__(self, key: _fwd.T_Key = None, values: _fwd.T_Values = None) -> None:
+    def __init__(self,
+                 key: _fwd.T_Key = None,
+                 values: list[_fwd.T_Single_Value] = None) -> None:
         self.__env_key = key if key is not None else _fwd.T_Key()
-        self.__env_values = values if values is not None else _fwd.T_Values()
+        self.__env_values = values if values is not None else list[_fwd.T_Single_Value]
 
     @classmethod
     def create_from_joined_values(cls,
@@ -29,14 +31,14 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
     def get_env_key(self) -> _fwd.T_Key:
         return self.__env_key
 
-    def get_env_values(self) -> _fwd.T_Values:
+    def get_env_values(self) -> list[_fwd.T_Single_Value]:
         return self.__env_values
 
     def iter_key(self) -> Iterator[_fwd.T_Key]:
         from host.env.env_var_key_it import EnvVarKeyIt
         return EnvVarKeyIt(env_var=self)
 
-    def iter_values(self) -> Iterator[_fwd.T_Values]:
+    def iter_values(self) -> Iterator[_fwd.T_Single_Value]:
         return iter(self.get_env_values())
 
     def __contains__(self, key: _fwd.T_Key) -> bool:
@@ -45,7 +47,7 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
 
         return key is env_key or key == env_key
 
-    def __getitem__(self, key: _fwd.T_Key) -> _fwd.T_Values:
+    def __getitem__(self, key: _fwd.T_Key) -> list[_fwd.T_Single_Value]:
         if key not in self:
             raise KeyError()
 
@@ -65,12 +67,12 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
 
         return f'{self.get_env_key()}={joined_values}'
 
-    def cast_values_to_any_str_collection(self, str_cls: type[typing.AnyStr] = _fwd.T_Default_AnyStr) -> _fwd.T_Values_Collection[typing.AnyStr]:
+    def cast_values_to_any_str(self, str_cls: type[typing.AnyStr] = _fwd.TAlias_Default_AnyStr) -> list[typing.AnyStr]:
         return [str_cls(value) for value in self.get_env_values()]
 
-    def join_values(self, str_cls: type[typing.AnyStr] = _fwd.T_Default_AnyStr) -> typing.AnyStr:
+    def join_values(self, str_cls: type[typing.AnyStr] = _fwd.TAlias_Default_AnyStr) -> typing.AnyStr:
         casted_env_var_sep: typing.AnyStr = str_cls(os.pathsep)
-        casted_values: _fwd.T_Values_Collection[typing.AnyStr] = self.cast_values_to_any_str_collection(str_cls=str_cls)
+        casted_values: list[typing.AnyStr] = self.cast_values_to_any_str(str_cls=str_cls)
 
         return casted_env_var_sep.join(casted_values)
 
