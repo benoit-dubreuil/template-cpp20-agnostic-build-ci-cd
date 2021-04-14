@@ -1,8 +1,8 @@
-from utils.meta_prog.generics.cls_wrapper_data import GenericClassWrapperDataMixin
+import utils.meta_prog.generics.cls_wrapper_data
 
 
-class GenericClassWrapperMixin(GenericClassWrapperDataMixin):
+class GenericClassWrapperMixin(utils.meta_prog.generics.cls_wrapper_data.GenericClassWrapperDataMixin):
 
     @property
-    def __class__(self) -> GenericClassWrapperDataMixin.TAlias_generic_cls:
+    def __class__(self) -> utils.meta_prog.generics.cls_wrapper_data.GenericClassWrapperDataMixin.TAlias_generic_cls:
         return self.wrapped_generic_cls
