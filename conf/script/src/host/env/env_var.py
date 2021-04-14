@@ -80,13 +80,3 @@ class EnvVar(typing.Generic[_fwd.T_Key, _fwd.T_Single_Value], collections.abc.Ma
     def __verify_key_type(key: _fwd.T_Key) -> None:
         if not isinstance(key, typing.get_args(_fwd.T_Key)):
             raise TypeError()
-
-    @staticmethod
-    def __verify_single_value_type(single_value: _fwd.T_Single_Value) -> None:
-        if not isinstance(single_value, typing.get_args(_fwd.T_Single_Value)):
-            raise TypeError()
-
-    @staticmethod
-    def __verify_values_type(values: _fwd.T_Values) -> None:
-        if not isinstance(values, typing.get_args(_fwd.T_Values)):
-            raise TypeError()
