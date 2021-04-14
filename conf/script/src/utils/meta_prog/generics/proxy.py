@@ -8,8 +8,8 @@ class GenericClassProxy(GenericClassMixin):
         self.wrapped_generic_cls = generic_cls
         super().__init__(*args, **kwargs)
 
-    def __call__(self):
-        return self.wrapped_generic_cls(generics=self.generics)
+    def __call__(self, *args, **kwargs):
+        return self.wrapped_generic_cls(*args, generics=self.generics, **kwargs)
 
     @property
     def __class__(self) -> type[GenericClassMixin]:
