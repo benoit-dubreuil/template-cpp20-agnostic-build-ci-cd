@@ -1,4 +1,4 @@
-from utils.meta_prog.generics.cls_mixin import GenericClassMixin
+from utils.meta_prog.generics.mixin import GenericClassMixin
 
 
 class GenericClassProxy(GenericClassMixin):
