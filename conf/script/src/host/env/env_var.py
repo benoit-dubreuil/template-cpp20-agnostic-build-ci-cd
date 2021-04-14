@@ -79,11 +79,11 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
 
 
 class EnvVarSingleIt(Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
-    _has_itered_over_env: bool
+    __has_itered_over_env: bool
     __env_var: Final[EnvVar]
 
     def __init__(self, env_var: EnvVar) -> None:
-        self._has_itered_over_env = False
+        self.__has_itered_over_env = False
         self.__env_var = env_var
 
     @final
@@ -93,12 +93,12 @@ class EnvVarSingleIt(Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMe
     @final
     def __next__(self) -> utils.more_typing.T_PathLike:
         self.__verify_has_next()
-        self._has_itered_over_env = True
+        self.__has_itered_over_env = True
 
         return self.get_env_var().get_env_key()
 
     def __verify_has_next(self):
-        if self._has_itered_over_env:
+        if self.__has_itered_over_env:
             raise StopIteration()
 
     @abc.abstractmethod
