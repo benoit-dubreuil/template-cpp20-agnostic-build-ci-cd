@@ -107,7 +107,7 @@ class EnvVarSingleIt(Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMe
 
 
 @final
-class EnvVarKeyIt(_EnvVarSingleIt[_fwd.T_Key]):
+class EnvVarKeyIt(EnvVarSingleIt[_fwd.T_Key]):
 
     def _peek_next(self) -> _fwd.T_Key:
         return self.get_env_var().get_env_key()
