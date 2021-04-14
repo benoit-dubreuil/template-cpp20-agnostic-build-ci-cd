@@ -1,5 +1,5 @@
-from utils.meta_prog.generics.mixin import GenericClassMixin
-from utils.meta_prog.generics.proxy import GenericClassProxy
+from utils.meta_prog.generics.cls_mixin import GenericClassMixin
+from utils.meta_prog.generics.cls_proxy import GenericClassProxy
 
 
 class GenericClassProxyInjectorMixin(GenericClassMixin):
