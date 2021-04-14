@@ -10,12 +10,12 @@ T_Values: typing.Final[type] = list[T_Single_Value]
 
 
 # Forward declaration
-class EnvVarSingleIt(collections.abc.Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
+class EnvVarBaseIt(collections.abc.Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
     pass
 
 
 # Forward declaration
-class EnvVarKeyIt(EnvVarSingleIt, metaclass=abc.ABCMeta):
+class EnvVarKeyIt(EnvVarBaseIt, metaclass=abc.ABCMeta):
     pass
 
 

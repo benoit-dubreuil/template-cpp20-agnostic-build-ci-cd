@@ -78,7 +78,7 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
             raise TypeError()
 
 
-class EnvVarSingleIt(Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
+class EnvVarBaseIt(Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
     __has_itered_over_env: bool
     __env_var: Final[EnvVar]
 
@@ -107,7 +107,7 @@ class EnvVarSingleIt(Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMe
 
 
 @final
-class EnvVarKeyIt(EnvVarSingleIt[_fwd.T_Key]):
+class EnvVarKeyIt(EnvVarBaseIt[_fwd.T_Key]):
 
     def _peek_next(self) -> _fwd.T_Key:
         return self.get_env_var().get_env_key()
