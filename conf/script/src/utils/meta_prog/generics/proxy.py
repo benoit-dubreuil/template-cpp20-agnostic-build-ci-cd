@@ -1,3 +1,5 @@
+import itertools
+
 from utils.meta_prog.generics.data import GenericsData
 from utils.meta_prog.generics.mixin import GenericClassMixin
 
@@ -17,7 +19,7 @@ class GenericClassProxy(GenericsData):
         self.wrapped_generic_cls = generic_cls
 
         type_vars = self.__detect_type_vars(generic_cls=generic_cls)
-        generics_by_type_vars = dict(zip(type_vars, generics))
+        generics_by_type_vars = dict(itertools.zip_longest(type_vars, generics, fillvalue=None))
 
         super().__init__(*args, generics_by_type_vars=generics_by_type_vars, **kwargs)
 
