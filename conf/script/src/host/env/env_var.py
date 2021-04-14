@@ -76,38 +76,3 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
     def __verify_values_type(values: _fwd.T_Values) -> None:
         if not isinstance(values, typing.get_args(_fwd.T_Values)):
             raise TypeError()
-
-
-class EnvVarBaseIt(Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
-    __has_itered_over_env: bool
-    __env_var: Final[EnvVar]
-
-    def __init__(self, env_var: EnvVar) -> None:
-        self.__has_itered_over_env = False
-        self.__env_var = env_var
-
-    @final
-    def get_env_var(self) -> EnvVar:
-        return self.__env_var
-
-    @final
-    def __next__(self) -> utils.more_typing.T_PathLike:
-        self.__verify_has_next()
-        self.__has_itered_over_env = True
-
-        return self.get_env_var().get_env_key()
-
-    def __verify_has_next(self):
-        if self.__has_itered_over_env:
-            raise StopIteration()
-
-    @abc.abstractmethod
-    def _peek_next(self) -> utils.more_typing.T_PathLike:
-        raise NotImplementedError()
-
-
-@final
-class EnvVarKeyIt(EnvVarBaseIt[_fwd.T_Key]):
-
-    def _peek_next(self) -> _fwd.T_Key:
-        return self.get_env_var().get_env_key()
