@@ -76,7 +76,7 @@ class EnvVar(typing.Generic[_fwd.T_Key, _fwd.T_Single_Value], collections.abc.Ma
 
         return casted_env_var_sep.join(casted_values)
 
-    @staticmethod
-    def __verify_key_type(key: _fwd.T_Key) -> None:
-        if not isinstance(key, typing.get_args(_fwd.T_Key)):
+    @classmethod
+    def __verify_key_type(cls: type[_fwd.T_EnvVar], key: _fwd.T_Key) -> None:
+        if not isinstance(key, typing.get_args(cls)):
             raise TypeError()
