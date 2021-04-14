@@ -4,19 +4,18 @@ import typing
 
 import utils.more_typing
 
-T_ItValue: typing.Final[type] = typing.TypeVar(name='T_ItValue', utils.more_typing.T_PathLike.)
 T_Key: typing.Final[type] = utils.more_typing.T_PathLike
 T_Single_Value: typing.Final[type] = utils.more_typing.T_PathLike
-T_Values = typing.Final[list[T_Single_Value]]
+T_Values: typing.Final[type] = list[T_Single_Value]
 
 
 # Forward declaration
-class EnvVarKeyIt(collections.abc.Iterator[T_Key], metaclass=abc.ABCMeta):
+class EnvVarSingleIt(collections.abc.Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
     pass
 
 
 # Forward declaration
-class EnvVarValuesIt(collections.abc.Iterator[T_Values], metaclass=abc.ABCMeta):
+class EnvVarKeyIt(EnvVarSingleIt, metaclass=abc.ABCMeta):
     pass
 
 
