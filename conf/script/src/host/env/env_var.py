@@ -45,7 +45,7 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
         return self.get_env_values()
 
     def __len__(self) -> int:
-        return _ENV_VAR_ITEM_COUNT
+        return self.__ENV_VAR_ITEM_COUNT
 
     def __iter__(self) -> Iterator[_fwd.T_Key]:
         return self.iter_key()
