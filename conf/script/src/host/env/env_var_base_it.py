@@ -2,10 +2,10 @@ import abc
 import collections.abc
 
 import host.env.env_var
-import utils.more_typing
+import host.env.env_var_fwd as _fwd
 
 
-class EnvVarBaseIt(collections.abc.Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
+class EnvVarBaseIt(collections.abc.Iterator[_fwd.T_Key], metaclass=abc.ABCMeta):
     from host.env.env_var import EnvVar
     from typing import Final, final
 
@@ -21,7 +21,7 @@ class EnvVarBaseIt(collections.abc.Iterator[utils.more_typing.T_PathLike], metac
         return self.__env_var
 
     @final
-    def __next__(self) -> utils.more_typing.T_PathLike:
+    def __next__(self) -> _fwd.T_Key:
         self.__verify_has_next()
         self.__has_itered_over_env = True
 
@@ -32,5 +32,5 @@ class EnvVarBaseIt(collections.abc.Iterator[utils.more_typing.T_PathLike], metac
             raise StopIteration()
 
     @abc.abstractmethod
-    def _peek_next(self) -> utils.more_typing.T_PathLike:
+    def _peek_next(self) -> _fwd.T_Key:
         raise NotImplementedError()
