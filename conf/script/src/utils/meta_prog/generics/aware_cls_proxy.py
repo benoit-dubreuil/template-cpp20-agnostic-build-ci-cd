@@ -1,3 +1,5 @@
+from typing import Type
+
 from utils.meta_prog.generics.cls_mixin import GenericClassMixin
 
 
@@ -10,3 +12,7 @@ class GenericAwareClassProxy(GenericClassMixin):
 
     def __call__(self):
         return self.wrapped_generic_cls(generics=self.generics)
+
+    @property
+    def __class__(self) -> type[GenericClassMixin]:
+        return self.wrapped_generic_cls
