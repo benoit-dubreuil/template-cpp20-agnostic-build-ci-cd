@@ -1,42 +1,45 @@
+import abc
+import collections.abc
 import os
+import typing
 from collections.abc import Iterator
 from dataclasses import dataclass
-from typing import Final, Generic, final
+from typing import Final, final
 
-from host.env.env_var_fwd import *
-from utils.more_typing import T_PathLike
+import host.env.env_var_fwd as _fwd
+import utils.more_typing
 
 _ENV_VAR_ITEM_COUNT: Final[int] = 1
 
 
 @dataclass(init=False, order=True)
-class EnvVar(collections.abc.Mapping[T_Key, T_Values]):
-    __env_key: T_Key
-    __env_values: T_Values
+class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
+    __env_key: _fwd.T_Key
+    __env_values: _fwd.T_Values
 
     def __init__(self, key_name=None, values=None) -> None:
         self.__env_key = key_name if key_name is not None else str()
-        self.__env_values = values if values is not None else T_Values()
+        self.__env_values = values if values is not None else _fwd.T_Values()
 
-    def get_env_key(self) -> T_Key:
+    def get_env_key(self) -> _fwd.T_Key:
         return self.__env_key
 
-    def get_env_values(self) -> T_Values:
+    def get_env_values(self) -> _fwd.T_Values:
         return self.__env_values
 
-    def iter_key(self):
-        return _EnvVarKeyIt(env_var=self)
+    def iter_key(self) -> Iterator[_fwd.T_Key]:
+        return EnvVarKeyIt(env_var=self)
 
-    def iter_values(self):
-        return _EnvVarValuesIt(env_var=self)
+    def iter_values(self) -> Iterator[_fwd.T_Values]:
+        return iter(self.get_env_values())
 
-    def __contains__(self, key: T_Key) -> bool:
+    def __contains__(self, key: _fwd.T_Key) -> bool:
         self.__verify_key_type(key=key)
-        env_key: T_Key = self.get_env_key()
+        env_key: _fwd.T_Key = self.get_env_key()
 
         return key is env_key or key == env_key
 
-    def __getitem__(self, key: T_Key) -> T_Values:
+    def __getitem__(self, key: _fwd.T_Key) -> _fwd.T_Values:
         if key not in self:
             raise KeyError()
 
@@ -45,7 +48,7 @@ class EnvVar(collections.abc.Mapping[T_Key, T_Values]):
     def __len__(self) -> int:
         return _ENV_VAR_ITEM_COUNT
 
-    def __iter__(self) -> Iterator[T_Key]:
+    def __iter__(self) -> Iterator[_fwd.T_Key]:
         return self.iter_key()
 
     def __str__(self) -> str:
@@ -60,22 +63,22 @@ class EnvVar(collections.abc.Mapping[T_Key, T_Values]):
         return os.pathsep.join(self.get_env_values())
 
     @staticmethod
-    def __verify_key_type(key: T_Key) -> None:
-        if not isinstance(key, typing.get_args(T_Key)):
+    def __verify_key_type(key: _fwd.T_Key) -> None:
+        if not isinstance(key, typing.get_args(_fwd.T_Key)):
             raise TypeError()
 
     @staticmethod
-    def __verify_single_value_type(single_value: T_Single_Value) -> None:
-        if not isinstance(single_value, typing.get_args(T_Single_Value)):
+    def __verify_single_value_type(single_value: _fwd.T_Single_Value) -> None:
+        if not isinstance(single_value, typing.get_args(_fwd.T_Single_Value)):
             raise TypeError()
 
     @staticmethod
-    def __verify_values_type(values: T_Values) -> None:
-        if not isinstance(values, typing.get_args(T_Values)):
+    def __verify_values_type(values: _fwd.T_Values) -> None:
+        if not isinstance(values, typing.get_args(_fwd.T_Values)):
             raise TypeError()
 
 
-class _EnvVarSingleIt(Generic[T_PathLike], Iterator[T_PathLike], metaclass=abc.ABCMeta):
+class EnvVarSingleIt(Iterator[utils.more_typing.T_PathLike], metaclass=abc.ABCMeta):
     _has_itered_over_env: bool
     __env_var: Final[EnvVar]
 
@@ -88,7 +91,7 @@ class _EnvVarSingleIt(Generic[T_PathLike], Iterator[T_PathLike], metaclass=abc.A
         return self.__env_var
 
     @final
-    def __next__(self) -> T_PathLike:
+    def __next__(self) -> utils.more_typing.T_PathLike:
         self.__verify_has_next()
         self._has_itered_over_env = True
 
@@ -99,19 +102,12 @@ class _EnvVarSingleIt(Generic[T_PathLike], Iterator[T_PathLike], metaclass=abc.A
             raise StopIteration()
 
     @abc.abstractmethod
-    def _peek_next(self) -> T_PathLike:
+    def _peek_next(self) -> utils.more_typing.T_PathLike:
         raise NotImplementedError()
 
 
 @final
-class _EnvVarKeyIt(_EnvVarSingleIt[T_Key]):
+class EnvVarKeyIt(_EnvVarSingleIt[_fwd.T_Key]):
 
-    def _peek_next(self) -> T_Key:
-        return self.get_env_var().get_env_key()
-
-
-@final
-class _EnvVarValuesIt(_EnvVarSingleIt[T_Key]):
-
-    def _peek_next(self) -> T_Key:
+    def _peek_next(self) -> _fwd.T_Key:
         return self.get_env_var().get_env_key()
