@@ -6,8 +6,8 @@ class GenericClassMixin(GenericsData):
 
     type_vars: Final[tuple[TypeVar]]
 
-    def __init__(self, *args, type_vars: tuple[TypeVar] = None, **kwargs):
-        self.type_vars = type_vars if type_vars is not None else tuple()
+    def __init__(self, *args, type_vars: tuple[TypeVar] = tuple(), **kwargs):
+        self.type_vars = type_vars
 
         super().__init__(*args, **kwargs)
 
