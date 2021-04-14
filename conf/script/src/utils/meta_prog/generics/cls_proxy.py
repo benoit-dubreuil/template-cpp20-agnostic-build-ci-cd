@@ -32,7 +32,7 @@ class GenericClassProxy(utils.meta_prog.generics.data.GenericsDataMixin,
     @classmethod
     def __detect_type_vars(cls,
                            generic_cls: utils.meta_prog.generics.cls_wrapper.GenericClassWrapperMixin.TAlias_generic_cls) \
-            -> tuple[TypeVar]:
+            -> list[TypeVar]:
         from typing import TypeVar, Generic, get_args, get_origin
 
         type_vars: list[TypeVar] = []
@@ -48,4 +48,4 @@ class GenericClassProxy(utils.meta_prog.generics.data.GenericsDataMixin,
                 else:
                     type_vars += cls.__detect_type_vars(generic_cls=orig_base)
 
-        return tuple(type_vars)
+        return type_vars
