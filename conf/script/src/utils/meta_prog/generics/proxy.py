@@ -8,16 +8,21 @@ class GenericClassProxy(GenericsData):
     _TAlias_generic_cls = type[GenericClassMixin, Generic]
 
     wrapped_generic_cls: Final[_TAlias_generic_cls]
-    type_vars: Final[tuple[TypeVar]]
 
-    def __init__(self, generic_cls: _TAlias_generic_cls, *args, **kwargs) -> None:
+    def __init__(self,
+                 generic_cls: _TAlias_generic_cls,
+                 *args,
+                 generics: tuple[type] = tuple(),
+                 **kwargs) -> None:
         self.wrapped_generic_cls = generic_cls
-        self.type_vars = self.__detect_type_vars(generic_cls=generic_cls)
 
-        super().__init__(*args, **kwargs)
+        type_vars = self.__detect_type_vars(generic_cls=generic_cls)
+        generics_by_type_vars = dict(zip(type_vars, generics))
+
+        super().__init__(*args, generics_by_type_vars=generics_by_type_vars, **kwargs)
 
     def __call__(self, *args, **kwargs):
-        return self.wrapped_generic_cls(*args, type_vars=self.type_vars, generics=self.generics, **kwargs)
+        return self.wrapped_generic_cls(*args, generics_by_type_vars=self.generics_by_type_vars, **kwargs)
 
     @property
     def __class__(self) -> _TAlias_generic_cls:
