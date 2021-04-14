@@ -1,28 +1,31 @@
 from utils.meta_prog.generics.mixin import GenericClassMixin
 
 
-class GenericClassProxy(GenericClassMixin):
-    from typing import TypeVar, Generic
+class GenericClassProxy:
+    from typing import TypeVar, Generic, Final
 
     _TAlias_generic_cls = type[GenericClassMixin, Generic]
 
-    wrapped_generic_cls: _TAlias_generic_cls
-    type_vars: list[TypeVar]
+    wrapped_generic_cls: Final[_TAlias_generic_cls]
+    generics: Final[tuple[type]]
+    type_vars: Final[tuple[TypeVar]]
 
-    def __init__(self, generic_cls: _TAlias_generic_cls, *args, **kwargs) -> None:
+    def __init__(self, generic_cls: _TAlias_generic_cls, *args, generics: tuple[type] = (), **kwargs) -> None:
         self.wrapped_generic_cls = generic_cls
+        self.generics = generics
         self.type_vars = self.__detect_type_vars(generic_cls=generic_cls)
+
         super().__init__(*args, **kwargs)
 
     def __call__(self, *args, **kwargs):
-        return self.wrapped_generic_cls(*args, generics=self.generics, **kwargs)
+        return self.wrapped_generic_cls(*args, type_vars=self.type_vars, generics=self.generics, **kwargs)
 
     @property
     def __class__(self) -> _TAlias_generic_cls:
         return self.wrapped_generic_cls
 
     @classmethod
-    def __detect_type_vars(cls, generic_cls: _TAlias_generic_cls) -> list[TypeVar]:
+    def __detect_type_vars(cls, generic_cls: _TAlias_generic_cls) -> tuple[TypeVar]:
         from typing import TypeVar, Generic, get_args, get_origin
 
         type_vars: list[TypeVar] = []
@@ -38,4 +41,4 @@ class GenericClassProxy(GenericClassMixin):
                 else:
                     type_vars += cls.__detect_type_vars(generic_cls=orig_base)
 
-        return type_vars
+        return tuple(type_vars)
