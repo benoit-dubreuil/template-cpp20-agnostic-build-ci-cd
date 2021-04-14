@@ -58,8 +58,8 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
 
         return f'{self.get_env_key()}={joined_values}'
 
-    def cast_values_to_str_collection(self) -> _fwd.T_Values_Collection[str]:
-        return [str(value) for value in self.get_env_values()]
+    def cast_values_to_any_str_collection(self, str_cls: type[typing.AnyStr] = str) -> _fwd.T_Values_Collection[typing.AnyStr]:
+        return [str_cls(value) for value in self.get_env_values()]
 
     def join_values(self) -> str:
         return os.pathsep.join(self.get_env_values())
