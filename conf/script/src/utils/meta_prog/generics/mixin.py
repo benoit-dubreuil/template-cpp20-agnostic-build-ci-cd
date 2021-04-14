@@ -1,7 +1,7 @@
-from utils.meta_prog.generics.data import GenericsData
+from utils.meta_prog.generics.data import GenericsDataMixin
 
 
-class GenericClassMixin(GenericsData):
+class GenericClassMixin(GenericsDataMixin):
 
     def has_generics(self) -> bool:
         return len(self.generics_by_type_vars) > 0

@@ -3,7 +3,7 @@ import typing
 
 
 @dataclasses.dataclass()
-class GenericsData:
+class GenericsDataMixin:
     TAlias_Generics_By_TypeVars = dict[typing.TypeVar, typing.Optional[type]]
 
     generics_by_type_vars: typing.Final[TAlias_Generics_By_TypeVars]

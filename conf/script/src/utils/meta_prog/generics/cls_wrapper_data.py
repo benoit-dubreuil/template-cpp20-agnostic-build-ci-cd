@@ -5,7 +5,7 @@ from utils.meta_prog.generics.mixin import GenericClassMixin
 
 
 @dataclasses.dataclass()
-class GenericClassWrapperData:
+class GenericClassWrapperDataMixin:
     TAlias_generic_cls = type[GenericClassMixin, typing.Generic]
 
     wrapped_generic_cls: typing.Final[TAlias_generic_cls]

@@ -1,14 +1,14 @@
 import itertools
 
-from utils.meta_prog.generics.cls_wrapper import GenericClassWrapper
-from utils.meta_prog.generics.data import GenericsData
+from utils.meta_prog.generics.cls_wrapper import GenericClassWrapperMixin
+from utils.meta_prog.generics.data import GenericsDataMixin
 
 
-class GenericClassProxy(GenericsData, GenericClassWrapper):
+class GenericClassProxy(GenericsDataMixin, GenericClassWrapperMixin):
     from typing import TypeVar
 
     def __init__(self,
-                 generic_cls: GenericClassWrapper.TAlias_generic_cls,
+                 generic_cls: GenericClassWrapperMixin.TAlias_generic_cls,
                  *args,
                  generics: tuple[type] = tuple(),
                  **kwargs) -> None:
@@ -19,14 +19,14 @@ class GenericClassProxy(GenericsData, GenericClassWrapper):
         return self.wrapped_generic_cls(*args, generics_by_type_vars=self.generics_by_type_vars, **kwargs)
 
     @classmethod
-    def __create_generics_by_type_vars(cls, generic_cls: GenericClassWrapper.TAlias_generic_cls, generics: tuple[type]) -> GenericsData.TAlias_Generics_By_TypeVars:
+    def __create_generics_by_type_vars(cls, generic_cls: GenericClassWrapperMixin.TAlias_generic_cls, generics: tuple[type]) -> GenericsDataMixin.TAlias_Generics_By_TypeVars:
         type_vars = cls.__detect_type_vars(generic_cls=generic_cls)
         generics_by_type_vars = dict(itertools.zip_longest(type_vars, generics, fillvalue=None))
 
         return generics_by_type_vars
 
     @classmethod
-    def __detect_type_vars(cls, generic_cls: GenericClassWrapper.TAlias_generic_cls) -> tuple[TypeVar]:
+    def __detect_type_vars(cls, generic_cls: GenericClassWrapperMixin.TAlias_generic_cls) -> tuple[TypeVar]:
         from typing import TypeVar, Generic, get_args, get_origin
 
         type_vars: list[TypeVar] = []
