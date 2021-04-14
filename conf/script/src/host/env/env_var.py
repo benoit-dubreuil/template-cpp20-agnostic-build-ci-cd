@@ -1,21 +1,19 @@
-import abc
 import collections.abc
 import os
 import typing
 from collections.abc import Iterator
 from dataclasses import dataclass
-from typing import Final, final
+from typing import Final
 
 import host.env.env_var_fwd as _fwd
-import utils.more_typing
-
-_ENV_VAR_ITEM_COUNT: Final[int] = 1
 
 
 @dataclass(init=False, order=True)
 class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
     __env_key: _fwd.T_Key
     __env_values: _fwd.T_Values
+
+    __ENV_VAR_ITEM_COUNT: Final[int] = 1
 
     def __init__(self, key_name=None, values=None) -> None:
         self.__env_key = key_name if key_name is not None else str()
@@ -28,6 +26,7 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
         return self.__env_values
 
     def iter_key(self) -> Iterator[_fwd.T_Key]:
+        from host.env.env_var_key_it import EnvVarKeyIt
         return EnvVarKeyIt(env_var=self)
 
     def iter_values(self) -> Iterator[_fwd.T_Values]:
