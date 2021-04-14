@@ -8,7 +8,6 @@ class GenericClassMixin(GenericsData):
 
     def __init__(self, *args, type_vars: tuple[TypeVar] = tuple(), **kwargs):
         self.type_vars = type_vars
-
         super().__init__(*args, **kwargs)
 
     def has_generics(self) -> bool:
