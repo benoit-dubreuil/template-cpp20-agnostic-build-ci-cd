@@ -19,6 +19,9 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
         self.__env_key = key if key is not None else _fwd.T_Key()
         self.__env_values = values if values is not None else _fwd.T_Values()
 
+    @classmethod
+    def create_from_joined_values(cls, key: _fwd.T_Key = None, values: _fwd.T_Values = None) -> 'EnvVar':
+
     def get_env_key(self) -> _fwd.T_Key:
         return self.__env_key
 
@@ -58,11 +61,14 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
 
         return f'{self.get_env_key()}={joined_values}'
 
-    def cast_values_to_any_str_collection(self, str_cls: type[typing.AnyStr] = str) -> _fwd.T_Values_Collection[typing.AnyStr]:
+    def cast_values_to_any_str_collection(self, str_cls: type[typing.AnyStr] = _fwd.T_Default_AnyStr) -> _fwd.T_Values_Collection[typing.AnyStr]:
         return [str_cls(value) for value in self.get_env_values()]
 
-    def join_values(self) -> str:
-        return os.pathsep.join(self.get_env_values())
+    def join_values(self, str_cls: type[typing.AnyStr] = _fwd.T_Default_AnyStr) -> typing.AnyStr:
+        casted_env_var_sep: typing.AnyStr = str_cls(os.pathsep)
+        casted_values: _fwd.T_Values_Collection[typing.AnyStr] = self.cast_values_to_any_str_collection(str_cls=str_cls)
+
+        return casted_env_var_sep.join(casted_values)
 
     @staticmethod
     def __verify_key_type(key: _fwd.T_Key) -> None:
