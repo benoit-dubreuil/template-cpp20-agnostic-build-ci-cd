@@ -15,8 +15,8 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
 
     __ENV_VAR_ITEM_COUNT: Final[int] = 1
 
-    def __init__(self, key_name: _fwd.T_Key = None, values: _fwd.T_Values = None) -> None:
-        self.__env_key = key_name if key_name is not None else str()
+    def __init__(self, key: _fwd.T_Key = None, values: _fwd.T_Values = None) -> None:
+        self.__env_key = key if key is not None else str()
         self.__env_values = values if values is not None else _fwd.T_Values()
 
     def get_env_key(self) -> _fwd.T_Key:
