@@ -17,7 +17,6 @@ def format_success_msg(message: AnyStr) -> AnyStr:
 class BaseFormattedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
 
     def __init__(self, *args, **kwargs):
-        # noinspection PyArgumentList
         super().__init__(*args, **kwargs)
 
     def __str__(self) -> str:
