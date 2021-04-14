@@ -1,18 +1,17 @@
+from utils.meta_prog.generics.data import GenericsData
 from utils.meta_prog.generics.mixin import GenericClassMixin
 
 
-class GenericClassProxy:
+class GenericClassProxy(GenericsData):
     from typing import TypeVar, Generic, Final
 
     _TAlias_generic_cls = type[GenericClassMixin, Generic]
 
     wrapped_generic_cls: Final[_TAlias_generic_cls]
-    generics: Final[tuple[type]]
     type_vars: Final[tuple[TypeVar]]
 
-    def __init__(self, generic_cls: _TAlias_generic_cls, *args, generics: tuple[type] = (), **kwargs) -> None:
+    def __init__(self, generic_cls: _TAlias_generic_cls, *args, **kwargs) -> None:
         self.wrapped_generic_cls = generic_cls
-        self.generics = generics
         self.type_vars = self.__detect_type_vars(generic_cls=generic_cls)
 
         super().__init__(*args, **kwargs)
