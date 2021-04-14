@@ -20,7 +20,11 @@ class EnvVar(collections.abc.Mapping[_fwd.T_Key, _fwd.T_Values]):
         self.__env_values = values if values is not None else _fwd.T_Values()
 
     @classmethod
-    def create_from_joined_values(cls, key: _fwd.T_Key = None, values: _fwd.T_Values = None) -> 'EnvVar':
+    def create_from_joined_values(cls,
+                                  key: _fwd.T_Key = None,
+                                  joined_values: typing.AnyStr = None) -> 'EnvVar':
+        # TODO
+        ...
 
     def get_env_key(self) -> _fwd.T_Key:
         return self.__env_key
