@@ -15,7 +15,7 @@ class EnvVar(typing.Generic[_fwd.T_Key, _fwd.T_Single_Value], collections.abc.Ma
 
     __ENV_VAR_ITEM_COUNT: Final[int] = 1
 
-    def __init__(self,
+    def __init__(self: _fwd.T_EnvVar[_fwd.T_Key, _fwd.T_Single_Value],
                  key: _fwd.T_Key = None,
                  values: list[_fwd.T_Single_Value] = None) -> None:
         self.__env_key = key if key is not None else _fwd.T_Key()
