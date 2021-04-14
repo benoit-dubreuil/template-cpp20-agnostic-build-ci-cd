@@ -1,9 +1,7 @@
-from typing import Type
-
 from utils.meta_prog.generics.cls_mixin import GenericClassMixin
 
 
-class GenericAwareClassProxy(GenericClassMixin):
+class GenericClassProxy(GenericClassMixin):
     wrapped_generic_cls: type[GenericClassMixin]
 
     def __init__(self, generic_cls: type[GenericClassMixin], *args, **kwargs) -> None:
