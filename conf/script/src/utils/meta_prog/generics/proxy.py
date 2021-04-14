@@ -17,9 +17,7 @@ class GenericClassProxy(GenericsData):
                  generics: tuple[type] = tuple(),
                  **kwargs) -> None:
         self.wrapped_generic_cls = generic_cls
-
-        type_vars = self.__detect_type_vars(generic_cls=generic_cls)
-        generics_by_type_vars = dict(itertools.zip_longest(type_vars, generics, fillvalue=None))
+        generics_by_type_vars = self.__create_generics_by_type_vars(generic_cls=generic_cls, generics=generics)
 
         super().__init__(*args, generics_by_type_vars=generics_by_type_vars, **kwargs)
 
@@ -29,6 +27,13 @@ class GenericClassProxy(GenericsData):
     @property
     def __class__(self) -> _TAlias_generic_cls:
         return self.wrapped_generic_cls
+
+    @classmethod
+    def __create_generics_by_type_vars(cls, generic_cls: _TAlias_generic_cls, generics: tuple[type]) -> GenericsData.TAlias_Generics_By_TypeVars:
+        type_vars = cls.__detect_type_vars(generic_cls=generic_cls)
+        generics_by_type_vars = dict(itertools.zip_longest(type_vars, generics, fillvalue=None))
+
+        return generics_by_type_vars
 
     @classmethod
     def __detect_type_vars(cls, generic_cls: _TAlias_generic_cls) -> tuple[TypeVar]:
