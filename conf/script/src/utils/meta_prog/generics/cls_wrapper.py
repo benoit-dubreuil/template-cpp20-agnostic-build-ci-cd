@@ -8,5 +8,4 @@ class GenericClassWrapperMixin(utils.meta_prog.generics.cls_wrapper_data.Generic
 
     @property
     def __class__(self) -> utils.meta_prog.generics.cls_wrapper_data.GenericClassWrapperDataMixin.TAlias_generic_cls:
-        proxy_cls = self.wrapped_generic_cls if hasattr(self, 'wrapped_generic_cls') else super().__class__()
-        return proxy_cls
+        return self.wrapped_generic_cls
