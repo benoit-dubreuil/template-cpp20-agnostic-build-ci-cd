@@ -9,7 +9,7 @@ import host.env.env_var_fwd as _fwd
 
 
 @dataclass(init=False, order=True)
-class EnvVar(typing.Generic[_fwd.T_Key, _fwd.T_Single_Value], collections.abc.Mapping[_fwd.T_Key, list[_fwd.T_Single_Value]]):
+class EnvVar(collections.abc.Mapping[_fwd.T_Key, list[_fwd.T_Single_Value]], typing.Generic[_fwd.T_Key, _fwd.T_Single_Value]):
     __env_key: _fwd.T_Key
     __env_values: list[_fwd.T_Single_Value]
 
