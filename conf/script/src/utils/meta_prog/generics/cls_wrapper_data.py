@@ -1,10 +1,8 @@
-import dataclasses
 import typing
 
 import utils.meta_prog.generics.cls_mixin
 
 
-@dataclasses.dataclass()
 class GenericClassWrapperDataMixin:
     TAlias_generic_cls = type[utils.meta_prog.generics.cls_mixin.GenericClassMixin, typing.Generic]
 
