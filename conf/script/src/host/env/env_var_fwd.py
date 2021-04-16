@@ -4,6 +4,7 @@ import typing
 
 import utils.more_typing
 
+T_ItValue: typing.Final[type] = typing.TypeVar(name='T_ItValue', utils.more_typing.T_PathLike.)
 T_Key: typing.Final[type] = utils.more_typing.T_PathLike
 T_Single_Value: typing.Final[type] = utils.more_typing.T_PathLike
 T_Values = typing.Final[list[T_Single_Value]]
