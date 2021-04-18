@@ -1,6 +1,8 @@
 import inspect
 import typing
 
+__all__ = ['export']
+
 
 def export(func: typing.Callable):
     attribute_name_all: typing.Final[str] = '__all__'
