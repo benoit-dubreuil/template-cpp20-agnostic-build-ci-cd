@@ -2,11 +2,11 @@
 
 import unittest
 
-import utils.cli.main
 import utils.error.format
 import utils.error.managed
 import utils.error.meta
 import utils.error.status
+from utils.meta_prog.introspection import *
 
 
 class TestManage(unittest.TestCase):
@@ -127,5 +127,5 @@ class TestManage(unittest.TestCase):
         self.assert_decorated_error_type(DecoratedError)
 
 
-if utils.cli.main.is_caller_main():
+if is_caller_main():
     unittest.main()
