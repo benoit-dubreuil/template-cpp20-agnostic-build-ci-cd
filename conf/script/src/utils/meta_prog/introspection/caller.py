@@ -28,3 +28,8 @@ def get_caller() -> FrameType:
 def is_frame_main(frame: FrameType) -> bool:
     frame_script_name = frame.f_locals[Macro.NAME]
     return frame_script_name == Macro.MAIN
+
+
+def is_caller_main() -> bool:
+    caller = get_caller()
+    return is_frame_main(frame=caller)
