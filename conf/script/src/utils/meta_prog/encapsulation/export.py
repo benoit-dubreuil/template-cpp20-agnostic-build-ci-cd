@@ -9,3 +9,17 @@ def export(fn):
     else:
         mod.__all__ = [fn.__name__]
     return fn
+
+
+@export
+def foo():
+    ...
+
+
+@export
+class Bar:
+
+    @export
+    @staticmethod
+    def __baz():
+        print('baz')
