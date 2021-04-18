@@ -3,8 +3,8 @@
 import abc
 import unittest
 
-import utils.cli.main
 import utils.error.meta
+from utils.meta_prog.introspection import *
 
 
 class TestErrorMeta(unittest.TestCase):
@@ -42,5 +42,5 @@ class TestErrorMeta(unittest.TestCase):
         ErrorMetaImplChild()
 
 
-if utils.cli.main.is_caller_main():
+if is_caller_main():
     unittest.main()
