@@ -2,7 +2,7 @@ import inspect
 from types import FrameType
 from typing import Final
 
-from utils.meta_prog.encapsulation import *
+from .macro import *
 
 __all__ = ['get_nth_caller', 'get_caller', 'is_caller_main']
 
@@ -23,3 +23,8 @@ def get_nth_caller(n: int = CALLER_MIN_N) -> FrameType:
 
 def get_caller() -> FrameType:
     return get_nth_caller(n=CALLER_MIN_N + 1)
+
+
+def is_frame_main(frame: FrameType) -> bool:
+    frame_script_name = frame.f_locals[Macro.NAME]
+    return frame_script_name == Macro.MAIN
