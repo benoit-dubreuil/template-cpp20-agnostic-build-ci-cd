@@ -15,3 +15,7 @@ def get_nth_caller(n: int = CALLER_MIN_N) -> FrameType:
         caller_frame = caller_frame.f_back
 
     return caller_frame
+
+
+def get_caller() -> FrameType:
+    return get_nth_caller(n=CALLER_MIN_N + 1)
