@@ -5,7 +5,7 @@ __all__ = ['Macro']
 
 
 @unique
-class AutoMacroFromName(Enum):
+class AutoMacroFromName(str, Enum):
     __AFFIX: Final[str] = '__'
 
     def _generate_next_value_(name: str, start, count, last_values) -> str:
