@@ -4,10 +4,11 @@ from typing import Final
 
 from utils.meta_prog.encapsulation import *
 
+__all__ = ['get_nth_caller', 'get_caller', 'is_caller_main']
+
 CALLER_MIN_N: Final[int] = 1
 
 
-@export
 def get_nth_caller(n: int = CALLER_MIN_N) -> FrameType:
     assert n >= CALLER_MIN_N
 
@@ -20,6 +21,5 @@ def get_nth_caller(n: int = CALLER_MIN_N) -> FrameType:
     return caller_frame
 
 
-@export
 def get_caller() -> FrameType:
     return get_nth_caller(n=CALLER_MIN_N + 1)
