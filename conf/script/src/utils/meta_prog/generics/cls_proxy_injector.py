@@ -1,8 +1,10 @@
 import typing
 
 import utils.meta_prog.generics.cls_mixin
+from utils.meta_prog.encapsulation import *
 
 
+@export
 class GenericClassProxyInjectorMixin(utils.meta_prog.generics.cls_mixin.GenericClassMixin):
     import utils.meta_prog.generics.cls_proxy
 
