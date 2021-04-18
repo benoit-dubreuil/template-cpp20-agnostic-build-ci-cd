@@ -1,9 +1,9 @@
-import sys
+import inspect
 
 
 # https://stackoverflow.com/a/35710527/2924010
 def export(fn):
-    mod = sys.modules[fn.__module__]
+    mod = inspect.getmodule(fn)
     if hasattr(mod, '__all__'):
         mod.__all__.append(fn.__name__)
     else:
