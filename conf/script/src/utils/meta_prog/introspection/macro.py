@@ -1,6 +1,8 @@
 from enum import Enum, auto, unique
 from typing import Final
 
+__all__ = ['Macro']
+
 
 @unique
 class AutoMacroFromName(Enum):
