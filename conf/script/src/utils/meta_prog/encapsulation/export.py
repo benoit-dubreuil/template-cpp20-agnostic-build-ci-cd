@@ -2,7 +2,7 @@ import inspect
 import typing
 
 
-def export(func):
+def export(func: typing.Callable):
     attribute_name_all: typing.Final[str] = '__all__'
     module_api: list[str]
 
@@ -17,19 +17,4 @@ def export(func):
 
     module_api.append(func_api)
 
-
     return func
-
-
-@export
-def foo():
-    ...
-
-
-@export
-class Bar:
-
-    @staticmethod
-    @export
-    def __baz():
-        print('baz')
