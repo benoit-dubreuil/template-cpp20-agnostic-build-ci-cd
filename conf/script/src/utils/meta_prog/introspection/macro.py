@@ -16,5 +16,6 @@ class AutoMacroFromName(Enum):
 @unique
 class Macro(AutoMacroFromName):
     ALL = auto()
+    MAIN = auto()
     NAME = auto()
     QUALNAME = auto()
