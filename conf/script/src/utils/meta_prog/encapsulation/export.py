@@ -2,12 +2,12 @@ import inspect
 
 
 # https://stackoverflow.com/a/35710527/2924010
-def export(fn):
-    module = inspect.getmodule(fn)
+def export(func):
+    module = inspect.getmodule(func)
     if hasattr(module, '__all__'):
-        module.__all__.append(fn.__name__)
+        module.__all__.append(func.__name__)
     else:
-        module.__all__ = [fn.__name__]
+        module.__all__ = [func.__name__]
     return fn
 
 
