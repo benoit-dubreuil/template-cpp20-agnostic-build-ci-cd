@@ -2,9 +2,12 @@ import inspect
 from types import FrameType
 from typing import Final
 
+from utils.meta_prog.encapsulation import *
+
 CALLER_MIN_N: Final[int] = 1
 
 
+@export
 def get_nth_caller(n: int = CALLER_MIN_N) -> FrameType:
     assert n >= CALLER_MIN_N
 
@@ -17,5 +20,6 @@ def get_nth_caller(n: int = CALLER_MIN_N) -> FrameType:
     return caller_frame
 
 
+@export
 def get_caller() -> FrameType:
     return get_nth_caller(n=CALLER_MIN_N + 1)
