@@ -1,7 +1,9 @@
 from enum import Enum, auto, unique
 from typing import Final
 
-__all__ = ['Macro']
+TAlias_Macro_All = list[str]
+
+__all__: TAlias_Macro_All = ['Macro']
 
 
 @unique
