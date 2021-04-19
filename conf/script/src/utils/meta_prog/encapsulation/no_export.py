@@ -1,12 +1,11 @@
 import inspect
-import typing
 
 from utils.meta_prog.introspection import *
 
 __all__: TAlias_Macro_All = ['no_export']
 
 
-def no_export(func: typing.Callable):
+def no_export(func):
     module = inspect.getmodule(func)
     module_api = TAlias_Macro_All()
 
