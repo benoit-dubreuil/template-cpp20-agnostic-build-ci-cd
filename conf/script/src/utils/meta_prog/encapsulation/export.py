@@ -1,21 +1,22 @@
 import inspect
 import typing
 
-__all__ = ['export']
+from utils.meta_prog.introspection import *
+
+__all__: TAlias_Macro_All = ['export']
 
 
 def export(func: typing.Callable):
-    attribute_name_all: typing.Final[str] = '__all__'
-    module_api: list[str]
+    module_api: TAlias_Macro_All
 
     module = inspect.getmodule(func)
-    func_api = func.__qualname__
+    func_api = getattr(func, Macro.QUALNAME)
 
-    if not hasattr(module, attribute_name_all):
-        module_api = []
-        setattr(module, attribute_name_all, module_api)
+    if not hasattr(module, Macro.ALL):
+        module_api = TAlias_Macro_All()
+        setattr(module, Macro.ALL, module_api)
     else:
-        module_api = getattr(module, attribute_name_all)
+        module_api = getattr(module, Macro.ALL)
 
     module_api.append(func_api)
 

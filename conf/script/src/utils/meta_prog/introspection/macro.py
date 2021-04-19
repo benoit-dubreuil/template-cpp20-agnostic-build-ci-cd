@@ -3,21 +3,20 @@ from typing import Final
 
 TAlias_Macro_All = list[str]
 
-__all__: TAlias_Macro_All = ['Macro']
+__all__: TAlias_Macro_All = ['Macro', 'TAlias_Macro_All']
 
 
-@unique
 class AutoMacroFromName(str, Enum):
-    __AFFIX: Final[str] = '__'
 
     def _generate_next_value_(name: str, start, count, last_values) -> str:
-        affixed_name = AutoMacroFromName.__AFFIX + name + AutoMacroFromName.__AFFIX
-        return affixed_name
+        __AFFIX: Final[str] = '__'
+        return __AFFIX + name.lower() + __AFFIX
 
 
 @unique
 class Macro(AutoMacroFromName):
     ALL = auto()
+    DICT = auto()
     MAIN = auto()
     NAME = auto()
     QUALNAME = auto()
