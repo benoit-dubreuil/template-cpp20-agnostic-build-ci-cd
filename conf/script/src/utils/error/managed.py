@@ -16,6 +16,7 @@ class ManagedErrorMixin(utils.error.format.BaseFormattedErrorMixin, utils.error.
         super().__init__(*args, **kwargs)
 
 
+# TODO : functools -> wraps ?
 class ManageClass:
 
     def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedErrorMixin] = utils.error.format.FormattedErrorMixin,

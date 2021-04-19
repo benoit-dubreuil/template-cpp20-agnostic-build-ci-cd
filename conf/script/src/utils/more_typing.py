@@ -2,8 +2,8 @@ import os
 import pathlib
 import typing
 
-T_PathLike_Constraints = (pathlib.Path, os.PathLike, str, bytes)
-T_AnyPath_Constraints = (pathlib.Path, os.PathLike, str, bytes, type(None))
+TConstraints_PathLike = (pathlib.Path, os.PathLike, str, bytes)
+TConstraints_AnyPath = (pathlib.Path, os.PathLike, str, bytes, type(None))
 
 PathLike = typing.Union[pathlib.Path, os.PathLike, str, bytes]
 AnyPath = typing.Union[pathlib.Path, os.PathLike, str, bytes, type(None)]

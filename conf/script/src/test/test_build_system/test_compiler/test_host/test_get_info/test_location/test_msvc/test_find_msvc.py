@@ -5,7 +5,7 @@ from unittest import mock
 from unittest.mock import MagicMock
 
 import build_system.cmd.compiler.host.get_info.location.msvc
-import utils.cli.main
+from utils.meta_prog.introspection import *
 
 
 class TestFindMSVC(unittest.TestCase):
@@ -22,5 +22,5 @@ class TestFindMSVC(unittest.TestCase):
         self.assertIsNone(result)
 
 
-if utils.cli.main.is_caller_main():
+if is_caller_main():
     unittest.main()

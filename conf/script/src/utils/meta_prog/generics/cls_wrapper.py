@@ -1,6 +1,7 @@
 import utils.meta_prog.generics.cls_wrapper_data
 
 
+# TODO : functools -> wraps ?
 class GenericClassWrapperMixin(utils.meta_prog.generics.cls_wrapper_data.GenericClassWrapperDataMixin):
 
     def __init__(self, *args, **kwargs) -> None:

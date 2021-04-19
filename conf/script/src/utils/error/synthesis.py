@@ -3,6 +3,7 @@ from typing import Final
 import utils.error.cls_def
 import utils.error.status
 
+# TODO : Remove, deprecated
 ALL_ERRORS: Final = [
     utils.error.cls_def.SuccessWarning,
     utils.error.cls_def.UnsupportedError,

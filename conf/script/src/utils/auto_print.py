@@ -1,5 +1,6 @@
 # Consider using the dataclasses package
 
+# TODO : functools -> wraps ?
 # From https://stackoverflow.com/a/33800620/2924010
 def auto_repr(cls):
     def __repr__(self):
@@ -12,6 +13,7 @@ def auto_repr(cls):
     return cls
 
 
+# TODO : functools -> wraps ?
 # From https://stackoverflow.com/a/33800620/2924010
 def auto_str(cls):
     def __str__(self):
