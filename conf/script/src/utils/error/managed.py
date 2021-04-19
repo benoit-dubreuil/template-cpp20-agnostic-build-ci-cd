@@ -2,17 +2,17 @@ import abc
 import types
 from typing import Callable, Optional, Type, Union
 
-import utils.error.cli_exit
-import utils.error.format
-import utils.error.meta
-import utils.error.status
+from .cli_exit import *
+from .format import *
+from .meta import *
+from .status import *
 from utils.meta_prog.encapsulation import *
 
 
 # noinspection PyAbstractClass
 @export
-class ManagedErrorMixin(utils.error.format.BaseFormattedErrorMixin, utils.error.status.EncodedErrorMixin, utils.error.cli_exit.ExitCLIErrorMixin,
-                        metaclass=utils.error.meta.ErrorMeta):
+class ManagedErrorMixin(BaseFormattedErrorMixin, EncodedErrorMixin, ExitCLIErrorMixin,
+                        metaclass=ErrorMeta):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,8 +22,8 @@ class ManagedErrorMixin(utils.error.format.BaseFormattedErrorMixin, utils.error.
 @export
 class ManageClass:
 
-    def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedErrorMixin] = utils.error.format.FormattedErrorMixin,
-                encoded_error_status: Optional[utils.error.status.ErrorStatus] = None) -> Union[type, Callable[[Optional[type]], type]]:
+    def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[BaseFormattedErrorMixin] = FormattedErrorMixin,
+                encoded_error_status: Optional[ErrorStatus] = None) -> Union[type, Callable[[Optional[type]], type]]:
         # noinspection PyAbstractClass
         class DecoratedManagedErrorAPIMixin(error_formatter_cls, ManagedErrorMixin):
 
@@ -32,7 +32,7 @@ class ManageClass:
 
             if encoded_error_status is not None:
                 @staticmethod
-                def get_error_status() -> utils.error.status.ErrorStatus:
+                def get_error_status() -> ErrorStatus:
                     return encoded_error_status
 
         def create_managed_cls(unmanaged_cls: type) -> type:
@@ -45,7 +45,7 @@ class ManageClass:
 
             managed_class = types.new_class(unmanaged_cls.__qualname__,
                                             bases=(DecoratedManagedErrorAPIMixin, unmanaged_cls),
-                                            kwds={'metaclass': utils.error.meta.ErrorMeta},
+                                            kwds={'metaclass': ErrorMeta},
                                             exec_body=lambda ns: ns.update(managed_class_namespace))
 
             def __init__(self, *args, **kwargs):

@@ -3,7 +3,7 @@ from typing import AnyStr
 
 import colorama
 
-import utils.error.meta
+from .meta import *
 from utils.meta_prog.encapsulation import *
 
 
@@ -18,7 +18,7 @@ def format_success_msg(message: AnyStr) -> AnyStr:
 
 
 @export
-class BaseFormattedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
+class BaseFormattedErrorMixin(Exception, metaclass=ErrorMeta):
 
     def __init__(self, *args, **kwargs):
         # noinspection PyArgumentList

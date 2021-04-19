@@ -1,14 +1,14 @@
 import argparse
 from typing import Optional, Union
 
-import utils.error.format
-import utils.error.managed
-import utils.error.status
+from .format import *
+from .managed import *
+from .status import *
 from utils.meta_prog.encapsulation import *
 
 
 @export
-@utils.error.managed.ManageClass(error_formatter_cls=utils.error.format.FormattedSuccessMixin, encoded_error_status=utils.error.status.ErrorStatus.SUCCESS)
+@ManageClass(error_formatter_cls=FormattedSuccessMixin, encoded_error_status=ErrorStatus.SUCCESS)
 class SuccessWarning(UserWarning):
 
     def __init__(self):
@@ -16,7 +16,7 @@ class SuccessWarning(UserWarning):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.UNSUPPORTED)
+@ManageClass(encoded_error_status=ErrorStatus.UNSUPPORTED)
 class UnsupportedError(RuntimeError):
 
     def __init__(self, original_raised_error: Optional[BaseException] = None):
@@ -33,7 +33,7 @@ class UnsupportedError(RuntimeError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.ARG_PARSER)
+@ManageClass(encoded_error_status=ErrorStatus.ARG_PARSER)
 class ArgParserError(RuntimeError):
 
     def __init__(self, arg_parser_exception: Union[argparse.ArgumentError, argparse.ArgumentTypeError]):
@@ -48,7 +48,7 @@ class ArgParserError(RuntimeError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.UNKNOWN_PARSED_ARG)
+@ManageClass(encoded_error_status=ErrorStatus.UNKNOWN_PARSED_ARG)
 class UnknownParsedArgError(TypeError):
 
     def __init__(self, unknown_parsed_args: list[str]):
@@ -56,7 +56,7 @@ class UnknownParsedArgError(TypeError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.EMPTY_PARSED_ARG)
+@ManageClass(encoded_error_status=ErrorStatus.EMPTY_PARSED_ARG)
 class EmptyParsedArgError(ValueError):
 
     def __init__(self, arg: str):
@@ -64,7 +64,7 @@ class EmptyParsedArgError(ValueError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.ROOT_DIR_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.ROOT_DIR_NOT_FOUND)
 class RootDirNotFoundError(FileNotFoundError):
 
     def __init__(self):
@@ -72,7 +72,7 @@ class RootDirNotFoundError(FileNotFoundError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.BUILD_DIR_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.BUILD_DIR_NOT_FOUND)
 class BuildDirNotFoundError(FileNotFoundError):
 
     def __init__(self):
@@ -80,7 +80,7 @@ class BuildDirNotFoundError(FileNotFoundError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.BUILD_DIR_NOT_DIR)
+@ManageClass(encoded_error_status=ErrorStatus.BUILD_DIR_NOT_DIR)
 class BuildDirNotDirError(FileExistsError):
 
     def __init__(self):
@@ -88,7 +88,7 @@ class BuildDirNotDirError(FileExistsError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.BUILD_DIR_NOT_EMPTY)
+@ManageClass(encoded_error_status=ErrorStatus.BUILD_DIR_NOT_EMPTY)
 class BuildDirNotEmptyError(FileExistsError):
 
     def __init__(self):
@@ -96,7 +96,7 @@ class BuildDirNotEmptyError(FileExistsError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.CONF_DIR_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.CONF_DIR_NOT_FOUND)
 class ConfDirNotFoundError(FileNotFoundError):
 
     def __init__(self):
@@ -104,7 +104,7 @@ class ConfDirNotFoundError(FileNotFoundError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.CONF_BUILD_SYSTEM_DIR_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.CONF_BUILD_SYSTEM_DIR_NOT_FOUND)
 class ConfBuildSystemDirNotFoundError(FileNotFoundError):
 
     def __init__(self):
@@ -112,7 +112,7 @@ class ConfBuildSystemDirNotFoundError(FileNotFoundError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.MESON_MAIN_FILE_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.MESON_MAIN_FILE_NOT_FOUND)
 class MesonMainFileNotFoundError(FileNotFoundError):
 
     def __init__(self):
@@ -120,7 +120,7 @@ class MesonMainFileNotFoundError(FileNotFoundError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.MESON_MACHINE_FILES_DIR_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.MESON_MACHINE_FILES_DIR_NOT_FOUND)
 class MesonMachineFilesDirNotFoundError(FileNotFoundError):
 
     def __init__(self):
@@ -128,7 +128,7 @@ class MesonMachineFilesDirNotFoundError(FileNotFoundError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_REQS_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.COMPILER_REQS_NOT_FOUND)
 class CompilerReqsNotFoundError(FileNotFoundError):
 
     def __init__(self):
@@ -136,7 +136,7 @@ class CompilerReqsNotFoundError(FileNotFoundError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.COMPILER_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.COMPILER_NOT_FOUND)
 class CompilerNotFoundError(FileNotFoundError):
 
     def __init__(self, error_msg: str = 'Compiler at the supplied path does not exist or requires ungranted permissions'):
@@ -150,12 +150,12 @@ class NoSupportedCompilersAvailableError(CompilerNotFoundError):
         super().__init__(error_msg='No supported compilers are available')
 
     @staticmethod
-    def get_error_status() -> utils.error.status.ErrorStatus:
-        return utils.error.status.ErrorStatus.NO_SUPPORTED_COMPILERS_AVAILABLE
+    def get_error_status() -> ErrorStatus:
+        return ErrorStatus.NO_SUPPORTED_COMPILERS_AVAILABLE
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.MSVC_COMPILER_VCVARS_DIR_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.MSVC_COMPILER_VCVARS_DIR_NOT_FOUND)
 class MSVCCompilerVcvarsDirNotFoundError(FileNotFoundError):
 
     def __init__(self):
@@ -163,7 +163,7 @@ class MSVCCompilerVcvarsDirNotFoundError(FileNotFoundError):
 
 
 @export
-@utils.error.managed.ManageClass(encoded_error_status=utils.error.status.ErrorStatus.MSVC_COMPILER_VCVARS_BATCH_FILE_NOT_FOUND)
+@ManageClass(encoded_error_status=ErrorStatus.MSVC_COMPILER_VCVARS_BATCH_FILE_NOT_FOUND)
 class MSVCCompilerVcvarsBatchFileNotFoundError(FileNotFoundError):
 
     def __init__(self):

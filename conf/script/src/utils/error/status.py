@@ -1,7 +1,7 @@
 import abc
 import enum
 
-import utils.error.meta
+from .meta import *
 from utils.meta_prog.encapsulation import *
 
 
@@ -36,7 +36,7 @@ class ErrorStatus(enum.IntEnum):
 
 
 @export
-class EncodedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
+class EncodedErrorMixin(Exception, metaclass=ErrorMeta):
 
     def __init__(self, *args, **kwargs):
         # noinspection PyArgumentList
