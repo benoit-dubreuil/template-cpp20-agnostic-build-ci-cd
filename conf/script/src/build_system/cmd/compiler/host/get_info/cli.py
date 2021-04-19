@@ -2,12 +2,12 @@ import argparse
 from pathlib import Path
 from typing import Any, Callable, Optional
 
-import build_system.compiler.family
+import build_system.compiler.core.family
 import ext.cli.arg_parsing
 import ext.cli.try_cmd
 
 
-def fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFamily,
+def fetch_compiler_info(compiler_family: build_system.compiler.core.family.CompilerFamily,
                         fetch_compiler_info_func: Callable[[Optional[Path]], Any],
                         default_compiler_path: Optional[Path] = None,
                         desc_compiler_info: str = 'version',
@@ -26,5 +26,5 @@ def fetch_compiler_info(compiler_family: build_system.compiler.family.CompilerFa
     ext.cli.try_cmd.try_cmd_except_managed_errors(cli_cmd, arg_parser)
 
 
-def fetch_compiler_info_with_default_path(compiler_family: build_system.compiler.family.CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
+def fetch_compiler_info_with_default_path(compiler_family: build_system.compiler.core.family.CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
     fetch_compiler_info(compiler_family, fetch_compiler_info_func, compiler_family.value)

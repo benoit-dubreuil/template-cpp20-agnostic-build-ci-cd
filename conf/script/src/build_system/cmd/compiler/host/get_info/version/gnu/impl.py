@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import AnyStr
 
 import build_system.cmd.compiler.host.get_info.version.generic_fetch
-import build_system.compiler.version
+import build_system.compiler.core.version
 
 
 def _fetch_raw(compiler: Path) -> AnyStr:
@@ -16,5 +16,5 @@ def _fetch_raw(compiler: Path) -> AnyStr:
     return result.stdout
 
 
-def fetch_version(compiler: Path) -> build_system.compiler.version.CompilerVersion:
+def fetch_version(compiler: Path) -> build_system.compiler.core.version.CompilerVersion:
     return build_system.cmd.compiler.host.get_info.version.generic_fetch.fetch(compiler, _fetch_raw)

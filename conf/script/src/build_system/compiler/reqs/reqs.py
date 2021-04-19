@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
-import build_system.compiler.family
+import build_system.compiler.core.family
 import build_system.compiler.reqs.scheme
-import build_system.compiler.version
+import build_system.compiler.core.version
 import host.os_family
 import ext.error.core.cls_def
 import ext.error.utils.try_external_errors
@@ -13,9 +13,9 @@ import ext.error.utils.try_external_errors
 
 @dataclass(frozen=True)
 class CompilerReqs:
-    compiler_family: build_system.compiler.family.CompilerFamily
+    compiler_family: build_system.compiler.core.family.CompilerFamily
     os_families: list[host.os_family.OSFamily]
-    min_compiler_version: build_system.compiler.version.CompilerVersion
+    min_compiler_version: build_system.compiler.core.version.CompilerVersion
 
     @classmethod
     def get_defaul_config_file(cls) -> Path:
@@ -30,7 +30,7 @@ class CompilerReqs:
         return default_config_file
 
     @classmethod
-    def create_all_from_config_file(cls, config_file: Path = None) -> dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs']:
+    def create_all_from_config_file(cls, config_file: Path = None) -> dict[build_system.compiler.core.family.CompilerFamily, 'CompilerReqs']:
         config_file = cls._check_config_file_for_default_param(config_file=config_file)
         cls._assure_config_file_integrity(config_file=config_file)
 
@@ -41,7 +41,7 @@ class CompilerReqs:
         all_compilers_reqs = {}
 
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
-            compiler_family = build_system.compiler.family.CompilerFamily(compiler_name)
+            compiler_family = build_system.compiler.core.family.CompilerFamily(compiler_name)
             os_families = compiler_reqs_section.getosfamily(build_system.compiler.reqs.scheme.CompilerReqsScheme.OS.value)
             min_compiler_version = cls.__read_min_version_from_config_compiler_reqs_section(compiler_reqs_section)
 
@@ -51,15 +51,15 @@ class CompilerReqs:
         return all_compilers_reqs
 
     @staticmethod
-    def __read_min_version_from_config_compiler_reqs_section(config_compiler_reqs_section) -> build_system.compiler.version.CompilerVersion:
+    def __read_min_version_from_config_compiler_reqs_section(config_compiler_reqs_section) -> build_system.compiler.core.version.CompilerVersion:
         major = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MAJOR.value)
         minor = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MINOR.value, fallback=0)
 
-        return build_system.compiler.version.CompilerVersion(major, minor)
+        return build_system.compiler.core.version.CompilerVersion(major, minor)
 
     @classmethod
     def filter_by_os(cls,
-                     all_compilers_reqs: dict[build_system.compiler.family.CompilerFamily, 'CompilerReqs'],
+                     all_compilers_reqs: dict[build_system.compiler.core.family.CompilerFamily, 'CompilerReqs'],
                      os_family: host.os_family.OSFamily) -> list['CompilerReqs']:
         return [compiler_reqs for compiler_family, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.os_families]
 

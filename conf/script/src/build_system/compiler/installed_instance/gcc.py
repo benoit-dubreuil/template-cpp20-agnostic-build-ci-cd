@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import final
 
-import build_system.compiler.family
+import build_system.compiler.core.family
 import build_system.compiler.installed_instance.gnu
 
 
@@ -21,5 +21,5 @@ class GCCCompilerInstance(build_system.compiler.installed_instance.gnu.GNUCompil
         return r'g++'
 
     @staticmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
-        return [build_system.compiler.family.CompilerFamily.GCC]
+    def get_supported_compiler_families() -> list[build_system.compiler.core.family.CompilerFamily]:
+        return [build_system.compiler.core.family.CompilerFamily.GCC]

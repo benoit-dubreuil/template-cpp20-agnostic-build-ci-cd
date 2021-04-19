@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import NoReturn, Optional, Union
 
 import build_system.cmd.compiler.host.get_info.cli
-import build_system.compiler.family
+import build_system.compiler.core.family
 import ext.error.core.cls_def
 
 
@@ -16,6 +16,6 @@ def _find_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[Pat
 
 
 def find() -> None:
-    build_system.cmd.compiler.host.get_info.cli.fetch_compiler_info(build_system.compiler.family.CompilerFamily.MSVC,
+    build_system.cmd.compiler.host.get_info.cli.fetch_compiler_info(build_system.compiler.core.family.CompilerFamily.MSVC,
                                                                     _find_no_arg, desc_compiler_info='location',
                                                                     help_path_meaning='installation')

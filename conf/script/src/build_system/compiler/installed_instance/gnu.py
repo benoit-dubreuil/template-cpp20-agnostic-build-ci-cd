@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import build_system.compiler.build_option.sanitizer
-import build_system.compiler.family
+import build_system.compiler.core.family
 import build_system.compiler.installed_instance.compiler_instance
 import ext.cmd_integrity
 import ext.error.core.cls_def
@@ -34,7 +34,7 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
         return build_system.compiler.installed_instance.set_env_default_compiler.EnvDefaultCompiler(compiler=self)
 
     @classmethod
-    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
+    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.core.family.CompilerFamily) -> Path:
         cls._assert_compiler_family(compiler_family=compiler_family)
 
         compiler_location, compiler_instance_exists = ext.cmd_integrity.get_cmd_path(cmd=compiler_family.value)
@@ -47,9 +47,9 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
         return compiler_installation_dir
 
     @staticmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
-        return [build_system.compiler.family.CompilerFamily.GCC,
-                build_system.compiler.family.CompilerFamily.CLANG]
+    def get_supported_compiler_families() -> list[build_system.compiler.core.family.CompilerFamily]:
+        return [build_system.compiler.core.family.CompilerFamily.GCC,
+                build_system.compiler.core.family.CompilerFamily.CLANG]
 
     @staticmethod
     def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:

@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Optional, final
 
 import build_system.compiler.build_option.sanitizer
-import build_system.compiler.family
+import build_system.compiler.core.family
 import build_system.compiler.installed_instance.compiler_instance
 import ext.error.core.cls_def
 import ext.error.utils.try_external_errors
@@ -21,7 +21,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         object.__setattr__(self, 'vcvars_arch_batch_file', self.__find_vcvars_batch_file())
 
     @classmethod
-    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
+    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.core.family.CompilerFamily) -> Path:
         import build_system.cmd.compiler.host.get_info.location.msvc
 
         cls._assert_compiler_family(compiler_family=compiler_family)
@@ -30,8 +30,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return compiler_installation_dir
 
     @staticmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
-        return [build_system.compiler.family.CompilerFamily.MSVC]
+    def get_supported_compiler_families() -> list[build_system.compiler.core.family.CompilerFamily]:
+        return [build_system.compiler.core.family.CompilerFamily.MSVC]
 
     @staticmethod
     def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:

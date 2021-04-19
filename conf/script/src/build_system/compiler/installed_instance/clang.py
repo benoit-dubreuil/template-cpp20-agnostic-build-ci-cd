@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import final
 
-import build_system.compiler.family
+import build_system.compiler.core.family
 import build_system.compiler.installed_instance.gnu
 
 
@@ -21,5 +21,5 @@ class ClangCompilerInstance(build_system.compiler.installed_instance.gnu.GNUComp
         return r'clang++'
 
     @staticmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
-        return [build_system.compiler.family.CompilerFamily.CLANG]
+    def get_supported_compiler_families() -> list[build_system.compiler.core.family.CompilerFamily]:
+        return [build_system.compiler.core.family.CompilerFamily.CLANG]
