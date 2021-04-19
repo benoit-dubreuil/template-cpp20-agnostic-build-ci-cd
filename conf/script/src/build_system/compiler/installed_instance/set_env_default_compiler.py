@@ -13,7 +13,7 @@ class EnvDefaultCompiler(contextlib.AbstractContextManager):
     previous_cpp_compiler: Optional[str]
     compiler: build_system.compiler.installed_instance.compiler_instance.CompilerInstance
 
-    def __init__(self, compiler: build_system.compiler.installed_instance.compiler_instance) -> None:
+    def __init__(self, compiler: build_system.compiler.installed_instance.compiler_instance.CompilerInstance) -> None:
         super().__init__()
         self.compiler = compiler
 
