@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
+from ext.meta_prog.encapsulation import *
+
 import build_system.compiler.core.family
 import build_system.compiler.reqs.scheme
 import build_system.compiler.core.version
@@ -11,6 +13,7 @@ import ext.error.core.cls_def
 import ext.error.utils.try_external_errors
 
 
+@export
 @dataclass(frozen=True)
 class CompilerReqs:
     compiler_family: build_system.compiler.core.family.CompilerFamily
