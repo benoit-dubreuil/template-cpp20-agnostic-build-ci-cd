@@ -3,8 +3,8 @@ from typing import Final, Optional
 
 import vswhere
 
-import utils.error.core.cls_def
-import utils.error.utils.try_external_errors
+import ext.error.core.cls_def
+import ext.error.utils.try_external_errors
 
 _DEFAULT_REQUIRES: Final[list[str]] = [
     'Microsoft.VisualStudio.Component.VC.Tools.x86.x64',
@@ -29,8 +29,8 @@ def find_location(compiler_installation_path: Optional[Path] = None) -> Optional
     if found_compiler_installation_path is not None:
         found_compiler_installation_path = Path(found_compiler_installation_path.strip())
 
-        utils.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=found_compiler_installation_path,
-                                                                               external_errors_to_manage={(Exception,): utils.error.core.cls_def.CompilerNotFoundError})
+        ext.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=found_compiler_installation_path,
+                                                                             external_errors_to_manage={(Exception,): ext.error.core.cls_def.CompilerNotFoundError})
 
         found_compiler_installation_path = found_compiler_installation_path.absolute()
 

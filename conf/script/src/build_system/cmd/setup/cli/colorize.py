@@ -1,6 +1,6 @@
 import colorama
 
-from utils.more_typing import PathLike
+from ext.more_typing import PathLike
 
 
 def colorize_header_label(header: str) -> str:

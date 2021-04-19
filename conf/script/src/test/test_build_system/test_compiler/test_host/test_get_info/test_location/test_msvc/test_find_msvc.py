@@ -5,7 +5,7 @@ from unittest import mock
 from unittest.mock import MagicMock
 
 import build_system.cmd.compiler.host.get_info.location.msvc
-from utils.meta_prog.introspection import *
+from ext.meta_prog.introspection import *
 
 
 class TestFindMSVC(unittest.TestCase):

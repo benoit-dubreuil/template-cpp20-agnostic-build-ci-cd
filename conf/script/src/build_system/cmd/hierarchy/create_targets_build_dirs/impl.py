@@ -4,8 +4,8 @@ from typing import Optional
 import build_system.build_target.compiler_instance_targets
 import build_system.cmd.hierarchy.assure_arg_integrity
 import build_system.compiler.installed_instance
-import utils.error.core.cls_def
-import utils.more_path
+import ext.error.core.cls_def
+import ext.more_path
 
 
 def create_targets_build_dirs(build_dir: Optional[Path] = None,
@@ -18,8 +18,8 @@ def create_targets_build_dirs(build_dir: Optional[Path] = None,
 
 
 def _assure_build_dir_is_empty(build_dir):
-    if not utils.more_path.is_dir_empty(build_dir):
-        raise utils.error.core.cls_def.BuildDirNotEmptyError()
+    if not ext.more_path.is_dir_empty(build_dir):
+        raise ext.error.core.cls_def.BuildDirNotEmptyError()
 
 
 def _unchecked_create_targets_build_dirs(build_dir: Path,

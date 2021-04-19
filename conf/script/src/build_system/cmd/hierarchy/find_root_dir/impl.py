@@ -1,7 +1,7 @@
 from pathlib import Path
 
-import utils.error.core.cls_def
-import utils.error.utils.try_external_errors
+import ext.error.core.cls_def
+import ext.error.utils.try_external_errors
 from build_system.cmd.hierarchy.consts import BUILD_SYSTEM_CONF_FILE_NAME
 
 
@@ -13,8 +13,8 @@ def is_dir_root(root_dir: Path) -> bool:
 
 
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
-    utils.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=current_path,
-                                                                           external_errors_to_manage={(Exception,): utils.error.core.cls_def.RootDirNotFoundError})
+    ext.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=current_path,
+                                                                         external_errors_to_manage={(Exception,): ext.error.core.cls_def.RootDirNotFoundError})
 
     last_path = current_path
     current_path = current_path.parent
@@ -31,6 +31,6 @@ def find_root_dir() -> Path:
         current_path, last_path = _walk_parent_path(current_path)
 
     if not is_last_path_root_dir:
-        raise utils.error.core.cls_def.RootDirNotFoundError()
+        raise ext.error.core.cls_def.RootDirNotFoundError()
 
     return last_path

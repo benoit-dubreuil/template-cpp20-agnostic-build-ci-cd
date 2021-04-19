@@ -3,7 +3,7 @@ import argparse
 import colorama
 
 import build_system.cmd.hierarchy.find_root_dir
-import utils.cli.try_cmd
+import ext.cli.try_cmd
 
 
 def find_root_dir():
@@ -18,4 +18,4 @@ def find_root_dir():
         project_root = build_system.cmd.hierarchy.find_root_dir.find_root_dir()
         print(project_root, end=str())
 
-    utils.cli.try_cmd.try_cmd_except_managed_errors(cli_cmd, arg_parser)
+    ext.cli.try_cmd.try_cmd_except_managed_errors(cli_cmd, arg_parser)

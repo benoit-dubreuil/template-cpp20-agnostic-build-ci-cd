@@ -3,8 +3,8 @@ from pathlib import Path
 from typing import Optional
 
 import build_system.cmd.hierarchy.assure_arg_integrity
-import utils.error.core.cls_def
-import utils.error.core.managed
+import ext.error.core.cls_def
+import ext.error.core.managed
 
 
 def clean_build_dir(build_dir: Optional[Path] = None, ignore_errors=False) -> bool:
@@ -19,7 +19,7 @@ def clean_build_dir(build_dir: Optional[Path] = None, ignore_errors=False) -> bo
     try:
         build_dir = build_system.cmd.hierarchy.assure_arg_integrity.get_verified_build_dir(unverified_build_dir=build_dir)
 
-    except utils.error.core.managed.ManagedErrorMixin as raised_error:
+    except ext.error.core.managed.ManagedErrorMixin as raised_error:
         if not ignore_errors:
             raise raised_error
 
