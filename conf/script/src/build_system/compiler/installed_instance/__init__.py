@@ -1,1 +1,5 @@
-from build_system.compiler.installed_instance.compiler_instance import CompilerInstance
+from .clang import *
+from .compiler_instance import *
+from .gcc import *
+from .gnu import *
+from .msvc import *
