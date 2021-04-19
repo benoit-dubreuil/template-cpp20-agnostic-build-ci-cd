@@ -1,6 +1,5 @@
-from .cls_wrapper_data import *
-
 from utils.meta_prog.encapsulation import *
+from .cls_wrapper_data import *
 
 
 # TODO : functools -> wraps ?

@@ -1,4 +1,4 @@
-from typing import Generic
+from typing import Final, Generic
 
 from utils.meta_prog.encapsulation import *
 from utils.meta_prog.introspection import *
@@ -11,8 +11,6 @@ TAlias_generic_cls = type[Generic]
 
 @export
 class GenericClassWrapperDataMixin:
-    TAlias_generic_cls = type[Generic]
-
     wrapped_generic_cls: Final[TAlias_generic_cls]
 
     def __init__(self, generic_cls: TAlias_generic_cls, *args, **kwargs) -> None:

@@ -6,7 +6,7 @@ from utils.meta_prog.encapsulation import *
 
 @export
 class GenericClassProxyInjectorMixin(GenericClassMixin):
-    from .cls_proxy import *
+    from utils.meta_prog.generics.cls_proxy import GenericClassProxy
 
     __TAlias_Generics_Subscript_Op = Optional[Union[tuple, type]]
 
