@@ -41,7 +41,6 @@ class CompilerReqs:
         all_compilers_reqs = {}
 
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
-            # noinspection PyArgumentList
             compiler_family = build_system.compiler.family.CompilerFamily(compiler_name)
             os_families = compiler_reqs_section.getosfamily(build_system.compiler.reqs.scheme.CompilerReqsScheme.OS.value)
             min_compiler_version = cls.__read_min_version_from_config_compiler_reqs_section(compiler_reqs_section)
@@ -80,7 +79,6 @@ class CompilerReqs:
     # From https://stackoverflow.com/a/53274707/2924010
     @staticmethod
     def _get_config_parser_os_family_converter():
-        # noinspection PyArgumentList
         return {'osfamily': lambda whole_option: [host.os_family.OSFamily(split_options.strip()) for split_options in whole_option.split(',')]}
 
     @staticmethod

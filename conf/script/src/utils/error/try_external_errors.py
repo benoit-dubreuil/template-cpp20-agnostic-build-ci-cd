@@ -7,7 +7,6 @@ from utils.error.cls_def import UnsupportedError
 from utils.meta_prog.encapsulation import *
 
 
-# noinspection PyDefaultArgument
 @export
 def try_manage_external_errors(func_to_try: Callable,
                                external_errors_to_manage: {tuple[Type[Exception], ...]: Type[ManagedErrorMixin]} = {
@@ -35,7 +34,6 @@ def try_manage_external_errors(func_to_try: Callable,
         raise raised_error
 
 
-# noinspection PyDefaultArgument
 @export
 def try_manage_strict_path_resolving(path_to_resolve: Path,
                                      external_errors_to_manage: {tuple[Type[Exception], ...]: Type[ManagedErrorMixin]} = {

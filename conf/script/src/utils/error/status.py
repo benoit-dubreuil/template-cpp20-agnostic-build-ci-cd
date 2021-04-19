@@ -39,7 +39,6 @@ class ErrorStatus(enum.IntEnum):
 class EncodedErrorMixin(Exception, metaclass=ErrorMeta):
 
     def __init__(self, *args, **kwargs):
-        # noinspection PyArgumentList
         super().__init__(*args, **kwargs)
 
     @staticmethod

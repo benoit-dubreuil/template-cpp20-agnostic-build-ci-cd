@@ -9,7 +9,6 @@ from .status import *
 from utils.meta_prog.encapsulation import *
 
 
-# noinspection PyAbstractClass
 @export
 class ManagedErrorMixin(BaseFormattedErrorMixin, EncodedErrorMixin, ExitCLIErrorMixin,
                         metaclass=ErrorMeta):
@@ -24,7 +23,6 @@ class ManageClass:
 
     def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[BaseFormattedErrorMixin] = FormattedErrorMixin,
                 encoded_error_status: Optional[ErrorStatus] = None) -> Union[type, Callable[[Optional[type]], type]]:
-        # noinspection PyAbstractClass
         class DecoratedManagedErrorAPIMixin(error_formatter_cls, ManagedErrorMixin):
 
             def __init__(self, *args, **kwargs):
@@ -49,7 +47,6 @@ class ManageClass:
                                             exec_body=lambda ns: ns.update(managed_class_namespace))
 
             def __init__(self, *args, **kwargs):
-                # noinspection PyArgumentList
                 super(managed_class, self).__init__(*args, **kwargs)
 
             setattr(managed_class, '__init__', __init__)

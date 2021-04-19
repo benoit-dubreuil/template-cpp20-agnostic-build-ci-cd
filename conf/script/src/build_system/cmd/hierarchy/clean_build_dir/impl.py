@@ -12,7 +12,6 @@ def clean_build_dir(build_dir: Optional[Path] = None, ignore_errors=False) -> bo
 
     has_successfuly_cleaned_build = True
 
-    # noinspection PyUnusedLocal
     def _on_rmtree_error(function, path, excinfo):
         nonlocal has_successfuly_cleaned_build
         has_successfuly_cleaned_build = False

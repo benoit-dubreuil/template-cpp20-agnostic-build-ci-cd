@@ -60,7 +60,6 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
     @classmethod
     def __search_first_sub_cls_matching_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
-        # noinspection PyUnresolvedReferences
         import build_system.compiler.installed_instance.import_all_concrete_instances
 
         subclasses: list[Type[CompilerInstance]] = cls.__subclasses__().copy()
