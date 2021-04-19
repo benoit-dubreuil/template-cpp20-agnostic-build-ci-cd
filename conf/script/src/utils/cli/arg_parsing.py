@@ -2,7 +2,7 @@ from pathlib import Path
 
 from ..meta_prog.encapsulation import *
 
-from utils.more_typing import *
+from ..more_typing import *
 from .arg import *
 from ..error import *
 
