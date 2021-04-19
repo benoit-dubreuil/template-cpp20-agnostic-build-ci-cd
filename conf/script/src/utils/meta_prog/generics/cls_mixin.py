@@ -1,6 +1,6 @@
 from .data import *
 
-from utils.meta_prog.encapsulation import *
+from ..encapsulation import *
 
 
 @export

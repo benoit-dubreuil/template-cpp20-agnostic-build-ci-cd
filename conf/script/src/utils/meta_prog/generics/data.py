@@ -1,7 +1,7 @@
 from typing import Final, Optional, TypeVar
 
-from utils.meta_prog.encapsulation import *
-from utils.meta_prog.introspection import *
+from ..encapsulation import *
+from ..introspection import *
 
 __all__: TAlias_Macro_All = ['TAlias_Generics_By_TypeVars']
 

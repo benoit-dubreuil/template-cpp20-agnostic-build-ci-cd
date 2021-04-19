@@ -1,6 +1,6 @@
 from typing import Optional, Union
 
-from utils.meta_prog.encapsulation import *
+from ..encapsulation import *
 from .data import *
 from .cls_mixin import *
 from .cls_proxy import *

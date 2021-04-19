@@ -1,4 +1,4 @@
-from utils.meta_prog.encapsulation import *
+from ..encapsulation import *
 from .cls_wrapper_data import *
 
 

@@ -1,6 +1,6 @@
 import inspect
 
-from utils.meta_prog.introspection import *
+from ..introspection import *
 
 __all__: TAlias_Macro_All = ['export']
 
