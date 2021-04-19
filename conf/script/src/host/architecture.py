@@ -1,7 +1,10 @@
 import sys
 from enum import IntFlag, unique
 
+from ext.meta_prog.encapsulation import *
 
+
+@export
 @unique
 class Architecture(IntFlag):
     UNKNOWN = 0
@@ -14,6 +17,7 @@ class Architecture(IntFlag):
         return str(self.value) + 'bit'
 
 
+@export
 def detect_arch() -> Architecture:
     exclusive_max_word = sys.maxsize + 1
     word_size = exclusive_max_word.bit_length()
