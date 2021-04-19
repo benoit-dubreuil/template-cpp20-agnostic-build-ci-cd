@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from utils.error.core.cls_def import *
-from utils.error.core.managed import *
+from ..core import *
 from utils.meta_prog.encapsulation import *
 
 

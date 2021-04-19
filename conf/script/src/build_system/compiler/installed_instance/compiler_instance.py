@@ -11,7 +11,7 @@ import host.architecture
 import host.os_family
 import utils.error.core.cls_def
 import utils.error.core.format
-import utils.error.try_external_errors
+import utils.error.utils.try_external_errors
 
 
 @dataclass(order=True, frozen=True)
@@ -51,8 +51,8 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         if installation_dir is None:
             installation_dir = sub_cls_matching_compiler_family._find_installation_dir_by_compiler_family(compiler_family=compiler_family)
         else:
-            utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=installation_dir,
-                                                                             external_errors_to_manage={(Exception,): utils.error.core.cls_def.CompilerNotFoundError})
+            utils.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=installation_dir,
+                                                                                   external_errors_to_manage={(Exception,): utils.error.core.cls_def.CompilerNotFoundError})
 
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 

@@ -3,7 +3,7 @@ from typing import Optional
 
 import build_system.cmd.hierarchy.consts
 import utils.error.core.cls_def
-import utils.error.try_external_errors
+import utils.error.utils.try_external_errors
 
 
 def get_conf_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> Path:
@@ -18,8 +18,8 @@ def get_conf_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> P
 def find_conf_dir(root_dir: Optional[Path] = None) -> Path:
     conf_dir = get_conf_dir_path_relative_to_root_dir(root_dir=root_dir)
 
-    utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=conf_dir,
-                                                                     external_errors_to_manage={(Exception,): utils.error.core.cls_def.ConfDirNotFoundError})
+    utils.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=conf_dir,
+                                                                           external_errors_to_manage={(Exception,): utils.error.core.cls_def.ConfDirNotFoundError})
 
     conf_dir = conf_dir.absolute()
 

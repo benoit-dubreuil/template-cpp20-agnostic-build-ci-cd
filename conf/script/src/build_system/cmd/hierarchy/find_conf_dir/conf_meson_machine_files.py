@@ -3,7 +3,7 @@ from typing import Optional
 
 import build_system.cmd.hierarchy.consts
 import utils.error.core.cls_def
-import utils.error.try_external_errors
+import utils.error.utils.try_external_errors
 
 
 def get_meson_machine_files_dir_path_relative_to_build_system_dir(conf_build_system_dir: Optional[Path] = None) -> Path:
@@ -18,8 +18,8 @@ def get_meson_machine_files_dir_path_relative_to_build_system_dir(conf_build_sys
 def find_meson_machine_files_dir(conf_build_system_dir: Optional[Path] = None) -> Path:
     meson_machine_files_dir = get_meson_machine_files_dir_path_relative_to_build_system_dir(conf_build_system_dir=conf_build_system_dir)
 
-    utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=meson_machine_files_dir,
-                                                                     external_errors_to_manage={(Exception,): utils.error.core.cls_def.MesonMachineFilesDirNotFoundError})
+    utils.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=meson_machine_files_dir,
+                                                                           external_errors_to_manage={(Exception,): utils.error.core.cls_def.MesonMachineFilesDirNotFoundError})
 
     meson_machine_files_dir = meson_machine_files_dir.absolute()
 

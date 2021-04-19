@@ -3,7 +3,7 @@ from typing import Optional
 
 import build_system.cmd.hierarchy.consts
 import utils.error.core.cls_def
-import utils.error.try_external_errors
+import utils.error.utils.try_external_errors
 
 
 def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> Path:
@@ -18,8 +18,8 @@ def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> 
 def find_build_dir(root_dir: Optional[Path] = None) -> Path:
     build_dir = get_build_dir_path_relative_to_root_dir(root_dir=root_dir)
 
-    utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=build_dir,
-                                                                     external_errors_to_manage={(Exception,): utils.error.core.cls_def.BuildDirNotFoundError})
+    utils.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=build_dir,
+                                                                           external_errors_to_manage={(Exception,): utils.error.core.cls_def.BuildDirNotFoundError})
 
     build_dir = build_dir.absolute()
 
