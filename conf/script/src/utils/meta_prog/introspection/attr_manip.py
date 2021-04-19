@@ -1,5 +1,8 @@
 from typing import *
+
 from macro import *
+
+__all__: TAlias_Macro_All = ['get_or_create_attr', 'get_or_create_optional_attr']
 
 T_Attr_Val = TypeVar('T_Attr_Val')
 
