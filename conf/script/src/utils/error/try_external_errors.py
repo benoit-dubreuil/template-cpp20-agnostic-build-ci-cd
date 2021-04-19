@@ -3,7 +3,6 @@ from typing import Callable, Type
 
 from .cls_def import *
 from .managed import *
-from utils.error.cls_def import UnsupportedError
 from utils.meta_prog.encapsulation import *
 
 
