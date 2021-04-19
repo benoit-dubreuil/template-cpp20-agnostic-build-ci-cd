@@ -1,13 +1,12 @@
 from typing import Optional, Union
 
-from .cls_mixin import *
 from utils.meta_prog.encapsulation import *
+from .data import *
+from .cls_mixin import *
 
 
 @export
 class GenericClassProxyInjectorMixin(GenericClassMixin):
-    from utils.meta_prog.generics.cls_proxy import GenericClassProxy
-
     __TAlias_Generics_Subscript_Op = Optional[Union[tuple, type]]
 
     def __init__(self,
