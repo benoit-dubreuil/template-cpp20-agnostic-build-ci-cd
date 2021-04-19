@@ -2,22 +2,19 @@
 
 import unittest
 
-import ext.error.core.format
-import ext.error.core.managed
-import ext.error.core.meta
-import ext.error.core.status
+from ext.error import *
 from ext.meta_prog.introspection import *
 
 
 class TestManage(unittest.TestCase):
 
     def assert_decorated_error_type(self, decorated_error_cls: type):
-        self.assertEqual(type(decorated_error_cls), ext.error.core.meta.ErrorMeta)
-        self.assertIsInstance(decorated_error_cls(), ext.error.core.managed.ManagedErrorMixin)
-        self.assertNotIsInstance(decorated_error_cls(), ext.error.core.managed.ManageClass)
+        self.assertEqual(type(decorated_error_cls), ErrorMeta)
+        self.assertIsInstance(decorated_error_cls(), ManagedErrorMixin)
+        self.assertNotIsInstance(decorated_error_cls(), ManageClass)
 
     def test_decorate_error(self):
-        @ext.error.core.managed.ManageClass(encoded_error_status=ext.error.core.status.ErrorStatus.UNSUPPORTED)
+        @ManageClass(encoded_error_status=ErrorStatus.UNSUPPORTED)
         class DecoratedError(RuntimeError):
 
             def __init__(self):
@@ -26,7 +23,7 @@ class TestManage(unittest.TestCase):
         self.assert_decorated_error_type(DecoratedError)
 
     def test_raise_decorated_error(self):
-        @ext.error.core.managed.ManageClass(encoded_error_status=ext.error.core.status.ErrorStatus.UNSUPPORTED)
+        @ManageClass(encoded_error_status=ErrorStatus.UNSUPPORTED)
         class DecoratedError(RuntimeError):
 
             def __init__(self):
@@ -36,24 +33,24 @@ class TestManage(unittest.TestCase):
             raise DecoratedError()
 
     def test_overriden_error_status_of_raised_decorated_error(self):
-        @ext.error.core.managed.ManageClass()
+        @ManageClass()
         class DecoratedError(RuntimeError):
 
             def __init__(self):
                 super().__init__(str(unittest))
 
             @staticmethod
-            def get_error_status() -> ext.error.core.status.ErrorStatus:
-                return ext.error.core.status.ErrorStatus.UNSUPPORTED
+            def get_error_status() -> ErrorStatus:
+                return ErrorStatus.UNSUPPORTED
 
         with self.assertRaises(DecoratedError) as context_manager:
             raise DecoratedError()
 
         raised_error = context_manager.exception
-        self.assertEqual(ext.error.core.status.ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
+        self.assertEqual(ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
 
     def test_param_error_status_of_raised_decorated_error(self):
-        @ext.error.core.managed.ManageClass(encoded_error_status=ext.error.core.status.ErrorStatus.UNSUPPORTED)
+        @ManageClass(encoded_error_status=ErrorStatus.UNSUPPORTED)
         class DecoratedError(RuntimeError):
 
             def __init__(self):
@@ -63,27 +60,27 @@ class TestManage(unittest.TestCase):
             raise DecoratedError()
 
         raised_error = context_manager.exception
-        self.assertEqual(ext.error.core.status.ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
+        self.assertEqual(ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
 
     def test_overriden_param_error_status_of_raised_decorated_error(self):
-        @ext.error.core.managed.ManageClass(encoded_error_status=ext.error.core.status.ErrorStatus.SUCCESS)
+        @ManageClass(encoded_error_status=ErrorStatus.SUCCESS)
         class DecoratedError(RuntimeError):
 
             def __init__(self):
                 super().__init__(str(unittest))
 
             @staticmethod
-            def get_error_status() -> ext.error.core.status.ErrorStatus:
-                return ext.error.core.status.ErrorStatus.UNSUPPORTED
+            def get_error_status() -> ErrorStatus:
+                return ErrorStatus.UNSUPPORTED
 
         with self.assertRaises(DecoratedError) as context_manager:
             raise DecoratedError()
 
         raised_error = context_manager.exception
-        self.assertEqual(ext.error.core.status.ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
+        self.assertEqual(ErrorStatus.UNSUPPORTED, raised_error.get_error_status())
 
     def test_decorate_warning(self):
-        @ext.error.core.managed.ManageClass(encoded_error_status=ext.error.core.status.ErrorStatus.UNSUPPORTED)
+        @ManageClass(encoded_error_status=ErrorStatus.UNSUPPORTED)
         class DecoratedError(RuntimeWarning):
 
             def __init__(self):
@@ -93,7 +90,7 @@ class TestManage(unittest.TestCase):
         self.assert_decorated_error_type(DecoratedError)
 
     def test_decorate_success_with_formatter(self):
-        @ext.error.core.managed.ManageClass(error_formatter_cls=ext.error.core.format.FormattedSuccessMixin, encoded_error_status=ext.error.core.status.ErrorStatus.SUCCESS)
+        @ManageClass(error_formatter_cls=FormattedSuccessMixin, encoded_error_status=ErrorStatus.SUCCESS)
         class DecoratedError(UserWarning):
 
             def __init__(self):
@@ -103,21 +100,21 @@ class TestManage(unittest.TestCase):
         self.assert_decorated_error_type(DecoratedError)
 
     def test_decorate_success_with_formatter_and_overriden_status(self):
-        @ext.error.core.managed.ManageClass(error_formatter_cls=ext.error.core.format.FormattedSuccessMixin)
+        @ManageClass(error_formatter_cls=FormattedSuccessMixin)
         class DecoratedError(UserWarning):
 
             def __init__(self):
                 super().__init__(str(unittest))
 
             @staticmethod
-            def get_error_status() -> ext.error.core.status.ErrorStatus:
-                return ext.error.core.status.ErrorStatus.SUCCESS
+            def get_error_status() -> ErrorStatus:
+                return ErrorStatus.SUCCESS
 
         DecoratedError()
         self.assert_decorated_error_type(DecoratedError)
 
     def test_decorate_success_with_formatter_and_status(self):
-        @ext.error.core.managed.ManageClass(error_formatter_cls=ext.error.core.format.FormattedSuccessMixin, encoded_error_status=ext.error.core.status.ErrorStatus.SUCCESS)
+        @ManageClass(error_formatter_cls=FormattedSuccessMixin, encoded_error_status=ErrorStatus.SUCCESS)
         class DecoratedError(UserWarning):
 
             def __init__(self):
