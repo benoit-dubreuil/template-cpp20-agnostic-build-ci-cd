@@ -1,8 +1,10 @@
-from typing import Final
+from typing import Generic
 
+from utils.meta_prog.encapsulation import *
 from .cls_mixin import *
 
 
+@export
 class GenericClassWrapperDataMixin:
     TAlias_generic_cls = type[Generic]
 

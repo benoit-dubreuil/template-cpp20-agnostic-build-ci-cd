@@ -1,6 +1,9 @@
 from .data import *
 
+from utils.meta_prog.encapsulation import *
 
+
+@export
 class GenericClassMixin(GenericsDataMixin):
 
     def __init__(self, *args, **kwargs) -> None:

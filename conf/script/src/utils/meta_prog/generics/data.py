@@ -1,6 +1,9 @@
 from typing import Final, Optional, TypeVar
 
+from utils.meta_prog.encapsulation import *
 
+
+@export
 class GenericsDataMixin:
     TAlias_Generics_By_TypeVars = dict[TypeVar, Optional[type]]
 

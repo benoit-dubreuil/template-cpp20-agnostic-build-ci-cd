@@ -3,8 +3,11 @@ import itertools
 from .cls_wrapper import *
 from .data import *
 
+from utils.meta_prog.encapsulation import *
+
 
 # TODO : functools -> wraps ?
+@export
 class GenericClassProxy(GenericsDataMixin,
                         GenericClassWrapperMixin):
     from typing import TypeVar
