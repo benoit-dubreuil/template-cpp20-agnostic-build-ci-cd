@@ -4,6 +4,7 @@ import utils.meta_prog.generics.cls_wrapper
 import utils.meta_prog.generics.data
 
 
+# TODO : functools -> wraps ?
 class GenericClassProxy(utils.meta_prog.generics.data.GenericsDataMixin,
                         utils.meta_prog.generics.cls_wrapper.GenericClassWrapperMixin):
     from typing import TypeVar
