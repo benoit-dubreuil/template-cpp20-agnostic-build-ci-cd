@@ -3,7 +3,7 @@ from typing import Final
 
 TAlias_Macro_All = list[str]
 
-__all__: TAlias_Macro_All = ['Macro']
+__all__: TAlias_Macro_All = ['Macro', 'TAlias_Macro_All']
 
 
 class AutoMacroFromName(str, Enum):
