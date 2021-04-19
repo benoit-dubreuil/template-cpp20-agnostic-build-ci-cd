@@ -1,4 +1,4 @@
-import utils.meta_prog.generics.data
+from .data import *
 
 
 class GenericClassMixin(utils.meta_prog.generics.data.GenericsDataMixin):

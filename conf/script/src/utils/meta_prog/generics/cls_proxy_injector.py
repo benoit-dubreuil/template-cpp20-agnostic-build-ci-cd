@@ -1,12 +1,12 @@
 import typing
 
-import utils.meta_prog.generics.cls_mixin
+from .cls_mixin import *
 from utils.meta_prog.encapsulation import *
 
 
 @export
 class GenericClassProxyInjectorMixin(utils.meta_prog.generics.cls_mixin.GenericClassMixin):
-    import utils.meta_prog.generics.cls_proxy
+    from .cls_proxy import *
 
     __TAlias_Generics_Subscript_Op = typing.Optional[typing.Union[tuple, type]]
 

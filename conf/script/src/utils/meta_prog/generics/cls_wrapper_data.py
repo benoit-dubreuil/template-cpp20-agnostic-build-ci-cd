@@ -1,6 +1,6 @@
 import typing
 
-import utils.meta_prog.generics.cls_mixin
+from .cls_mixin import *
 
 
 class GenericClassWrapperDataMixin:

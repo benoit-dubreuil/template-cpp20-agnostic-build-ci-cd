@@ -1,4 +1,4 @@
-import utils.meta_prog.generics.cls_wrapper_data
+from .cls_wrapper_data import *
 
 
 # TODO : functools -> wraps ?

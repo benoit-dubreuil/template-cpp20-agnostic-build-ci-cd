@@ -1,7 +1,7 @@
 import itertools
 
-import utils.meta_prog.generics.cls_wrapper
-import utils.meta_prog.generics.data
+from .cls_wrapper import *
+from .data import *
 
 
 # TODO : functools -> wraps ?
