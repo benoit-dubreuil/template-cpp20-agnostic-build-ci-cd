@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from ..meta_prog.encapsulation import *
+
 import utils.more_typing
 from .arg import *
 from ..error import *
