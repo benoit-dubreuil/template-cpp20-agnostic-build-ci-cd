@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from ..core import *
-from utils.meta_prog.encapsulation import *
+from ...meta_prog.encapsulation import *
 
 
 @export
