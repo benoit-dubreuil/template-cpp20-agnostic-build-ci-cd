@@ -10,7 +10,7 @@ class AutoMacroFromName(str, Enum):
 
     def _generate_next_value_(name: str, start, count, last_values) -> str:
         __AFFIX: Final[str] = '__'
-        return __AFFIX + name + __AFFIX
+        return __AFFIX + name.lower() + __AFFIX
 
 
 @unique
