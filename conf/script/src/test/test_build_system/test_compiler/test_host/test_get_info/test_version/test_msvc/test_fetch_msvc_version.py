@@ -6,7 +6,7 @@ from unittest import mock
 from unittest.mock import MagicMock
 
 import build_system.cmd.compiler.host.get_info.version.msvc
-import utils.cli.main
+from utils.meta_prog.introspection import *
 
 
 class TestFetchMSVCVersion(unittest.TestCase):
@@ -45,5 +45,5 @@ class TestFetchMSVCVersion(unittest.TestCase):
         assert return_value is expected_return_value
 
 
-if utils.cli.main.is_caller_main():
+if is_caller_main():
     unittest.main()
