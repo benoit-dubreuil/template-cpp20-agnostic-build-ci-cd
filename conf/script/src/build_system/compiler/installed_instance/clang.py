@@ -1,13 +1,16 @@
 from dataclasses import dataclass
 from typing import final
 
-import build_system.compiler.core.family
-import build_system.compiler.installed_instance.gnu
+from ..core import *
+from .gnu import *
+
+from ext.meta_prog.encapsulation import *
 
 
+@export
 @final
 @dataclass(order=True, frozen=True)
-class ClangCompilerInstance(build_system.compiler.installed_instance.gnu.GNUCompilerInstance):
+class ClangCompilerInstance(GNUCompilerInstance):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -21,5 +24,5 @@ class ClangCompilerInstance(build_system.compiler.installed_instance.gnu.GNUComp
         return r'clang++'
 
     @staticmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.core.family.CompilerFamily]:
-        return [build_system.compiler.core.family.CompilerFamily.CLANG]
+    def get_supported_compiler_families() -> list[CompilerFamily]:
+        return [CompilerFamily.CLANG]
