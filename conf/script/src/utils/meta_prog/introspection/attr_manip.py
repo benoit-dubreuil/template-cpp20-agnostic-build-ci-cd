@@ -1,4 +1,4 @@
-from typing import *
+from typing import Callable, TypeVar
 
 from .macro import *
 
