@@ -1,27 +1,28 @@
-import dataclasses
-import pathlib
+from dataclasses import dataclass
+from pathlib import Path
 from typing import Final, Optional
 
-import build_system.compiler.build_option.build_type
-import build_system.compiler.build_option.sanitizer
-import build_system.compiler.installed_instance
+from ..compiler import *
+
+from ext.meta_prog.encapsulation import *
 
 
-@dataclasses.dataclass(order=True)
+@export
+@dataclass(order=True)
 class BuildTarget:
-    compiler_instance: Final[build_system.compiler.installed_instance.CompilerInstance]
-    target_build_type: Final[build_system.compiler.build_option.build_type.TargetBuildType]
-    sanitizer: Final[build_system.compiler.build_option.sanitizer.CompilerSanitizer]
+    compiler_instance: Final[CompilerInstance]
+    target_build_type: Final[TargetBuildType]
+    sanitizer: Final[CompilerSanitizer]
 
-    dir: Optional[pathlib.Path]
-    script_dir: Optional[pathlib.Path]
-    export_shell_env_symlink: Optional[pathlib.Path]
-    compiler_env_file: Optional[pathlib.Path]
+    dir: Optional[Path]
+    script_dir: Optional[Path]
+    export_shell_env_symlink: Optional[Path]
+    compiler_env_file: Optional[Path]
 
     def __init__(self,
-                 compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                 target_build_type: build_system.compiler.build_option.build_type.TargetBuildType,
-                 sanitizer: build_system.compiler.build_option.sanitizer.CompilerSanitizer = build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE) \
+                 compiler_instance: CompilerInstance,
+                 target_build_type: TargetBuildType,
+                 sanitizer: CompilerSanitizer = CompilerSanitizer.NONE) \
             -> None:
         self.compiler_instance = compiler_instance
         self.target_build_type = target_build_type
