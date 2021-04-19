@@ -1,13 +1,16 @@
-import dataclasses
+from dataclasses import dataclass
 
-import build_system.build_target.build_target
-import build_system.compiler.installed_instance
+from .build_target import *
+from ..compiler import *
+
+from ext.meta_prog.encapsulation import *
 
 
-@dataclasses.dataclass(order=True, frozen=True)
+@export
+@dataclass(order=True, frozen=True)
 class CompilerInstanceTargets:
-    compiler_instance: build_system.compiler.installed_instance.CompilerInstance
-    build_targets: list[build_system.build_target.build_target.BuildTarget]
+    compiler_instance: CompilerInstance
+    build_targets: list[BuildTarget]
 
     def __iter__(self):
         return self.build_targets.__iter__()
