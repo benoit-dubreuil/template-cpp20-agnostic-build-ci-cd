@@ -5,20 +5,19 @@ from typing import Final
 
 from ext.meta_prog.encapsulation import *
 
-import build_system.compiler.core.family
-import build_system.compiler.reqs.scheme
-import build_system.compiler.core.version
-import host.os_family
-import ext.error.core.cls_def
-import ext.error.utils.try_external_errors
+from ..core import *
+from .scheme import *
+from host import *
+from ext.error import *
+from ext.error.utils import *
 
 
 @export
 @dataclass(frozen=True)
 class CompilerReqs:
-    compiler_family: build_system.compiler.core.family.CompilerFamily
-    os_families: list[host.os_family.OSFamily]
-    min_compiler_version: build_system.compiler.core.version.CompilerVersion
+    compiler_family: CompilerFamily
+    os_families: list[os_family.OSFamily]
+    min_compiler_version: CompilerVersion
 
     @classmethod
     def get_defaul_config_file(cls) -> Path:
@@ -33,7 +32,7 @@ class CompilerReqs:
         return default_config_file
 
     @classmethod
-    def create_all_from_config_file(cls, config_file: Path = None) -> dict[build_system.compiler.core.family.CompilerFamily, 'CompilerReqs']:
+    def create_all_from_config_file(cls, config_file: Path = None) -> dict[CompilerFamily, 'CompilerReqs']:
         config_file = cls._check_config_file_for_default_param(config_file=config_file)
         cls._assure_config_file_integrity(config_file=config_file)
 
@@ -44,8 +43,8 @@ class CompilerReqs:
         all_compilers_reqs = {}
 
         for compiler_name, compiler_reqs_section in filtered_section_options_pairs:
-            compiler_family = build_system.compiler.core.family.CompilerFamily(compiler_name)
-            os_families = compiler_reqs_section.getosfamily(build_system.compiler.reqs.scheme.CompilerReqsScheme.OS.value)
+            compiler_family = CompilerFamily(compiler_name)
+            os_families = compiler_reqs_section.getosfamily(CompilerReqsScheme.OS.value)
             min_compiler_version = cls.__read_min_version_from_config_compiler_reqs_section(compiler_reqs_section)
 
             compiler_reqs = cls(compiler_family=compiler_family, os_families=os_families, min_compiler_version=min_compiler_version)
@@ -54,16 +53,16 @@ class CompilerReqs:
         return all_compilers_reqs
 
     @staticmethod
-    def __read_min_version_from_config_compiler_reqs_section(config_compiler_reqs_section) -> build_system.compiler.core.version.CompilerVersion:
-        major = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MAJOR.value)
-        minor = config_compiler_reqs_section.getint(build_system.compiler.reqs.scheme.CompilerReqsScheme.MINOR.value, fallback=0)
+    def __read_min_version_from_config_compiler_reqs_section(config_compiler_reqs_section) -> CompilerVersion:
+        major = config_compiler_reqs_section.getint(CompilerReqsScheme.MAJOR.value)
+        minor = config_compiler_reqs_section.getint(CompilerReqsScheme.MINOR.value, fallback=0)
 
-        return build_system.compiler.core.version.CompilerVersion(major, minor)
+        return CompilerVersion(major, minor)
 
     @classmethod
     def filter_by_os(cls,
-                     all_compilers_reqs: dict[build_system.compiler.core.family.CompilerFamily, 'CompilerReqs'],
-                     os_family: host.os_family.OSFamily) -> list['CompilerReqs']:
+                     all_compilers_reqs: dict[CompilerFamily, 'CompilerReqs'],
+                     os_family: os_family.OSFamily) -> list['CompilerReqs']:
         return [compiler_reqs for compiler_family, compiler_reqs in all_compilers_reqs.items() if os_family in compiler_reqs.os_families]
 
     @classmethod
@@ -82,7 +81,7 @@ class CompilerReqs:
     # From https://stackoverflow.com/a/53274707/2924010
     @staticmethod
     def _get_config_parser_os_family_converter():
-        return {'osfamily': lambda whole_option: [host.os_family.OSFamily(split_options.strip()) for split_options in whole_option.split(',')]}
+        return {'osfamily': lambda whole_option: [os_family.OSFamily(split_options.strip()) for split_options in whole_option.split(',')]}
 
     @staticmethod
     def _filter_config_default_section(config: ConfigParser):
@@ -90,8 +89,8 @@ class CompilerReqs:
 
     @staticmethod
     def _assure_config_file_integrity(config_file: Path):
-        ext.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=config_file,
-                                                                             external_errors_to_manage={(Exception,): ext.error.core.cls_def.CompilerReqsNotFoundError})
+        try_external_errors.try_manage_strict_path_resolving(path_to_resolve=config_file,
+                                                             external_errors_to_manage={(Exception,): CompilerReqsNotFoundError})
 
         if config_file.is_dir():
-            raise ext.error.core.cls_def.CompilerReqsNotFoundError()
+            raise CompilerReqsNotFoundError()
