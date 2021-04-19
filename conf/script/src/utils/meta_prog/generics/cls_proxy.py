@@ -1,16 +1,15 @@
 import itertools
-
-from .cls_wrapper import *
-from .data import *
+from typing import TypeVar
 
 from utils.meta_prog.encapsulation import *
+from .cls_wrapper import *
+from .data import *
 
 
 # TODO : functools -> wraps ?
 @export
 class GenericClassProxy(GenericsDataMixin,
                         GenericClassWrapperMixin):
-    from typing import TypeVar
 
     def __init__(self,
                  generic_cls: TAlias_generic_cls,
