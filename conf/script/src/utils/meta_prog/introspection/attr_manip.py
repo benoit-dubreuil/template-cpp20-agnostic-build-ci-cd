@@ -1,6 +1,6 @@
 from typing import *
 
-from macro import *
+from .macro import *
 
 __all__: TAlias_Macro_All = ['get_or_create_attr']
 
