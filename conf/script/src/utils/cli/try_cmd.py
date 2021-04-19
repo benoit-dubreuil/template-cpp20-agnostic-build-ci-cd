@@ -1,9 +1,11 @@
 import argparse
 import typing
 
+from ..meta_prog.encapsulation import *
 from ..error import *
 
 
+@export
 def try_cmd_except_managed_errors(cmd_func: typing.Callable, arg_parser: argparse.ArgumentParser):
     try:
         cmd_func()
