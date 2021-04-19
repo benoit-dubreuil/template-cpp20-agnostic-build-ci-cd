@@ -3,6 +3,7 @@ from typing import TypeVar
 
 from utils.meta_prog.encapsulation import *
 from .cls_wrapper import *
+from .cls_wrapper_data import *
 from .data import *
 
 
