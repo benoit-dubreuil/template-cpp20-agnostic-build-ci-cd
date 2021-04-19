@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import AnyStr, Optional
 
 import utils.cli.arg
-from utils.error import *
+from ..error import *
 import utils.more_typing
 
 
