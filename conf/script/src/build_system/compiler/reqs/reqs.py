@@ -7,7 +7,7 @@ import build_system.compiler.family
 import build_system.compiler.reqs.scheme
 import build_system.compiler.version
 import host.os_family
-import utils.error.cls_def
+import utils.error.core.cls_def
 import utils.error.try_external_errors
 
 
@@ -88,7 +88,7 @@ class CompilerReqs:
     @staticmethod
     def _assure_config_file_integrity(config_file: Path):
         utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=config_file,
-                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerReqsNotFoundError})
+                                                                         external_errors_to_manage={(Exception,): utils.error.core.cls_def.CompilerReqsNotFoundError})
 
         if config_file.is_dir():
-            raise utils.error.cls_def.CompilerReqsNotFoundError()
+            raise utils.error.core.cls_def.CompilerReqsNotFoundError()

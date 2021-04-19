@@ -9,7 +9,7 @@ import build_system.build_target.build_target
 import build_system.compiler.installed_instance
 import utils.cli.hidden_prints
 import utils.cmd_integrity
-import utils.error.cls_def
+import utils.error.core.cls_def
 from build_system.cmd.hierarchy.consts import BUILD_SYSTEM_NAME
 from build_system.cmd.setup.cli.meson import print_meson_cmd, print_meson_main_file
 from build_system.cmd.setup.cli.target_info import print_target_info
@@ -76,7 +76,7 @@ def _find_meson_launcher(cli_mode: bool) -> str:
     meson_main_file, meson_main_file_exists = utils.cmd_integrity.get_cmd_path(cmd=BUILD_SYSTEM_NAME, dir_path=venv_scripts_dir)
 
     if not meson_main_file_exists:
-        raise utils.error.cls_def.MesonMainFileNotFoundError()
+        raise utils.error.core.cls_def.MesonMainFileNotFoundError()
 
     if cli_mode:
         print_meson_main_file(meson_main_file=meson_main_file)

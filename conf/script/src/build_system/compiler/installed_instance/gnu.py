@@ -6,7 +6,7 @@ import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
 import utils.cmd_integrity
-import utils.error.cls_def
+import utils.error.core.cls_def
 import utils.error.try_external_errors
 
 
@@ -22,10 +22,10 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
         executable_file, exists = utils.cmd_integrity.get_cmd_path(cmd=self.compiler_family.value, dir_path=self.installation_dir)
 
         if not exists:
-            raise utils.error.cls_def.CompilerNotFoundError()
+            raise utils.error.core.cls_def.CompilerNotFoundError()
 
         utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=executable_file,
-                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
+                                                                         external_errors_to_manage={(Exception,): utils.error.core.cls_def.CompilerNotFoundError})
 
         return executable_file
 
@@ -40,7 +40,7 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
         compiler_location, compiler_instance_exists = utils.cmd_integrity.get_cmd_path(cmd=compiler_family.value)
 
         if not compiler_instance_exists:
-            raise utils.error.cls_def.CompilerNotFoundError()
+            raise utils.error.core.cls_def.CompilerNotFoundError()
 
         compiler_installation_dir = compiler_location.parent
 

@@ -3,7 +3,7 @@ from typing import AnyStr, Callable
 
 import build_system.compiler.version
 import utils.cmd_integrity
-import utils.error.cls_def
+import utils.error.core.cls_def
 
 
 def assure_path_integrity(compiler_path: Path) -> None:
@@ -12,7 +12,7 @@ def assure_path_integrity(compiler_path: Path) -> None:
     :param compiler_path: The path to the compiler executable file. It must not be a directory.
     """
     if not utils.cmd_integrity.cmd_exists(str(compiler_path)):
-        raise utils.error.cls_def.CompilerNotFoundError()
+        raise utils.error.core.cls_def.CompilerNotFoundError()
 
 
 def interpret_fetched_version(compiler_version_str: AnyStr) -> build_system.compiler.version.CompilerVersion:

@@ -3,7 +3,7 @@ from typing import Final, Optional
 
 import vswhere
 
-import utils.error.cls_def
+import utils.error.core.cls_def
 import utils.error.try_external_errors
 
 _DEFAULT_REQUIRES: Final[list[str]] = [
@@ -30,7 +30,7 @@ def find_location(compiler_installation_path: Optional[Path] = None) -> Optional
         found_compiler_installation_path = Path(found_compiler_installation_path.strip())
 
         utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=found_compiler_installation_path,
-                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
+                                                                         external_errors_to_manage={(Exception,): utils.error.core.cls_def.CompilerNotFoundError})
 
         found_compiler_installation_path = found_compiler_installation_path.absolute()
 

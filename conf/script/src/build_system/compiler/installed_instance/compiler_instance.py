@@ -9,8 +9,8 @@ import build_system.compiler.family
 import build_system.compiler.version
 import host.architecture
 import host.os_family
-import utils.error.cls_def
-import utils.error.format
+import utils.error.core.cls_def
+import utils.error.core.format
 import utils.error.try_external_errors
 
 
@@ -52,7 +52,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
             installation_dir = sub_cls_matching_compiler_family._find_installation_dir_by_compiler_family(compiler_family=compiler_family)
         else:
             utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=installation_dir,
-                                                                             external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
+                                                                             external_errors_to_manage={(Exception,): utils.error.core.cls_def.CompilerNotFoundError})
 
         version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
 
@@ -60,7 +60,6 @@ class CompilerInstance(metaclass=abc.ABCMeta):
 
     @classmethod
     def __search_first_sub_cls_matching_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
-        import build_system.compiler.installed_instance.import_all_concrete_instances
 
         subclasses: list[Type[CompilerInstance]] = cls.__subclasses__().copy()
         sublcass_matching_compiler_family: Optional[Type[CompilerInstance]] = None
@@ -84,7 +83,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         sublcass_matching_compiler_family: Optional[Type[CompilerInstance]] = cls.__search_first_sub_cls_matching_compiler_family(compiler_family=compiler_family)
 
         if sublcass_matching_compiler_family is None:
-            error_msg: str = utils.error.format.format_error_msg('Comnpiler is not supported')
+            error_msg: str = utils.error.core.format.format_error_msg('Comnpiler is not supported')
             raise TypeError(error_msg)
 
         return sublcass_matching_compiler_family

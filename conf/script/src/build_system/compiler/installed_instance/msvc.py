@@ -6,7 +6,7 @@ from typing import Optional, final
 import build_system.compiler.build_option.sanitizer
 import build_system.compiler.family
 import build_system.compiler.installed_instance.compiler_instance
-import utils.error.cls_def
+import utils.error.core.cls_def
 import utils.error.try_external_errors
 
 
@@ -85,7 +85,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         vcvars_arch_batch_file = vcvars_arch_batch_file.absolute()
 
         utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=vcvars_arch_batch_file,
-                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.MSVCCompilerVcvarsBatchFileNotFoundError})
+                                                                         external_errors_to_manage={(Exception,): utils.error.core.cls_def.MSVCCompilerVcvarsBatchFileNotFoundError})
 
         return vcvars_arch_batch_file
 
@@ -93,7 +93,7 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         vcvars_dir: Path = self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
 
         utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=vcvars_dir,
-                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.MSVCCompilerVcvarsDirNotFoundError})
+                                                                         external_errors_to_manage={(Exception,): utils.error.core.cls_def.MSVCCompilerVcvarsDirNotFoundError})
 
         return vcvars_dir
 

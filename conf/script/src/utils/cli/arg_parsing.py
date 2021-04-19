@@ -3,9 +3,9 @@ from pathlib import Path
 from typing import AnyStr, Optional
 
 import utils.cli.arg
-import utils.error.cls_def
-import utils.error.format
-import utils.error.status
+import utils.error.core.cls_def
+import utils.error.core.format
+import utils.error.core.status
 import utils.more_typing
 
 
@@ -16,13 +16,13 @@ def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: utils.c
 
 def _assure_no_unknown_parsed_args(arg_parser: argparse.ArgumentParser, unknown_parsed_args: list[str]):
     if len(unknown_parsed_args) > 0:
-        error = utils.error.cls_def.UnknownParsedArgError(unknown_parsed_args)
+        error = utils.error.core.cls_def.UnknownParsedArgError(unknown_parsed_args)
         error.raise_or_exit_cli(arg_parser, print_usage=True)
 
 
 def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg_name: str, parsed_path: utils.more_typing.AnyPath):
     if str(parsed_path) == str():
-        error = utils.error.cls_def.EmptyParsedArgError(path_arg_name)
+        error = utils.error.core.cls_def.EmptyParsedArgError(path_arg_name)
         error.raise_or_exit_cli(arg_parser, print_usage=True)
 
 

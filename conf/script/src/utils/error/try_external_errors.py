@@ -1,8 +1,7 @@
 from pathlib import Path
-from typing import Callable, Type
 
-from .cls_def import *
-from .managed import *
+from utils.error.core.cls_def import *
+from utils.error.core.managed import *
 from utils.meta_prog.encapsulation import *
 
 

@@ -2,8 +2,7 @@ import argparse
 import sys
 import typing
 
-from .meta import *
-from .status import *
+from utils.error.core.status import *
 from utils.meta_prog.encapsulation import *
 
 

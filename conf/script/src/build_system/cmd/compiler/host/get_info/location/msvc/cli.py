@@ -3,14 +3,14 @@ from typing import NoReturn, Optional, Union
 
 import build_system.cmd.compiler.host.get_info.cli
 import build_system.compiler.family
-import utils.error.cls_def
+import utils.error.core.cls_def
 
 
 def _find_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[Path, NoReturn]:
     compiler_installation_path: Optional[Path] = build_system.cmd.compiler.host.get_info.location.msvc.find_location(compiler_installation_path)
 
     if compiler_installation_path is None:
-        raise utils.error.cls_def.CompilerNotFoundError()
+        raise utils.error.core.cls_def.CompilerNotFoundError()
 
     return compiler_installation_path
 
