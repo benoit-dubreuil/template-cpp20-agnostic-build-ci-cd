@@ -2,16 +2,20 @@ import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 
-import build_system.compiler.build_option.sanitizer
-import build_system.compiler.core.family
-import build_system.compiler.installed_instance.compiler_instance
+from ..core import *
+from ..build_option import *
+from host import *
+from ext.error import *
+from ext.error.utils import *
+from .compiler_instance import *
 import ext.cmd_integrity
-import ext.error.core.cls_def
-import ext.error.utils.try_external_errors
+
+from ext.meta_prog.encapsulation import *
 
 
+@export
 @dataclass(order=True, frozen=True)
-class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_instance.CompilerInstance):
+class GNUCompilerInstance(CompilerInstance):
     executable_file: Path
 
     def __init__(self, **kwargs):
@@ -22,10 +26,10 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
         executable_file, exists = ext.cmd_integrity.get_cmd_path(cmd=self.compiler_family.value, dir_path=self.installation_dir)
 
         if not exists:
-            raise ext.error.core.cls_def.CompilerNotFoundError()
+            raise CompilerNotFoundError()
 
-        ext.error.utils.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=executable_file,
-                                                                             external_errors_to_manage={(Exception,): ext.error.core.cls_def.CompilerNotFoundError})
+        try_manage_strict_path_resolving(path_to_resolve=executable_file,
+                                         external_errors_to_manage={(Exception,): CompilerNotFoundError})
 
         return executable_file
 
@@ -34,23 +38,23 @@ class GNUCompilerInstance(build_system.compiler.installed_instance.compiler_inst
         return build_system.compiler.installed_instance.set_env_default_compiler.EnvDefaultCompiler(compiler=self)
 
     @classmethod
-    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.core.family.CompilerFamily) -> Path:
+    def _find_installation_dir_by_compiler_family(cls, compiler_family: CompilerFamily) -> Path:
         cls._assert_compiler_family(compiler_family=compiler_family)
 
         compiler_location, compiler_instance_exists = ext.cmd_integrity.get_cmd_path(cmd=compiler_family.value)
 
         if not compiler_instance_exists:
-            raise ext.error.core.cls_def.CompilerNotFoundError()
+            raise CompilerNotFoundError()
 
         compiler_installation_dir = compiler_location.parent
 
         return compiler_installation_dir
 
     @staticmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.core.family.CompilerFamily]:
-        return [build_system.compiler.core.family.CompilerFamily.GCC,
-                build_system.compiler.core.family.CompilerFamily.CLANG]
+    def get_supported_compiler_families() -> list[CompilerFamily]:
+        return [CompilerFamily.GCC,
+                CompilerFamily.CLANG]
 
     @staticmethod
-    def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
-        return list(build_system.compiler.build_option.sanitizer.CompilerSanitizer)
+    def get_supported_sanitizers() -> list[CompilerSanitizer]:
+        return list(CompilerSanitizer)
