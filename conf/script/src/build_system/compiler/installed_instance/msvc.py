@@ -12,6 +12,7 @@ from ext.error.utils import *
 from ext.meta_prog.encapsulation import *
 
 
+@export
 @final
 @dataclass(order=True, frozen=True)
 class MSVCCompilerInstance(CompilerInstance):
