@@ -5,19 +5,19 @@ from utils.meta_prog.encapsulation import *
 
 
 @export
-class GenericClassProxyInjectorMixin(utils.meta_prog.generics.cls_mixin.GenericClassMixin):
+class GenericClassProxyInjectorMixin(GenericClassMixin):
     from .cls_proxy import *
 
     __TAlias_Generics_Subscript_Op = typing.Optional[typing.Union[tuple, type]]
 
     def __init__(self,
                  *args,
-                 generics_by_type_vars: utils.meta_prog.generics.cls_mixin.GenericClassMixin.TAlias_Generics_By_TypeVars = None,
+                 generics_by_type_vars: TAlias_Generics_By_TypeVars = None,
                  **kwargs) -> None:
         if generics_by_type_vars is None:
             generic_cls = type(self)
             generics = tuple()
-            cls_proxy = utils.meta_prog.generics.cls_proxy.GenericClassProxy(generic_cls=generic_cls, generics=generics)
+            cls_proxy = GenericClassProxy(generic_cls=generic_cls, generics=generics)
 
             generics_by_type_vars = cls_proxy.generics_by_type_vars
 
@@ -26,4 +26,4 @@ class GenericClassProxyInjectorMixin(utils.meta_prog.generics.cls_mixin.GenericC
     @classmethod
     def __class_getitem__(cls, item: __TAlias_Generics_Subscript_Op):
         generics = item if isinstance(item, tuple) else (item,)
-        return utils.meta_prog.generics.cls_proxy.GenericClassProxy(generic_cls=cls, generics=generics)
+        return GenericClassProxy(generic_cls=cls, generics=generics)

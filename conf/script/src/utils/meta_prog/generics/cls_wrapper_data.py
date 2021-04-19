@@ -4,7 +4,7 @@ from .cls_mixin import *
 
 
 class GenericClassWrapperDataMixin:
-    TAlias_generic_cls = type[utils.meta_prog.generics.cls_mixin.GenericClassMixin, typing.Generic]
+    TAlias_generic_cls = type[Generic]
 
     wrapped_generic_cls: typing.Final[TAlias_generic_cls]
 

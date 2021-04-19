@@ -1,7 +1,7 @@
 from .data import *
 
 
-class GenericClassMixin(utils.meta_prog.generics.data.GenericsDataMixin):
+class GenericClassMixin(GenericsDataMixin):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
