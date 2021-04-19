@@ -1,10 +1,10 @@
-import typing
+from typing import Final, Optional, TypeVar
 
 
 class GenericsDataMixin:
-    TAlias_Generics_By_TypeVars = dict[typing.TypeVar, typing.Optional[type]]
+    TAlias_Generics_By_TypeVars = dict[TypeVar, Optional[type]]
 
-    generics_by_type_vars: typing.Final[TAlias_Generics_By_TypeVars]
+    generics_by_type_vars: Final[TAlias_Generics_By_TypeVars]
 
     def __init__(self, *args,
                  generics_by_type_vars: TAlias_Generics_By_TypeVars = None,
