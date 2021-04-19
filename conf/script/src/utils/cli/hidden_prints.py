@@ -2,8 +2,11 @@ import contextlib
 import os
 import sys
 
+from ..meta_prog.encapsulation import *
+
 
 # From: https://stackoverflow.com/a/45669280/2924010
+@export
 class HiddenPrints(contextlib.AbstractContextManager):
 
     def __enter__(self):
