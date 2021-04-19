@@ -4,16 +4,20 @@ from typing import AnyStr
 import colorama
 
 import utils.error.meta
+from utils.meta_prog.encapsulation import *
 
 
+@export
 def format_error_msg(message: AnyStr) -> AnyStr:
     return colorama.Style.BRIGHT + colorama.Fore.RED + message + colorama.Style.RESET_ALL
 
 
+@export
 def format_success_msg(message: AnyStr) -> AnyStr:
     return colorama.Style.BRIGHT + colorama.Fore.GREEN + message + colorama.Style.RESET_ALL
 
 
+@export
 class BaseFormattedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
 
     def __init__(self, *args, **kwargs):
@@ -30,6 +34,7 @@ class BaseFormattedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
         raise NotImplementedError()
 
 
+@export
 class FormattedErrorMixin(BaseFormattedErrorMixin):
 
     def __init__(self, *args, **kwargs):
@@ -40,6 +45,7 @@ class FormattedErrorMixin(BaseFormattedErrorMixin):
         return format_error_msg(message)
 
 
+@export
 class FormattedSuccessMixin(BaseFormattedErrorMixin):
 
     def __init__(self, *args, **kwargs):

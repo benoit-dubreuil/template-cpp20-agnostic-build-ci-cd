@@ -4,9 +4,11 @@ from typing import Callable, Type
 import utils.error.cls_def
 import utils.error.managed
 from utils.error.cls_def import UnsupportedError
+from utils.meta_prog.encapsulation import *
 
 
 # noinspection PyDefaultArgument
+@export
 def try_manage_external_errors(func_to_try: Callable,
                                external_errors_to_manage: {tuple[Type[Exception], ...]: Type[utils.error.managed.ManagedErrorMixin]} = {
                                    (Exception,): utils.error.cls_def.UnsupportedError}):
@@ -34,6 +36,7 @@ def try_manage_external_errors(func_to_try: Callable,
 
 
 # noinspection PyDefaultArgument
+@export
 def try_manage_strict_path_resolving(path_to_resolve: Path,
                                      external_errors_to_manage: {tuple[Type[Exception], ...]: Type[utils.error.managed.ManagedErrorMixin]} = {
                                          (Exception,): utils.error.cls_def.UnsupportedError}):

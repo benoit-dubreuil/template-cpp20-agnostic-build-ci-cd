@@ -2,9 +2,11 @@ import abc
 import enum
 
 import utils.error.meta
+from utils.meta_prog.encapsulation import *
 
 
 @enum.unique
+@export
 class ErrorStatus(enum.IntEnum):
     SUCCESS = 0
     UNSUPPORTED = 1
@@ -33,6 +35,7 @@ class ErrorStatus(enum.IntEnum):
     MSVC_COMPILER_VCVARS_BATCH_FILE_NOT_FOUND = enum.auto()
 
 
+@export
 class EncodedErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
 
     def __init__(self, *args, **kwargs):

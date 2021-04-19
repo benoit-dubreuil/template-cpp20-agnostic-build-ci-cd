@@ -4,8 +4,10 @@ import typing
 
 import utils.error.meta
 import utils.error.status
+from utils.meta_prog.encapsulation import *
 
 
+@export
 class ExitCLIErrorMixin(Exception, metaclass=utils.error.meta.ErrorMeta):
 
     def __init__(self, *args, **kwargs):

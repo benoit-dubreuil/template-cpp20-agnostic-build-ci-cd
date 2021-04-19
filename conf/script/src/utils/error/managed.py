@@ -6,9 +6,11 @@ import utils.error.cli_exit
 import utils.error.format
 import utils.error.meta
 import utils.error.status
+from utils.meta_prog.encapsulation import *
 
 
 # noinspection PyAbstractClass
+@export
 class ManagedErrorMixin(utils.error.format.BaseFormattedErrorMixin, utils.error.status.EncodedErrorMixin, utils.error.cli_exit.ExitCLIErrorMixin,
                         metaclass=utils.error.meta.ErrorMeta):
 
@@ -17,6 +19,7 @@ class ManagedErrorMixin(utils.error.format.BaseFormattedErrorMixin, utils.error.
 
 
 # TODO : functools -> wraps ?
+@export
 class ManageClass:
 
     def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[utils.error.format.BaseFormattedErrorMixin] = utils.error.format.FormattedErrorMixin,
