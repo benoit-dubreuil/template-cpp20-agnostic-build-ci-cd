@@ -1,7 +1,12 @@
 from typing import Generic
 
 from utils.meta_prog.encapsulation import *
+from utils.meta_prog.introspection import *
 from .cls_mixin import *
+
+__all__: TAlias_Macro_All = ['TAlias_generic_cls']
+
+TAlias_generic_cls = type[Generic]
 
 
 @export
