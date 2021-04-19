@@ -3,7 +3,7 @@ import sys
 import typing
 
 from .status import *
-from utils.meta_prog.encapsulation import *
+from ...meta_prog.encapsulation import *
 
 
 @export

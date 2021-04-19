@@ -4,7 +4,7 @@ from typing import Optional, Union
 from .format import *
 from .managed import *
 from .status import *
-from utils.meta_prog.encapsulation import *
+from ...meta_prog.encapsulation import *
 
 
 @export

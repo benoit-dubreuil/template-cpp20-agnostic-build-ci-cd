@@ -2,7 +2,7 @@ import abc
 import enum
 
 from .meta import *
-from utils.meta_prog.encapsulation import *
+from ...meta_prog.encapsulation import *
 
 
 @enum.unique

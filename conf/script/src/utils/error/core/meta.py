@@ -1,6 +1,6 @@
 import abc
 
-from utils.meta_prog.encapsulation import *
+from ...meta_prog.encapsulation import *
 
 
 @export

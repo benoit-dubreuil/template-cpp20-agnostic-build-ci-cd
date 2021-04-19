@@ -4,7 +4,7 @@ from typing import AnyStr
 import colorama
 
 from .meta import *
-from utils.meta_prog.encapsulation import *
+from ...meta_prog.encapsulation import *
 
 
 @export

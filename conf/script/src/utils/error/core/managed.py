@@ -4,7 +4,7 @@ from typing import Callable, Optional, Type, Union
 from .cli_exit import *
 from .format import *
 from .status import *
-from utils.meta_prog.encapsulation import *
+from ...meta_prog.encapsulation import *
 
 
 @export
