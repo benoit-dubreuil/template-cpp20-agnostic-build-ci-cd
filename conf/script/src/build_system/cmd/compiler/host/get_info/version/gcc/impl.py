@@ -1,7 +1,8 @@
-import build_system.cmd.compiler.host.get_info.version.gnu
-import build_system.compiler.core.family
-import build_system.compiler.core.version
+from build_system.compiler import *
+from ext.meta_prog.encapsulation import *
+from ..gnu import *
 
 
-def fetch_gcc_version() -> build_system.compiler.core.version.CompilerVersion:
-    return build_system.cmd.compiler.host.get_info.version.gnu.fetch_gnu_version(build_system.compiler.core.family.CompilerFamily.GCC.value)
+@export
+def fetch_gcc_version() -> CompilerVersion:
+    return fetch_gnu_version(CompilerFamily.GCC.value)
