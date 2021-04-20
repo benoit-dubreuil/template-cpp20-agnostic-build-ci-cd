@@ -17,7 +17,7 @@ def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> 
     return compiler_version
 
 
-def fetch_version() -> None:
+def cli_fetch_msvc_version() -> None:
     build_system.cmd.compiler.host.get_info.cli.fetch_compiler_info(compiler_family=build_system.compiler.core.family.CompilerFamily.MSVC,
                                                                     fetch_compiler_info_func=_fetch_version_no_arg,
                                                                     help_path_meaning='installation')
