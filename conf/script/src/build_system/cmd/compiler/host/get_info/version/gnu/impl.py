@@ -19,5 +19,5 @@ def _fetch_raw(compiler: Path) -> AnyStr:
 
 
 @export
-def fetch_version(compiler: Path) -> CompilerVersion:
+def fetch_gnu_version(compiler: Path) -> CompilerVersion:
     return fetch_compiler_version(compiler, _fetch_raw)
