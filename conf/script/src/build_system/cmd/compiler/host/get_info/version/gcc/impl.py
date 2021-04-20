@@ -1,6 +1,7 @@
 from build_system.compiler import *
-from ext.meta_prog.encapsulation import *
 from ..gnu import *
+
+from ext.meta_prog.encapsulation import *
 
 
 @export
