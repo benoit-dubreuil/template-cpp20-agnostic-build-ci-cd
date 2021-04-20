@@ -1,13 +1,16 @@
-import build_system.cmd.compiler.host.get_info.version.clang
-import build_system.cmd.compiler.host.get_info.version.gcc
-import build_system.cmd.compiler.host.get_info.version.msvc
-import build_system.compiler.core.family
-import build_system.compiler.core.version
+from . import *
+from build_system.compiler import *
 
-fetch_func_by_compiler_family = {build_system.compiler.core.family.CompilerFamily.MSVC: build_system.cmd.compiler.host.get_info.version.msvc.fetch_msvc_version,
-                                 build_system.compiler.core.family.CompilerFamily.CLANG: build_system.cmd.compiler.host.get_info.version.clang.fetch_clang_version,
-                                 build_system.compiler.core.family.CompilerFamily.GCC: build_system.cmd.compiler.host.get_info.version.gcc.fetch_gcc_version}
+from ext.meta_prog.encapsulation import *
+from ext.meta_prog.introspection import *
+
+__all__: TAlias_Macro_All = ['fetch_func_by_compiler_family']
+
+fetch_func_by_compiler_family = {CompilerFamily.MSVC: fetch_msvc_version,
+                                 CompilerFamily.CLANG: fetch_clang_version,
+                                 CompilerFamily.GCC: fetch_gcc_version}
 
 
-def fetch_by_compiler_family(compiler_family: build_system.compiler.core.family.CompilerFamily) -> build_system.compiler.core.version.CompilerVersion:
+@export
+def fetch_by_compiler_family(compiler_family: CompilerFamily) -> CompilerVersion:
     return fetch_func_by_compiler_family[compiler_family]()
