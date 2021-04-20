@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from ..gnu import *
 from build_system.compiler import *
 
