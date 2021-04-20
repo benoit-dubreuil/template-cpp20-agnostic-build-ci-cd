@@ -9,7 +9,7 @@ from ext.meta_prog.encapsulation import *
 
 
 @export
-def assure_path_integrity(compiler_path: Path) -> None:
+def verify_compiler_path(compiler_path: Path) -> None:
     """Assures the integrity of the supplied :param:`compiler_path`
 
     :param compiler_path: The path to the compiler executable file. It must not be a directory.
@@ -19,11 +19,11 @@ def assure_path_integrity(compiler_path: Path) -> None:
 
 
 @export
-def interpret_fetched_version(compiler_version_str: AnyStr) -> CompilerVersion:
+def interpret_fetched_compiler_version(compiler_version_str: AnyStr) -> CompilerVersion:
     return CompilerVersion.create_from_str(compiler_version_str.strip())
 
 
 @export
 def fetch(compiler: Path, fetch_compiler_version_func: Callable[[Path], AnyStr]) -> CompilerVersion:
     compiler_version_str: AnyStr = fetch_compiler_version_func(compiler)
-    return interpret_fetched_version(compiler_version_str)
+    return interpret_fetched_compiler_version(compiler_version_str)
