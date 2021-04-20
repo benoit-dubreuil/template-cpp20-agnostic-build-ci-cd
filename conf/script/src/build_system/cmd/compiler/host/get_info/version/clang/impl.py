@@ -1,7 +1,9 @@
-import build_system.cmd.compiler.host.get_info.version.gnu
-import build_system.compiler.core.family
-import build_system.compiler.core.version
+from ..gnu import *
+from build_system.compiler import *
+
+from ext.meta_prog.encapsulation import *
 
 
-def fetch_clang_version() -> build_system.compiler.core.version.CompilerVersion:
-    return build_system.cmd.compiler.host.get_info.version.gnu.fetch_gnu_version(build_system.compiler.core.family.CompilerFamily.CLANG.value)
+@export
+def fetch_clang_version() -> CompilerVersion:
+    return fetch_gnu_version(CompilerFamily.CLANG.value)
