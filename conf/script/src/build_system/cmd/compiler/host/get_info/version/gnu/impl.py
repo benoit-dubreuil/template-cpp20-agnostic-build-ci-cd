@@ -17,4 +17,4 @@ def _fetch_raw(compiler: Path) -> AnyStr:
 
 
 def fetch_version(compiler: Path) -> build_system.compiler.core.version.CompilerVersion:
-    return build_system.cmd.compiler.host.get_info.version.generic_fetch.fetch(compiler, _fetch_raw)
+    return build_system.cmd.compiler.host.get_info.version.generic_fetch.fetch_compiler_version(compiler, _fetch_raw)

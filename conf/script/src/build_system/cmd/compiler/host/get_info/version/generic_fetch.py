@@ -24,6 +24,6 @@ def interpret_fetched_compiler_version(compiler_version_str: AnyStr) -> Compiler
 
 
 @export
-def fetch(compiler: Path, fetch_compiler_version_func: Callable[[Path], AnyStr]) -> CompilerVersion:
+def fetch_compiler_version(compiler: Path, fetch_compiler_version_func: Callable[[Path], AnyStr]) -> CompilerVersion:
     compiler_version_str: AnyStr = fetch_compiler_version_func(compiler)
     return interpret_fetched_compiler_version(compiler_version_str)
