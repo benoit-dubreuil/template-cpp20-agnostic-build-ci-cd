@@ -20,7 +20,7 @@ class TestFetchMSVCVersion(unittest.TestCase):
 
         mock_location.find_location.return_value = expected_return_value
 
-        return_value = build_system.cmd.compiler.host.get_info.version.msvc.fetch_version()
+        return_value = build_system.cmd.compiler.host.get_info.version.msvc.fetch_msvc_version()
 
         assert mock_location.mock_calls == expected_find_location_calls
         assert len(mock_vswhere.mock_calls) == 0
@@ -37,7 +37,7 @@ class TestFetchMSVCVersion(unittest.TestCase):
 
         mock_location.find_location.return_value = None
 
-        return_value = build_system.cmd.compiler.host.get_info.version.msvc.fetch_version(expected_find_location_args)
+        return_value = build_system.cmd.compiler.host.get_info.version.msvc.fetch_msvc_version(expected_find_location_args)
 
         assert mock_location.mock_calls == expected_find_location_calls
         assert len(mock_vswhere.mock_calls) == 0

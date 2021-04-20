@@ -9,7 +9,7 @@ import ext.error.core.cls_def
 
 
 def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[build_system.compiler.core.version.CompilerVersion, NoReturn]:
-    compiler_version: Optional[build_system.compiler.core.version.CompilerVersion] = build_system.cmd.compiler.host.get_info.version.msvc.fetch_version(compiler_installation_path)
+    compiler_version: Optional[build_system.compiler.core.version.CompilerVersion] = build_system.cmd.compiler.host.get_info.version.msvc.fetch_msvc_version(compiler_installation_path)
 
     if compiler_version is None:
         raise ext.error.core.cls_def.CompilerNotFoundError()
