@@ -24,7 +24,7 @@ _PROP_INSTALLATION_PATH: Final[str] = 'installationPath'
 
 
 @export
-def find_location(compiler_installation_path: Optional[Path] = None) -> Optional[Path]:
+def find_msvc_location(compiler_installation_path: Optional[Path] = None) -> Optional[Path]:
     if compiler_installation_path is None:
         found_compiler_installation_path = vswhere.find_first(latest=True, prerelease=True, products=_ALL_PRODUCTS, prop=_PROP_INSTALLATION_PATH, requires=_DEFAULT_REQUIRES)
     else:

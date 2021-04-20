@@ -29,7 +29,7 @@ class MSVCCompilerInstance(CompilerInstance):
 
         cls._assert_compiler_family(compiler_family=compiler_family)
 
-        compiler_installation_dir = build_system.cmd.compiler.host.get_info.location.msvc.find_location()
+        compiler_installation_dir = build_system.cmd.compiler.host.get_info.location.msvc.find_msvc_location()
         return compiler_installation_dir
 
     @staticmethod
