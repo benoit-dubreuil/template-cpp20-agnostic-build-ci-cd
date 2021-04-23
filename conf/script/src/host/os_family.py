@@ -11,12 +11,11 @@ class OSFamily(Enum):
     DARWIN = 'darwin'
     LINUX = 'linux'
 
+    @classmethod
+    def detect(cls) -> 'OSFamily':
+        os_name: str = cls.fetch_os_name()
+        return cls(os_name)
 
-@export
-def fetch_os_name() -> str:
-    return platform.system().lower()
-
-
-@export
-def fetch_os_family() -> OSFamily:
-    return OSFamily(fetch_os_name())
+    @staticmethod
+    def fetch_os_name() -> str:
+        return platform.system().lower()

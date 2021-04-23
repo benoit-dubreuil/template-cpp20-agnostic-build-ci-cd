@@ -33,7 +33,7 @@ def fetch_supported_installed_compiler_instances_by_os_and_arch(os_family: OSFam
 
 @export
 def fetch_supported_installed_compiler_instances() -> list[CompilerInstance]:
-    os_family = fetch_os_family()
+    os_family = OSFamily.detect()
     arch = Architecture.detect_arch()
 
     return fetch_supported_installed_compiler_instances_by_os_and_arch(os_family=os_family, arch=arch)
