@@ -2,12 +2,14 @@ import subprocess
 from pathlib import Path
 from typing import AnyStr
 
-import build_system.cmd.compiler.host.get_info.version.generic_fetch
-import build_system.compiler.version
+from ..generic_fetch import *
+from build_system.compiler import *
+
+from ext.meta_prog.encapsulation import *
 
 
 def _fetch_raw(compiler: Path) -> AnyStr:
-    build_system.cmd.compiler.host.get_info.version.generic_fetch.assure_path_integrity(compiler)
+    verify_compiler_path(compiler)
 
     result: subprocess.CompletedProcess = subprocess.run(
         [compiler, '-dumpversion'], capture_output=True, text=True, check=True
@@ -16,5 +18,6 @@ def _fetch_raw(compiler: Path) -> AnyStr:
     return result.stdout
 
 
-def fetch_version(compiler: Path) -> build_system.compiler.version.CompilerVersion:
-    return build_system.cmd.compiler.host.get_info.version.generic_fetch.fetch(compiler, _fetch_raw)
+@export
+def fetch_gnu_version(compiler: Path) -> CompilerVersion:
+    return fetch_compiler_version(compiler, _fetch_raw)

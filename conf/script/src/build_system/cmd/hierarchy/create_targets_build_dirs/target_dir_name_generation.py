@@ -6,7 +6,7 @@ import build_system.compiler.build_option.build_type
 import build_system.compiler.build_option.sanitizer
 import build_system.compiler.installed_instance
 import build_system.compiler.supported_installed_instances
-import utils.error.cls_def
+import ext.error.core.cls_def
 
 
 def checked_generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
@@ -14,7 +14,7 @@ def checked_generate_targets(compiler_instances: Optional[list[build_system.comp
     targets = generate_targets(compiler_instances=compiler_instances)
 
     if len(targets) <= 0:
-        raise utils.error.cls_def.NoSupportedCompilersAvailableError()
+        raise ext.error.core.cls_def.NoSupportedCompilersAvailableError()
 
     return targets
 

@@ -53,11 +53,9 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
         label_build_type_label = r'Build type'
         label_build_type_info = target.target_build_type.value
 
-        # noinspection PyTypeChecker
         if not isinstance(compiler_env_manager, contextlib.nullcontext):
             label_env_label = r'Environment variables'
 
-            # noinspection PyUnresolvedReferences
             compiler_env: dict[str, list[str]] = compiler_env_manager.get_env()
 
             label_env_info = str(compiler_env)
@@ -88,7 +86,6 @@ def print_target_info(compiler_instance: build_system.compiler.installed_instanc
                                       label=label_build_type_label,
                                       info=label_build_type_info)
 
-        # noinspection PyTypeChecker
         if not isinstance(compiler_env_manager, contextlib.nullcontext):
             assert label_env_label is not None
             assert label_env_info is not None

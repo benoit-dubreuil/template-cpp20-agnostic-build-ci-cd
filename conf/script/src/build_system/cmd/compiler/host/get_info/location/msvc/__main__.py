@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-import build_system.cmd.compiler.host.get_info.location.msvc.cli
-import utils.cli.main
+from . import *
+from ext.cli import *
 
 
 def main():
-    build_system.cmd.compiler.host.get_info.location.msvc.cli.find()
+    cli_find_msvc_location()
 
 
-utils.cli.main.wrap_main(main)
+wrap_main(main)

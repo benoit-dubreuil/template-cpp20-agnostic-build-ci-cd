@@ -3,14 +3,17 @@ import os
 import subprocess
 from typing import Final, MutableMapping, Optional
 
+from .msvc import *
 
+from ext.meta_prog.encapsulation import *
+
+
+@export
 class EnvMSVC(contextlib.AbstractContextManager):
-    import build_system.compiler.installed_instance.msvc
-
-    compiler: Final[build_system.compiler.installed_instance.msvc.MSVCCompilerInstance]
+    compiler: Final[MSVCCompilerInstance]
     vcvars: Optional[dict[str, list[str]]]
 
-    def __init__(self, compiler: build_system.compiler.installed_instance.msvc.MSVCCompilerInstance) -> None:
+    def __init__(self, compiler: MSVCCompilerInstance) -> None:
         super().__init__()
         self.compiler = compiler
         self.vcvars = None

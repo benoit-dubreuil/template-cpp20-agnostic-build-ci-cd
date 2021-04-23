@@ -2,18 +2,21 @@ import contextlib
 import os
 from typing import Final, Optional
 
-_CC: Final[str] = 'CC'
-_CXX: Final[str] = 'CXX'
+from .compiler_instance import *
+
+from ext.meta_prog.encapsulation import *
+
+CC: Final[str] = 'CC'
+CXX: Final[str] = 'CXX'
 
 
+@export
 class EnvDefaultCompiler(contextlib.AbstractContextManager):
-    import build_system.compiler.installed_instance.compiler_instance
-
     previous_c_compiler: Optional[str]
     previous_cpp_compiler: Optional[str]
-    compiler: build_system.compiler.installed_instance.compiler_instance.CompilerInstance
+    compiler: CompilerInstance
 
-    def __init__(self, compiler: build_system.compiler.installed_instance.compiler_instance) -> None:
+    def __init__(self, compiler: CompilerInstance) -> None:
         super().__init__()
         self.compiler = compiler
 
@@ -26,8 +29,8 @@ class EnvDefaultCompiler(contextlib.AbstractContextManager):
         return False
 
     def get_env(self) -> dict[str, list[str]]:
-        return {_CC: [self.compiler.get_c_compiler_name()],
-                _CXX: [self.compiler.get_cpp_compiler_name()]}
+        return {CC: [self.compiler.get_c_compiler_name()],
+                CXX: [self.compiler.get_cpp_compiler_name()]}
 
     def __cache_compilers(self):
         self.__cache_c_compiler()
@@ -38,29 +41,29 @@ class EnvDefaultCompiler(contextlib.AbstractContextManager):
         self.__uncache_cpp_compiler()
 
     def __cache_c_compiler(self):
-        if _CC in os.environ:
-            self.previous_c_compiler = os.environ[_CC]
+        if CC in os.environ:
+            self.previous_c_compiler = os.environ[CC]
         else:
             self.previous_c_compiler = None
 
-        os.environ[_CC] = self.compiler.get_c_compiler_name()
+        os.environ[CC] = self.compiler.get_c_compiler_name()
 
     def __cache_cpp_compiler(self):
-        if _CXX in os.environ:
-            self.previous_cpp_compiler = os.environ[_CXX]
+        if CXX in os.environ:
+            self.previous_cpp_compiler = os.environ[CXX]
         else:
             self.previous_cpp_compiler = None
 
-        os.environ[_CXX] = self.compiler.get_cpp_compiler_name()
+        os.environ[CXX] = self.compiler.get_cpp_compiler_name()
 
     def __uncache_c_compiler(self):
         if self.previous_c_compiler is None:
-            del os.environ[_CC]
+            del os.environ[CC]
         else:
-            os.environ[_CC] = self.previous_c_compiler
+            os.environ[CC] = self.previous_c_compiler
 
     def __uncache_cpp_compiler(self):
         if self.previous_cpp_compiler is None:
-            del os.environ[_CXX]
+            del os.environ[CXX]
         else:
-            os.environ[_CXX] = self.previous_cpp_compiler
+            os.environ[CXX] = self.previous_cpp_compiler

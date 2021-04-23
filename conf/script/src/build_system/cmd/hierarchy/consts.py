@@ -1,25 +1,28 @@
 import encodings
-from typing import Final
+import typing
 
-import utils.cli.arg
+import ext.cli.arg
 
-DIR_STR: Final[str] = 'dir'
-ROOT_STR: Final[str] = 'root'
-BUILD_SYSTEM_NAME: Final[str] = 'meson'
+_TAlias_Const = typing.Final[str]
+_TAlias_CLI_Const = typing.Final[ext.cli.arg.CLIArg]
 
-BUILD_SYSTEM_CONF_FILE_NAME: Final[str] = f'{BUILD_SYSTEM_NAME}.build'
+DIR_STR: _TAlias_Const = 'dir'
+ROOT_STR: _TAlias_Const = 'root'
+BUILD_SYSTEM_NAME: _TAlias_Const = 'meson'
 
-BUILD_DIR_NAME: Final[str] = 'build'
+BUILD_SYSTEM_CONF_FILE_NAME: _TAlias_Const = f'{BUILD_SYSTEM_NAME}.build'
+
+BUILD_DIR_NAME: _TAlias_Const = 'build'
 TARGET_SCRIPT_DIR_NAME = 'script'
 TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME = 'export_shell_env'
 TARGET_SCRIPT_COMPILER_ENV_NAME = 'compiler_env.properties'
 
-CONF_DIR_NAME: Final[str] = 'conf'
-CONF_BUILD_SYSTEM_DIR_NAME: Final[str] = f'{BUILD_DIR_NAME}-system'
-MESON_MACHINE_FILES_DIR_NAME: Final[str] = 'machine'
+CONF_DIR_NAME: _TAlias_Const = 'conf'
+CONF_BUILD_SYSTEM_DIR_NAME: _TAlias_Const = f'{BUILD_DIR_NAME}-system'
+MESON_MACHINE_FILES_DIR_NAME: _TAlias_Const = 'machine'
 
-ROOT_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{ROOT_STR}{DIR_STR}')
-BUILD_DIR_ARG: Final[utils.cli.arg.CLIArg] = utils.cli.arg.CLIArg(f'{BUILD_DIR_NAME}{DIR_STR}')
+ROOT_DIR_ARG: _TAlias_CLI_Const = ext.cli.arg.CLIArg(f'{ROOT_STR}{DIR_STR}')
+BUILD_DIR_ARG: _TAlias_CLI_Const = ext.cli.arg.CLIArg(f'{BUILD_DIR_NAME}{DIR_STR}')
 
-BUILD_DIR_PERMISSIONS: Final[int] = 0o770
-UTF_8: Final[str] = encodings.utf_8.getregentry().name
+BUILD_DIR_PERMISSIONS: typing.Final[int] = 0o770
+UTF_8: _TAlias_Const = encodings.utf_8.getregentry().name

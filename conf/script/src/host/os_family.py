@@ -1,7 +1,10 @@
 import platform
 from enum import Enum, unique
 
+from ext.meta_prog.encapsulation import *
 
+
+@export
 @unique
 class OSFamily(Enum):
     WINDOWS = 'windows'
@@ -9,9 +12,11 @@ class OSFamily(Enum):
     LINUX = 'linux'
 
 
+@export
 def fetch_os_name() -> str:
     return platform.system().lower()
 
 
+@export
 def fetch_os_family() -> OSFamily:
     return OSFamily(fetch_os_name())
