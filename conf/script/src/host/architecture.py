@@ -3,10 +3,7 @@ __all__ = ['Architecture']
 import sys
 from enum import IntFlag, unique
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 @unique
 class Architecture(IntFlag):
     UNKNOWN = 0
