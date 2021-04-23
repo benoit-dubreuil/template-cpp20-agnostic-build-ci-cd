@@ -1,12 +1,15 @@
+__all__ = ['TConstraints_PathLike',
+           'TConstraints_AnyPath',
+           'PathLike',
+           'AnyPath',
+           'T_PathLike',
+           'T_AnyPath']
+
 import os
 from pathlib import Path
 from typing import TypeVar, Union
 
 from .meta_prog.introspection import *
-
-__all__ = ['TConstraints_PathLike', 'TConstraints_AnyPath',
-                             'PathLike', 'AnyPath',
-                             'T_PathLike', 'T_AnyPath']
 
 TConstraints_PathLike = (Path, os.PathLike, str, bytes)
 TConstraints_AnyPath = (Path, os.PathLike, str, bytes, type(None))

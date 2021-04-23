@@ -1,8 +1,8 @@
-from typing import *
+__all__ = ['get_or_create_attr']
+
+from typing import Callable, TypeVar
 
 from .macro import *
-
-__all__ = ['get_or_create_attr']
 
 T_Attr_Val = TypeVar('T_Attr_Val')
 TAlias_Attr_Val_Generator = Callable[[], T_Attr_Val]

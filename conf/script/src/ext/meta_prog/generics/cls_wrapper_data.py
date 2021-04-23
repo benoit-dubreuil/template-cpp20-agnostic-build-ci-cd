@@ -1,10 +1,10 @@
+__all__ = ['TAlias_generic_cls']
+
 from typing import Final, Generic
 
 from ..encapsulation import *
 from ..introspection import *
 from .cls_mixin import *
-
-__all__ = ['TAlias_generic_cls']
 
 TAlias_generic_cls = type[Generic]
 

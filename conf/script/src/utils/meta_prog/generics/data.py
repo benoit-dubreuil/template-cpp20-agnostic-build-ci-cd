@@ -1,7 +1,7 @@
-import typing
-
-
 __all__ = ['TAlias_Generics_By_TypeVars']
+
+from typing import Final, Optional, TypeVar
+
 
 TAlias_Generics_By_TypeVars = dict[TypeVar, Optional[type]]
 

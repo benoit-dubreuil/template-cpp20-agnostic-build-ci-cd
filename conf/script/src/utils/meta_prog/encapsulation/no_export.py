@@ -1,9 +1,9 @@
+__all__ = ['no_export']
+
 import inspect
 import typing
 
 from utils.meta_prog.introspection import *
-
-__all__ = ['no_export']
 
 
 def no_export(func: typing.Callable):

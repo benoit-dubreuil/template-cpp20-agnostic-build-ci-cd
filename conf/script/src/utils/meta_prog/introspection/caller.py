@@ -1,10 +1,10 @@
+__all__ = ['get_nth_caller', 'get_caller', 'is_caller_main']
+
 import inspect
 from types import FrameType
 from typing import Final
 
 from .macro import *
-
-__all__ = ['get_nth_caller', 'get_caller', 'is_caller_main']
 
 CALLER_MIN_N: Final[int] = 1
 

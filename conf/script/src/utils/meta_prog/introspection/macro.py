@@ -1,9 +1,9 @@
+__all__ = ['Macro', 'TAlias_Macro_All']
+
 from enum import Enum, auto, unique
 from typing import Final
 
 TAlias_Macro_All = list[str]
-
-__all__ = ['Macro', 'TAlias_Macro_All']
 
 
 class AutoMacroFromName(str, Enum):
