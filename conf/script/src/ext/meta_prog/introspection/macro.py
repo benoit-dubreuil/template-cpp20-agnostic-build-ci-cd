@@ -6,7 +6,7 @@ from typing import Final, final
 TAlias_Macro_All = list[str]
 
 
-class AutoMacroFromName(str, Enum):
+class _AutoMacroFromName(str, Enum):
 
     @final
     def _generate_next_value_(name: str, start, count, last_values) -> str:
@@ -16,7 +16,7 @@ class AutoMacroFromName(str, Enum):
 
 @final
 @unique
-class Macro(AutoMacroFromName):
+class Macro(_AutoMacroFromName):
     ALL = auto()
     DICT = auto()
     MAIN = auto()
