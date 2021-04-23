@@ -1,10 +1,7 @@
 import platform
 from enum import Enum, unique
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 @unique
 class OSFamily(Enum):
     WINDOWS = 'windows'
