@@ -3,7 +3,7 @@ import typing
 
 from utils.meta_prog.introspection import *
 
-__all__: TAlias_Macro_All = ['export']
+__all__ = ['export']
 
 
 def export(func: typing.Callable):

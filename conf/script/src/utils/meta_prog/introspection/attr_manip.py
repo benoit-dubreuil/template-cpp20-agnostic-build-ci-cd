@@ -2,7 +2,7 @@ from typing import *
 
 from .macro import *
 
-__all__: TAlias_Macro_All = ['get_or_create_attr']
+__all__ = ['get_or_create_attr']
 
 T_Attr_Val = TypeVar('T_Attr_Val')
 TAlias_Attr_Val_Generator = Callable[[], T_Attr_Val]
