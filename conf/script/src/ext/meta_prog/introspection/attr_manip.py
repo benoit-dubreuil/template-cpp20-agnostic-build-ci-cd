@@ -4,14 +4,14 @@ from typing import Callable, TypeVar
 
 from .macro import *
 
-T_Attr_Val = TypeVar('T_Attr_Val')
-TAlias_Attr_Val_Generator = Callable[[], T_Attr_Val]
+_T_Attr_Val = TypeVar('_T_Attr_Val')
+_TAlias_Attr_Val_Generator = Callable[[], _T_Attr_Val]
 
 
 def get_or_create_attr(obj,
                        attr: str,
-                       default_val_generator: TAlias_Attr_Val_Generator = lambda: T_Attr_Val()) -> T_Attr_Val:
-    attr_val: T_Attr_Val
+                       default_val_generator: _TAlias_Attr_Val_Generator = lambda: _T_Attr_Val()) -> _T_Attr_Val:
+    attr_val: _T_Attr_Val
 
     assert hasattr(obj, Macro.DICT)
 
