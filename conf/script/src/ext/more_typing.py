@@ -9,8 +9,6 @@ import os
 from pathlib import Path
 from typing import TypeVar, Union
 
-from .meta_prog.introspection import *
-
 TConstraints_PathLike = (Path, os.PathLike, str, bytes)
 TConstraints_AnyPath = (Path, os.PathLike, str, bytes, type(None))
 
