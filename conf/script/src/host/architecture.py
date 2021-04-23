@@ -2,8 +2,10 @@ __all__ = ['Architecture']
 
 import sys
 from enum import IntFlag, unique
+from typing import final
 
 
+@final
 @unique
 class Architecture(IntFlag):
     UNKNOWN = 0

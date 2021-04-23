@@ -1,7 +1,9 @@
 import platform
 from enum import Enum, unique
+from typing import final
 
 
+@final
 @unique
 class OSFamily(Enum):
     WINDOWS = 'windows'
