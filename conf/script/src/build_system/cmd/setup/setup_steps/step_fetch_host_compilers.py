@@ -1,7 +1,8 @@
-import build_system.compiler.installed_instance
-import build_system.compiler.supported_installed_instances
+__all__ = ['fetch_host_compilers']
+
+from build_system.compiler import *
 
 
-def fetch_host_compilers() -> list[build_system.compiler.installed_instance.CompilerInstance]:
-    host_compilers = build_system.compiler.supported_installed_instances.fetch_all()
+def fetch_host_compilers() -> list[CompilerInstance]:
+    host_compilers = fetch_supported_installed_compiler_instances()
     return host_compilers
