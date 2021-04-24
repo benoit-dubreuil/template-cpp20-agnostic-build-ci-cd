@@ -1,8 +1,9 @@
+__all__ = ['fetch_supported_installed_compiler_instances_by_os_and_arch',
+           'fetch_supported_installed_compiler_instances']
+
+from host import *
 from ..installed_instance import *
 from ..reqs import *
-from host import *
-
-from ext.meta_prog.encapsulation import *
 
 
 def _fetch_filtered_compilers_reqs_by_os(os_family: OSFamily) -> list[CompilerReqs]:
@@ -10,7 +11,6 @@ def _fetch_filtered_compilers_reqs_by_os(os_family: OSFamily) -> list[CompilerRe
     return CompilerReqs.filter_by_os(all_compilers_reqs, os_family)
 
 
-@export
 def fetch_supported_installed_compiler_instances_by_os_and_arch(os_family: OSFamily,
                                                                 arch: Architecture) \
         -> list[CompilerInstance]:
@@ -31,7 +31,6 @@ def fetch_supported_installed_compiler_instances_by_os_and_arch(os_family: OSFam
     return supported_compiler_instances
 
 
-@export
 def fetch_supported_installed_compiler_instances() -> list[CompilerInstance]:
     os_family = OSFamily.detect()
     arch = Architecture.detect_arch()
