@@ -1,10 +1,9 @@
-import abc
+__all__ = ['ErrorMeta']
 
-from ...meta_prog.encapsulation import *
+from abc import ABCMeta
 
 
-@export
-class ErrorMeta(abc.ABCMeta, type):
+class ErrorMeta(ABCMeta, type):
 
     def __init__(cls, *args, **kwargs):
         super().__init__(*args, **kwargs)
