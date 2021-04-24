@@ -1,7 +1,7 @@
 from typing import Final, Optional
 
-import build_system.build_target.build_target
-import build_system.build_target.compiler_instance_targets
+from build_system.build_target import *
+from build_system.build_target import *
 import build_system.compiler.build_option.build_type
 import build_system.compiler.build_option.sanitizer
 import build_system.compiler.installed_instance

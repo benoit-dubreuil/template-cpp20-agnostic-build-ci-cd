@@ -1,5 +1,5 @@
-import build_system.build_target.build_target
-import build_system.build_target.compiler_instance_targets
+from build_system.build_target import *
+from build_system.build_target import *
 from build_system.cmd.hierarchy.consts import BUILD_DIR_PERMISSIONS, TARGET_SCRIPT_DIR_NAME
 
 

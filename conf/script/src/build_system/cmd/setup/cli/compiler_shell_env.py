@@ -1,6 +1,6 @@
 from typing import Final
 
-import build_system.build_target.build_target
+from build_system.build_target import *
 
 
 def print_symlink_to_compiler_export_shell_env_script(target: build_system.build_target.build_target.BuildTarget) -> None:

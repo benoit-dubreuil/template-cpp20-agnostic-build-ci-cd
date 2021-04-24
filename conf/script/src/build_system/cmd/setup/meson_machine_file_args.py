@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Final
 
-import build_system.build_target.build_target
+from build_system.build_target import *
 import build_system.compiler.installed_instance
 from build_system.cmd.setup.find_meson_machine_file import find_build_type_machine_file, find_compiler_machine_file, find_native_machine_files_dir, find_sanitizer_machine_file
 

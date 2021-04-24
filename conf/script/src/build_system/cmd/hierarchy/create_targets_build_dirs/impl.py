@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Optional
 
-import build_system.build_target.compiler_instance_targets
+from build_system.build_target import *
 import build_system.cmd.hierarchy.assure_arg_integrity
 import build_system.compiler.installed_instance
 import ext.error.core.cls_def

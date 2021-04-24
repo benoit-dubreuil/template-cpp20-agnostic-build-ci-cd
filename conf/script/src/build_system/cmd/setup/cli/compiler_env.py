@@ -1,6 +1,6 @@
 from typing import Final
 
-import build_system.build_target.build_target
+from build_system.build_target import *
 
 
 def print_compiler_env_file(target: build_system.build_target.build_target.BuildTarget) -> None:

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-import build_system.build_target.build_target
-import build_system.build_target.compiler_instance_targets
+from build_system.build_target import *
+from build_system.build_target import *
 import build_system.cmd.hierarchy.consts
 
 

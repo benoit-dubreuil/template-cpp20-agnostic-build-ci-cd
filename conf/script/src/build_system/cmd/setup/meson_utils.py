@@ -5,7 +5,7 @@ from typing import Final
 
 import mesonbuild.mesonmain
 
-import build_system.build_target.build_target
+from build_system.build_target import *
 import build_system.compiler.installed_instance
 import ext.cli.hidden_prints
 import ext.cmd_integrity

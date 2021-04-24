@@ -1,7 +1,7 @@
 import contextlib
 from typing import Final
 
-import build_system.build_target.build_target
+from build_system.build_target import *
 import build_system.compiler.installed_instance
 
 
