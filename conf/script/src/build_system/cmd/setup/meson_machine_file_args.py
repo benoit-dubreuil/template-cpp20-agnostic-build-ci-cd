@@ -1,16 +1,17 @@
+__all__ = ['generate_meson_machine_files_args']
+
 from pathlib import Path
 from typing import Final
 
 from build_system.build_target import *
-import build_system.compiler.installed_instance
-from build_system.cmd.setup.find_meson_machine_file import find_build_type_machine_file, find_compiler_machine_file, find_native_machine_files_dir, find_sanitizer_machine_file
+from build_system.compiler import *
+from .find_meson_machine_file import *
+from ..hierarchy.find_conf_dir import *
 
 
-def generate_meson_machine_files_args(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+def generate_meson_machine_files_args(compiler_instance: CompilerInstance,
                                       build_target: BuildTarget) -> list[str]:
-    import build_system.cmd.hierarchy.find_conf_dir
-
-    meson_machine_files_dir = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
+    meson_machine_files_dir = find_meson_machine_files_dir()
     native_machine_files_dir = find_native_machine_files_dir(meson_machine_files_dir=meson_machine_files_dir)
 
     machine_files = _assemble_machine_files(compiler_instance=compiler_instance,
@@ -24,7 +25,7 @@ def generate_meson_machine_files_args(compiler_instance: build_system.compiler.i
     return machine_files_args
 
 
-def _assemble_machine_files(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+def _assemble_machine_files(compiler_instance: CompilerInstance,
                             build_target: BuildTarget,
                             meson_machine_files_dir: Path,
                             native_machine_files_dir: Path) -> list[Path]:
