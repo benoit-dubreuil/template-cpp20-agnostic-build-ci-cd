@@ -4,7 +4,7 @@ __all__ = ['get_verified_root_dir',
 from pathlib import Path
 from typing import Optional
 
-from ext.error.core import *
+from ext.error import *
 
 
 def get_verified_root_dir(unverified_root_dir: Optional[Path] = None) -> Path:
