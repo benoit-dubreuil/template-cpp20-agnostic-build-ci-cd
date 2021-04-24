@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import build_system.cmd.hierarchy.create_targets_build_dirs.cli
+import build_system.cmd.hierarchy.create_targets_build_dirs_structure.cli
 import ext.cli.main
 
 
