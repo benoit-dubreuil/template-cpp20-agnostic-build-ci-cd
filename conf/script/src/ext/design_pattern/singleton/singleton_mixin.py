@@ -13,17 +13,17 @@ class SingletonMixin(metaclass=ABCMeta):
         super().__init__(*args, **kwargs)
 
     @classmethod
-    def get_singleton(cls, *args, **kwargs) -> _T:
+    def get_singleton(cls) -> _T:
         if cls.__singleton is None:
-            cls._force_create_singleton(*args, **kwargs)
+            cls._force_create_singleton()
 
         return cls.__singleton
 
     @classmethod
-    def _force_create_singleton(cls, *args, **kwargs) -> None:
+    def _force_create_singleton(cls) -> None:
         singleton_creator = cls._get_singleton_creator()
-        cls.__singleton = singleton_creator(*args, **kwargs)
+        cls.__singleton = singleton_creator()
 
     @classmethod
-    def _get_singleton_creator(cls) -> Callable[..., _T]:
+    def _get_singleton_creator(cls) -> Callable[[], _T]:
         return cls.__init__
