@@ -1,6 +1,7 @@
+__all__ = ['create_targets_script_dirs']
+
 from build_system.build_target import *
-from build_system.build_target import *
-from build_system.cmd.hierarchy.consts import BUILD_DIR_PERMISSIONS, TARGET_SCRIPT_DIR_NAME
+from ..consts import *
 
 
 def create_targets_script_dirs(targets: list[CompilerInstanceTargets]) -> None:
