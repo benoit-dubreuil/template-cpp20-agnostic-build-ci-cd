@@ -1,6 +1,10 @@
+__all__ = ['colorize_header_label',
+           'colorize_label',
+           'colorize_path']
+
 import colorama
 
-from ext.more_typing import PathLike
+from ext.more_typing import *
 
 
 def colorize_header_label(header: str) -> str:
