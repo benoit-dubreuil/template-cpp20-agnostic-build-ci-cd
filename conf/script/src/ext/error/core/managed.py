@@ -1,13 +1,14 @@
+__all__ = ['ManagedErrorMixin',
+           'ManageClass']
+
 import types
 from typing import Callable, Optional, Type, Union
 
 from .cli_exit import *
 from .format import *
 from .status import *
-from ...meta_prog.encapsulation import *
 
 
-@export
 class ManagedErrorMixin(BaseFormattedErrorMixin, EncodedErrorMixin, ExitCLIErrorMixin,
                         metaclass=ErrorMeta):
 
@@ -16,7 +17,6 @@ class ManagedErrorMixin(BaseFormattedErrorMixin, EncodedErrorMixin, ExitCLIError
 
 
 # TODO : functools -> wraps ?
-@export
 class ManageClass:
 
     def __new__(cls, decorated_cls: Optional[type] = None, error_formatter_cls: Type[BaseFormattedErrorMixin] = FormattedErrorMixin,
