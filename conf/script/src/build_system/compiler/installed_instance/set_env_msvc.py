@@ -1,3 +1,5 @@
+__all__ = ['EnvMSVC']
+
 import contextlib
 import os
 import subprocess
@@ -5,10 +7,7 @@ from typing import Final, MutableMapping, Optional
 
 from .msvc import *
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 class EnvMSVC(contextlib.AbstractContextManager):
     compiler: Final[MSVCCompilerInstance]
     vcvars: Optional[dict[str, list[str]]]
