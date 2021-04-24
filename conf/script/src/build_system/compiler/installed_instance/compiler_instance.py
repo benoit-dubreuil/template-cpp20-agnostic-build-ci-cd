@@ -1,4 +1,6 @@
-import abc
+__all__ = ['CompilerInstance']
+
+from abc import ABCMeta, abstractmethod
 import contextlib
 from dataclasses import dataclass
 from pathlib import Path
@@ -10,12 +12,9 @@ from host import *
 from ext.error import *
 from ext.error.utils import *
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 @dataclass(order=True, frozen=True)
-class CompilerInstance(metaclass=abc.ABCMeta):
+class CompilerInstance(metaclass=ABCMeta):
     compiler_family: CompilerFamily
     os_family: OSFamily
     arch: Architecture
@@ -89,7 +88,7 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         return sublcass_matching_compiler_family
 
     @staticmethod
-    @abc.abstractmethod
+    @abstractmethod
     def get_supported_compiler_families() -> list[CompilerFamily]:
         raise NotImplementedError()
 
@@ -111,17 +110,17 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         raise NotImplementedError()
 
     @staticmethod
-    @abc.abstractmethod
+    @abstractmethod
     def get_c_compiler_name() -> str:
         raise NotImplementedError()
 
     @staticmethod
-    @abc.abstractmethod
+    @abstractmethod
     def get_cpp_compiler_name() -> str:
         raise NotImplementedError()
 
     @classmethod
-    @abc.abstractmethod
+    @abstractmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: CompilerFamily) -> Path:
         raise NotImplementedError()
 
