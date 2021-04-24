@@ -1,3 +1,6 @@
+__all__ = ['fetch_compiler_info',
+           'fetch_compiler_info_with_default_path']
+
 import argparse
 from pathlib import Path
 from typing import Any, Callable, Optional
@@ -5,10 +8,7 @@ from typing import Any, Callable, Optional
 from build_system.compiler import *
 from ext.cli import *
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 def fetch_compiler_info(compiler_family: CompilerFamily,
                         fetch_compiler_info_func: Callable[[Optional[Path]], Any],
                         default_compiler_path: Optional[Path] = None,
@@ -28,6 +28,5 @@ def fetch_compiler_info(compiler_family: CompilerFamily,
     try_cmd_except_managed_errors(cli_cmd, arg_parser)
 
 
-@export
 def fetch_compiler_info_with_default_path(compiler_family: CompilerFamily, fetch_compiler_info_func: Callable[[Path], Any]) -> None:
     fetch_compiler_info(compiler_family, fetch_compiler_info_func, compiler_family.value)
