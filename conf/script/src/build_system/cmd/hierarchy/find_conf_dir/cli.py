@@ -9,7 +9,7 @@ import ext.cli.try_cmd
 from ext.more_typing import AnyPath
 
 
-def find_conf_dir():
+def cli_find_conf_dir():
     arg_parser = argparse.ArgumentParser(
         description=f"Finds the project's '{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.consts.CONF_DIR_NAME}{colorama.Style.RESET_ALL}' folder.")
     ext.cli.arg_parsing.add_optional_path_arg(arg_parser, build_system.cmd.hierarchy.consts.ROOT_DIR_ARG, path_arg_help="The project's root directory")

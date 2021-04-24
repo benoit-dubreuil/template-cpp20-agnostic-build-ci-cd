@@ -5,7 +5,7 @@ import ext.cli.main
 
 
 def main():
-    build_system.cmd.hierarchy.find_conf_dir.cli.find_conf_dir()
+    build_system.cmd.hierarchy.find_conf_dir.cli.cli_find_conf_dir()
 
 
 ext.cli.main.wrap_main(main)
