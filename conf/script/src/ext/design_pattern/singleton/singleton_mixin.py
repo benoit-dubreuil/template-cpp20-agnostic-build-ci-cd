@@ -20,11 +20,10 @@ class SingletonMixin(metaclass=ABCMeta):
         return cls.__singleton
 
     @classmethod
-    def _force_create_singleton(cls, *args, singleton_constructor: Optional[Callable[..., _T]] = None, **kwargs) -> None:
+    def _force_create_singleton(cls, *args, **kwargs) -> None:
+        singleton_creator = cls._get_singleton_creator()
+        cls.__singleton = singleton_creator(*args, **kwargs)
 
-        if singleton_constructor is None:
-            verified_constructor = cls.__init__
-        else:
-            verified_constructor = singleton_constructor
-
-        cls.__singleton = verified_constructor(*args, **kwargs)
+    @classmethod
+    def _get_singleton_creator(cls) -> Callable[..., _T]:
+        return cls.__init__
