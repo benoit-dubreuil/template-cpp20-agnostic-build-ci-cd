@@ -1,25 +1,23 @@
+__all__ = ['generate_targets']
+
 from typing import Final, Optional
 
 from build_system.build_target import *
-from build_system.build_target import *
-import build_system.compiler.build_option.build_type
-import build_system.compiler.build_option.sanitizer
-import build_system.compiler.installed_instance
-import build_system.compiler.supported_installed_instances
-import ext.error.core.cls_def
+from build_system.compiler import *
+from ext.error import *
 
 
-def generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+def generate_targets(compiler_instances: Optional[list[CompilerInstance]] = None) \
         -> list[CompilerInstanceTargets]:
     targets = _unchecked_generate_targets(compiler_instances=compiler_instances)
 
     if len(targets) <= 0:
-        raise ext.error.core.cls_def.NoSupportedCompilersAvailableError()
+        raise NoSupportedCompilersAvailableError()
 
     return targets
 
 
-def _unchecked_generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+def _unchecked_generate_targets(compiler_instances: Optional[list[CompilerInstance]] = None) \
         -> list[CompilerInstanceTargets]:
     compiler_instances = _get_compiler_instances(compiler_instances=compiler_instances)
     build_types = _get_build_types()
@@ -28,22 +26,22 @@ def _unchecked_generate_targets(compiler_instances: Optional[list[build_system.c
     return targets
 
 
-def _get_compiler_instances(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> list[build_system.compiler.installed_instance.CompilerInstance]:
+def _get_compiler_instances(compiler_instances: Optional[list[CompilerInstance]] = None) \
+        -> list[CompilerInstance]:
     if compiler_instances is None:
-        fetched_compiler_instances = build_system.compiler.supported_installed_instances.fetch_supported_installed_compiler_instances()
+        fetched_compiler_instances = fetch_supported_installed_compiler_instances()
     else:
         fetched_compiler_instances = compiler_instances
 
     return fetched_compiler_instances
 
 
-def _get_build_types() -> list[build_system.compiler.build_option.build_type.TargetBuildType]:
-    return list(build_system.compiler.build_option.build_type.TargetBuildType)
+def _get_build_types() -> list[TargetBuildType]:
+    return list(TargetBuildType)
 
 
-def _generate_targets(compiler_instances: list[build_system.compiler.installed_instance.CompilerInstance],
-                      build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
+def _generate_targets(compiler_instances: list[CompilerInstance],
+                      build_types: list[TargetBuildType]) \
         -> list[CompilerInstanceTargets]:
     targets: list[CompilerInstanceTargets] = []
 
@@ -55,8 +53,8 @@ def _generate_targets(compiler_instances: list[build_system.compiler.installed_i
     return targets
 
 
-def _generate_targets_of_compiler_instance(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                                           build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
+def _generate_targets_of_compiler_instance(compiler_instance: CompilerInstance,
+                                           build_types: list[TargetBuildType]) \
         -> CompilerInstanceTargets:
     build_targets = _generate_build_targets_of_compiler_instance(compiler_instance, build_types)
     targets_of_compiler_instance = CompilerInstanceTargets(compiler_instance=compiler_instance,
@@ -65,8 +63,8 @@ def _generate_targets_of_compiler_instance(compiler_instance: build_system.compi
     return targets_of_compiler_instance
 
 
-def _generate_build_targets_of_compiler_instance(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                                                 build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
+def _generate_build_targets_of_compiler_instance(compiler_instance: CompilerInstance,
+                                                 build_types: list[TargetBuildType]) \
         -> list[BuildTarget]:
     combined_build_options = _combine_build_options(compiler_instance=compiler_instance, build_types=build_types)
     build_targets: list[BuildTarget] = []
@@ -80,10 +78,10 @@ def _generate_build_targets_of_compiler_instance(compiler_instance: build_system
     return build_targets
 
 
-def _combine_build_options(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                           build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
-        -> list[tuple[build_system.compiler.build_option.build_type.TargetBuildType, build_system.compiler.build_option.sanitizer.CompilerSanitizer]]:
-    supported_sanitizers: Final[list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]] = compiler_instance.get_supported_sanitizers()
+def _combine_build_options(compiler_instance: CompilerInstance,
+                           build_types: list[TargetBuildType]) \
+        -> list[tuple[TargetBuildType, CompilerSanitizer]]:
+    supported_sanitizers: Final[list[CompilerSanitizer]] = compiler_instance.get_supported_sanitizers()
     combined_build_options = []
 
     for build_type in build_types:
@@ -97,11 +95,11 @@ def _combine_build_options(compiler_instance: build_system.compiler.installed_in
     return combined_build_options
 
 
-def _filter_sanitizers_by_build_type(build_type: build_system.compiler.build_option.build_type.TargetBuildType,
-                                     sanitizers: list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]) \
-        -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
-    if build_type == build_system.compiler.build_option.build_type.TargetBuildType.RELEASE:
-        filtered_sanitizers = [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE]
+def _filter_sanitizers_by_build_type(build_type: TargetBuildType,
+                                     sanitizers: list[CompilerSanitizer]) \
+        -> list[CompilerSanitizer]:
+    if build_type == TargetBuildType.RELEASE:
+        filtered_sanitizers = [CompilerSanitizer.NONE]
     else:
         filtered_sanitizers = sanitizers
 
