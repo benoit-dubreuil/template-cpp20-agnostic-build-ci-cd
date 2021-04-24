@@ -18,7 +18,7 @@ from build_system.cmd.setup.meson_machine_file_args import generate_meson_machin
 
 def setup_target(root_dir: Path,
                  compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                 build_target: build_system.build_target.build_target.BuildTarget,
+                 build_target: BuildTarget,
                  compiler_env_manager: contextlib.AbstractContextManager,
                  cli_mode: bool):
     meson_cli_args = _generate_meson_setup_cli_args(root_dir=root_dir,
@@ -37,7 +37,7 @@ def setup_target(root_dir: Path,
 
 def _generate_meson_setup_cli_args(root_dir: Path,
                                    compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                                   build_target: build_system.build_target.build_target.BuildTarget):
+                                   build_target: BuildTarget):
     cli_kwarg_assignment_op: Final[str] = r'='
 
     cli_arg_setup_cmd = r'setup'

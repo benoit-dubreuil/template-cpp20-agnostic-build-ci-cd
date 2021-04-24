@@ -10,7 +10,7 @@ import ext.more_path
 
 def create_targets_build_dirs(build_dir: Optional[Path] = None,
                               compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+        -> list[CompilerInstanceTargets]:
     build_dir = build_system.cmd.hierarchy.assure_arg_integrity.get_verified_build_dir(unverified_build_dir=build_dir)
     _assure_build_dir_is_empty(build_dir)
 
@@ -24,7 +24,7 @@ def _assure_build_dir_is_empty(build_dir):
 
 def _unchecked_create_targets_build_dirs(build_dir: Path,
                                          compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+        -> list[CompilerInstanceTargets]:
     from build_system.cmd.hierarchy.create_targets_build_dirs.target_dir_name_generation import checked_generate_targets
     from build_system.cmd.hierarchy.create_targets_build_dirs.target_dir_creation import create_targets_build_dirs
     from build_system.cmd.hierarchy.create_targets_build_dirs.target_script_dir_creation import create_targets_script_dirs

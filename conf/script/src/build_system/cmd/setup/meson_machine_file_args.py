@@ -7,7 +7,7 @@ from build_system.cmd.setup.find_meson_machine_file import find_build_type_machi
 
 
 def generate_meson_machine_files_args(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                                      build_target: build_system.build_target.build_target.BuildTarget) -> list[str]:
+                                      build_target: BuildTarget) -> list[str]:
     import build_system.cmd.hierarchy.find_conf_dir
 
     meson_machine_files_dir = build_system.cmd.hierarchy.find_conf_dir.find_meson_machine_files_dir()
@@ -25,7 +25,7 @@ def generate_meson_machine_files_args(compiler_instance: build_system.compiler.i
 
 
 def _assemble_machine_files(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                            build_target: build_system.build_target.build_target.BuildTarget,
+                            build_target: BuildTarget,
                             meson_machine_files_dir: Path,
                             native_machine_files_dir: Path) -> list[Path]:
     return [meson_machine_files_dir / r'pre-global.ini',

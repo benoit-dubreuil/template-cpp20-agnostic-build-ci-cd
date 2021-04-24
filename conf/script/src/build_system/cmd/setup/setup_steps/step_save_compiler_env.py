@@ -8,7 +8,7 @@ from build_system.build_target import *
 from build_system.cmd.hierarchy.consts import BUILD_DIR_PERMISSIONS, TARGET_SCRIPT_COMPILER_ENV_NAME, UTF_8
 
 
-def save_compiler_instances_targets_env(targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets],
+def save_compiler_instances_targets_env(targets: list[CompilerInstanceTargets],
                                         cli_mode: bool) -> None:
     for compiler_instance_targets in targets:
         if compiler_instance_targets.compiler_instance.has_export_shell_env_script():
@@ -16,7 +16,7 @@ def save_compiler_instances_targets_env(targets: list[build_system.build_target.
                 _save_compiler_target_env(target=target, cli_mode=cli_mode)
 
 
-def _save_compiler_target_env(target: build_system.build_target.build_target.BuildTarget,
+def _save_compiler_target_env(target: BuildTarget,
                               cli_mode: bool) -> None:
     from build_system.cmd.setup.cli.compiler_env import print_compiler_env_file
 
@@ -31,7 +31,7 @@ def _save_compiler_target_env(target: build_system.build_target.build_target.Bui
         print_compiler_env_file(target=target)
 
 
-def _encode_env(target: build_system.build_target.build_target.BuildTarget) -> str:
+def _encode_env(target: BuildTarget) -> str:
     assert target.compiler_instance.has_cached_compiler_env()
 
     target_compiler_env: dict[str, str] = _multi_line_compiler_env_to_single_line(compiler_env=target.compiler_instance.cached_compiler_env)
@@ -40,14 +40,14 @@ def _encode_env(target: build_system.build_target.build_target.BuildTarget) -> s
     return encoded_env
 
 
-def _create_target_compiler_env_file(target: build_system.build_target.build_target.BuildTarget) -> Path:
+def _create_target_compiler_env_file(target: BuildTarget) -> Path:
     target_compiler_env_file: Path = target.script_dir / TARGET_SCRIPT_COMPILER_ENV_NAME
     target_compiler_env_file.touch(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
 
     return target_compiler_env_file
 
 
-def _cache_target_compiler_env_file(target: build_system.build_target.build_target.BuildTarget,
+def _cache_target_compiler_env_file(target: BuildTarget,
                                     env_file: Path) -> None:
     target.compiler_env_file = env_file
 

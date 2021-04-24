@@ -10,7 +10,7 @@ import ext.error.core.cls_def
 
 
 def checked_generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+        -> list[CompilerInstanceTargets]:
     targets = generate_targets(compiler_instances=compiler_instances)
 
     if len(targets) <= 0:
@@ -20,7 +20,7 @@ def checked_generate_targets(compiler_instances: Optional[list[build_system.comp
 
 
 def generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
-        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
+        -> list[CompilerInstanceTargets]:
     compiler_instances = _get_compiler_instances(compiler_instances=compiler_instances)
     build_types = _get_build_types()
     targets = _generate_targets(compiler_instances=compiler_instances, build_types=build_types)
@@ -44,8 +44,8 @@ def _get_build_types() -> list[build_system.compiler.build_option.build_type.Tar
 
 def _generate_targets(compiler_instances: list[build_system.compiler.installed_instance.CompilerInstance],
                       build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
-        -> list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets]:
-    targets: list[build_system.build_target.compiler_instance_targets.CompilerInstanceTargets] = []
+        -> list[CompilerInstanceTargets]:
+    targets: list[CompilerInstanceTargets] = []
 
     for compiler_instance in compiler_instances:
         targets_of_compiler_instance = _generate_targets_of_compiler_instance(compiler_instance=compiler_instance, build_types=build_types)
@@ -57,9 +57,9 @@ def _generate_targets(compiler_instances: list[build_system.compiler.installed_i
 
 def _generate_targets_of_compiler_instance(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                                            build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
-        -> build_system.build_target.compiler_instance_targets.CompilerInstanceTargets:
+        -> CompilerInstanceTargets:
     build_targets = _generate_build_targets_of_compiler_instance(compiler_instance, build_types)
-    targets_of_compiler_instance = build_system.build_target.compiler_instance_targets.CompilerInstanceTargets(compiler_instance=compiler_instance,
+    targets_of_compiler_instance = CompilerInstanceTargets(compiler_instance=compiler_instance,
                                                                                                                build_targets=build_targets)
 
     return targets_of_compiler_instance
@@ -67,12 +67,12 @@ def _generate_targets_of_compiler_instance(compiler_instance: build_system.compi
 
 def _generate_build_targets_of_compiler_instance(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
                                                  build_types: list[build_system.compiler.build_option.build_type.TargetBuildType]) \
-        -> list[build_system.build_target.build_target.BuildTarget]:
+        -> list[BuildTarget]:
     combined_build_options = _combine_build_options(compiler_instance=compiler_instance, build_types=build_types)
-    build_targets: list[build_system.build_target.build_target.BuildTarget] = []
+    build_targets: list[BuildTarget] = []
 
     for build_type, sanitizer in combined_build_options:
-        build_target = build_system.build_target.build_target.BuildTarget(compiler_instance=compiler_instance,
+        build_target = BuildTarget(compiler_instance=compiler_instance,
                                                                           target_build_type=build_type,
                                                                           sanitizer=sanitizer)
         build_targets.append(build_target)

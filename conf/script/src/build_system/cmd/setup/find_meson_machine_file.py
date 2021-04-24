@@ -25,7 +25,7 @@ def find_compiler_machine_file(native_machine_files_dir: Path,
 
 
 def find_build_type_machine_file(native_machine_files_dir: Path,
-                                 build_target: build_system.build_target.build_target.BuildTarget) -> Path:
+                                 build_target: BuildTarget) -> Path:
     build_type_machine_files_dir_name: Final[str] = r'build_type'
     build_type_file_name: str = build_target.target_build_type.value
 
@@ -37,7 +37,7 @@ def find_build_type_machine_file(native_machine_files_dir: Path,
 
 
 def find_sanitizer_machine_file(native_machine_files_dir: Path,
-                                build_target: build_system.build_target.build_target.BuildTarget) -> Path:
+                                build_target: BuildTarget) -> Path:
     sanitizer_machine_files_dir_name: Final[str] = r'sanitizer'
     sanitizer_file_name: str = build_target.sanitizer.value
 

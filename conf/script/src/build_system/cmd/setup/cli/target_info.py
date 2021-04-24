@@ -7,7 +7,7 @@ import build_system.compiler.installed_instance
 
 # TODO : Refactor
 def print_target_info(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
-                      target: build_system.build_target.build_target.BuildTarget,
+                      target: BuildTarget,
                       compiler_env_manager: contextlib.AbstractContextManager) -> None:
     from build_system.cmd.setup.cli.colorize import colorize_label, colorize_path, colorize_header_label
 
