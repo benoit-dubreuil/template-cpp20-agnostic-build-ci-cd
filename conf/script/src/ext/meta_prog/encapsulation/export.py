@@ -6,13 +6,13 @@ from ..introspection import *
 
 
 def export(func):
-    module_api: TAlias_Macro_All
+    module_api: Macro.ALL.TAlias_Macro_All
 
     module = inspect.getmodule(func)
     func_api = getattr(func, Macro.QUALNAME)
 
     if not hasattr(module, Macro.ALL):
-        module_api = TAlias_Macro_All()
+        module_api = Macro.ALL.TAlias_Macro_All()
         setattr(module, Macro.ALL, module_api)
     else:
         module_api = getattr(module, Macro.ALL)

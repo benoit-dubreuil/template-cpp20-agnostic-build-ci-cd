@@ -3,7 +3,7 @@ from typing import Final, Optional, TypeVar
 from ..encapsulation import *
 from ..introspection import *
 
-__all__: TAlias_Macro_All = ['TAlias_Generics_By_TypeVars']
+__all__: Macro.ALL.TAlias_Macro_All = ['TAlias_Generics_By_TypeVars']
 
 TAlias_Generics_By_TypeVars = dict[TypeVar, Optional[type]]
 
