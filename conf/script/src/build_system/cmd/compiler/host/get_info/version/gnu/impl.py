@@ -1,11 +1,11 @@
+__all__ = ['fetch_gnu_version']
+
 import subprocess
 from pathlib import Path
 from typing import AnyStr
 
 from ..generic_fetch import *
 from build_system.compiler import *
-
-from ext.meta_prog.encapsulation import *
 
 
 def _fetch_raw(compiler: Path) -> AnyStr:
@@ -18,6 +18,5 @@ def _fetch_raw(compiler: Path) -> AnyStr:
     return result.stdout
 
 
-@export
 def fetch_gnu_version(compiler: Path) -> CompilerVersion:
     return fetch_compiler_version(compiler, _fetch_raw)
