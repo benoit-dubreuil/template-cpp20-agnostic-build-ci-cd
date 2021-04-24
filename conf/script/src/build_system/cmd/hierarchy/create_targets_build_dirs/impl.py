@@ -27,11 +27,11 @@ def _assure_build_dir_is_empty(build_dir):
 def _unchecked_create_targets_build_dirs(build_dir: Path,
                                          compiler_instances: Optional[list[CompilerInstance]] = None) \
         -> list[CompilerInstanceTargets]:
-    from .target_dir_name_generation import checked_generate_targets
+    from .target_dir_name_generation import generate_targets
     from .target_dir_creation import create_targets_build_dirs
     from .target_script_dir_creation import create_targets_script_dirs
 
-    targets = checked_generate_targets(compiler_instances=compiler_instances)
+    targets = generate_targets(compiler_instances=compiler_instances)
 
     create_targets_build_dirs(build_dir=build_dir, targets=targets)
     create_targets_script_dirs(targets=targets)

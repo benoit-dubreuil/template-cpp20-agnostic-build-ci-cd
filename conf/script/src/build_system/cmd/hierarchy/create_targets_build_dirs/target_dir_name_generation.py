@@ -9,9 +9,9 @@ import build_system.compiler.supported_installed_instances
 import ext.error.core.cls_def
 
 
-def checked_generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+def generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[CompilerInstanceTargets]:
-    targets = generate_targets(compiler_instances=compiler_instances)
+    targets = _unchecked_generate_targets(compiler_instances=compiler_instances)
 
     if len(targets) <= 0:
         raise ext.error.core.cls_def.NoSupportedCompilersAvailableError()
@@ -19,7 +19,7 @@ def checked_generate_targets(compiler_instances: Optional[list[build_system.comp
     return targets
 
 
-def generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
+def _unchecked_generate_targets(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[CompilerInstanceTargets]:
     compiler_instances = _get_compiler_instances(compiler_instances=compiler_instances)
     build_types = _get_build_types()
@@ -60,7 +60,7 @@ def _generate_targets_of_compiler_instance(compiler_instance: build_system.compi
         -> CompilerInstanceTargets:
     build_targets = _generate_build_targets_of_compiler_instance(compiler_instance, build_types)
     targets_of_compiler_instance = CompilerInstanceTargets(compiler_instance=compiler_instance,
-                                                                                                               build_targets=build_targets)
+                                                           build_targets=build_targets)
 
     return targets_of_compiler_instance
 
@@ -73,8 +73,8 @@ def _generate_build_targets_of_compiler_instance(compiler_instance: build_system
 
     for build_type, sanitizer in combined_build_options:
         build_target = BuildTarget(compiler_instance=compiler_instance,
-                                                                          target_build_type=build_type,
-                                                                          sanitizer=sanitizer)
+                                   target_build_type=build_type,
+                                   sanitizer=sanitizer)
         build_targets.append(build_target)
 
     return build_targets
