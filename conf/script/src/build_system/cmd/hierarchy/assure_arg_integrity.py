@@ -1,3 +1,6 @@
+__all__ = ['get_verified_root_dir',
+           'get_verified_build_dir']
+
 from pathlib import Path
 from typing import Optional
 
