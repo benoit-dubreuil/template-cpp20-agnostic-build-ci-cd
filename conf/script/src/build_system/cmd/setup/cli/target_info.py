@@ -1,16 +1,17 @@
+__all__ = ['print_target_info']
+
 import contextlib
 from typing import Final
 
 from build_system.build_target import *
-import build_system.compiler.installed_instance
+from build_system.compiler import *
+from .colorize import *
 
 
 # TODO : Refactor
-def print_target_info(compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+def print_target_info(compiler_instance: CompilerInstance,
                       target: BuildTarget,
                       compiler_env_manager: contextlib.AbstractContextManager) -> None:
-    from build_system.cmd.setup.cli.colorize import colorize_label, colorize_path, colorize_header_label
-
     def print_indented_label_and_info(pre_label_indent: str = str(),
                                       post_label_indent: str = str(),
                                       label: str = str(),
