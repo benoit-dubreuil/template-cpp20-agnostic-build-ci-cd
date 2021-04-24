@@ -1,18 +1,17 @@
+__all__ = ['CompilerReqs']
+
 from configparser import ConfigParser
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
-from ext.meta_prog.encapsulation import *
-
-from ..core import *
-from .scheme import *
-from host import *
 from ext.error import *
 from ext.error.utils import *
+from host import *
+from .scheme import *
+from ..core import *
 
 
-@export
 @dataclass(frozen=True)
 class CompilerReqs:
     compiler_family: CompilerFamily
