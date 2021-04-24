@@ -1,12 +1,12 @@
+__all__ = ['ExitCLIErrorMixin']
+
 import argparse
 import sys
 import typing
 
 from .status import *
-from ...meta_prog.encapsulation import *
 
 
-@export
 class ExitCLIErrorMixin(Exception, metaclass=ErrorMeta):
 
     def __init__(self, *args, **kwargs):
