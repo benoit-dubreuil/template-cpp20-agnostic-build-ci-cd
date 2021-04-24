@@ -1,4 +1,4 @@
-__all__ = ['Macro', 'ALL.TAlias_Macro_All']
+__all__ = ['Macro']
 
 from enum import Enum, auto, unique
 from typing import Final, final
