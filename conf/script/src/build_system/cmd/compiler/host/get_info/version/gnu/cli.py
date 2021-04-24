@@ -1,10 +1,8 @@
-from pathlib import Path
+__all__ = ['cli_fetch_gnu_version']
 
-from ...cli import *
-from .impl import *
 from build_system.compiler import *
-
-from ext.meta_prog.encapsulation import *
+from .impl import *
+from ...cli import *
 
 
 def cli_fetch_gnu_version(compiler_family: CompilerFamily) -> None:
