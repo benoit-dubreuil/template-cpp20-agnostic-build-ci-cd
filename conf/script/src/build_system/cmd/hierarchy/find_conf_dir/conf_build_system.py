@@ -7,7 +7,7 @@ from typing import Optional
 from ext.error import *
 from ext.error.utils import *
 from ..consts import *
-from ..find_conf_dir import *
+from .impl import *
 
 
 def get_conf_build_system_dir_path_relative_to_conf_dir(conf_dir: Optional[Path] = None) -> Path:
