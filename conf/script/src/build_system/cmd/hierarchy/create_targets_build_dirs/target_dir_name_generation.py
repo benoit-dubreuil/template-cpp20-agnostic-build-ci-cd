@@ -31,7 +31,7 @@ def _unchecked_generate_targets(compiler_instances: Optional[list[build_system.c
 def _get_compiler_instances(compiler_instances: Optional[list[build_system.compiler.installed_instance.CompilerInstance]] = None) \
         -> list[build_system.compiler.installed_instance.CompilerInstance]:
     if compiler_instances is None:
-        fetched_compiler_instances = build_system.compiler.supported_installed_instances.fetch_all()
+        fetched_compiler_instances = build_system.compiler.supported_installed_instances.fetch_supported_installed_compiler_instances()
     else:
         fetched_compiler_instances = compiler_instances
 
