@@ -8,7 +8,7 @@ import ext.cli.try_cmd
 from ext.more_typing import AnyPath
 
 
-def setup():
+def cli_setup_build_system():
     # TODO : Fix description
     arg_parser = argparse.ArgumentParser(description=f"Creates the '{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.consts.BUILD_DIR_NAME}{colorama.Style.RESET_ALL}'"
                                                      'folder and setup specific build system builds inside.')
