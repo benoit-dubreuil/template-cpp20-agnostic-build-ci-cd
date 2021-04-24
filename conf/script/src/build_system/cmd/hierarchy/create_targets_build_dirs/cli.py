@@ -9,7 +9,7 @@ import ext.cli.try_cmd
 from ext.more_typing import AnyPath
 
 
-def create_target_build_dirs():
+def cli_create_target_build_dirs():
     arg_parser = argparse.ArgumentParser(description="Creates the project's target build directories inside the "
                                                      f"'{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.consts.BUILD_DIR_NAME}{colorama.Style.RESET_ALL}' folder.")
 

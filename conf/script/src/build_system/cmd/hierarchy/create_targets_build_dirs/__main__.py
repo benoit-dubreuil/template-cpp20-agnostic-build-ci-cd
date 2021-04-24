@@ -5,7 +5,7 @@ import ext.cli.main
 
 
 def main():
-    build_system.cmd.hierarchy.create_targets_build_dirs.cli.create_target_build_dirs()
+    build_system.cmd.hierarchy.create_targets_build_dirs.cli.cli_create_target_build_dirs()
 
 
 ext.cli.main.wrap_main(main)
