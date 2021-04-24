@@ -1,17 +1,12 @@
+__all__ = ['CLIArg']
+
 from typing import Final
 
-from ..meta_prog.encapsulation import *
-from ..meta_prog.introspection import *
 
-__all__: Macro.ALL.TAlias_Macro_All = ['DEFAULT_PATH_ARG']
-
-DEFAULT_PREFIX: Final[str] = '-'
-
-
-@export
 class CLIArg:
+    _DEFAULT_PREFIX: Final[str] = '-'
 
-    def __init__(self, name: str, prefix: str = DEFAULT_PREFIX):
+    def __init__(self, name: str, prefix: str = _DEFAULT_PREFIX):
         super().__init__()
 
         self.__name = name
