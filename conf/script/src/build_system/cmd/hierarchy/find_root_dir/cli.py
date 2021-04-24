@@ -6,7 +6,7 @@ import build_system.cmd.hierarchy.find_root_dir
 import ext.cli.try_cmd
 
 
-def find_root_dir():
+def cli_find_root_dir():
     arg_parser = argparse.ArgumentParser(
         description="Finds the project's root folder, where the "
                     f"'{colorama.Fore.LIGHTBLACK_EX}{build_system.cmd.hierarchy.find_root_dir.BUILD_SYSTEM_CONF_FILE_NAME}{colorama.Style.RESET_ALL}' folder is. "
