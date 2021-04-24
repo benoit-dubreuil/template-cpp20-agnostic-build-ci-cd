@@ -4,10 +4,10 @@ import argparse
 
 import colorama
 
-from build_system.cmd.hierarchy.consts import *
 from ext.cli import *
 from ext.more_typing import AnyPath
 from .impl import *
+from ..consts import *
 
 
 def cli_clean_build_dir():
