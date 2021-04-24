@@ -1,13 +1,12 @@
+__all__ = ['ClangCompilerInstance']
+
 from dataclasses import dataclass
 from typing import final
 
-from ..core import *
 from .gnu import *
+from ..core import *
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 @final
 @dataclass(order=True, frozen=True)
 class ClangCompilerInstance(GNUCompilerInstance):
