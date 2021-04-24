@@ -1,6 +1,9 @@
 __all__ = ['get_meson_machine_files_dir_path_relative_to_build_system_dir',
            'find_meson_machine_files_dir']
 
+from pathlib import Path
+from typing import Optional
+
 from ext.error import *
 from ext.error.utils import *
 from ..consts import *
