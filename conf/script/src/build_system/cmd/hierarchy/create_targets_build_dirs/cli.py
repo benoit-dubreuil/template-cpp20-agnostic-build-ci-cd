@@ -1,4 +1,4 @@
-__all__ = ['cli_create_target_build_dirs']
+__all__ = ['cli_create_targets_build_dirs_structure']
 
 import argparse
 
@@ -10,7 +10,7 @@ from .impl import *
 from ..consts import *
 
 
-def cli_create_target_build_dirs():
+def cli_create_targets_build_dirs_structure():
     arg_parser = argparse.ArgumentParser(description="Creates the project's target build directories inside the "
                                                      f"'{colorama.Fore.LIGHTBLACK_EX}{BUILD_DIR_NAME}{colorama.Style.RESET_ALL}' folder.")
 
