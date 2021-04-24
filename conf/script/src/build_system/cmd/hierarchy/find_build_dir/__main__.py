@@ -5,7 +5,7 @@ import ext.cli.main
 
 
 def main():
-    build_system.cmd.hierarchy.find_build_dir.cli.find_build_dir()
+    build_system.cmd.hierarchy.find_build_dir.cli.cli_find_build_dir()
 
 
 ext.cli.main.wrap_main(main)
