@@ -1,9 +1,8 @@
+__all__ = ['GenericClassMixin']
+
 from .data import *
 
-from ..encapsulation import *
 
-
-@export
 class GenericClassMixin(GenericsDataMixin):
 
     def __init__(self, *args, **kwargs) -> None:
