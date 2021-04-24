@@ -1,4 +1,7 @@
-__all__ = ['get_nth_caller', 'get_caller', 'is_caller_main']
+__all__ = ['get_nth_caller',
+           'get_caller',
+           'is_frame_main',
+           'is_caller_main']
 
 import inspect
 from types import FrameType
