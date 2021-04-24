@@ -1,11 +1,13 @@
+__all__ = ['save_compiler_instances_targets_env']
+
 import os
 from pathlib import Path
 
 import javaproperties
 
 from build_system.build_target import *
-from build_system.build_target import *
-from build_system.cmd.hierarchy.consts import BUILD_DIR_PERMISSIONS, TARGET_SCRIPT_COMPILER_ENV_NAME, UTF_8
+from ..cli import *
+from ...hierarchy import *
 
 
 def save_compiler_instances_targets_env(targets: list[CompilerInstanceTargets],
@@ -18,8 +20,6 @@ def save_compiler_instances_targets_env(targets: list[CompilerInstanceTargets],
 
 def _save_compiler_target_env(target: BuildTarget,
                               cli_mode: bool) -> None:
-    from build_system.cmd.setup.cli.compiler_env import print_compiler_env_file
-
     encoded_env = _encode_env(target=target)
 
     env_file = _create_target_compiler_env_file(target=target)
