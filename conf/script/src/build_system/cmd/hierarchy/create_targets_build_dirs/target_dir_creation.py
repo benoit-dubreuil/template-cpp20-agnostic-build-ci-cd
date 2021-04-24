@@ -1,8 +1,9 @@
+__all__ = ['create_targets_build_dirs']
+
 from pathlib import Path
 
 from build_system.build_target import *
-from build_system.build_target import *
-import build_system.cmd.hierarchy.consts
+from ..consts import *
 
 
 def create_targets_build_dirs(build_dir: Path,
@@ -15,4 +16,4 @@ def create_targets_build_dirs(build_dir: Path,
 def _create_target_build_dir_of_compiler_instance(build_dir: Path,
                                                   target_of_compiler_instance: BuildTarget) -> None:
     target_of_compiler_instance.dir = build_dir / target_of_compiler_instance.form_name()
-    target_of_compiler_instance.dir.mkdir(mode=build_system.cmd.hierarchy.consts.BUILD_DIR_PERMISSIONS, exist_ok=True)
+    target_of_compiler_instance.dir.mkdir(mode=BUILD_DIR_PERMISSIONS, exist_ok=True)
