@@ -53,7 +53,7 @@ class CompilerInstance(metaclass=ABCMeta):
             try_manage_strict_path_resolving(path_to_resolve=installation_dir,
                                              external_errors_to_manage={(Exception,): CompilerNotFoundError})
 
-        version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
+        version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_compiler_version_by_family(compiler_family)
 
         return sub_cls_matching_compiler_family(compiler_family=compiler_family, os_family=os_family, arch=arch, version=version, installation_dir=installation_dir)
 
