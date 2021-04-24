@@ -1,13 +1,12 @@
+__all__ = ['BuildTarget']
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Final, Optional
 
 from ..compiler import *
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 @dataclass(order=True)
 class BuildTarget:
     compiler_instance: Final[CompilerInstance]
