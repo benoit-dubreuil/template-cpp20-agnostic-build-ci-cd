@@ -1,10 +1,11 @@
+__all__ = ['try_manage_external_errors',
+           'try_manage_strict_path_resolving']
+
 from pathlib import Path
 
 from ..core import *
-from ...meta_prog.encapsulation import *
 
 
-@export
 def try_manage_external_errors(func_to_try: Callable,
                                external_errors_to_manage: {tuple[Type[Exception], ...]: Type[ManagedErrorMixin]} = {
                                    (Exception,): UnsupportedError}):
@@ -31,7 +32,6 @@ def try_manage_external_errors(func_to_try: Callable,
         raise raised_error
 
 
-@export
 def try_manage_strict_path_resolving(path_to_resolve: Path,
                                      external_errors_to_manage: {tuple[Type[Exception], ...]: Type[ManagedErrorMixin]} = {
                                          (Exception,): UnsupportedError}):
