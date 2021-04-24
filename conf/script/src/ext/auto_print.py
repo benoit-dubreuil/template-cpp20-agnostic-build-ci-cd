@@ -1,11 +1,11 @@
 # Attention: Consider using the dataclasses package
 
-from .meta_prog.encapsulation import *
+__all__ = ['auto_repr',
+           'auto_str']
 
 
 # TODO : functools -> wraps ?
 # From https://stackoverflow.com/a/33800620/2924010
-@export
 def auto_repr(cls):
     def __repr__(self):
         return '%s(%s)' % (
@@ -19,7 +19,6 @@ def auto_repr(cls):
 
 # TODO : functools -> wraps ?
 # From https://stackoverflow.com/a/33800620/2924010
-@export
 def auto_str(cls):
     def __str__(self):
         return '%s(%s)' % (
