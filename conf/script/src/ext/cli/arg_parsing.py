@@ -8,7 +8,7 @@ from ..error import *
 
 
 @export
-def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: CLIArg = DEFAULT_PATH_ARG,
+def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: CLIArg = CLIArg.create_default_path_arg(),
                           path_arg_default_value: AnyPath = None, path_arg_help: Optional[AnyStr] = None):
     arg_parser.add_argument(path_arg.prefixed_name, type=Path, nargs=argparse.OPTIONAL, const=path_arg_default_value, default=path_arg_default_value, help=path_arg_help)
 
@@ -26,7 +26,7 @@ def _assure_nonempty_parsed_path(arg_parser: argparse.ArgumentParser, path_arg_n
 
 
 @export
-def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: CLIArg = DEFAULT_PATH_ARG) -> AnyPath:
+def parse_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: CLIArg = CLIArg.create_default_path_arg()) -> AnyPath:
     parsed_args, unknown_parsed_args = arg_parser.parse_known_args([path_arg.prefixed_name])
 
     _assure_no_unknown_parsed_args(arg_parser, unknown_parsed_args)
