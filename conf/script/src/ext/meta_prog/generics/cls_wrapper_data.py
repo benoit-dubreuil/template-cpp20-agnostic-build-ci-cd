@@ -1,15 +1,11 @@
-__all__ = ['TAlias_generic_cls']
+__all__ = ['TAlias_generic_cls',
+           'GenericClassWrapperDataMixin']
 
 from typing import Final, Generic
-
-from ..encapsulation import *
-from ..introspection import *
-from .cls_mixin import *
 
 TAlias_generic_cls = type[Generic]
 
 
-@export
 class GenericClassWrapperDataMixin:
     wrapped_generic_cls: Final[TAlias_generic_cls]
 
