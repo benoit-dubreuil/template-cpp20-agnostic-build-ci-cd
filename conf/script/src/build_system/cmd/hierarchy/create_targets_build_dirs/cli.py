@@ -22,6 +22,6 @@ def cli_create_target_build_dirs():
     arg_parser.parse_args()
 
     def cli_cmd():
-        create_targets_build_dirs(build_dir)
+        create_targets_build_dirs_structure(build_dir)
 
     try_cmd_except_managed_errors(cli_cmd, arg_parser)
