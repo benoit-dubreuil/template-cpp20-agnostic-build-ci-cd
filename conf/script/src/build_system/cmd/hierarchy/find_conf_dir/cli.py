@@ -6,8 +6,8 @@ import colorama
 
 from ext.cli import *
 from ext.more_typing import AnyPath
+from .impl import *
 from ..consts import *
-from ..find_conf_dir import *
 
 
 def cli_find_conf_dir():
