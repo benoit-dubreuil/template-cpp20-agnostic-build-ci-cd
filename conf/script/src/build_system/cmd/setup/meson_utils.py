@@ -1,3 +1,5 @@
+__all__ = ['setup_target']
+
 import contextlib
 import sys
 from pathlib import Path
@@ -6,18 +8,17 @@ from typing import Final
 import mesonbuild.mesonmain
 
 from build_system.build_target import *
-import build_system.compiler.installed_instance
-import ext.cli.hidden_prints
-import ext.cmd_integrity
-import ext.error.core.cls_def
-from build_system.cmd.hierarchy.consts import BUILD_SYSTEM_NAME
-from build_system.cmd.setup.cli.meson import print_meson_cmd, print_meson_main_file
-from build_system.cmd.setup.cli.target_info import print_target_info
-from build_system.cmd.setup.meson_machine_file_args import generate_meson_machine_files_args
+from build_system.compiler import *
+from ext.cli import *
+from ext.cmd_integrity import *
+from ext.error import *
+from ..hierarchy.consts import *
+from .cli.meson import *
+from .meson_machine_file_args import *
 
 
 def setup_target(root_dir: Path,
-                 compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+                 compiler_instance: CompilerInstance,
                  build_target: BuildTarget,
                  compiler_env_manager: contextlib.AbstractContextManager,
                  cli_mode: bool):
@@ -36,7 +37,7 @@ def setup_target(root_dir: Path,
 
 
 def _generate_meson_setup_cli_args(root_dir: Path,
-                                   compiler_instance: build_system.compiler.installed_instance.CompilerInstance,
+                                   compiler_instance: CompilerInstance,
                                    build_target: BuildTarget):
     cli_kwarg_assignment_op: Final[str] = r'='
 
@@ -62,7 +63,7 @@ def _run_meson(cli_mode, meson_cli_args):
     meson_launcher: str = _find_meson_launcher(cli_mode=cli_mode)
 
     try:
-        with contextlib.nullcontext() if cli_mode else ext.cli.hidden_prints.HiddenPrints():
+        with contextlib.nullcontext() if cli_mode else HiddenPrints():
             mesonbuild.mesonmain.run(meson_cli_args, meson_launcher)
 
     except SystemExit:
@@ -73,10 +74,10 @@ def _find_meson_launcher(cli_mode: bool) -> str:
     venv_interpreter = Path(sys.executable)
     venv_scripts_dir = venv_interpreter.parent
 
-    meson_main_file, meson_main_file_exists = ext.cmd_integrity.get_cmd_path(cmd=BUILD_SYSTEM_NAME, dir_path=venv_scripts_dir)
+    meson_main_file, meson_main_file_exists = get_cmd_path(cmd=BUILD_SYSTEM_NAME, dir_path=venv_scripts_dir)
 
     if not meson_main_file_exists:
-        raise ext.error.core.cls_def.MesonMainFileNotFoundError()
+        raise MesonMainFileNotFoundError()
 
     if cli_mode:
         print_meson_main_file(meson_main_file=meson_main_file)
