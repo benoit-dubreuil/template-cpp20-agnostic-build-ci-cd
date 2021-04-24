@@ -1,9 +1,7 @@
 __all__ = ['Macro', 'TAlias_Macro_All']
 
 from enum import Enum, auto, unique
-from typing import Any, Final, final
-
-TAlias_Macro_All = list[str]
+from typing import Final, final
 
 
 class _AutoMacroFromName(str, Enum):
@@ -17,16 +15,11 @@ class _AutoMacroFromName(str, Enum):
 @final
 @unique
 class Macro(_AutoMacroFromName):
-    ALL = auto(('TAlias_Macro_All', list[str]))
+    ALL = auto()
     DICT = auto()
     MAIN = auto()
     NAME = auto()
     QUALNAME = auto()
 
-    def __new__(cls, value, *args: tuple[str, Any]):
-        macro = str().__new__(cls, value)
 
-        for attr_name, attr_val in args:
-            setattr(macro, attr_name, attr_val)
-
-        return macro
+Macro.ALL.TAlias_Macro_All = list[str]
