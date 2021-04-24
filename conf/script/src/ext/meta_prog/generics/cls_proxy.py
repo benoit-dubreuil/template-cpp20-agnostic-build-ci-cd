@@ -1,14 +1,14 @@
+__all__ = ['GenericClassProxy']
+
 import itertools
 from typing import TypeVar
 
-from ..encapsulation import *
 from .cls_wrapper import *
 from .cls_wrapper_data import *
 from .data import *
 
 
 # TODO : functools -> wraps ?
-@export
 class GenericClassProxy(GenericsDataMixin,
                         GenericClassWrapperMixin):
 
