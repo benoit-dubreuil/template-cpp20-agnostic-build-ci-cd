@@ -4,7 +4,7 @@ __all__ = ['get_verified_root_dir',
 from pathlib import Path
 from typing import Optional
 
-import ext.error.core.cls_def
+from ext.error.core import *
 
 
 def get_verified_root_dir(unverified_root_dir: Optional[Path] = None) -> Path:
@@ -14,7 +14,7 @@ def get_verified_root_dir(unverified_root_dir: Optional[Path] = None) -> Path:
         unverified_root_dir = find_root_dir()
     else:
         if not unverified_root_dir.exists():
-            raise ext.error.core.cls_def.RootDirNotFoundError()
+            raise RootDirNotFoundError()
 
     return unverified_root_dir
 
@@ -26,6 +26,6 @@ def get_verified_build_dir(unverified_build_dir: Optional[Path] = None) -> Path:
         unverified_build_dir = create_build_dir()
     else:
         if not unverified_build_dir.exists():
-            raise ext.error.core.cls_def.BuildDirNotFoundError()
+            raise BuildDirNotFoundError()
 
     return unverified_build_dir
