@@ -1,1 +1,1 @@
-from .pub import *
+from .singleton_mixin import *

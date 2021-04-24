@@ -2,8 +2,10 @@ __all__ = ['CLIArg']
 
 from typing import Final
 
+from ext.design_pattern.singleton import *
 
-class CLIArg:
+
+class CLIArg(SingletonMixin):
     _DEFAULT_PREFIX: Final[str] = '-'
 
     def __init__(self, name: str, prefix: str = _DEFAULT_PREFIX):
