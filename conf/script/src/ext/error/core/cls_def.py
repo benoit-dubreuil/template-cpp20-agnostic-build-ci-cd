@@ -1,13 +1,30 @@
+__all__ = ['SuccessWarning',
+           'UnsupportedError',
+           'ArgParserError',
+           'UnknownParsedArgError',
+           'EmptyParsedArgError',
+           'RootDirNotFoundError',
+           'BuildDirNotFoundError',
+           'BuildDirNotDirError',
+           'BuildDirNotEmptyError',
+           'ConfDirNotFoundError',
+           'ConfBuildSystemDirNotFoundError',
+           'MesonMainFileNotFoundError',
+           'MesonMachineFilesDirNotFoundError',
+           'CompilerReqsNotFoundError',
+           'CompilerNotFoundError',
+           'NoSupportedCompilersAvailableError',
+           'MSVCCompilerVcvarsDirNotFoundError',
+           'MSVCCompilerVcvarsBatchFileNotFoundError']
+
 import argparse
 from typing import Optional, Union
 
 from .format import *
 from .managed import *
 from .status import *
-from ...meta_prog.encapsulation import *
 
 
-@export
 @ManageClass(error_formatter_cls=FormattedSuccessMixin, encoded_error_status=ErrorStatus.SUCCESS)
 class SuccessWarning(UserWarning):
 
@@ -15,7 +32,6 @@ class SuccessWarning(UserWarning):
         super().__init__('Success')
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.UNSUPPORTED)
 class UnsupportedError(RuntimeError):
 
@@ -32,7 +48,6 @@ class UnsupportedError(RuntimeError):
             self.with_traceback(original_raised_error.__traceback__)
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.ARG_PARSER)
 class ArgParserError(RuntimeError):
 
@@ -47,7 +62,6 @@ class ArgParserError(RuntimeError):
         super().__init__(error_msg)
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.UNKNOWN_PARSED_ARG)
 class UnknownParsedArgError(TypeError):
 
@@ -55,7 +69,6 @@ class UnknownParsedArgError(TypeError):
         super().__init__(f"Unsupported argument '{unknown_parsed_args}'")
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.EMPTY_PARSED_ARG)
 class EmptyParsedArgError(ValueError):
 
@@ -63,7 +76,6 @@ class EmptyParsedArgError(ValueError):
         super().__init__(f"'{arg}' argument must be followed by a path string")
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.ROOT_DIR_NOT_FOUND)
 class RootDirNotFoundError(FileNotFoundError):
 
@@ -71,7 +83,6 @@ class RootDirNotFoundError(FileNotFoundError):
         super().__init__('Root directory not found')
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.BUILD_DIR_NOT_FOUND)
 class BuildDirNotFoundError(FileNotFoundError):
 
@@ -79,7 +90,6 @@ class BuildDirNotFoundError(FileNotFoundError):
         super().__init__('Build directory not found')
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.BUILD_DIR_NOT_DIR)
 class BuildDirNotDirError(FileExistsError):
 
@@ -87,7 +97,6 @@ class BuildDirNotDirError(FileExistsError):
         super().__init__("Build directory exists but isn't a directory")
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.BUILD_DIR_NOT_EMPTY)
 class BuildDirNotEmptyError(FileExistsError):
 
@@ -95,7 +104,6 @@ class BuildDirNotEmptyError(FileExistsError):
         super().__init__("Build directory isn't empty")
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.CONF_DIR_NOT_FOUND)
 class ConfDirNotFoundError(FileNotFoundError):
 
@@ -103,7 +111,6 @@ class ConfDirNotFoundError(FileNotFoundError):
         super().__init__('Conf directory not found')
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.CONF_BUILD_SYSTEM_DIR_NOT_FOUND)
 class ConfBuildSystemDirNotFoundError(FileNotFoundError):
 
@@ -111,7 +118,6 @@ class ConfBuildSystemDirNotFoundError(FileNotFoundError):
         super().__init__('Build system directory inside the conf directory not found')
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.MESON_MAIN_FILE_NOT_FOUND)
 class MesonMainFileNotFoundError(FileNotFoundError):
 
@@ -119,7 +125,6 @@ class MesonMainFileNotFoundError(FileNotFoundError):
         super().__init__("Meson's (build system) main file, i.e. Meson's standalone executable, not found.")
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.MESON_MACHINE_FILES_DIR_NOT_FOUND)
 class MesonMachineFilesDirNotFoundError(FileNotFoundError):
 
@@ -127,7 +132,6 @@ class MesonMachineFilesDirNotFoundError(FileNotFoundError):
         super().__init__("Meson's (build system) machine files directory inside the conf build system directory not found")
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.COMPILER_REQS_NOT_FOUND)
 class CompilerReqsNotFoundError(FileNotFoundError):
 
@@ -135,7 +139,6 @@ class CompilerReqsNotFoundError(FileNotFoundError):
         super().__init__('Compiler requirements configuration file not found')
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.COMPILER_NOT_FOUND)
 class CompilerNotFoundError(FileNotFoundError):
 
@@ -143,7 +146,6 @@ class CompilerNotFoundError(FileNotFoundError):
         super().__init__(error_msg)
 
 
-@export
 class NoSupportedCompilersAvailableError(CompilerNotFoundError):
 
     def __init__(self):
@@ -154,7 +156,6 @@ class NoSupportedCompilersAvailableError(CompilerNotFoundError):
         return ErrorStatus.NO_SUPPORTED_COMPILERS_AVAILABLE
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.MSVC_COMPILER_VCVARS_DIR_NOT_FOUND)
 class MSVCCompilerVcvarsDirNotFoundError(FileNotFoundError):
 
@@ -162,7 +163,6 @@ class MSVCCompilerVcvarsDirNotFoundError(FileNotFoundError):
         super().__init__('MSVC compiler vcvars directory not found')
 
 
-@export
 @ManageClass(encoded_error_status=ErrorStatus.MSVC_COMPILER_VCVARS_BATCH_FILE_NOT_FOUND)
 class MSVCCompilerVcvarsBatchFileNotFoundError(FileNotFoundError):
 
