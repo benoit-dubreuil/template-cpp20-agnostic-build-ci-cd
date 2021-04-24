@@ -1,11 +1,11 @@
+__all__ = ['try_cmd_except_managed_errors']
+
 import argparse
 from typing import Callable
 
-from ..meta_prog.encapsulation import *
 from ..error import *
 
 
-@export
 def try_cmd_except_managed_errors(cmd_func: Callable, arg_parser: argparse.ArgumentParser):
     try:
         cmd_func()
