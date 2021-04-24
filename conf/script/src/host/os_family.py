@@ -1,3 +1,5 @@
+__all__ = ['OSFamily']
+
 import platform
 from enum import Enum, unique
 from typing import final
