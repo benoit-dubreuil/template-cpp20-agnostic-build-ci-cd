@@ -1,3 +1,5 @@
+__all__ = ['find_msvc_location']
+
 from pathlib import Path
 from typing import Final, Optional
 
@@ -7,9 +9,7 @@ from build_system.compiler import *
 from ext.error import *
 from ext.error.utils import *
 
-from ext.meta_prog.encapsulation import *
-
-DEFAULT_REQUIRES: Final[list[str]] = [
+_DEFAULT_REQUIRES: Final[list[str]] = [
     'Microsoft.VisualStudio.Component.VC.Tools.x86.x64',
     'Microsoft.VisualStudio.Component.Windows10SDK.19041',
     'Microsoft.VisualStudio.Component.VC.CMake.Project',
@@ -19,16 +19,15 @@ DEFAULT_REQUIRES: Final[list[str]] = [
     'Microsoft.VisualStudio.Workload.VCTools'
 ]
 
-ALL_PRODUCTS: Final[str] = '*'
-PROP_INSTALLATION_PATH: Final[str] = 'installationPath'
+_ALL_PRODUCTS: Final[str] = '*'
+_PROP_INSTALLATION_PATH: Final[str] = 'installationPath'
 
 
-@export
 def find_msvc_location(compiler_installation_path: Optional[Path] = None) -> Optional[Path]:
     if compiler_installation_path is None:
-        found_compiler_installation_path = vswhere.find_first(latest=True, prerelease=True, products=ALL_PRODUCTS, prop=PROP_INSTALLATION_PATH, requires=DEFAULT_REQUIRES)
+        found_compiler_installation_path = vswhere.find_first(latest=True, prerelease=True, products=_ALL_PRODUCTS, prop=_PROP_INSTALLATION_PATH, requires=_DEFAULT_REQUIRES)
     else:
-        found_compiler_installation_path = vswhere.find_first(prop=PROP_INSTALLATION_PATH, path=compiler_installation_path)
+        found_compiler_installation_path = vswhere.find_first(prop=_PROP_INSTALLATION_PATH, path=compiler_installation_path)
 
     if found_compiler_installation_path is not None:
         found_compiler_installation_path = Path(found_compiler_installation_path.strip())
