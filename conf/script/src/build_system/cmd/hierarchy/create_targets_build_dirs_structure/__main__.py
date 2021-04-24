@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-import build_system.cmd.hierarchy.create_targets_build_dirs_structure.cli
-import ext.cli.main
+
+from ext.cli import *
+from . import *
 
 
 def main():
-    build_system.cmd.hierarchy.create_targets_build_dirs.cli.cli_create_targets_build_dirs_structure()
+    cli_create_targets_build_dirs_structure()
 
 
-ext.cli.main.wrap_main(main)
+wrap_main(main)
