@@ -1,8 +1,13 @@
+__all__ = ['find_native_machine_files_dir',
+           'find_compiler_machine_file',
+           'find_build_type_machine_file',
+           'find_sanitizer_machine_file']
+
 from pathlib import Path
 from typing import Final
 
 from build_system.build_target import *
-import build_system.compiler.installed_instance
+from build_system.compiler import *
 
 
 def find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
@@ -13,7 +18,7 @@ def find_native_machine_files_dir(meson_machine_files_dir: Path) -> Path:
 
 
 def find_compiler_machine_file(native_machine_files_dir: Path,
-                               compiler_instance: build_system.compiler.installed_instance.CompilerInstance) -> Path:
+                               compiler_instance: CompilerInstance) -> Path:
     compiler_machine_files_dir_name: Final[str] = r'compiler'
     compiler_machine_file_name: str = compiler_instance.compiler_family.value
 
