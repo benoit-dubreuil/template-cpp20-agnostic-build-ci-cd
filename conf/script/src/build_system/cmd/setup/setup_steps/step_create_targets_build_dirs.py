@@ -1,14 +1,15 @@
+__all__ = ['create_targets_build_dirs']
+
 from pathlib import Path
 
 from build_system.build_target import *
-import build_system.compiler.installed_instance
+from build_system.compiler import *
+from ...hierarchy import *
 
 
 def create_targets_build_dirs(root_dir: Path,
-                              compiler_instances: list[build_system.compiler.installed_instance.CompilerInstance]) \
+                              compiler_instances: list[CompilerInstance]) \
         -> list[CompilerInstanceTargets]:
-    from build_system.cmd.hierarchy.create_targets_build_dirs_structure import create_targets_build_dirs_structure
-
     build_dir = _recreate_build_dir(root_dir)
     target_build_dirs = create_targets_build_dirs_structure(build_dir=build_dir, compiler_instances=compiler_instances)
 
@@ -16,10 +17,6 @@ def create_targets_build_dirs(root_dir: Path,
 
 
 def _recreate_build_dir(root_dir: Path) -> Path:
-    from build_system.cmd.hierarchy.clean_build_dir import clean_build_dir
-    from build_system.cmd.hierarchy.create_build_dir import create_build_dir
-    from build_system.cmd.hierarchy.find_build_dir import get_build_dir_path_relative_to_root_dir
-
     build_dir = get_build_dir_path_relative_to_root_dir(root_dir=root_dir)
     clean_build_dir(build_dir=build_dir, ignore_errors=True)
     build_dir = create_build_dir(root_dir=root_dir)
