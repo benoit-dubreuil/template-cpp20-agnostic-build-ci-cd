@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-import build_system.cmd.hierarchy.find_root_dir.cli
-import ext.cli.main
+from ext.cli import *
+from . import *
 
 
 def main():
-    build_system.cmd.hierarchy.find_root_dir.cli.cli_find_root_dir()
+    cli_find_root_dir()
 
 
-ext.cli.main.wrap_main(main)
+wrap_main(main)
