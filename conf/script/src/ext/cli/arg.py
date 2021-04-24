@@ -2,11 +2,10 @@ __all__ = ['CLIArg']
 
 from typing import Final
 
-from ext.design_pattern.singleton import *
 
-
-class CLIArg(SingletonMixin):
+class CLIArg:
     _DEFAULT_PREFIX: Final[str] = '-'
+    _DEFAULT_PATH_ARG_NAME: Final[str] = 'path'
 
     def __init__(self, name: str, prefix: str = _DEFAULT_PREFIX):
         super().__init__()
@@ -46,11 +45,12 @@ class CLIArg(SingletonMixin):
     def prefix(self, prefix) -> None:
         self.__prefixed_name = prefix + self.name
 
+    @classmethod
+    def create_default_path_arg(cls) -> 'CLIArg':
+        return CLIArg(cls._DEFAULT_PATH_ARG_NAME)
+
     def __str__(self) -> str:
         return self.prefixed_name
 
     def __repr__(self) -> str:
         return f'{self.__class__.__name__} {{{self.__class__.prefix.fget.__name__}: {self.prefix}, {str(self.__class__.name.fget.__name__)}: {self.name}}}'
-
-
-DEFAULT_PATH_ARG: Final[CLIArg] = CLIArg('path')
