@@ -1,3 +1,5 @@
+__all__ = ['cli_fetch_msvc_version']
+
 from pathlib import Path
 from typing import NoReturn, Optional, Union
 
@@ -5,8 +7,6 @@ from ...cli import *
 from build_system.compiler import *
 from ext.error import *
 from .impl import *
-
-from ext.meta_prog.encapsulation import *
 
 
 def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[CompilerVersion, NoReturn]:
@@ -18,7 +18,6 @@ def _fetch_version_no_arg(compiler_installation_path: Optional[Path] = None) -> 
     return compiler_version
 
 
-@export
 def cli_fetch_msvc_version() -> None:
     fetch_compiler_info(compiler_family=CompilerFamily.MSVC,
                         fetch_compiler_info_func=_fetch_version_no_arg,
