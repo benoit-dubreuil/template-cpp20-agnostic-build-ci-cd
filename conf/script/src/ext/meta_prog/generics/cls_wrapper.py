@@ -1,9 +1,9 @@
-from ..encapsulation import *
+__all__ = ['GenericClassWrapperMixin']
+
 from .cls_wrapper_data import *
 
 
 # TODO : functools -> wraps ?
-@export
 class GenericClassWrapperMixin(GenericClassWrapperDataMixin):
 
     def __init__(self, *args, **kwargs) -> None:
