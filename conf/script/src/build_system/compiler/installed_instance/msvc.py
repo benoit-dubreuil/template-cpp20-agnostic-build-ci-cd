@@ -1,3 +1,5 @@
+__all__ = ['MSVCCompilerInstance']
+
 import contextlib
 from dataclasses import dataclass
 from pathlib import Path
@@ -6,13 +8,11 @@ from typing import Optional, final
 from ..core import *
 from ..build_option import *
 from .compiler_instance import *
+from build_system.cmd.compiler.host.get_info.location.msvc import *
 from ext.error import *
 from ext.error.utils import *
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 @final
 @dataclass(order=True, frozen=True)
 class MSVCCompilerInstance(CompilerInstance):
@@ -25,11 +25,9 @@ class MSVCCompilerInstance(CompilerInstance):
 
     @classmethod
     def _find_installation_dir_by_compiler_family(cls, compiler_family: CompilerFamily) -> Path:
-        import build_system.cmd.compiler.host.get_info.location.msvc
-
         cls._assert_compiler_family(compiler_family=compiler_family)
 
-        compiler_installation_dir = build_system.cmd.compiler.host.get_info.location.msvc.find_msvc_location()
+        compiler_installation_dir = find_msvc_location()
         return compiler_installation_dir
 
     @staticmethod
