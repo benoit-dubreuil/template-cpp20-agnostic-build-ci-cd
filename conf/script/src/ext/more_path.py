@@ -1,8 +1,7 @@
-import pathlib
+__all__ = ['is_dir_empty']
 
-from .meta_prog.encapsulation import *
+from pathlib import Path
 
 
-@export
-def is_dir_empty(dir_path: pathlib.Path) -> bool:
+def is_dir_empty(dir_path: Path) -> bool:
     return not any(dir_path.iterdir())
