@@ -1,9 +1,8 @@
+__all__ = ['CompilerVersion']
+
 from dataclasses import dataclass
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 @dataclass(order=True, frozen=True)
 class CompilerVersion:
     major: int
