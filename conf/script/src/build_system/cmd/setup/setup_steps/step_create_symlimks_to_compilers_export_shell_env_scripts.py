@@ -1,8 +1,10 @@
+__all__ = ['create_symlinks_to_compilers_export_shell_env_scripts']
+
 from pathlib import Path
 
 from build_system.build_target import *
-from build_system.build_target import *
-from build_system.cmd.hierarchy.consts import TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME
+from ..cli import *
+from ...hierarchy.consts import *
 
 
 def create_symlinks_to_compilers_export_shell_env_scripts(targets: list[CompilerInstanceTargets],
@@ -15,8 +17,6 @@ def create_symlinks_to_compilers_export_shell_env_scripts(targets: list[Compiler
 
 def _create_symlink_to_compiler_export_shell_env_script(target: BuildTarget,
                                                         cli_mode: bool) -> None:
-    from build_system.cmd.setup.cli.compiler_shell_env import print_symlink_to_compiler_export_shell_env_script
-
     export_shell_env_script: Path = target.compiler_instance.get_export_shell_env_script()
 
     symlink: Path = target.script_dir / TARGET_SCRIPT_EXPORT_SHELL_ENV_NAME
