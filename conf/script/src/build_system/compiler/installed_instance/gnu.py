@@ -1,3 +1,5 @@
+__all__ = ['GNUCompilerInstance']
+
 import contextlib
 from dataclasses import dataclass
 from pathlib import Path
@@ -8,12 +10,9 @@ from host import *
 from ext.error import *
 from ext.error.utils import *
 from .compiler_instance import *
-import ext.cmd_integrity
-
-from ext.meta_prog.encapsulation import *
+from ext.cmd_integrity import *
 
 
-@export
 @dataclass(order=True, frozen=True)
 class GNUCompilerInstance(CompilerInstance):
     executable_file: Path
@@ -23,7 +22,7 @@ class GNUCompilerInstance(CompilerInstance):
         object.__setattr__(self, 'executable_file', self.__get_executable_file_from_installation_dir())
 
     def __get_executable_file_from_installation_dir(self) -> Path:
-        executable_file, exists = ext.cmd_integrity.get_cmd_path(cmd=self.compiler_family.value, dir_path=self.installation_dir)
+        executable_file, exists = get_cmd_path(cmd=self.compiler_family.value, dir_path=self.installation_dir)
 
         if not exists:
             raise CompilerNotFoundError()
@@ -41,7 +40,7 @@ class GNUCompilerInstance(CompilerInstance):
     def _find_installation_dir_by_compiler_family(cls, compiler_family: CompilerFamily) -> Path:
         cls._assert_compiler_family(compiler_family=compiler_family)
 
-        compiler_location, compiler_instance_exists = ext.cmd_integrity.get_cmd_path(cmd=compiler_family.value)
+        compiler_location, compiler_instance_exists = get_cmd_path(cmd=compiler_family.value)
 
         if not compiler_instance_exists:
             raise CompilerNotFoundError()
