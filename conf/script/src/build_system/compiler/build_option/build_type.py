@@ -1,9 +1,8 @@
+__all__ = ['TargetBuildType']
+
 from enum import Enum, unique
 
-from ext.meta_prog.encapsulation import *
 
-
-@export
 @unique
 class TargetBuildType(Enum):
     DEBUG = 'debug'
