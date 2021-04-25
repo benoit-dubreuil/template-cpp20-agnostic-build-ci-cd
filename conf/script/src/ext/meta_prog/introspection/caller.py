@@ -15,7 +15,8 @@ _CALLER_MIN_N: Final[int] = 1
 def get_nth_caller(n: int = _CALLER_MIN_N) -> FrameType:
     assert n >= _CALLER_MIN_N
 
-    stack_indices = range(_CALLER_MIN_N, n)
+    caller_index = n + 1
+    stack_indices = range(0, caller_index)
     caller_frame: FrameType = inspect.currentframe()
 
     for _ in stack_indices:
