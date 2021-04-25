@@ -1,4 +1,4 @@
-__all__ = ['get_build_dir_path_relative_to_root_dir',
+__all__ = ['get_relative_build_dir_path',
            'find_build_dir']
 
 from pathlib import Path
@@ -10,7 +10,7 @@ from ..consts import *
 from ..find_root_dir import *
 
 
-def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> Path:
+def get_relative_build_dir_path(root_dir: Optional[Path] = None) -> Path:
     if root_dir is None:
         root_dir = find_root_dir()
 
@@ -18,7 +18,7 @@ def get_build_dir_path_relative_to_root_dir(root_dir: Optional[Path] = None) -> 
 
 
 def find_build_dir(root_dir: Optional[Path] = None) -> Path:
-    build_dir = get_build_dir_path_relative_to_root_dir(root_dir=root_dir)
+    build_dir = get_relative_build_dir_path(root_dir=root_dir)
 
     try_manage_strict_path_resolving(path_to_resolve=build_dir,
                                      external_errors_to_manage={(Exception,): BuildDirNotFoundError})

@@ -17,7 +17,7 @@ def create_targets_build_dirs(root_dir: Path,
 
 
 def _recreate_build_dir(root_dir: Path) -> Path:
-    build_dir = get_build_dir_path_relative_to_root_dir(root_dir=root_dir)
+    build_dir = get_relative_build_dir_path(root_dir=root_dir)
     clean_build_dir(build_dir=build_dir, ignore_errors=True)
     build_dir = create_build_dir(root_dir=root_dir)
 
