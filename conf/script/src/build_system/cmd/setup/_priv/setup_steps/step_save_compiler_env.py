@@ -7,7 +7,7 @@ import javaproperties
 
 from build_system.build_target import *
 from ..cli import *
-from ...hierarchy import *
+from ....hierarchy import *
 
 
 def save_compiler_instances_targets_env(targets: list[CompilerInstanceTargets],

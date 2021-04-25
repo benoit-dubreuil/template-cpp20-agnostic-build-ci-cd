@@ -4,7 +4,7 @@ from pathlib import Path
 
 from build_system.build_target import *
 from build_system.compiler import *
-from ...hierarchy import *
+from ....hierarchy import *
 
 
 def create_targets_build_dirs(root_dir: Path,

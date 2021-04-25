@@ -4,7 +4,7 @@ from pathlib import Path
 
 from build_system.build_target import *
 from ..cli import *
-from ...hierarchy import *
+from ....hierarchy import *
 
 
 def create_symlinks_to_compilers_export_shell_env_scripts(targets: list[CompilerInstanceTargets],

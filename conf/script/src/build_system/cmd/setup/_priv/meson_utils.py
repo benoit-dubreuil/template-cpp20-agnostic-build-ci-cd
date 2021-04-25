@@ -14,7 +14,7 @@ from ext.cmd_integrity import *
 from ext.error import *
 from .cli import *
 from .meson_machine_file_args import *
-from ..hierarchy import *
+from ...hierarchy import *
 
 
 def setup_target(root_dir: Path,
