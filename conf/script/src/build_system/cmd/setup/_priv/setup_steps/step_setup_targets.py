@@ -5,7 +5,7 @@ from typing import Final
 
 from build_system.build_target import *
 from build_system.compiler import *
-from ..meson_utils import *
+from ..meson import *
 
 
 def setup_targets(root_dir: Path,

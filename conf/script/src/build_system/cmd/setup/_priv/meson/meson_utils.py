@@ -12,9 +12,9 @@ from build_system.compiler import *
 from ext.cli import *
 from ext.cmd_integrity import *
 from ext.error import *
-from .cli import *
+from build_system.cmd.setup._priv.cli import *
 from .meson_machine_file_args import *
-from ...hierarchy import *
+from build_system.cmd.hierarchy import *
 
 
 def setup_target(root_dir: Path,
