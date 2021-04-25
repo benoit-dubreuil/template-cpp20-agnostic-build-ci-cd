@@ -31,17 +31,17 @@ class TestFetchMSVCVersion(unittest.TestCase):
 
     @mock.patch('build_system.cmd.compiler.host.get_info.version.msvc.impl.Path')
     @mock.patch('build_system.cmd.compiler.host.get_info.version.msvc.impl.vswhere')
-    @mock.patch('build_system.cmd.compiler.host.get_info.location.msvc')
-    def test_random_arg_return_none(self, mock_location: MagicMock, mock_vswhere: MagicMock, mock_path: MagicMock):
+    @mock.patch('build_system.cmd.compiler.host.get_info.version.msvc.impl.find_msvc_location')
+    def test_random_arg_return_none(self, mock_find_location: MagicMock, mock_vswhere: MagicMock, mock_path: MagicMock):
         expected_return_value: Final = None
         expected_find_location_args: Final = mock_path('../randompath')
         expected_find_location_calls: Final = [mock.call.find_location(expected_find_location_args)]
 
-        mock_location.find_location.return_value = None
+        mock_find_location.return_value = None
 
         return_value = build_system.cmd.compiler.host.get_info.version.msvc.impl.fetch_msvc_version(expected_find_location_args)
 
-        assert mock_location.mock_calls == expected_find_location_calls
+        assert mock_find_location.mock_calls == expected_find_location_calls
         assert len(mock_vswhere.mock_calls) == 0
 
         assert return_value is expected_return_value
