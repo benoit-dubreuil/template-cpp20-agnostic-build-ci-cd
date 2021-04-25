@@ -5,7 +5,6 @@ from typing import Final, Optional
 
 import vswhere
 
-from build_system.compiler import *
 from ext.error import *
 from ext.error.utils import *
 
