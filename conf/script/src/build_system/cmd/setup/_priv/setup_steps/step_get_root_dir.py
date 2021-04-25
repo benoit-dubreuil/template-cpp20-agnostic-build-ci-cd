@@ -1,4 +1,4 @@
-__all__ = ['find_or_verify_root_dir']
+__all__ = ['get_root_dir']
 
 from pathlib import Path
 from typing import Optional

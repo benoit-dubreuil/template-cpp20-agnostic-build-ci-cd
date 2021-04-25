@@ -7,7 +7,7 @@ from .._priv import setup_steps as _step
 
 
 def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
-    root_dir = _step.find_or_verify_root_dir(unverified_root_dir=root_dir)
+    root_dir = _step.get_root_dir(unverified_root_dir=root_dir)
     host_compilers = _step.fetch_host_compilers()
     targets = _step.create_targets_build_dirs(root_dir=root_dir, compiler_instances=host_compilers)
 
