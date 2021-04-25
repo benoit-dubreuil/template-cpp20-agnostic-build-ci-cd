@@ -26,6 +26,6 @@ def find_build_dir(root_dir: Optional[Path] = None) -> Path:
     build_dir = build_dir.absolute()
 
     if not build_dir.is_dir():
-        raise BuildDirNotFoundError()
+        raise BuildDirNotDirError()
 
     return build_dir
