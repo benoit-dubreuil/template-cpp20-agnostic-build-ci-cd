@@ -1,8 +1,11 @@
+__all__ = ['setup_targets']
+
 from pathlib import Path
 from typing import Final
 
 from build_system.build_target import *
-import build_system.compiler.installed_instance
+from build_system.compiler import *
+from ..meson_utils import *
 
 
 def setup_targets(root_dir: Path,
@@ -18,9 +21,7 @@ def setup_targets(root_dir: Path,
 def _setup_compiler_instance_targets(root_dir: Path,
                                      compiler_instance_targets: CompilerInstanceTargets,
                                      cli_mode: bool) -> None:
-    from build_system.cmd.setup.meson_utils import setup_target
-
-    compiler_instance: Final[build_system.compiler.installed_instance.CompilerInstance] = compiler_instance_targets.compiler_instance
+    compiler_instance: Final[CompilerInstance] = compiler_instance_targets.compiler_instance
 
     with compiler_instance.create_env_context_manager() as compiler_env_manager:
         for target in compiler_instance_targets.build_targets:
