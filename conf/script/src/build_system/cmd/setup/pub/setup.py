@@ -3,7 +3,7 @@ __all__ = ['setup_build_system']
 from pathlib import Path
 from typing import Optional
 
-from .setup_steps import *
+from ..setup_steps import *
 
 
 def setup_build_system(root_dir: Optional[Path] = None, cli_mode: bool = False):
