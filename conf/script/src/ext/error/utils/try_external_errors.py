@@ -2,12 +2,13 @@ __all__ = ['try_manage_external_errors',
            'try_manage_strict_path_resolving']
 
 from pathlib import Path
+from typing import Callable
 
 from ..core import *
 
 
 def try_manage_external_errors(func_to_try: Callable,
-                               external_errors_to_manage: {tuple[Type[Exception], ...]: Type[ManagedErrorMixin]} = {
+                               external_errors_to_manage: {tuple[type[Exception], ...]: type[ManagedErrorMixin]} = {
                                    (Exception,): UnsupportedError}):
     assert func_to_try is not None
     assert external_errors_to_manage is not None
@@ -18,8 +19,8 @@ def try_manage_external_errors(func_to_try: Callable,
 
     except Exception as raised_error:
 
-        supported_external_error_types: tuple[Type[Exception]]
-        managed_error_type: Type[UnsupportedError]
+        supported_external_error_types: tuple[type[Exception]]
+        managed_error_type: type[UnsupportedError]
 
         for supported_external_error_types, managed_error_type in external_errors_to_manage.items():
             for external_error_type in supported_external_error_types:
@@ -33,7 +34,7 @@ def try_manage_external_errors(func_to_try: Callable,
 
 
 def try_manage_strict_path_resolving(path_to_resolve: Path,
-                                     external_errors_to_manage: {tuple[Type[Exception], ...]: Type[ManagedErrorMixin]} = {
+                                     external_errors_to_manage: {tuple[type[Exception], ...]: type[ManagedErrorMixin]} = {
                                          (Exception,): UnsupportedError}):
     try_manage_external_errors(func_to_try=lambda: path_to_resolve.resolve(strict=True),
                                external_errors_to_manage=external_errors_to_manage)
