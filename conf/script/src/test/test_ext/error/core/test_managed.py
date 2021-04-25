@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+__all__ = ['TestManage']
+
 import unittest
 
 from ext.error import *

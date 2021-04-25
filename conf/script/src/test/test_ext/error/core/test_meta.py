@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+__all__ = ['TestErrorMeta']
+
 import abc
 import unittest
 

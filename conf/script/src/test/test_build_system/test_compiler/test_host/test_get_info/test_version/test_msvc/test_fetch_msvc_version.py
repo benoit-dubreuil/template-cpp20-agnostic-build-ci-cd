@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+__all__ = ['TestFetchMSVCVersion']
+
 import unittest
 from typing import Final
 from unittest import mock

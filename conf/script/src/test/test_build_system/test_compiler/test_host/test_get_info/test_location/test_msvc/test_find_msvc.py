@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+__all__ = ['TestFindMSVC']
+
 import unittest
 from unittest import mock
 from unittest.mock import MagicMock
