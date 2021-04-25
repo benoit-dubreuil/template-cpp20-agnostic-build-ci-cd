@@ -12,7 +12,7 @@ from build_system.compiler import *
 from ext.cli import *
 from ext.cmd_integrity import *
 from ext.error import *
-from .cli.meson import *
+from .cli import *
 from .meson_machine_file_args import *
 from ..hierarchy import *
 
