@@ -16,7 +16,7 @@ from ..assure_arg_integrity import *
 def create_targets_build_dirs_structure(build_dir: Optional[Path] = None,
                                         compiler_instances: Optional[list[CompilerInstance]] = None) \
         -> list[CompilerInstanceTargets]:
-    build_dir = get_verified_build_dir(unverified_build_dir=build_dir)
+    build_dir = find_or_verify_build_dir(unverified_build_dir=build_dir)
     _assure_build_dir_is_empty(build_dir)
 
     return _unchecked_create_targets_build_dirs(build_dir, compiler_instances=compiler_instances)

@@ -1,5 +1,5 @@
 __all__ = ['find_or_verify_root_dir',
-           'get_verified_build_dir']
+           'find_or_verify_build_dir']
 
 from pathlib import Path
 from typing import Optional
@@ -19,7 +19,7 @@ def find_or_verify_root_dir(unverified_root_dir: Optional[Path] = None) -> Path:
     return unverified_root_dir
 
 
-def get_verified_build_dir(unverified_build_dir: Optional[Path] = None) -> Path:
+def find_or_verify_build_dir(unverified_build_dir: Optional[Path] = None) -> Path:
     if unverified_build_dir is None:
         unverified_build_dir = create_build_dir()
     else:
