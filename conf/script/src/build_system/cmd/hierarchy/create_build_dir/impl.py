@@ -10,7 +10,7 @@ from ..find_build_dir import *
 
 
 def create_build_dir(root_dir: Optional[Path] = None) -> Path:
-    root_dir = get_verified_root_dir(unverified_root_dir=root_dir)
+    root_dir = find_or_verify_root_dir(unverified_root_dir=root_dir)
     build_dir = get_build_dir_path_relative_to_root_dir(root_dir=root_dir)
 
     if build_dir.exists():
