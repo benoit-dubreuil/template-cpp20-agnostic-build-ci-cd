@@ -1,7 +1,9 @@
 __all__ = ['add_optional_path_arg',
            'parse_optional_path_arg']
 
+import argparse
 from pathlib import Path
+from typing import AnyStr, Optional
 
 from .arg import *
 from ..error import *
