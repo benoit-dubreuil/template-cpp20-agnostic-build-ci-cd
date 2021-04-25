@@ -9,13 +9,13 @@ from typing import Final
 
 from .macro import *
 
-CALLER_MIN_N: Final[int] = 1
+_CALLER_MIN_N: Final[int] = 1
 
 
-def get_nth_caller(n: int = CALLER_MIN_N) -> FrameType:
-    assert n >= CALLER_MIN_N
+def get_nth_caller(n: int = _CALLER_MIN_N) -> FrameType:
+    assert n >= _CALLER_MIN_N
 
-    stack_indices = range(CALLER_MIN_N, n)
+    stack_indices = range(_CALLER_MIN_N, n)
     caller_frame: FrameType = inspect.currentframe()
 
     for _ in stack_indices:
@@ -25,7 +25,7 @@ def get_nth_caller(n: int = CALLER_MIN_N) -> FrameType:
 
 
 def get_caller() -> FrameType:
-    return get_nth_caller(n=CALLER_MIN_N + 1)
+    return get_nth_caller(n=_CALLER_MIN_N + 1)
 
 
 def is_frame_main(frame: FrameType) -> bool:
