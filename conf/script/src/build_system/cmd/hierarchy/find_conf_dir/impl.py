@@ -2,6 +2,7 @@ __all__ = ['get_conf_dir_path_relative_to_root_dir',
            'find_conf_dir']
 
 from typing import Optional
+from pathlib import Path
 
 from ext.error import *
 from ext.error.utils import *
