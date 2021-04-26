@@ -1,8 +1,8 @@
-from pathlib import Path
+__all__ = ['cli_fetch_clang_version']
 
-import build_system.cmd.compiler.host.get_info.version.gnu.cli
-import build_system.compiler.family
+from build_system.compiler import *
+from ..gnu import *
 
 
-def fetch_gcc_version() -> None:
-    build_system.cmd.compiler.host.get_info.version.gnu.cli.fetch_version(compiler_family=build_system.compiler.family.CompilerFamily.CLANG)
+def cli_fetch_clang_version() -> None:
+    cli_fetch_gnu_version(compiler_family=CompilerFamily.CLANG)

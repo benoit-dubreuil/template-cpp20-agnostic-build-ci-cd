@@ -1,41 +1,43 @@
+__all__ = ['MSVCCompilerInstance']
+
 import contextlib
 from dataclasses import dataclass
 from pathlib import Path
-from typing import final
+from typing import Optional, final
 
-import build_system.compiler.build_option.sanitizer
-import build_system.compiler.family
-import build_system.compiler.installed_instance.compiler_instance
-import utils.error.cls_def
-import utils.error.try_external_errors
+from ..core import *
+from ..build_option import *
+from .compiler_instance import *
+from build_system.cmd.compiler.host.get_info.location.msvc import *
+from ext.error import *
+from ext.error.utils import *
 
 
 @final
 @dataclass(order=True, frozen=True)
-class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInstance):
+class MSVCCompilerInstance(CompilerInstance):
     vcvars_arch_batch_file: Path
+    cached_compiler_env: Optional[dict[str, list[str]]]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         object.__setattr__(self, 'vcvars_arch_batch_file', self.__find_vcvars_batch_file())
 
     @classmethod
-    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
-        import build_system.cmd.compiler.host.get_info.location.msvc
-
+    def _find_installation_dir_by_compiler_family(cls, compiler_family: CompilerFamily) -> Path:
         cls._assert_compiler_family(compiler_family=compiler_family)
 
-        compiler_installation_dir = build_system.cmd.compiler.host.get_info.location.msvc.find_location()
+        compiler_installation_dir = find_msvc_location()
         return compiler_installation_dir
 
     @staticmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
-        return [build_system.compiler.family.CompilerFamily.MSVC]
+    def get_supported_compiler_families() -> list[CompilerFamily]:
+        return [CompilerFamily.MSVC]
 
     @staticmethod
-    def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
-        return [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE,
-                build_system.compiler.build_option.sanitizer.CompilerSanitizer.ADDRESS]
+    def get_supported_sanitizers() -> list[CompilerSanitizer]:
+        return [CompilerSanitizer.NONE,
+                CompilerSanitizer.ADDRESS]
 
     @staticmethod
     def get_vcvars_dir_relative_to_installation_dir() -> Path:
@@ -50,8 +52,8 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
         return '.bat'
 
     def create_env_context_manager(self) -> contextlib.AbstractContextManager:
-        import build_system.compiler.installed_instance.set_env_msvc
-        return build_system.compiler.installed_instance.set_env_msvc.EnvMSVC(compiler=self)
+        from .set_env_msvc import EnvMSVC
+        return EnvMSVC(compiler=self)
 
     @staticmethod
     def has_export_shell_env_script() -> bool:
@@ -71,22 +73,29 @@ class MSVCCompilerInstance(build_system.compiler.installed_instance.CompilerInst
     def get_cpp_compiler_name() -> str:
         return 'cl'
 
+    def cache_vcvars_as_compiler_env(self, vcvars: dict[str, list[str]]) -> None:
+        object.__setattr__(self, 'cached_compiler_env', vcvars)
+
+    def has_cached_compiler_env(self) -> bool:
+        return self.cached_compiler_env is not None
+
     def __find_vcvars_batch_file(self) -> Path:
         vcvars_dir: Path = self.__get_vcvars_dir()
         vcvars_filename: str = self.__compute_vcvars_arch_batch_filename()
         vcvars_arch_batch_file = vcvars_dir / vcvars_filename
         vcvars_arch_batch_file = vcvars_arch_batch_file.absolute()
 
-        utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=vcvars_arch_batch_file,
-                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.MSVCCompilerVcvarsBatchFileNotFoundError})
+        try_manage_strict_path_resolving(path_to_resolve=vcvars_arch_batch_file,
+                                         external_errors_to_manage={
+                                             (Exception,): MSVCCompilerVcvarsBatchFileNotFoundError})
 
         return vcvars_arch_batch_file
 
     def __get_vcvars_dir(self) -> Path:
         vcvars_dir: Path = self.installation_dir / self.get_vcvars_dir_relative_to_installation_dir()
 
-        utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=vcvars_dir,
-                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.MSVCCompilerVcvarsDirNotFoundError})
+        try_manage_strict_path_resolving(path_to_resolve=vcvars_dir,
+                                         external_errors_to_manage={(Exception,): MSVCCompilerVcvarsDirNotFoundError})
 
         return vcvars_dir
 

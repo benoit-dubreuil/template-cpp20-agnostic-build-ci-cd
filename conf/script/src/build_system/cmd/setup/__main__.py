@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-import build_system.cmd.setup.cli
-import utils.cli.main
+from . import *
+from ext.cli import *
 
 
 def main():
-    build_system.cmd.setup.cli.setup()
+    cli_setup_build_system()
 
 
-utils.cli.main.wrap_main(main)
+wrap_main(main)

@@ -1,13 +1,15 @@
+__all__ = ['GCCCompilerInstance']
+
 from dataclasses import dataclass
 from typing import final
 
-import build_system.compiler.family
-import build_system.compiler.installed_instance.gnu
+from .gnu import *
+from ..core import *
 
 
 @final
 @dataclass(order=True, frozen=True)
-class GCCCompilerInstance(build_system.compiler.installed_instance.gnu.GNUCompilerInstance):
+class GCCCompilerInstance(GNUCompilerInstance):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -21,5 +23,5 @@ class GCCCompilerInstance(build_system.compiler.installed_instance.gnu.GNUCompil
         return r'g++'
 
     @staticmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
-        return [build_system.compiler.family.CompilerFamily.GCC]
+    def get_supported_compiler_families() -> list[CompilerFamily]:
+        return [CompilerFamily.GCC]

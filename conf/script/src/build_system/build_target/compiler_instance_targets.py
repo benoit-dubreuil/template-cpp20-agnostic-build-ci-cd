@@ -1,13 +1,15 @@
-import dataclasses
+__all__ = ['CompilerInstanceTargets']
 
-import build_system.build_target.build_target
-import build_system.compiler.installed_instance
+from dataclasses import dataclass
+
+from .build_target_cls import *
+from ..compiler import *
 
 
-@dataclasses.dataclass(order=True, frozen=True)
+@dataclass(order=True, frozen=True)
 class CompilerInstanceTargets:
-    compiler_instance: build_system.compiler.installed_instance.CompilerInstance
-    build_targets: list[build_system.build_target.build_target.BuildTarget]
+    compiler_instance: CompilerInstance
+    build_targets: list[BuildTarget]
 
     def __iter__(self):
         return self.build_targets.__iter__()
