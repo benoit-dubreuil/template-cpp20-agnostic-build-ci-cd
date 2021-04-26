@@ -23,8 +23,6 @@ def find_build_dir(root_dir: Optional[Path] = None) -> Path:
     try_manage_strict_path_resolving(path_to_resolve=build_dir,
                                      external_errors_to_manage={(Exception,): BuildDirNotFoundError})
 
-    build_dir = build_dir.absolute()
-
     if not build_dir.is_dir():
         raise BuildDirNotDirError()
 
