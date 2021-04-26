@@ -2,16 +2,16 @@ __all__ = ['try_manage_external_errors',
            'try_manage_strict_path_resolving']
 
 from pathlib import Path
-from typing import Callable, Final, TypeVar
+from typing import Callable, TypeVar
 
 from ..core import *
 
 _T_Exception: TypeVar = TypeVar('_T_Exception', bound=Exception)
 _T_ManagedException: TypeVar = TypeVar('_T_ManagedException', bound=Exception)
 
-_TAlias_external_errors_to_manage: Final = {tuple[type[_T_Exception], ...]: type[_T_ManagedException]}
+_TAlias_external_errors_to_manage = {tuple[type[_T_Exception], ...]: type[_T_ManagedException]}
 
-_DEFAULT_EXTERNAL_ERRORS_TO_MANAGE: Final[_TAlias_external_errors_to_manage] = {(Exception,): UnsupportedError}
+_DEFAULT_EXTERNAL_ERRORS_TO_MANAGE: _TAlias_external_errors_to_manage = {(Exception,): UnsupportedError}
 
 
 def try_manage_external_errors(func_to_try: Callable,
