@@ -2,7 +2,7 @@ __all__ = ['CompilerInstanceTargets']
 
 from dataclasses import dataclass
 
-from .build_target import *
+from .build_target_cls import *
 from ..compiler import *
 
 
