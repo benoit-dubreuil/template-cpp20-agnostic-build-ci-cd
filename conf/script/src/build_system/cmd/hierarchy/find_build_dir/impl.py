@@ -1,6 +1,7 @@
 __all__ = ['get_build_dir_path',
            'verify_build_dir',
-           'find_build_dir']
+           'find_build_dir',
+           'find_or_verify_build_dir']
 
 from pathlib import Path
 from typing import Optional
