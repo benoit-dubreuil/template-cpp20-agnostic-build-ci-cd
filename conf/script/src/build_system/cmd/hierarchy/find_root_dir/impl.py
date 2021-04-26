@@ -72,8 +72,7 @@ def is_dir_a_root_dir(root_dir: Path) -> bool:
 
 
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
-    try_manage_strict_path_resolving(path_to_resolve=current_path,
-                                     external_errors_to_manage={(Exception,): RootDirNotFoundError})
+    verify_root_dir_accessibility(root_dir=current_path)
 
     last_path = current_path
     current_path = current_path.parent
