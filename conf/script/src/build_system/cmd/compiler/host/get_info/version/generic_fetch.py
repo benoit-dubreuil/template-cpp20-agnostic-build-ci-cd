@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import AnyStr, Callable
 
 from build_system.compiler import *
-from ext.cmd_integrity import *
+from ext.utils.cmd_integrity import *
 from error import *
 
 
