@@ -1,6 +1,10 @@
 __all__ = ['get_build_system_conf_file_path',
+           'verify_root_dir_accessibility',
+           'verify_root_path_is_dir',
+           'verify_dir_is_a_root_dir',
            'is_dir_a_root_dir',
-           'find_root_dir']
+           'find_root_dir',
+           'find_or_verify_root_dir']
 
 from pathlib import Path
 from typing import Optional
