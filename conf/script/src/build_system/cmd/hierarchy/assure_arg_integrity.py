@@ -23,7 +23,6 @@ def find_or_verify_build_dir(unverified_build_dir: Optional[Path] = None) -> Pat
     if unverified_build_dir is None:
         unverified_build_dir = find_build_dir()
     else:
-        if not unverified_build_dir.exists():
-            raise BuildDirNotFoundError()
+        verify_build_dir(build_dir=unverified_build_dir)
 
     return unverified_build_dir
