@@ -61,10 +61,9 @@ def is_dir_a_root_dir(root_dir: Path) -> bool:
     """
 
     has_build_system_conf_file: bool
-    build_system_conf_file = get_build_system_conf_file_path(root_dir=root_dir)
 
     try:
-        _verify_build_system_conf_file(build_system_conf_file=build_system_conf_file)
+        verify_dir_is_a_root_dir(root_dir=root_dir)
         has_build_system_conf_file = True
     except RootDirMissingBuildSystemConfFileError:
         has_build_system_conf_file = False
