@@ -1,6 +1,6 @@
 __all__ = ['Final',
-           'TAlias_Const']
+           'TAlias_Name']
 
 from typing import Final
 
-TAlias_Const = Final[str]
+TAlias_Name = Final[str]
