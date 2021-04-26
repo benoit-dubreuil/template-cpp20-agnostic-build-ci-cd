@@ -94,3 +94,18 @@ def find_root_dir() -> Path:
         raise RootDirNotFoundError()
 
     return last_path
+
+
+def find_or_verify_root_dir(unverified_root_dir: Optional[Path] = None) -> Path:
+    root_dir: Path
+
+    if unverified_root_dir is None:
+        root_dir = find_root_dir()
+    else:
+        verify_root_dir_accessibility(root_dir=unverified_root_dir)
+        verify_root_path_is_dir(root_dir=unverified_root_dir)
+        verify_dir_is_a_root_dir(root_dir=unverified_root_dir)
+
+        root_dir = unverified_root_dir
+
+    return root_dir
