@@ -31,3 +31,15 @@ def find_build_dir(root_dir: Optional[Path] = None) -> Path:
     verify_build_dir(build_dir=build_dir)
 
     return build_dir
+
+
+def find_or_verify_build_dir(unverified_build_dir: Optional[Path] = None) -> Path:
+    build_dir: Path
+
+    if unverified_build_dir is None:
+        build_dir = find_build_dir()
+    else:
+        verify_build_dir(build_dir=unverified_build_dir)
+        build_dir = unverified_build_dir
+
+    return build_dir
