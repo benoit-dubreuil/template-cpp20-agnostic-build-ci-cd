@@ -6,7 +6,7 @@ from pathlib import Path
 
 from error import *
 from error.utils import *
-from ext.cmd_integrity import *
+from ext.utils.cmd_integrity import *
 from .compiler_instance import *
 from ..build_option import *
 from ..core import *
