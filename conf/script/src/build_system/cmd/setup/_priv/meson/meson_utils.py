@@ -10,7 +10,7 @@ import mesonbuild.mesonmain
 from build_system.build_target import *
 from build_system.cmd.setup._priv.cli import *
 from build_system.compiler import *
-from ext.cli import *
+from cli import *
 from ext.cmd_integrity import *
 from ext.error import *
 from file_structure import *
