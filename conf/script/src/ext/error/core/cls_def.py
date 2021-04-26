@@ -90,6 +90,13 @@ class RootDirNotDirError(FileExistsError):
         super().__init__("Root directory exists but isn't a directory")
 
 
+@ManageClass(encoded_error_status=ErrorStatus.ROOT_DIR_MISSING_BUILD_SYSTEM_CONF_FILE)
+class RootDirMissingBuildSystemConfFileError(FileNotFoundError):
+
+    def __init__(self):
+        super().__init__("Root directory exists is missing its build system configuration file")
+
+
 @ManageClass(encoded_error_status=ErrorStatus.BUILD_DIR_NOT_FOUND)
 class BuildDirNotFoundError(FileNotFoundError):
 
