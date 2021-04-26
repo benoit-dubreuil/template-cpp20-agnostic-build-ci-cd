@@ -6,8 +6,8 @@ from pathlib import Path
 import javaproperties
 
 from build_system.build_target import *
+from file_structure import *
 from ..cli import *
-from ....hierarchy import *
 
 
 def save_compiler_instances_targets_env(targets: list[CompilerInstanceTargets],

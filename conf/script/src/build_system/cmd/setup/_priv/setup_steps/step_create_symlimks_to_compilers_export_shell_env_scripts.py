@@ -3,8 +3,8 @@ __all__ = ['create_symlinks_to_compilers_export_shell_env_scripts']
 from pathlib import Path
 
 from build_system.build_target import *
+from file_structure import *
 from ..cli import *
-from ....hierarchy import *
 
 
 def create_symlinks_to_compilers_export_shell_env_scripts(targets: list[CompilerInstanceTargets],

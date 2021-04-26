@@ -6,8 +6,8 @@ import colorama
 
 from ext.cli import *
 from ext.more_typing import *
+from file_structure import *
 from .setup import *
-from ...hierarchy import *
 
 
 def cli_setup_build_system():

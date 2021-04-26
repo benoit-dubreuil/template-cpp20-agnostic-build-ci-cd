@@ -4,8 +4,8 @@ __all__ = ['print_meson_main_file',
 from pathlib import Path
 from typing import Final
 
+from file_structure import *
 from .colorize import *
-from ....hierarchy import *
 
 
 def print_meson_main_file(meson_main_file: Path) -> None:

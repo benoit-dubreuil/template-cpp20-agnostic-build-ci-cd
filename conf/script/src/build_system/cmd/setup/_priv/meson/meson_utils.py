@@ -8,13 +8,13 @@ from typing import Final
 import mesonbuild.mesonmain
 
 from build_system.build_target import *
+from build_system.cmd.setup._priv.cli import *
 from build_system.compiler import *
 from ext.cli import *
 from ext.cmd_integrity import *
 from ext.error import *
-from build_system.cmd.setup._priv.cli import *
+from file_structure import *
 from .meson_machine_file_args import *
-from build_system.cmd.hierarchy import *
 
 
 def setup_target(root_dir: Path,
