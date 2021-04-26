@@ -4,8 +4,8 @@ __all__ = ['DIR_STR',
 
 from ext.cli import *
 from ._type_alias import *
-from .build_dir import *
-from .root_dir import *
+from .fs_build_dir import *
+from .fs_root_dir import *
 
 _TAlias_CLI_Arg = Final[CLIArg]
 
