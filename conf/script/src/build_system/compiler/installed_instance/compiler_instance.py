@@ -1,16 +1,16 @@
 __all__ = ['CompilerInstance']
 
-from abc import ABCMeta, abstractmethod
 import contextlib
+from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
 from typing import NoReturn, Optional, Type, final
 
-from ..core import *
-from ..build_option import *
+from error import *
+from error.utils import *
 from host import *
-from ext.error import *
-from ext.error.utils import *
+from ..build_option import *
+from ..core import *
 
 
 @dataclass(order=True, frozen=True)

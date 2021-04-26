@@ -4,7 +4,7 @@ from typing import Final, Optional
 
 from build_system.build_target import *
 from build_system.compiler import *
-from ext.error import *
+from error import *
 
 
 def generate_targets(compiler_instances: Optional[list[CompilerInstance]] = None) \

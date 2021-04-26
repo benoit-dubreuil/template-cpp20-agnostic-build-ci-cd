@@ -5,8 +5,8 @@ from typing import Final, Optional
 
 import vswhere
 
-from ext.error import *
-from ext.error.utils import *
+from error import *
+from error.utils import *
 
 _DEFAULT_REQUIRES: Final[list[str]] = [
     'Microsoft.VisualStudio.Component.VC.Tools.x86.x64',

@@ -5,8 +5,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
-from ext.error import *
-from ext.error.utils import *
+from error import *
+from error.utils import *
 from host import *
 from .scheme import *
 from ..core import *

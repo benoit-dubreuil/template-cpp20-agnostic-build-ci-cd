@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import AnyStr, Optional
 
 from .arg import *
-from ext.error import *
+from error import *
 from ext.more_typing import *
 
 
