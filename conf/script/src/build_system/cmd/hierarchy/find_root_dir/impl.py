@@ -34,7 +34,7 @@ def _verify_build_system_conf_file(build_system_conf_file: Path):
 
 def is_dir_a_root_dir(root_dir: Path) -> bool:
     """
-    Checks if the supplied directory is a root directory by testing if it contains build system configuration file.
+    Checks if the supplied directory is a root directory by testing if it contains a build system configuration file.
 
     The build system configuration file name is queried from :func:`~get_build_system_conf_file_path`.
 
