@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+__all__ = ['TestFindMSVC']
+
 import unittest
 from unittest import mock
 from unittest.mock import MagicMock
 
 import build_system.cmd.compiler.host.get_info.location.msvc
-from utils.meta_prog.introspection import *
+from ext.meta_prog.introspection import *
 
 
 class TestFindMSVC(unittest.TestCase):
@@ -13,7 +15,7 @@ class TestFindMSVC(unittest.TestCase):
     @mock.patch('build_system.cmd.compiler.host.get_info.location.msvc.impl.vswhere')
     def test_no_arg_not_found(self, mock_vswhere: MagicMock):
         mock_vswhere.find_first.return_value = None
-        result = build_system.cmd.compiler.host.get_info.location.msvc.find_location()
+        result = build_system.cmd.compiler.host.get_info.location.msvc.find_msvc_location()
 
         mock_vswhere.find_first.assert_called_once_with(latest=True, prerelease=True,
                                                         products=build_system.cmd.compiler.host.get_info.location.msvc.impl._ALL_PRODUCTS,

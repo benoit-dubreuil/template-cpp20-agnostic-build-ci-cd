@@ -1,7 +1,8 @@
-import build_system.cmd.compiler.host.get_info.version.gnu
-import build_system.compiler.family
-import build_system.compiler.version
+__all__ = ['fetch_gcc_version']
+
+from build_system.compiler import *
+from ..gnu import *
 
 
-def fetch_version() -> build_system.compiler.version.CompilerVersion:
-    return build_system.cmd.compiler.host.get_info.version.gnu.fetch_version(build_system.compiler.family.CompilerFamily.GCC.value)
+def fetch_gcc_version() -> CompilerVersion:
+    return fetch_gnu_version(CompilerFamily.GCC.value)

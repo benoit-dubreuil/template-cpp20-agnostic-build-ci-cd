@@ -1,19 +1,21 @@
+__all__ = ['EnvDefaultCompiler']
+
 import contextlib
 import os
 from typing import Final, Optional
+
+from .compiler_instance import *
 
 _CC: Final[str] = 'CC'
 _CXX: Final[str] = 'CXX'
 
 
 class EnvDefaultCompiler(contextlib.AbstractContextManager):
-    import build_system.compiler.installed_instance.compiler_instance
-
     previous_c_compiler: Optional[str]
     previous_cpp_compiler: Optional[str]
-    compiler: build_system.compiler.installed_instance.compiler_instance.CompilerInstance
+    compiler: CompilerInstance
 
-    def __init__(self, compiler: build_system.compiler.installed_instance.compiler_instance) -> None:
+    def __init__(self, compiler: CompilerInstance) -> None:
         super().__init__()
         self.compiler = compiler
 
