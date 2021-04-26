@@ -17,13 +17,16 @@ def get_build_dir_path(root_dir: Optional[Path] = None) -> Path:
     return root_dir / BUILD_DIR_NAME
 
 
-def find_build_dir(root_dir: Optional[Path] = None) -> Path:
-    build_dir = get_build_dir_path(root_dir=root_dir)
-
+def verify_build_dir(build_dir: Path) -> None:
     try_manage_strict_path_resolving(path_to_resolve=build_dir,
                                      external_errors_to_manage={(Exception,): BuildDirNotFoundError})
 
     if not build_dir.is_dir():
         raise BuildDirNotDirError()
+
+
+def find_build_dir(root_dir: Optional[Path] = None) -> Path:
+    build_dir = get_build_dir_path(root_dir=root_dir)
+    verify_build_dir(build_dir=build_dir)
 
     return build_dir
