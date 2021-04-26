@@ -19,6 +19,11 @@ def verify_root_dir_accessibility(root_dir: Path):
                                      external_errors_to_manage={(Exception,): RootDirNotFoundError})
 
 
+def verify_root_path_is_dir(root_dir: Path):
+    if not root_dir.is_dir():
+        raise RootDirNotDirError()
+
+
 def _verify_build_system_conf_file(build_system_conf_file: Path):
     try_manage_strict_path_resolving(path_to_resolve=build_system_conf_file,
                                      external_errors_to_manage={(Exception,): RootDirMissingBuildSystemConfFileError})
