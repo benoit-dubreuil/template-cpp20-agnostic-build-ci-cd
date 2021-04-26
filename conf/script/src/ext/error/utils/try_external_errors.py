@@ -2,7 +2,7 @@ __all__ = ['try_manage_external_errors',
            'try_manage_strict_path_resolving']
 
 from pathlib import Path
-from typing import Callable, TypeVar, Generic
+from typing import Callable, TypeVar
 
 from ..core import *
 
