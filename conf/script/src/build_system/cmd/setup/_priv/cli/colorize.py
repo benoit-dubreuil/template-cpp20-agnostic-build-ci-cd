@@ -4,7 +4,7 @@ __all__ = ['colorize_header_label',
 
 import colorama
 
-from ext.utils.more_typing import *
+from ext.utils.path_typing import *
 
 
 def colorize_header_label(header: str) -> str:
