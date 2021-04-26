@@ -7,7 +7,7 @@ from typing import AnyStr, Optional
 
 from .arg import *
 from error import *
-from ext.more_typing import *
+from ext.utils.more_typing import *
 
 
 def add_optional_path_arg(arg_parser: argparse.ArgumentParser, path_arg: CLIArg = CLIArg.create_default_path_arg(),

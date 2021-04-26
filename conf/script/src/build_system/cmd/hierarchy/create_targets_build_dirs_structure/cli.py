@@ -5,7 +5,7 @@ import argparse
 import colorama
 
 from cli import *
-from ext.more_typing import *
+from ext.utils.more_typing import *
 from file_structure import *
 from .impl import *
 
