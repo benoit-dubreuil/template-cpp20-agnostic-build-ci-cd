@@ -83,6 +83,13 @@ class RootDirNotFoundError(FileNotFoundError):
         super().__init__('Root directory not found')
 
 
+@ManageClass(encoded_error_status=ErrorStatus.ROOT_DIR_NOT_DIR)
+class RootDirNotDirError(FileExistsError):
+
+    def __init__(self):
+        super().__init__("Root directory exists but isn't a directory")
+
+
 @ManageClass(encoded_error_status=ErrorStatus.BUILD_DIR_NOT_FOUND)
 class BuildDirNotFoundError(FileNotFoundError):
 
