@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
-from build_system.cmd.hierarchy.find_conf_dir import *
 from ext.error import *
 from ext.error.utils import *
 from host import *
@@ -21,6 +20,7 @@ class CompilerReqs:
 
     @classmethod
     def get_defaul_config_file(cls) -> Path:
+        from build_system.cmd.hierarchy.find_conf_dir import find_conf_build_system_dir
 
         default_config_filename: Final[Path] = Path('compiler-reqs.ini')
         conf_build_system_dir: Path = find_conf_build_system_dir()
