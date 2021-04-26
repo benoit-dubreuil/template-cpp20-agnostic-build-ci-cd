@@ -1,5 +1,7 @@
-__all__ = ['BUILD_DIR_NAME']
+__all__ = ['BUILD_STR',
+           'BUILD_DIR_NAME']
 
 from ._type_alias import *
 
-BUILD_DIR_NAME: TAlias_Name = 'build'
+BUILD_STR: TAlias_Name = 'build'
+BUILD_DIR_NAME: TAlias_Name = BUILD_STR
