@@ -5,12 +5,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, final
 
-from ..core import *
-from ..build_option import *
-from .compiler_instance import *
 from build_system.cmd.compiler.host.get_info.location.msvc import *
-from ext.error import *
-from ext.error.utils import *
+from error import *
+from error.utils import *
+from .compiler_instance import *
+from ..build_option import *
+from ..core import *
 
 
 @final

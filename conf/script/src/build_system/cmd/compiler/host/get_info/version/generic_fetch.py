@@ -7,7 +7,7 @@ from typing import AnyStr, Callable
 
 from build_system.compiler import *
 from ext.cmd_integrity import *
-from ext.error import *
+from error import *
 
 
 def verify_compiler_path(compiler_path: Path) -> None:

@@ -6,7 +6,7 @@ from typing import NoReturn, Optional, Union
 from ...cli import *
 from .impl import *
 from build_system.compiler import *
-from ext.error import *
+from error import *
 
 
 def _find_no_arg(compiler_installation_path: Optional[Path] = None) -> Union[Path, NoReturn]:

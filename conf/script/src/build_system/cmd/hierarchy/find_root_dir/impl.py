@@ -9,8 +9,8 @@ __all__ = ['get_build_system_conf_file_path',
 from pathlib import Path
 from typing import Optional
 
-from ext.error import *
-from ext.error.utils import *
+from error import *
+from error.utils import *
 from file_structure import *
 
 
