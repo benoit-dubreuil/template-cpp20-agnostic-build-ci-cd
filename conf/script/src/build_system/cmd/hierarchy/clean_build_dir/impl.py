@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Optional
 
 from ext.error import *
-from ..assure_arg_integrity import *
+from ..find_build_dir import *
 
 
 def clean_build_dir(build_dir: Optional[Path] = None, ignore_errors=False) -> bool:
