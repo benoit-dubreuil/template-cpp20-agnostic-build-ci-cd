@@ -4,7 +4,7 @@ import argparse
 
 import colorama
 
-from ext.cli import *
+from cli import *
 from ext.more_typing import AnyPath
 from file_structure import *
 from .impl import *

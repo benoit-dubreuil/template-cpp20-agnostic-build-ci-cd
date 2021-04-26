@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from . import *
-from ext.cli import *
+from cli import *
 
 
 def main():

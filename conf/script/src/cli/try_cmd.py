@@ -3,7 +3,7 @@ __all__ = ['try_cmd_except_managed_errors']
 import argparse
 from typing import Callable
 
-from ..error import *
+from ext.error import *
 
 
 def try_cmd_except_managed_errors(cmd_func: Callable, arg_parser: argparse.ArgumentParser):
