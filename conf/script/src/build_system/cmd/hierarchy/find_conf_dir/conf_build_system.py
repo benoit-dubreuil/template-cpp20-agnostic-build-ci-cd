@@ -6,7 +6,7 @@ from typing import Optional
 
 from ext.error import *
 from ext.error.utils import *
-from ..consts import *
+from file_structure import *
 from .impl import *
 
 

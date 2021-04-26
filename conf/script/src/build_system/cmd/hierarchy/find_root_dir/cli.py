@@ -5,8 +5,8 @@ import argparse
 import colorama
 
 from ext.cli import *
+from file_structure import *
 from .impl import *
-from ..consts import *
 
 
 def cli_find_root_dir():

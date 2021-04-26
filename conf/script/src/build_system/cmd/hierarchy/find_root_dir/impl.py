@@ -5,7 +5,7 @@ from pathlib import Path
 
 from ext.error import *
 from ext.error.utils import *
-from ..consts import *
+from file_structure import *
 
 
 def is_dir_root(root_dir: Path) -> bool:

@@ -3,7 +3,7 @@ __all__ = ['create_targets_build_dirs']
 from pathlib import Path
 
 from build_system.build_target import *
-from ..consts import *
+from file_structure import *
 
 
 def create_targets_build_dirs(build_dir: Path,

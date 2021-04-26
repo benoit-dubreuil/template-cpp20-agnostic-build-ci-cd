@@ -6,8 +6,8 @@ from typing import Optional
 
 from ext.error import *
 from ext.error.utils import *
+from file_structure import *
 from .conf_build_system import *
-from ..consts import *
 
 
 def get_meson_machine_files_dir_path_relative_to_build_system_dir(conf_build_system_dir: Optional[Path] = None) -> Path:

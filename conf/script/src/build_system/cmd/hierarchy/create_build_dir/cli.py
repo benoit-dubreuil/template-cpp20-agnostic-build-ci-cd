@@ -6,8 +6,8 @@ import colorama
 
 from ext.cli import *
 from ext.more_typing import AnyPath
+from file_structure import *
 from .impl import *
-from ..consts import *
 
 
 def cli_create_build_dir():
