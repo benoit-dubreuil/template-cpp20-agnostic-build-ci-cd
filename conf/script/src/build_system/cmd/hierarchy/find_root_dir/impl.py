@@ -71,11 +71,6 @@ def is_dir_a_root_dir(root_dir: Path) -> bool:
     return has_build_system_conf_file
 
 
-def _verify_root_dir_accessibility(root_dir: Path):
-    try_manage_strict_path_resolving(path_to_resolve=root_dir,
-                                     external_errors_to_manage={(Exception,): RootDirNotFoundError})
-
-
 def _walk_parent_path(current_path: Path = Path()) -> (Path, Path):
     try_manage_strict_path_resolving(path_to_resolve=current_path,
                                      external_errors_to_manage={(Exception,): RootDirNotFoundError})
