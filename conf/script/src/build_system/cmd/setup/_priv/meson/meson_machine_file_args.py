@@ -4,9 +4,9 @@ from pathlib import Path
 from typing import Final
 
 from build_system.build_target import *
+from build_system.cmd.hierarchy import *
 from build_system.compiler import *
 from .find_meson_machine_file import *
-from build_system.cmd.hierarchy import *
 
 
 def generate_meson_machine_files_args(compiler_instance: CompilerInstance,
