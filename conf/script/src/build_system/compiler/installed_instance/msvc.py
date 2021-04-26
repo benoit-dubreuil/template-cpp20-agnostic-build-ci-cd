@@ -52,8 +52,8 @@ class MSVCCompilerInstance(CompilerInstance):
         return '.bat'
 
     def create_env_context_manager(self) -> contextlib.AbstractContextManager:
-        import set_env_msvc
-        return set_env_msvc.EnvMSVC(compiler=self)
+        from .set_env_msvc import EnvMSVC
+        return EnvMSVC(compiler=self)
 
     @staticmethod
     def has_export_shell_env_script() -> bool:
