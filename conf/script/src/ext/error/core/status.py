@@ -18,6 +18,7 @@ class ErrorStatus(IntEnum):
     EMPTY_PARSED_ARG = auto()
 
     ROOT_DIR_NOT_FOUND = auto()
+    ROOT_DIR_NOT_DIR = auto()
     BUILD_DIR_NOT_FOUND = auto()
     BUILD_DIR_NOT_DIR = auto()
     BUILD_DIR_NOT_EMPTY = auto()
