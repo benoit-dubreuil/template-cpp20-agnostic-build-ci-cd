@@ -19,6 +19,7 @@ class ErrorStatus(IntEnum):
 
     ROOT_DIR_NOT_FOUND = auto()
     ROOT_DIR_NOT_DIR = auto()
+    ROOT_DIR_MISSING_BUILD_SYSTEM_CONF_FILE = auto()
     BUILD_DIR_NOT_FOUND = auto()
     BUILD_DIR_NOT_DIR = auto()
     BUILD_DIR_NOT_EMPTY = auto()
