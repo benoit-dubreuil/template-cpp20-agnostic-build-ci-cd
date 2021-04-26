@@ -1,1 +1,15 @@
-__all__ = []
+__all__ = ['DIR_STR',
+           'ROOT_DIR_ARG',
+           'BUILD_DIR_ARG']
+
+from ext.cli import *
+from ._type_alias import *
+from .build_dir import *
+from .root_dir import *
+
+_TAlias_CLI_Arg = Final[CLIArg]
+
+DIR_STR: TAlias_Name = 'dir'
+
+ROOT_DIR_ARG: _TAlias_CLI_Arg = CLIArg(f'{ROOT_STR}{DIR_STR}')
+BUILD_DIR_ARG: _TAlias_CLI_Arg = CLIArg(f'{BUILD_STR}{DIR_STR}')
