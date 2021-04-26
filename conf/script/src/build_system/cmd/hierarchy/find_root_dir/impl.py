@@ -14,6 +14,11 @@ def get_build_system_conf_file_path(root_dir: Path) -> Path:
     return root_dir / BUILD_SYSTEM_CONF_FILE_NAME
 
 
+def verify_root_dir_accessibility(root_dir: Path):
+    try_manage_strict_path_resolving(path_to_resolve=root_dir,
+                                     external_errors_to_manage={(Exception,): RootDirNotFoundError})
+
+
 def _verify_build_system_conf_file(build_system_conf_file: Path):
     try_manage_strict_path_resolving(path_to_resolve=build_system_conf_file,
                                      external_errors_to_manage={(Exception,): RootDirMissingBuildSystemConfFileError})
