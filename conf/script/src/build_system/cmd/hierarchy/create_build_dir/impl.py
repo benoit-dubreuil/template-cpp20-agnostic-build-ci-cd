@@ -4,16 +4,16 @@ from pathlib import Path
 from typing import Optional
 
 from ext.error import *
-from ..assure_arg_integrity import *
 from ..consts import *
 from ..find_build_dir import *
 
 
 def create_build_dir(root_dir: Optional[Path] = None) -> Path:
+    build_dir = get_build_dir_path(root_dir=root_dir)
+
     try:
-        build_dir = find_build_dir(root_dir=root_dir)
+        verify_build_dir(build_dir=build_dir)
     except BuildDirNotFoundError:
-        # PASS INFO TO EXCEPTION!!!!!!
         build_dir.mkdir(mode=BUILD_DIR_PERMISSIONS, parents=True)
 
     return build_dir
