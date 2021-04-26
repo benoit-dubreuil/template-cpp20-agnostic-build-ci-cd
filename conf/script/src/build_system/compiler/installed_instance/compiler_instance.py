@@ -1,32 +1,31 @@
-import abc
+__all__ = ['CompilerInstance']
+
+from abc import ABCMeta, abstractmethod
 import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import NoReturn, Optional, Type, final
 
-import build_system.compiler.build_option.sanitizer
-import build_system.compiler.family
-import build_system.compiler.version
-import host.architecture
-import host.os_family
-import utils.error.cls_def
-import utils.error.format
-import utils.error.try_external_errors
+from ..core import *
+from ..build_option import *
+from host import *
+from ext.error import *
+from ext.error.utils import *
 
 
 @dataclass(order=True, frozen=True)
-class CompilerInstance(metaclass=abc.ABCMeta):
-    compiler_family: build_system.compiler.family.CompilerFamily
-    os_family: host.os_family.OSFamily
-    arch: host.architecture.Architecture
-    version: build_system.compiler.version.CompilerVersion
+class CompilerInstance(metaclass=ABCMeta):
+    compiler_family: CompilerFamily
+    os_family: OSFamily
+    arch: Architecture
+    version: CompilerVersion
     installation_dir: Path
 
     def __init__(self,
-                 compiler_family: build_system.compiler.family.CompilerFamily,
-                 os_family: host.os_family.OSFamily,
-                 arch: host.architecture.Architecture,
-                 version: build_system.compiler.version.CompilerVersion,
+                 compiler_family: CompilerFamily,
+                 os_family: OSFamily,
+                 arch: Architecture,
+                 version: CompilerVersion,
                  installation_dir: Path
                  ):
         self._assert_compiler_family(compiler_family=compiler_family)
@@ -40,9 +39,9 @@ class CompilerInstance(metaclass=abc.ABCMeta):
     @classmethod
     @final
     def create_from_installed_compiler(cls,
-                                       compiler_family: build_system.compiler.family.CompilerFamily,
-                                       os_family: host.os_family.OSFamily,
-                                       arch: host.architecture.Architecture,
+                                       compiler_family: CompilerFamily,
+                                       os_family: OSFamily,
+                                       arch: Architecture,
                                        installation_dir: Optional[Path] = None) -> 'CompilerInstance':
         import build_system.cmd.compiler.host.get_info.version.fetch_by_criteria
 
@@ -51,17 +50,15 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         if installation_dir is None:
             installation_dir = sub_cls_matching_compiler_family._find_installation_dir_by_compiler_family(compiler_family=compiler_family)
         else:
-            utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=installation_dir,
-                                                                             external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
+            try_manage_strict_path_resolving(path_to_resolve=installation_dir,
+                                             external_errors_to_manage={(Exception,): CompilerNotFoundError})
 
-        version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_by_compiler_family(compiler_family)
+        version = build_system.cmd.compiler.host.get_info.version.fetch_by_criteria.fetch_compiler_version_by_family(compiler_family)
 
         return sub_cls_matching_compiler_family(compiler_family=compiler_family, os_family=os_family, arch=arch, version=version, installation_dir=installation_dir)
 
     @classmethod
-    def __search_first_sub_cls_matching_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Optional[Type['CompilerInstance']]:
-        # noinspection PyUnresolvedReferences
-        import build_system.compiler.installed_instance.import_all_concrete_instances
+    def __search_first_sub_cls_matching_compiler_family(cls, compiler_family: CompilerFamily) -> Optional[Type['CompilerInstance']]:
 
         subclasses: list[Type[CompilerInstance]] = cls.__subclasses__().copy()
         sublcass_matching_compiler_family: Optional[Type[CompilerInstance]] = None
@@ -81,23 +78,23 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         return sublcass_matching_compiler_family
 
     @classmethod
-    def __checked_search_first_sub_cls_matching_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Type['CompilerInstance']:
+    def __checked_search_first_sub_cls_matching_compiler_family(cls, compiler_family: CompilerFamily) -> Type['CompilerInstance']:
         sublcass_matching_compiler_family: Optional[Type[CompilerInstance]] = cls.__search_first_sub_cls_matching_compiler_family(compiler_family=compiler_family)
 
         if sublcass_matching_compiler_family is None:
-            error_msg: str = utils.error.format.format_error_msg('Comnpiler is not supported')
+            error_msg: str = format_error_msg('Comnpiler is not supported')
             raise TypeError(error_msg)
 
         return sublcass_matching_compiler_family
 
     @staticmethod
-    @abc.abstractmethod
-    def get_supported_compiler_families() -> list[build_system.compiler.family.CompilerFamily]:
+    @abstractmethod
+    def get_supported_compiler_families() -> list[CompilerFamily]:
         raise NotImplementedError()
 
     @staticmethod
-    def get_supported_sanitizers() -> list[build_system.compiler.build_option.sanitizer.CompilerSanitizer]:
-        return [build_system.compiler.build_option.sanitizer.CompilerSanitizer.NONE]
+    def get_supported_sanitizers() -> list[CompilerSanitizer]:
+        return [CompilerSanitizer.NONE]
 
     def create_env_context_manager(self) -> contextlib.AbstractContextManager:
         return contextlib.nullcontext()
@@ -113,21 +110,21 @@ class CompilerInstance(metaclass=abc.ABCMeta):
         raise NotImplementedError()
 
     @staticmethod
-    @abc.abstractmethod
+    @abstractmethod
     def get_c_compiler_name() -> str:
         raise NotImplementedError()
 
     @staticmethod
-    @abc.abstractmethod
+    @abstractmethod
     def get_cpp_compiler_name() -> str:
         raise NotImplementedError()
 
     @classmethod
-    @abc.abstractmethod
-    def _find_installation_dir_by_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily) -> Path:
+    @abstractmethod
+    def _find_installation_dir_by_compiler_family(cls, compiler_family: CompilerFamily) -> Path:
         raise NotImplementedError()
 
     @classmethod
     @final
-    def _assert_compiler_family(cls, compiler_family: build_system.compiler.family.CompilerFamily):
+    def _assert_compiler_family(cls, compiler_family: CompilerFamily):
         assert compiler_family in cls.get_supported_compiler_families()

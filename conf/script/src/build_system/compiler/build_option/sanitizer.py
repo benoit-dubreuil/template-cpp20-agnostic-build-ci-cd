@@ -1,3 +1,5 @@
+__all__ = ['CompilerSanitizer']
+
 from enum import Enum, unique
 
 

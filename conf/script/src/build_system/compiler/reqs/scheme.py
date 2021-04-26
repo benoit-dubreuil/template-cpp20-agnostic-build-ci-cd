@@ -1,3 +1,5 @@
+__all__ = ['CompilerReqsScheme']
+
 from enum import Enum, unique
 
 

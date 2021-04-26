@@ -1,10 +1,12 @@
+__all__ = ['find_msvc_location']
+
 from pathlib import Path
 from typing import Final, Optional
 
 import vswhere
 
-import utils.error.cls_def
-import utils.error.try_external_errors
+from ext.error import *
+from ext.error.utils import *
 
 _DEFAULT_REQUIRES: Final[list[str]] = [
     'Microsoft.VisualStudio.Component.VC.Tools.x86.x64',
@@ -20,7 +22,7 @@ _ALL_PRODUCTS: Final[str] = '*'
 _PROP_INSTALLATION_PATH: Final[str] = 'installationPath'
 
 
-def find_location(compiler_installation_path: Optional[Path] = None) -> Optional[Path]:
+def find_msvc_location(compiler_installation_path: Optional[Path] = None) -> Optional[Path]:
     if compiler_installation_path is None:
         found_compiler_installation_path = vswhere.find_first(latest=True, prerelease=True, products=_ALL_PRODUCTS, prop=_PROP_INSTALLATION_PATH, requires=_DEFAULT_REQUIRES)
     else:
@@ -29,8 +31,8 @@ def find_location(compiler_installation_path: Optional[Path] = None) -> Optional
     if found_compiler_installation_path is not None:
         found_compiler_installation_path = Path(found_compiler_installation_path.strip())
 
-        utils.error.try_external_errors.try_manage_strict_path_resolving(path_to_resolve=found_compiler_installation_path,
-                                                                         external_errors_to_manage={(Exception,): utils.error.cls_def.CompilerNotFoundError})
+        try_manage_strict_path_resolving(path_to_resolve=found_compiler_installation_path,
+                                         external_errors_to_manage={(Exception,): CompilerNotFoundError})
 
         found_compiler_installation_path = found_compiler_installation_path.absolute()
 

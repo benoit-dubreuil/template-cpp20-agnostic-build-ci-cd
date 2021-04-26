@@ -1,7 +1,11 @@
+__all__ = ['Architecture']
+
 import sys
 from enum import IntFlag, unique
+from typing import final
 
 
+@final
 @unique
 class Architecture(IntFlag):
     UNKNOWN = 0
@@ -13,9 +17,9 @@ class Architecture(IntFlag):
     def arch_to_bit_name(self) -> str:
         return str(self.value) + 'bit'
 
+    @classmethod
+    def detect_arch(cls) -> 'Architecture':
+        exclusive_max_word = sys.maxsize + 1
+        word_size = exclusive_max_word.bit_length()
 
-def detect_arch() -> Architecture:
-    exclusive_max_word = sys.maxsize + 1
-    word_size = exclusive_max_word.bit_length()
-
-    return Architecture(word_size)
+        return cls(word_size)
