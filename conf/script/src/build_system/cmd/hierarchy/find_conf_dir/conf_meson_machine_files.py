@@ -14,7 +14,7 @@ def get_meson_machine_files_dir_path_relative_to_build_system_dir(conf_build_sys
     if conf_build_system_dir is None:
         conf_build_system_dir = find_conf_build_system_dir()
 
-    return conf_build_system_dir / MESON_MACHINE_FILES_DIR_NAME
+    return conf_build_system_dir / CONF_MESON_MACHINE_FILES_DIR_NAME
 
 
 def find_meson_machine_files_dir(conf_build_system_dir: Optional[Path] = None) -> Path:

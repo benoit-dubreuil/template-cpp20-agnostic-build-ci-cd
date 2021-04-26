@@ -8,7 +8,7 @@ __all__ = ['DIR_STR',
            'TARGET_SCRIPT_COMPILER_ENV_NAME',
            'CONF_DIR_NAME',
            'CONF_BUILD_SYSTEM_DIR_NAME',
-           'MESON_MACHINE_FILES_DIR_NAME',
+           'CONF_MESON_MACHINE_FILES_DIR_NAME',
            'ROOT_DIR_ARG',
            'BUILD_DIR_ARG',
            'BUILD_DIR_PERMISSIONS',
@@ -35,7 +35,7 @@ TARGET_SCRIPT_COMPILER_ENV_NAME = 'compiler_env.properties'
 
 CONF_DIR_NAME: _TAlias_Const = 'conf'
 CONF_BUILD_SYSTEM_DIR_NAME: _TAlias_Const = f'{BUILD_DIR_NAME}-system'
-MESON_MACHINE_FILES_DIR_NAME: _TAlias_Const = 'machine'
+CONF_MESON_MACHINE_FILES_DIR_NAME: _TAlias_Const = 'machine'
 
 ROOT_DIR_ARG: _TAlias_CLI_Const = CLIArg(f'{ROOT_STR}{DIR_STR}')
 BUILD_DIR_ARG: _TAlias_CLI_Const = CLIArg(f'{BUILD_DIR_NAME}{DIR_STR}')
