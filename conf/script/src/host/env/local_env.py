@@ -1,6 +1,8 @@
+__all__ = ['LocalEnv']
+
 from dataclasses import dataclass
 
-from host.env.env_var import EnvVar
+from .env_var import *
 
 
 @dataclass(init=False, order=True)
