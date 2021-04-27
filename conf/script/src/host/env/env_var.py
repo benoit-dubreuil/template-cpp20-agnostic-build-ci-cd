@@ -25,7 +25,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         super().__init__(*args, **kwargs)
 
         self.__env_key = key if key is not None else T_Env_Key()
-        self.__env_values = values if values is not None else TAlias_Env_Values
+        self.__env_values = values if values is not None else TAlias_Env_Values()
 
     @classmethod
     def create_from_joined_values(cls,
