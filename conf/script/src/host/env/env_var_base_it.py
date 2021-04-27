@@ -1,16 +1,16 @@
-import abc
-import collections.abc
+__all__ = ['EnvVarBaseIt']
 
-import host.env.env_var
-import host.env.env_var_fwd as _fwd
+from abc import ABCMeta, abstractmethod
+from collections.abc import Iterator
+from typing import Final, final
+
+from .env_var import *
+from .env_var_fwd import *
 
 
-class EnvVarBaseIt(collections.abc.Iterator[_fwd.T_Key], metaclass=abc.ABCMeta):
-    from host.env.env_var import EnvVar
-    from typing import Final, final
-
+class EnvVarBaseIt(Iterator[T_Key], metaclass=ABCMeta):
     __has_itered_over_env: bool
-    __env_var: Final[host.env.env_var.EnvVar]
+    __env_var: Final[EnvVar]
 
     def __init__(self, env_var: EnvVar) -> None:
         self.__has_itered_over_env = False
@@ -21,7 +21,7 @@ class EnvVarBaseIt(collections.abc.Iterator[_fwd.T_Key], metaclass=abc.ABCMeta):
         return self.__env_var
 
     @final
-    def __next__(self) -> _fwd.T_Key:
+    def __next__(self) -> T_Key:
         self.__verify_has_next()
         self.__has_itered_over_env = True
 
@@ -31,6 +31,6 @@ class EnvVarBaseIt(collections.abc.Iterator[_fwd.T_Key], metaclass=abc.ABCMeta):
         if self.__has_itered_over_env:
             raise StopIteration()
 
-    @abc.abstractmethod
-    def _peek_next(self) -> _fwd.T_Key:
+    @abstractmethod
+    def _peek_next(self) -> T_Key:
         raise NotImplementedError()
