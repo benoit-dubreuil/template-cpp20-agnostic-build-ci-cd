@@ -11,8 +11,8 @@ from build_system.build_target import *
 from build_system.cmd.setup._priv.cli import *
 from build_system.compiler import *
 from cli import *
-from ext.utils.cmd_integrity import *
 from error import *
+from ext.utils.path import *
 from file_structure import *
 from .meson_machine_file_args import *
 
