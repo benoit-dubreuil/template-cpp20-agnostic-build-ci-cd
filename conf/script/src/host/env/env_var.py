@@ -31,10 +31,12 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
     @classmethod
     def create_from_joined_values(cls,
-                                  key: T_Env_Key = None,
-                                  joined_values: AnyStr = None) -> 'EnvVar':
-        # TODO
-        ...
+                                  key: T_Env_Key,
+                                  joined_values: AnyStr) -> T_EnvVar:
+        split_values: list[AnyStr] = cls.__split_joined_values(joined_values=joined_values)
+        env_values: TAlias_Env_Values = cls.__cast_split_values(split_values=split_values)
+
+        return cls(key=key, values=env_values)
 
     @classmethod
     def __split_joined_values(cls, joined_values: AnyStr) -> list[AnyStr]:
