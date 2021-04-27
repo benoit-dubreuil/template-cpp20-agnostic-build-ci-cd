@@ -16,7 +16,7 @@ def cli_setup_build_system():
                                                      'folder and setup specific build system builds inside.')
     add_optional_path_arg(arg_parser, ROOT_DIR_ARG, path_arg_help="The project's root directory")
 
-    root_dir: AnyPath = parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
+    root_dir: TUnion_AnyPath = parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
     arg_parser.parse_args()
 
     def cli_cmd():
