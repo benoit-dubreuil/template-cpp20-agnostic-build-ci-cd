@@ -6,8 +6,8 @@ from pathlib import Path
 from typing import AnyStr, Callable
 
 from build_system.compiler import *
-from ext.utils.cmd_integrity import *
 from error import *
+from ext.utils.path import *
 
 
 def verify_compiler_path(compiler_path: Path) -> None:
