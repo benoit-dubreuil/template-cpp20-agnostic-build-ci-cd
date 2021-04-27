@@ -2,8 +2,6 @@ import typing
 
 import utils.more_typing
 
-TAlias_Default_AnyStr = str
-
 T_EnvVar = typing.TypeVar('T_EnvVar', bound='EnvVar')
 
 T_Key = typing.AnyStr

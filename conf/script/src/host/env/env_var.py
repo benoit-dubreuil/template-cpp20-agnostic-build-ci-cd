@@ -68,10 +68,10 @@ class EnvVar(Mapping[_fwd.T_Key, list[_fwd.T_Single_Value]], Generic[_fwd.T_Key,
 
         return f'{self.get_env_key()}={joined_values}'
 
-    def cast_values_to_any_str(self, str_cls: type[AnyStr] = _fwd.TAlias_Default_AnyStr) -> list[AnyStr]:
+    def cast_values_to_any_str(self, str_cls: type[AnyStr] = AnyStr) -> list[AnyStr]:
         return [str_cls(value) for value in self.get_env_values()]
 
-    def join_values(self, str_cls: type[AnyStr] = _fwd.TAlias_Default_AnyStr) -> AnyStr:
+    def join_values(self, str_cls: type[AnyStr] = AnyStr) -> AnyStr:
         casted_env_var_sep: AnyStr = str_cls(os.pathsep)
         casted_values: list[AnyStr] = self.cast_values_to_any_str(str_cls=str_cls)
 
