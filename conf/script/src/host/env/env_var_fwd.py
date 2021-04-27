@@ -4,9 +4,9 @@ __all__ = ['T_EnvVar',
 
 import typing
 
-import utils.more_typing
+from ext.utils.path import *
 
 T_EnvVar = typing.TypeVar('T_EnvVar', bound='EnvVar')
 
 T_Key = typing.AnyStr
-T_Single_Value = utils.more_typing.T_PathLike
+T_Single_Value = T_PathLike
