@@ -37,7 +37,12 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         ...
 
     @classmethod
-    def __cast_split_values(cls, env_values: AnyStr) -> TAlias_Env_Values:
+    def __split_joined_values(cls, joined_values: AnyStr) -> list[AnyStr]:
+        env_values_sep: AnyStr = cls.__get_env_values_sep(joined_values_cls=type(joined_values))
+        split_values: list[AnyStr] = joined_values.split(sep=env_values_sep)
+
+        return split_values
+
     @classmethod
     def __cast_split_values(cls, env_values: list[AnyStr]) -> TAlias_Env_Values:
         generic_env_single_val: type = cls.generics_by_type_vars[T_Env_Single_Val]
