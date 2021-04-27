@@ -8,7 +8,7 @@ from .env_var import *
 from .env_var_fwd import *
 
 
-class EnvVarBaseIt(Iterator[T_Key], metaclass=ABCMeta):
+class EnvVarBaseIt(Iterator[T_Env_Key], metaclass=ABCMeta):
     __has_itered_over_env: bool
     __env_var: Final[EnvVar]
 
@@ -21,7 +21,7 @@ class EnvVarBaseIt(Iterator[T_Key], metaclass=ABCMeta):
         return self.__env_var
 
     @final
-    def __next__(self) -> T_Key:
+    def __next__(self) -> T_Env_Key:
         self.__verify_has_next()
         self.__has_itered_over_env = True
 
@@ -32,5 +32,5 @@ class EnvVarBaseIt(Iterator[T_Key], metaclass=ABCMeta):
             raise StopIteration()
 
     @abstractmethod
-    def _peek_next(self) -> T_Key:
+    def _peek_next(self) -> T_Env_Key:
         raise NotImplementedError()

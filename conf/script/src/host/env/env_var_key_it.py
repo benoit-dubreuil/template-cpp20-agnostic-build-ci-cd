@@ -7,7 +7,7 @@ from .env_var_fwd import *
 
 
 @final
-class EnvVarKeyIt(EnvVarBaseIt[T_Key]):
+class EnvVarKeyIt(EnvVarBaseIt[T_Env_Key]):
 
-    def _peek_next(self) -> T_Key:
+    def _peek_next(self) -> T_Env_Key:
         return self.get_env_var().get_env_key()

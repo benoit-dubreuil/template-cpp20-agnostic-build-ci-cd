@@ -10,45 +10,45 @@ from .env_var_fwd import *
 
 
 @dataclass(init=False, order=True)
-class EnvVar(Mapping[T_Key, list[T_Single_Value]], Generic[T_Key, T_Single_Value]):
-    __env_key: T_Key
+class EnvVar(Mapping[T_Env_Key, list[T_Single_Value]], Generic[T_Env_Key, T_Single_Value]):
+    __env_key: T_Env_Key
     __env_values: list[T_Single_Value]
 
     __ENV_VAR_ITEM_COUNT: Final[int] = 1
 
     def __init__(self: T_EnvVar,
-                 key: T_Key = None,
+                 key: T_Env_Key = None,
                  values: list[T_Single_Value] = None) -> None:
-        self.__env_key = key if key is not None else T_Key()
+        self.__env_key = key if key is not None else T_Env_Key()
         self.__env_values = values if values is not None else list[T_Single_Value]
 
     @classmethod
     def create_from_joined_values(cls,
-                                  key: T_Key = None,
+                                  key: T_Env_Key = None,
                                   joined_values: AnyStr = None) -> 'EnvVar':
         # TODO
         ...
 
-    def get_env_key(self) -> T_Key:
+    def get_env_key(self) -> T_Env_Key:
         return self.__env_key
 
     def get_env_values(self) -> list[T_Single_Value]:
         return self.__env_values
 
-    def iter_key(self) -> Iterator[T_Key]:
+    def iter_key(self) -> Iterator[T_Env_Key]:
         from host.env.env_var_key_it import EnvVarKeyIt
         return EnvVarKeyIt(env_var=self)
 
     def iter_values(self) -> Iterator[T_Single_Value]:
         return iter(self.get_env_values())
 
-    def __contains__(self, key: T_Key) -> bool:
+    def __contains__(self, key: T_Env_Key) -> bool:
         self.__verify_key_type(key=key)
-        env_key: T_Key = self.get_env_key()
+        env_key: T_Env_Key = self.get_env_key()
 
         return key is env_key or key == env_key
 
-    def __getitem__(self, key: T_Key) -> list[T_Single_Value]:
+    def __getitem__(self, key: T_Env_Key) -> list[T_Single_Value]:
         if key not in self:
             raise KeyError()
 
@@ -57,7 +57,7 @@ class EnvVar(Mapping[T_Key, list[T_Single_Value]], Generic[T_Key, T_Single_Value
     def __len__(self) -> int:
         return self.__ENV_VAR_ITEM_COUNT
 
-    def __iter__(self) -> Iterator[T_Key]:
+    def __iter__(self) -> Iterator[T_Env_Key]:
         return self.iter_key()
 
     def __str__(self) -> str:
@@ -78,6 +78,6 @@ class EnvVar(Mapping[T_Key, list[T_Single_Value]], Generic[T_Key, T_Single_Value
         return casted_env_var_sep.join(casted_values)
 
     @classmethod
-    def __verify_key_type(cls: type[T_EnvVar], key: T_Key) -> None:
+    def __verify_key_type(cls: type[T_EnvVar], key: T_Env_Key) -> None:
         if not isinstance(key, get_args(cls)):
             raise TypeError()
