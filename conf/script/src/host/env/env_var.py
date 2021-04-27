@@ -78,7 +78,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         assert self.__env_key is not None
         assert self.__env_values is not None
 
-        joined_values = self.join_values()
+        joined_values = self.join_values(str_cls=str)
 
         return f'{self.get_env_key()}={joined_values}'
 
@@ -98,10 +98,10 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         generic_env_single_val: type = cls.generics_by_type_vars[T_Env_Single_Val]
         return [generic_env_single_val(value) for value in split_values]
 
-    def cast_values_to_any_str(self, str_cls: type[AnyStr] = AnyStr) -> list[AnyStr]:
+    def cast_values_to_any_str(self, str_cls: type[AnyStr]) -> list[AnyStr]:
         return [str_cls(value) for value in self.get_env_values()]
 
-    def join_values(self, str_cls: type[AnyStr] = AnyStr) -> AnyStr:
+    def join_values(self, str_cls: type[AnyStr]) -> AnyStr:
         casted_env_var_sep: AnyStr = str_cls(os.pathsep)
         casted_values: list[AnyStr] = self.cast_values_to_any_str(str_cls=str_cls)
 
