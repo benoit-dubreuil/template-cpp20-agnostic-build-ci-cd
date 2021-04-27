@@ -4,7 +4,7 @@ import os
 from collections.abc import Iterator
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import AnyStr, Final, Generic, get_args
+from typing import AnyStr, Final, Generic
 
 from ext.meta_prog.generics import *
 from .env_var_fwd import *
@@ -25,6 +25,11 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         super().__init__(*args, **kwargs)
 
         generic_env_key: type = self.generics_by_type_vars[T_Env_Key]
+
+        assert generic_env_key is not (type(None))
+        assert self.generics_by_type_vars[T_Env_Single_Val] is not (type(None))
+
+        self.__verify_key_type(key=key)
 
         self.__env_key = key if key is not None else generic_env_key()
         self.__env_values = values if values is not None else TAlias_Env_Values()
