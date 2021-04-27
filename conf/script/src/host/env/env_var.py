@@ -104,5 +104,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
     @classmethod
     def __verify_key_type(cls: type[T_EnvVar], key: T_Env_Key) -> None:
-        if not isinstance(key, get_args(cls)):
+        generic_env_key = cls.generics_by_type_vars[T_Env_Key]
+
+        if not isinstance(key, generic_env_key):
             raise TypeError()
