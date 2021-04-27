@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import AnyStr, Final, Generic
 
 from ext.meta_prog.generics import *
+from ext.utils.string import *
 from .env_var_fwd import *
 
 
@@ -98,12 +99,12 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         generic_env_single_val: type = cls.generics_by_type_vars[T_Env_Single_Val]
         return [generic_env_single_val(value) for value in split_values]
 
-    def cast_values_to_any_str(self, str_cls: type[AnyStr]) -> list[AnyStr]:
-        return [str_cls(value) for value in self.get_env_values()]
+    def cast_values_to_any_str(self, target_cls: type[AnyStr]) -> list[AnyStr]:
+        return [cast_any_str(target_cls=target_cls, src_any_str=value) for value in self.get_env_values()]
 
     def join_values(self, str_cls: type[AnyStr]) -> AnyStr:
         casted_env_var_sep: AnyStr = str_cls(os.pathsep)
-        casted_values: list[AnyStr] = self.cast_values_to_any_str(str_cls=str_cls)
+        casted_values: list[AnyStr] = self.cast_values_to_any_str(target_cls=str_cls)
 
         return casted_env_var_sep.join(casted_values)
 
