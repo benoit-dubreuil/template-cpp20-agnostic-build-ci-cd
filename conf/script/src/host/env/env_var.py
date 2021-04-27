@@ -1,9 +1,9 @@
 __all__ = ['EnvVar']
 
-from collections.abc import Mapping
 import os
 import typing
 from collections.abc import Iterator
+from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Final
 
