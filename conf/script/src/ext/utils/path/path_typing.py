@@ -1,4 +1,5 @@
-__all__ = ['TUnion_PathLike',
+__all__ = ['TUnion_Path',
+           'TUnion_PathLike',
            'TUnion_AnyPath',
            'T_PathLike',
            'T_AnyPath']
