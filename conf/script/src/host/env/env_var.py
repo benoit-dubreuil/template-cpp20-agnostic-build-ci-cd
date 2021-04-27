@@ -1,17 +1,16 @@
 __all__ = ['EnvVar']
 
 import os
-import typing
 from collections.abc import Iterator
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Final
+from typing import Final, Generic, AnyStr, get_args
 
 import host.env.env_var_fwd as _fwd
 
 
 @dataclass(init=False, order=True)
-class EnvVar(Mapping[_fwd.T_Key, list[_fwd.T_Single_Value]], typing.Generic[_fwd.T_Key, _fwd.T_Single_Value]):
+class EnvVar(Mapping[_fwd.T_Key, list[_fwd.T_Single_Value]], Generic[_fwd.T_Key, _fwd.T_Single_Value]):
     __env_key: _fwd.T_Key
     __env_values: list[_fwd.T_Single_Value]
 
@@ -26,7 +25,7 @@ class EnvVar(Mapping[_fwd.T_Key, list[_fwd.T_Single_Value]], typing.Generic[_fwd
     @classmethod
     def create_from_joined_values(cls,
                                   key: _fwd.T_Key = None,
-                                  joined_values: typing.AnyStr = None) -> 'EnvVar':
+                                  joined_values: AnyStr = None) -> 'EnvVar':
         # TODO
         ...
 
@@ -69,16 +68,16 @@ class EnvVar(Mapping[_fwd.T_Key, list[_fwd.T_Single_Value]], typing.Generic[_fwd
 
         return f'{self.get_env_key()}={joined_values}'
 
-    def cast_values_to_any_str(self, str_cls: type[typing.AnyStr] = _fwd.TAlias_Default_AnyStr) -> list[typing.AnyStr]:
+    def cast_values_to_any_str(self, str_cls: type[AnyStr] = _fwd.TAlias_Default_AnyStr) -> list[AnyStr]:
         return [str_cls(value) for value in self.get_env_values()]
 
-    def join_values(self, str_cls: type[typing.AnyStr] = _fwd.TAlias_Default_AnyStr) -> typing.AnyStr:
-        casted_env_var_sep: typing.AnyStr = str_cls(os.pathsep)
-        casted_values: list[typing.AnyStr] = self.cast_values_to_any_str(str_cls=str_cls)
+    def join_values(self, str_cls: type[AnyStr] = _fwd.TAlias_Default_AnyStr) -> AnyStr:
+        casted_env_var_sep: AnyStr = str_cls(os.pathsep)
+        casted_values: list[AnyStr] = self.cast_values_to_any_str(str_cls=str_cls)
 
         return casted_env_var_sep.join(casted_values)
 
     @classmethod
     def __verify_key_type(cls: type[_fwd.T_EnvVar], key: _fwd.T_Key) -> None:
-        if not isinstance(key, typing.get_args(cls)):
+        if not isinstance(key, get_args(cls)):
             raise TypeError()
