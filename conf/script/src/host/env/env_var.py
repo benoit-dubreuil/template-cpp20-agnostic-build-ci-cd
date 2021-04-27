@@ -6,7 +6,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Final, Generic, AnyStr, get_args
 
-import host.env.env_var_fwd as _fwd
+from .env_var_fwd import *
 
 
 @dataclass(init=False, order=True)
