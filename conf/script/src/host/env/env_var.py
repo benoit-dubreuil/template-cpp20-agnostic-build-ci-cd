@@ -10,17 +10,17 @@ from .env_var_fwd import *
 
 
 @dataclass(init=False, order=True)
-class EnvVar(Mapping[T_Env_Key, list[T_Env_Single_Val]], Generic[T_Env_Key, T_Env_Single_Val]):
+class EnvVar(Mapping[T_Env_Key, TAlias_Env_Values], Generic[T_Env_Key, T_Env_Single_Val]):
     __env_key: T_Env_Key
-    __env_values: list[T_Env_Single_Val]
+    __env_values: TAlias_Env_Values
 
     __ENV_VAR_ITEM_COUNT: Final[int] = 1
 
     def __init__(self: T_EnvVar,
                  key: T_Env_Key = None,
-                 values: list[T_Env_Single_Val] = None) -> None:
+                 values: TAlias_Env_Values = None) -> None:
         self.__env_key = key if key is not None else T_Env_Key()
-        self.__env_values = values if values is not None else list[T_Env_Single_Val]
+        self.__env_values = values if values is not None else TAlias_Env_Values
 
     @classmethod
     def create_from_joined_values(cls,
@@ -32,7 +32,7 @@ class EnvVar(Mapping[T_Env_Key, list[T_Env_Single_Val]], Generic[T_Env_Key, T_En
     def get_env_key(self) -> T_Env_Key:
         return self.__env_key
 
-    def get_env_values(self) -> list[T_Env_Single_Val]:
+    def get_env_values(self) -> TAlias_Env_Values:
         return self.__env_values
 
     def iter_key(self) -> Iterator[T_Env_Key]:
@@ -48,7 +48,7 @@ class EnvVar(Mapping[T_Env_Key, list[T_Env_Single_Val]], Generic[T_Env_Key, T_En
 
         return key is env_key or key == env_key
 
-    def __getitem__(self, key: T_Env_Key) -> list[T_Env_Single_Val]:
+    def __getitem__(self, key: T_Env_Key) -> TAlias_Env_Values:
         if key not in self:
             raise KeyError()
 
