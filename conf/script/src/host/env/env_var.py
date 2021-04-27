@@ -38,18 +38,6 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
         return cls(key=key, values=env_values)
 
-    @classmethod
-    def __split_joined_values(cls, joined_values: AnyStr) -> list[AnyStr]:
-        env_values_sep: AnyStr = cls.__get_env_values_sep(joined_values_cls=type(joined_values))
-        split_values: list[AnyStr] = joined_values.split(sep=env_values_sep)
-
-        return split_values
-
-    @classmethod
-    def __cast_split_values(cls, split_values: list[AnyStr]) -> TAlias_Env_Values:
-        generic_env_single_val: type = cls.generics_by_type_vars[T_Env_Single_Val]
-        return [generic_env_single_val(value) for value in split_values]
-
     def get_env_key(self) -> T_Env_Key:
         return self.__env_key
 
@@ -92,6 +80,18 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
     @staticmethod
     def __get_env_values_sep(joined_values_cls: type[AnyStr]) -> AnyStr:
         return joined_values_cls(os.pathsep)
+
+    @classmethod
+    def __split_joined_values(cls, joined_values: AnyStr) -> list[AnyStr]:
+        env_values_sep: AnyStr = cls.__get_env_values_sep(joined_values_cls=type(joined_values))
+        split_values: list[AnyStr] = joined_values.split(sep=env_values_sep)
+
+        return split_values
+
+    @classmethod
+    def __cast_split_values(cls, split_values: list[AnyStr]) -> TAlias_Env_Values:
+        generic_env_single_val: type = cls.generics_by_type_vars[T_Env_Single_Val]
+        return [generic_env_single_val(value) for value in split_values]
 
     def cast_values_to_any_str(self, str_cls: type[AnyStr] = AnyStr) -> list[AnyStr]:
         return [str_cls(value) for value in self.get_env_values()]
