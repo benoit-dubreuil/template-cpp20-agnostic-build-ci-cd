@@ -6,19 +6,24 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import AnyStr, Final, Generic, get_args
 
+from ext.meta_prog.generics import *
 from .env_var_fwd import *
 
 
 @dataclass(init=False, order=True)
-class EnvVar(Mapping[T_Env_Key, TAlias_Env_Values], Generic[T_Env_Key, T_Env_Single_Val]):
+class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Values], Generic[T_Env_Key, T_Env_Single_Val]):
     __env_key: T_Env_Key
     __env_values: TAlias_Env_Values
 
     __ENV_VAR_ITEM_COUNT: Final[int] = 1
 
     def __init__(self: T_EnvVar,
+                 *args,
                  key: T_Env_Key = None,
-                 values: TAlias_Env_Values = None) -> None:
+                 values: TAlias_Env_Values = None,
+                 **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
         self.__env_key = key if key is not None else T_Env_Key()
         self.__env_values = values if values is not None else TAlias_Env_Values
 
