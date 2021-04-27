@@ -9,11 +9,13 @@ import os
 from pathlib import Path
 from typing import TypeVar, Union
 
-TConstraints_PathLike = (Path, os.PathLike, str, bytes)
-TConstraints_AnyPath = (Path, os.PathLike, str, bytes, type(None))
+from ..string import *
 
-TUnion_PathLike = Union[Path, os.PathLike, str, bytes]
-TUnion_AnyPath = Union[Path, os.PathLike, str, bytes, type(None)]
+TConstraints_PathLike = (Path, os.PathLike, TUnion_AnyStr)
+TConstraints_AnyPath = (Path, os.PathLike, TUnion_AnyStr, type(None))
 
-T_PathLike = TypeVar("T_PathLike", Path, os.PathLike, str, bytes)
-T_AnyPath = TypeVar("T_AnyPath", Path, os.PathLike, str, bytes, type(None))
+TUnion_PathLike = Union[Path, os.PathLike, TUnion_AnyStr]
+TUnion_AnyPath = Union[Path, os.PathLike, TUnion_AnyStr, type(None)]
+
+T_PathLike = TypeVar("T_PathLike", Path, os.PathLike, TUnion_AnyStr)
+T_AnyPath = TypeVar("T_AnyPath", Path, os.PathLike, TUnion_AnyStr, type(None))
