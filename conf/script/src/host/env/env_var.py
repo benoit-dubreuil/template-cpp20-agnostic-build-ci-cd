@@ -24,7 +24,9 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
                  **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.__env_key = key if key is not None else T_Env_Key()
+        generic_env_key: type = self.generics_by_type_vars[T_Env_Key]
+
+        self.__env_key = key if key is not None else generic_env_key()
         self.__env_values = values if values is not None else TAlias_Env_Values()
 
     @classmethod
