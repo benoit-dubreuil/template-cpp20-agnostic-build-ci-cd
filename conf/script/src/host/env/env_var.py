@@ -92,20 +92,18 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
     def __get_env_values_sep(joined_values_cls: type[AnyStr]) -> AnyStr:
         return cast_any_str(target_cls=joined_values_cls, src_any_str=os.pathsep)
 
-    @classmethod
-    def __split_joined_values(cls, joined_values: AnyStr) -> list[AnyStr]:
+    def __split_joined_values(self, joined_values: AnyStr) -> list[AnyStr]:
+        env_values_sep: AnyStr = self.__get_env_values_sep(joined_values_cls=type(joined_values))
         split_values: list[AnyStr] = joined_values.strip(env_values_sep).split(sep=env_values_sep)
 
         return split_values
 
-    @classmethod
-    def __cast_split_values(cls, split_values: list[AnyStr]) -> TAlias_Env_Values:
-        generic_env_single_val = cls.__get_type_env_single_val()
-        return [cast_path_like(target_cls=generic_env_single_val, src_path_like=value) for value in split_values]
+    def __cast_split_values(self, split_values: list[AnyStr]) -> TAlias_Env_Values:
+        type_env_single_val = self.generics_by_type_vars[T_Env_Single_Val]
+        return [cast_path_like(target_cls=type_env_single_val, src_path_like=value) for value in split_values]
 
-    @classmethod
-    def __verify_key_type(cls: type[T_EnvVar], key: T_Env_Key) -> None:
-        generic_env_key = cls.generics_by_type_vars[T_Env_Key]
+    def __verify_key_type(self: type[T_EnvVar], key: T_Env_Key) -> None:
+        generic_env_key = self.generics_by_type_vars[T_Env_Key]
 
         if not isinstance(key, generic_env_key):
             raise TypeError()
