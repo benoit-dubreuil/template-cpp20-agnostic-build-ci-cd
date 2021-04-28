@@ -46,19 +46,6 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
         return cls(key=key, values=env_values)
 
-    def get_env_key(self) -> T_Env_Key:
-        return self.__env_key
-
-    def get_env_values(self) -> TAlias_Env_Values:
-        return self.__env_values
-
-    def iter_key(self) -> Iterator[T_Env_Key]:
-        from host.env.env_var_key_it import EnvVarKeyIt
-        return EnvVarKeyIt(env_var=self)
-
-    def iter_values(self) -> Iterator[T_Env_Single_Val]:
-        return iter(self.get_env_values())
-
     def __contains__(self, key: T_Env_Key) -> bool:
         self.__verify_key_type(key=key)
         env_key: T_Env_Key = self.get_env_key()
@@ -81,6 +68,28 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         joined_values = self.join_values(str_cls=str)
         return f'{self.get_env_key()}={joined_values}'
 
+    def get_env_key(self) -> T_Env_Key:
+        return self.__env_key
+
+    def get_env_values(self) -> TAlias_Env_Values:
+        return self.__env_values
+
+    def iter_key(self) -> Iterator[T_Env_Key]:
+        from host.env.env_var_key_it import EnvVarKeyIt
+        return EnvVarKeyIt(env_var=self)
+
+    def iter_values(self) -> Iterator[T_Env_Single_Val]:
+        return iter(self.get_env_values())
+
+    def cast_values_to_any_str(self, target_cls: type[AnyStr]) -> list[AnyStr]:
+        return [cast_any_str(target_cls=target_cls, src_any_str=value) for value in self.get_env_values()]
+
+    def join_values(self, str_cls: type[AnyStr]) -> AnyStr:
+        env_values_sep: AnyStr = self.__get_env_values_sep(joined_values_cls=str_cls)
+        casted_values: list[AnyStr] = self.cast_values_to_any_str(target_cls=str_cls)
+
+        return env_values_sep.join(casted_values)
+
     @staticmethod
     def __get_env_values_sep(joined_values_cls: type[AnyStr]) -> AnyStr:
         return cast_any_str(target_cls=joined_values_cls, src_any_str=os.pathsep)
@@ -96,15 +105,6 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
     def __cast_split_values(cls, split_values: list[AnyStr]) -> TAlias_Env_Values:
         generic_env_single_val = cls.__get_type_env_single_val()
         return [cast_path_like(target_cls=generic_env_single_val, src_path_like=value) for value in split_values]
-
-    def cast_values_to_any_str(self, target_cls: type[AnyStr]) -> list[AnyStr]:
-        return [cast_any_str(target_cls=target_cls, src_any_str=value) for value in self.get_env_values()]
-
-    def join_values(self, str_cls: type[AnyStr]) -> AnyStr:
-        env_values_sep: AnyStr = self.__get_env_values_sep(joined_values_cls=str_cls)
-        casted_values: list[AnyStr] = self.cast_values_to_any_str(target_cls=str_cls)
-
-        return env_values_sep.join(casted_values)
 
     @classmethod
     def __verify_key_type(cls: type[T_EnvVar], key: T_Env_Key) -> None:
