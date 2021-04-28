@@ -28,9 +28,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
         generic_env_key: type = self.generics_by_type_vars[T_Env_Key]
 
-        assert generic_env_key is not (type(None))
-        assert self.generics_by_type_vars[T_Env_Single_Val] is not (type(None))
-
+        self.__verify_generics()
         self.__verify_key_type(key=key)
 
         self.__env_key = key if key is not None else generic_env_key()
@@ -104,6 +102,16 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
     def __cast_split_values(self, split_values: list[AnyStr]) -> TAlias_Env_Values:
         type_env_single_val = self.generics_by_type_vars[T_Env_Single_Val]
         return [cast_path_like(target_cls=type_env_single_val, src_path_like=value) for value in split_values]
+
+    def __verify_generics(self):
+        if len(self.generics_by_type_vars) != 2:
+            raise TypeError(f'Wrong number of generic types for {type(self)}. The required generics are {T_Env_Key} and {T_Env_Single_Val}.')
+
+        if self.generics_by_type_vars[T_Env_Key] is None:
+            raise TypeError(f'Missing `T_Env_Key` generic type')
+
+        if self.generics_by_type_vars[T_Env_Single_Val] is None:
+            raise TypeError(f'Missing `T_Env_Single_Val` generic type')
 
     def __verify_key_type(self: type[T_EnvVar], key: T_Env_Key) -> None:
         generic_env_key = self.generics_by_type_vars[T_Env_Key]
