@@ -101,12 +101,10 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         return [cast_any_str(target_cls=target_cls, src_any_str=value) for value in self.get_env_values()]
 
     def join_values(self, str_cls: type[AnyStr]) -> AnyStr:
-        # TODO : REVIEW TYPES AND CAST CONSTRUCTOR
-
-        casted_env_var_sep: AnyStr = str_cls(os.pathsep)
+        env_values_sep: AnyStr = self.__get_env_values_sep(joined_values_cls=str_cls)
         casted_values: list[AnyStr] = self.cast_values_to_any_str(target_cls=str_cls)
 
-        return casted_env_var_sep.join(casted_values)
+        return env_values_sep.join(casted_values)
 
     @classmethod
     def __verify_key_type(cls: type[T_EnvVar], key: T_Env_Key) -> None:
