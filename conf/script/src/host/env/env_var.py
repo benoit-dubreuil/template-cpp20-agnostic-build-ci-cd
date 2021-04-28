@@ -21,7 +21,8 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
     def __init__(self: T_EnvVar,
                  *args,
                  key: T_Env_Key = None,
-                 values: TAlias_Env_Values = None,
+                 values: Optional[TAlias_Env_Values] = None,
+                 joined_values: Optional[AnyStr] = None,
                  **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
@@ -33,16 +34,18 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         self.__verify_key_type(key=key)
 
         self.__env_key = key if key is not None else generic_env_key()
-        self.__env_values = values if values is not None else TAlias_Env_Values()
 
-    @classmethod
-    def create_from_joined_values(cls,
-                                  key: T_Env_Key,
-                                  joined_values: AnyStr) -> T_EnvVar:
-        split_values: list[AnyStr] = cls.__split_joined_values(joined_values=joined_values)
-        env_values: TAlias_Env_Values = cls.__cast_split_values(split_values=split_values)
+        if values is not None:
+            env_values = values
 
-        return cls(key=key, values=env_values)
+        elif joined_values is not None:
+            split_values: list[AnyStr] = self.__split_joined_values(joined_values=joined_values)
+            env_values = self.__cast_split_values(split_values=split_values)
+
+        else:
+            env_values = TAlias_Env_Values()
+
+        self.__env_values = env_values
 
     def __contains__(self, key: T_Env_Key) -> bool:
         self.__verify_key_type(key=key)
