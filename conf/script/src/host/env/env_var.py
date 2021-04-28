@@ -117,3 +117,10 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
         if not isinstance(key, generic_env_key):
             raise TypeError()
+
+    @classmethod
+    def __get_type_env_single_val(cls) -> type[T_Env_Single_Val]:
+        type_env_single_val: Optional[type[T_Env_Single_Val]] = cls.generics_by_type_vars[T_Env_Single_Val]
+        assert type_env_single_val is not (type(None))
+
+        return cast(type[T_Env_Single_Val], type_env_single_val)
