@@ -4,10 +4,11 @@ import os
 from collections.abc import Iterator
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import AnyStr, Final, Generic
+from typing import AnyStr, Final, Generic, Optional, cast
 
 from ext.meta_prog.encapsulation import *
 from ext.meta_prog.generics import *
+from ext.utils.path import *
 from ext.utils.string import *
 from .env_var_fwd import *
 
@@ -97,9 +98,8 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
     @classmethod
     def __cast_split_values(cls, split_values: list[AnyStr]) -> TAlias_Env_Values:
-        generic_env_single_val: type = cls.generics_by_type_vars[T_Env_Single_Val]
-        # TODO : REVIEW TYPES AND CAST CONSTRUCTOR
-        return [generic_env_single_val(value) for value in split_values]
+        generic_env_single_val = cls.__get_type_env_single_val()
+        return [cast_path_like(generic_env_single_val, value) for value in split_values]
 
     def cast_values_to_any_str(self, target_cls: type[AnyStr]) -> list[AnyStr]:
         return [cast_any_str(target_cls=target_cls, src_any_str=value) for value in self.get_env_values()]
