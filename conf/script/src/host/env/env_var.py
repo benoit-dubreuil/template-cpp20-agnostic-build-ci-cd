@@ -87,7 +87,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
     @staticmethod
     def __get_env_values_sep(joined_values_cls: type[AnyStr]) -> AnyStr:
-        return joined_values_cls(os.pathsep)
+        return cast_any_str(target_cls=joined_values_cls, src_any_str=os.pathsep)
 
     @classmethod
     def __split_joined_values(cls, joined_values: AnyStr) -> list[AnyStr]:
