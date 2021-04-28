@@ -17,3 +17,6 @@ class GenericsDataMixin:
         instance.generics_by_type_vars = generics_by_type_vars if generics_by_type_vars is not None else {}
 
         return instance
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)

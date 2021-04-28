@@ -23,6 +23,9 @@ class GenericClassProxyInjectorMixin(GenericClassMixin):
 
         return super().__new__(cls, *args, generics_by_type_vars=generics_by_type_vars, **kwargs)
 
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
     @classmethod
     def __class_getitem__(cls, key: __TAlias_Generics_Subscript_Op):
         generics = key if isinstance(key, tuple) else (key,)

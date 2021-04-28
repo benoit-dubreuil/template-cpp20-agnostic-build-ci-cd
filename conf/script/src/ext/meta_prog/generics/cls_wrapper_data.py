@@ -14,3 +14,6 @@ class GenericClassWrapperDataMixin:
         instance.wrapped_generic_cls = generic_cls
 
         return instance
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)

@@ -20,6 +20,9 @@ class GenericClassProxy(GenericsDataMixin,
         generics_by_type_vars = cls.__create_generics_by_type_vars(generic_cls=generic_cls, generics=generics)
         return super().__new__(cls, *args, generic_cls=generic_cls, generics_by_type_vars=generics_by_type_vars, **kwargs)
 
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
     def __call__(self, *args, **kwargs):
         return self.wrapped_generic_cls(*args, generics_by_type_vars=self.generics_by_type_vars, **kwargs)
 
