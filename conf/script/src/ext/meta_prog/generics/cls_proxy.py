@@ -1,7 +1,7 @@
 __all__ = ['GenericClassProxy']
 
 import itertools
-from typing import TypeVar
+from typing import Any, TypeVar
 
 from .cls_wrapper import *
 from .cls_wrapper_data import *
@@ -27,6 +27,16 @@ class GenericClassProxy(GenericsDataMixin,
 
     def __call__(self, *args, **kwargs):
         return self.wrapped_generic_cls(*args, generics_by_type_vars=self.generics_by_type_vars, **kwargs)
+
+    def __getattribute__(self, name: str) -> Any:
+        attr: Any
+
+        try:
+            attr = super().__getattribute__(name)
+        except AttributeError:
+            attr = getattr(self.wrapped_generic_cls, name)
+
+        return attr
 
     @classmethod
     def __create_generics_by_type_vars(cls,
