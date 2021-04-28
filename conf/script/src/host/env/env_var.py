@@ -83,7 +83,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         return iter(self.get_env_values())
 
     def cast_values_to_any_str(self, target_cls: type[AnyStr]) -> list[AnyStr]:
-        return [cast_any_str(target_cls=target_cls, src_any_str=value) for value in self.get_env_values()]
+        return [cast_path_like(target_cls=target_cls, src_path_like=value) for value in self.get_env_values()]
 
     def join_values(self, str_cls: type[AnyStr]) -> AnyStr:
         env_values_sep: AnyStr = self.__get_env_values_sep(joined_values_cls=str_cls)
