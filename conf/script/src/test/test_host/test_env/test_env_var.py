@@ -18,6 +18,22 @@ class TestEnvVar(unittest.TestCase):
     def test_ref_cls_valid_generics(self):
         _ = EnvVar[str, str]
 
+    def test_constructor_no_generics_no_args_raises(self):
+        with self.assertRaises(TypeError):
+            _ = EnvVar()
+
+    def test_constructor_no_generics_only_key_arg_raises(self):
+        with self.assertRaises(TypeError):
+            _ = EnvVar(key='key')
+
+    def test_constructor_no_generics_only_values_arg_raises(self):
+        with self.assertRaises(TypeError):
+            _ = EnvVar(values=['values'])
+
+    def test_constructor_no_generics_only_empty_values_arg_raises(self):
+        with self.assertRaises(TypeError):
+            _ = EnvVar(values=[])
+
 
 if is_caller_main():
     unittest.main()
