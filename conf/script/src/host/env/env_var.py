@@ -6,13 +6,14 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import AnyStr, Final, Generic
 
+from ext.meta_prog.encapsulation import *
 from ext.meta_prog.generics import *
 from ext.utils.string import *
 from .env_var_fwd import *
 
 
 @dataclass(init=False, order=True)
-class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Values], Generic[T_Env_Key, T_Env_Single_Val]):
+class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Values], Generic[T_Env_Key, T_Env_Single_Val], ClearArgsKwargs):
     __env_key: T_Env_Key
     __env_values: TAlias_Env_Values
 
