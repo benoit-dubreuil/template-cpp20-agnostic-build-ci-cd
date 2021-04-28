@@ -16,7 +16,7 @@ class GenericClassProxyInjectorMixin(GenericClassMixin):
                  **kwargs) -> None:
         if generics_by_type_vars is None:
             generic_cls = type(self)
-            generics = tuple()
+            generics: tuple[type] = tuple()
             cls_proxy = GenericClassProxy(generic_cls=generic_cls, generics=generics)
 
             generics_by_type_vars = cls_proxy.generics_by_type_vars
