@@ -6,11 +6,13 @@ from typing import TypeVar
 from .cls_wrapper import *
 from .cls_wrapper_data import *
 from .data import *
+from ..encapsulation import *
 
 
 # TODO : functools -> wraps ?
 class GenericClassProxy(GenericsDataMixin,
-                        GenericClassWrapperMixin):
+                        GenericClassWrapperMixin,
+                        ClearArgsKwargs):
 
     def __new__(cls,
                 generic_cls: TAlias_generic_cls,
