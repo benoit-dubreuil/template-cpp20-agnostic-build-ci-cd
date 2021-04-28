@@ -78,11 +78,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         return self.iter_key()
 
     def __str__(self) -> str:
-        assert self.__env_key is not None
-        assert self.__env_values is not None
-
         joined_values = self.join_values(str_cls=str)
-
         return f'{self.get_env_key()}={joined_values}'
 
     @staticmethod
