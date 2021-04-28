@@ -20,6 +20,9 @@ def cast_path_like(target_cls: type[T_PathLike], src_path_like: TUnion_PathLike,
     elif issubclass(target_cls, Path):
         casted_path_like = target_cls(src_path_like)
     else:
-        casted_path_like = target_cls(src_path_like, encoding)
+        if isinstance(src_path_like, Path):
+            src_path_like = str(src_path_like)
+
+        casted_path_like = cast_any_str(target_cls=target_cls, src_any_str=src_path_like)
 
     return casted_path_like
