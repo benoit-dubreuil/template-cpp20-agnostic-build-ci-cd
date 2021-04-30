@@ -4,12 +4,11 @@ __all__ = ['TestEnvVar']
 
 import unittest
 from pathlib import PurePath
-from os import PathLike
-from typing import Final, Any
+from typing import Any, Final
 
-from host.env.env_var import *
 from ext.meta_prog.introspection import *
 from ext.utils.string import *
+from host.env.env_var import *
 
 
 class TestEnvVar(unittest.TestCase):
