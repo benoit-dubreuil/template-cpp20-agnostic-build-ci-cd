@@ -12,31 +12,33 @@ from ext.meta_prog.introspection import *
 
 
 class TestEnvVar(unittest.TestCase):
-    __valid_key_types: Final[list[type]] = [str, bytes]
-    __valid_values_types: Final[list[type]] = [str, bytes, Path]
+    __TAlias_param_types = Final[list[type]]
+    __TAlias_param_data = Final[dict[type: list[Any]]]
 
-    __invalid_key_types: Final[list[type]] = [type(None), int, bool, float]
-    __invalid_values_types: Final[list[type]] = [type(None), int, bool, float]
+    __valid_key_types: __TAlias_param_types = [str, bytes]
+    __valid_values_types: __TAlias_param_types = [str, bytes, Path]
 
-    __valid_key_data_by_type: Final[dict[type: list[Any]]] = {
-        str: [],
+    __invalid_key_types: __TAlias_param_types = [type(None), int, bool, float]
+    __invalid_values_types: __TAlias_param_types = [type(None), int, bool, float]
+
+    __valid_key_data_by_type: __TAlias_param_data = {
         bytes: []
     }
 
-    __valid_values_data_by_type: Final[dict[type: list[Any]]] = {
+    __valid_values_data_by_type: __TAlias_param_data = {
         str: [],
         bytes: [],
         Path: []
     }
 
-    __invalid_key_data_by_type: Final[dict[type: list[Any]]] = {
+    __invalid_key_data_by_type: __TAlias_param_data = {
         type(None): [],
         int: [],
         bool: [],
         float: []
     }
 
-    __invalid_values_data_by_type: Final[dict[type: list[Any]]] = {
+    __invalid_values_data_by_type: __TAlias_param_data = {
         type(None): [],
         int: [],
         bool: [],
