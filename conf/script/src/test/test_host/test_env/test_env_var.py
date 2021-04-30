@@ -8,6 +8,7 @@ from typing import Callable, Optional
 from ext.meta_prog.introspection.caller import *
 from host.env.env_var import *
 from .env_var_test_param_data import EnvVarTestParamData as test_data
+from collections import Iterable
 
 
 class TestEnvVar(unittest.TestCase):
@@ -38,10 +39,16 @@ class TestEnvVar(unittest.TestCase):
         _ = EnvVar
 
     @staticmethod
-    def __for_valid_generic_types(test_func: Callable[[type, type], None]):
-        for key_type in test_data.valid_key_types:
-            for values_type in test_data.valid_values_data_by_type:
+    def __for_generic_types(key_types: Iterable[type], values_types: Iterable[type], test_func: Callable[[type, type], None]):
+        for key_type in key_types:
+            for values_type in values_types:
                 test_func(key_type, values_type)
+
+    @classmethod
+    def __for_valid_generic_types(cls, test_func: Callable[[type, type], None]):
+        cls.__for_generic_types(key_types=test_data.valid_key_types,
+                                values_types=test_data.valid_values_types,
+                                test_func=test_func)
 
     def __with_valid_generic_types(self, test_func: Callable[[type, type], None], msg: Optional[str] = None):
         def wrap_subtest(key_type: type, values_type: type):
