@@ -21,16 +21,16 @@ class EnvVarTestParamData:
 
     valid_key_data_by_type: _fwd.TAlias_param_data_by_type = {
         str: _fwd.valid_key_data_str,
-        bytes: [key_str.encode(UTF_8) for key_str in _fwd.valid_key_data_str]
+        bytes: [_key_str.encode(UTF_8) for _key_str in _fwd.valid_key_data_str]
     }
     valid_values_data_by_type: _fwd.TAlias_param_data_by_type = {
         str: _fwd.valid_values_data_str,
-        bytes: [values_str.encode(UTF_8) for values_str in _fwd.valid_values_data_str],
+        bytes: [_values_str.encode(UTF_8) for _values_str in _fwd.valid_values_data_str],
         PurePath: _fwd.valid_values_data_path
     }
     valid_joined_values_data_by_type: _fwd.TAlias_param_data_by_type = {
         str: _fwd.valid_joined_values_data_str,
-        bytes: [values_str.encode(UTF_8) for values_str in _fwd.valid_joined_values_data_str],
+        bytes: [_values_str.encode(UTF_8) for _values_str in _fwd.valid_joined_values_data_str],
     }
 
     invalid_key_data_by_type: _fwd.TAlias_param_data_by_type = {
