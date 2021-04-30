@@ -16,8 +16,7 @@ class TestEnvVar(unittest.TestCase):
         def _test_impl(key_type: type, values_type: type):
             _ = EnvVar[key_type, values_type]
 
-        test_name: str = get_caller_func_name()
-        self.__with_valid_generic_types(msg=test_name, test_func=_test_impl)
+        self.__with_valid_generic_types(test_func=_test_impl)
 
     def test_constructor_no_generics_no_args_raises(self):
         with self.assertRaises(TypeError):
