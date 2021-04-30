@@ -8,6 +8,7 @@ from typing import Callable, Optional
 from ext.meta_prog.introspection import *
 from host.env.env_var import *
 from .env_var_test_param_data import EnvVarTestParamData as test_data
+from ext.meta_prog.introspection.caller import *
 
 
 class TestEnvVar(unittest.TestCase):
@@ -27,7 +28,13 @@ class TestEnvVar(unittest.TestCase):
                 test_func(key_type, values_type)
 
         self.__for_valid_generic_types(wrap_subtest)
-        _ = EnvVar[str, str]
+
+    def test_ref_cls_valid_generic_types(self):
+        def _test_impl(key_type: type, values_type: type):
+            _ = EnvVar[key_type, values_type]
+
+        test_name: str = get_caller_func_name()
+        self.__with_valid_generic_types(msg=test_name, test_func=_test_impl)
 
     def test_constructor_no_generics_no_args_raises(self):
         with self.assertRaises(TypeError):
