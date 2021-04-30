@@ -50,7 +50,7 @@ class TestEnvVar(unittest.TestCase):
                 test_func(key_type, values_type)
 
         self.__for_valid_generic_types(wrap_subtest)
-        
+
     # TODO
     # def test_constructor_valid_generics_no_args_raises(self):
     #     with self.assertRaises(TypeError):

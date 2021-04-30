@@ -1,1 +1,1 @@
-from test_env_var import *
+from .test_env_var import *
