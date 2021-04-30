@@ -5,17 +5,43 @@ __all__ = ['TestEnvVar']
 import unittest
 from pathlib import Path
 from os import PathLike
+from typing import Final, Any
 
 from host.env.env_var import *
 from ext.meta_prog.introspection import *
 
 
 class TestEnvVar(unittest.TestCase):
-    __valid_key_generic_types = [str, bytes]
-    __valid_values_generic_types = [str, bytes, Path]
+    __valid_key_types: Final[list[type]] = [str, bytes]
+    __valid_values_types: Final[list[type]] = [str, bytes, Path]
 
-    __invalid_key_generic_types = [type(None), int, bool, float]
-    __invalid_values_generic_types = [type(None), int, bool, float]
+    __invalid_key_types: Final[list[type]] = [type(None), int, bool, float]
+    __invalid_values_types: Final[list[type]] = [type(None), int, bool, float]
+
+    __valid_key_data_by_type: Final[dict[type: list[Any]]] = {
+        str: [],
+        bytes: []
+    }
+
+    __valid_values_data_by_type: Final[dict[type: list[Any]]] = {
+        str: [],
+        bytes: [],
+        Path: []
+    }
+
+    __invalid_key_data_by_type: Final[dict[type: list[Any]]] = {
+        type(None): [],
+        int: [],
+        bool: [],
+        float: []
+    }
+
+    __invalid_values_data_by_type: Final[dict[type: list[Any]]] = {
+        type(None): [],
+        int: [],
+        bool: [],
+        float: []
+    }
 
     def test_ref_cls_no_generics(self):
         _ = EnvVar
