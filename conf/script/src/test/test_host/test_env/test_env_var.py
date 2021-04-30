@@ -3,6 +3,7 @@
 __all__ = ['TestEnvVar']
 
 import unittest
+from os import pathsep
 from pathlib import PurePath
 from typing import Any, Final
 
