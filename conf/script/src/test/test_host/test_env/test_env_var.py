@@ -52,9 +52,10 @@ class TestEnvVar(unittest.TestCase):
         with self.assertRaises(TypeError):
             _ = EnvVar(values=[])
 
-    def test_constructor_valid_generics_no_args_raises(self):
-        with self.assertRaises(TypeError):
-            _ = EnvVar[]()
+    # TODO
+    # def test_constructor_valid_generics_no_args_raises(self):
+    #     with self.assertRaises(TypeError):
+    #         _ = EnvVar[]()
 
 
 if is_caller_main():
