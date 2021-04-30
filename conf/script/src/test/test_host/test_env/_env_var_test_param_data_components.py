@@ -13,6 +13,11 @@ class EnvVarTestParamDataComponents:
     TAlias_param_data_by_type = Final[dict[type: list[Any]]]
     TAlias_param_data_str = Final[list[str]]
     TAlias_param_data_path = Final[list[PurePath]]
+    TAlias_invalid_param_data_none = Final[list[type[None]]]
+    TAlias_invalid_param_data_int = Final[list[type[int]]]
+    TAlias_invalid_param_data_bool = Final[list[type[bool]]]
+    TAlias_invalid_param_data_float = Final[list[type[float]]]
+    TAlias_invalid_joined_values_data_path = Final[list[type[PurePath]]]
 
     valid_key_data_str: TAlias_param_data_str = ['', 'key', 'test', '123', 'KEY', 'key_', '_key', 'z-abc', 'space space']
     valid_values_windows_path_data_str: TAlias_param_data_str = [
@@ -51,3 +56,11 @@ class EnvVarTestParamDataComponents:
         pathsep.join(valid_key_data_str),
         pathsep.join(valid_values_windows_path_data_str),
         pathsep.join(valid_values_unix_path_data_str)]
+
+    invalid_param_data_none: TAlias_invalid_param_data_none = [None]
+    invalid_param_data_int: TAlias_invalid_param_data_int = [-52323, -7, -10, -5, -1, 0, 1, 5, 7, 10, 25893]
+    invalid_param_data_bool: TAlias_invalid_param_data_bool = [False, True]
+    invalid_param_data_float: TAlias_invalid_param_data_float = [-0.1, -0.000001, -0.4123, -0.00546, -10.9023, -345.245,
+                                                                 0.0,
+                                                                 0.1, 0.000001, 0.4123, 0.00546, 10.9023, 345.245]
+    invalid_joined_values_data_path: TAlias_invalid_joined_values_data_path = valid_values_data_path
