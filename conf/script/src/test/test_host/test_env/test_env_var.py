@@ -22,31 +22,32 @@ class TestEnvVar(unittest.TestCase):
     __invalid_values_types: __TAlias_param_types = [type(None), int, bool, float]
 
     __valid_key_data_str: Final[list[str]] = ['', 'key', 'test', '123', 'KEY', 'key_', '_key', 'z-abc', 'space space']
-    __valid_values_data_path: Final[list[str]] = ['C:\\',
-                                                  'C:\\Users',
-                                                  'C:\\Users\\',
-                                                  'C:\\Users\\Public',
-                                                  'C:\\Users\\Public\\',
-                                                  'C:\\Users\\Public\\wow.doge',
-                                                  '.\\',
-                                                  '.\\Users',
-                                                  '.\\Users\\',
-                                                  '.\\Users\\Public',
-                                                  '.\\Users\\Public\\',
-                                                  '.\\Users\\Public\\wow.doge',
-                                                  '/usr',
-                                                  '/usr/',
-                                                  '/usr/tmp',
-                                                  '/usr/tmp/',
-                                                  '~']
+    __valid_values_path_data_str: Final[list[str]] = ['C:\\',
+                                                      'C:\\Users',
+                                                      'C:\\Users\\',
+                                                      'C:\\Users\\Public',
+                                                      'C:\\Users\\Public\\',
+                                                      'C:\\Users\\Public\\wow.doge',
+                                                      '.\\',
+                                                      '.\\Users',
+                                                      '.\\Users\\',
+                                                      '.\\Users\\Public',
+                                                      '.\\Users\\Public\\',
+                                                      '.\\Users\\Public\\wow.doge',
+                                                      '/usr',
+                                                      '/usr/',
+                                                      '/usr/tmp',
+                                                      '/usr/tmp/',
+                                                      '~']
     __valid_values_data_str: Final[list[str]] = __valid_key_data_str + \
                                                 [f'%{key_str}%' for key_str in __valid_key_data_str] + \
-                                                [str(values_path) for values_path in __valid_values_data_path] + \
+                                                __valid_values_path_data_str + \
                                                 ['val1;',
                                                  'val1;val2',
                                                  'val1;val2;',
                                                  'many_postfix_sep;;;;',
                                                  ';;;;;many_prefix_sep']
+    __valid_values_data_path: Final[list[PurePath]] = [PurePath(values_path_str) for values_path_str in __valid_values_path_data_str]
 
     __valid_key_data_by_type: __TAlias_param_data = {
         str: __valid_key_data_str,
