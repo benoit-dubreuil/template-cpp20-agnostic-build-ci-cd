@@ -3,15 +3,16 @@
 __all__ = ['TestEnvVar']
 
 import unittest
+from collections import Iterable
 from typing import Callable, Optional
 
 from ext.meta_prog.introspection.caller import *
 from host.env.env_var import *
 from .env_var_test_param_data import EnvVarTestParamData as test_data
-from collections import Iterable
 
 
 class TestEnvVar(unittest.TestCase):
+    __TAlias_generic_test_func = Callable[[type, type], None]
 
     def test_ref_cls_valid_generic_types(self):
         def _test_impl(key_type: type, values_type: type):
@@ -39,18 +40,29 @@ class TestEnvVar(unittest.TestCase):
         _ = EnvVar
 
     @staticmethod
-    def __for_generic_types(key_types: Iterable[type], values_types: Iterable[type], test_func: Callable[[type, type], None]):
+    def __for_generic_types(key_types: Iterable[type],
+                            values_types: Iterable[type],
+                            test_func: __TAlias_generic_test_func):
         for key_type in key_types:
             for values_type in values_types:
                 test_func(key_type, values_type)
 
     @classmethod
-    def __for_valid_generic_types(cls, test_func: Callable[[type, type], None]):
+    def __for_valid_generic_types(cls, test_func: __TAlias_generic_test_func):
         cls.__for_generic_types(key_types=test_data.valid_key_types,
                                 values_types=test_data.valid_values_types,
                                 test_func=test_func)
 
-    def __with_valid_generic_types(self, test_func: Callable[[type, type], None], msg: Optional[str] = None):
+    @classmethod
+    def __for_invalid_generic_types(cls, test_func: __TAlias_generic_test_func):
+        cls.__for_generic_types(key_types=test_data.invalid_key_types,
+                                values_types=test_data.invalid_values_types,
+                                test_func=test_func)
+
+    def __with_generic_types(self,
+                             generic_types_iterative_func: type[__for_valid_generic_types],
+                             test_func: __TAlias_generic_test_func,
+                             msg: Optional[str] = None):
         def wrap_subtest(key_type: type, values_type: type):
             kwargs = {'key_type': key_type,
                       'values_type': values_type}
@@ -61,7 +73,21 @@ class TestEnvVar(unittest.TestCase):
             with self.subTest(**kwargs):
                 test_func(key_type, values_type)
 
-        self.__for_valid_generic_types(wrap_subtest)
+        generic_types_iterative_func(test_func=wrap_subtest)
+
+    def __with_valid_generic_types(self,
+                                   test_func: __TAlias_generic_test_func,
+                                   msg: Optional[str] = None):
+        self.__with_generic_types(generic_types_iterative_func=self.__for_valid_generic_types,
+                                  test_func=test_func,
+                                  msg=msg)
+
+    def __with_invalid_generic_types(self,
+                                     test_func: __TAlias_generic_test_func,
+                                     msg: Optional[str] = None):
+        self.__with_generic_types(generic_types_iterative_func=self.__for_invalid_generic_types,
+                                  test_func=test_func,
+                                  msg=msg)
 
     # TODO
     # def test_constructor_valid_generics_no_args_raises(self):
