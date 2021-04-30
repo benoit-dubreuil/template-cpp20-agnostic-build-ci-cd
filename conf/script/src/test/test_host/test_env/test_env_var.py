@@ -45,7 +45,13 @@ class TestEnvVar(unittest.TestCase):
 
     def __with_valid_generic_types(self, test_func: Callable[[type, type], None], msg: Optional[str] = None):
         def wrap_subtest(key_type: type, values_type: type):
-            with self.subTest(msg=msg, key_type=key_type, values_type=values_type):
+            kwargs = {'key_type': key_type,
+                      'values_type': values_type}
+
+            if msg is not None and len(msg) > 0:
+                kwargs |= {'msg': msg}
+
+            with self.subTest(**kwargs):
                 test_func(key_type, values_type)
 
         self.__for_valid_generic_types(wrap_subtest)
