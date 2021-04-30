@@ -41,7 +41,12 @@ class TestEnvVar(unittest.TestCase):
                                                  '.\\Users\\',
                                                  '.\\Users\\Public',
                                                  '.\\Users\\Public\\',
-                                                 '.\\Users\\Public\\wow.doge']
+                                                 '.\\Users\\Public\\wow.doge',
+                                                 '/usr',
+                                                 '/usr/',
+                                                 '/usr/tmp',
+                                                 '/usr/tmp/',
+                                                 '~']
 
     __valid_key_data_by_type: __TAlias_param_data = {
         str: __valid_key_data_str,
