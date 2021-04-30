@@ -14,15 +14,22 @@ from .env_var_test_param_data import EnvVarTestParamData as test_data
 class TestEnvVar(unittest.TestCase):
     __TAlias_generic_test_func = Callable[[type, type], None]
 
+    def test_constructor_no_generics_no_args_raises(self):
+        with self.assertRaises(TypeError):
+            _ = EnvVar()
+
     def test_ref_cls_valid_generic_types(self):
         def _test_impl(key_type: type, values_type: type):
             _ = EnvVar[key_type, values_type]
 
         self.__with_valid_generic_types(test_func=_test_impl)
 
-    def test_constructor_no_generics_no_args_raises(self):
-        with self.assertRaises(TypeError):
-            _ = EnvVar()
+    def test_ref_cls_invalid_generic_types(self):
+        def _test_impl(key_type: type, values_type: type):
+            with self.assertRaises(TypeError):
+                _ = EnvVar[key_type, values_type]
+
+        self.__with_invalid_generic_types(test_func=_test_impl)
 
     def test_constructor_no_generics_only_key_arg_raises(self):
         with self.assertRaises(TypeError):
