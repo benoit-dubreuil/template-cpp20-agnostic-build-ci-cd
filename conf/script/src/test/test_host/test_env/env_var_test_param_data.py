@@ -62,16 +62,16 @@ class EnvVarTestParamData:
         pathsep.join(__valid_values_windows_path_data_str),
         pathsep.join(__valid_values_unix_path_data_str)]
 
-    __valid_key_data_by_type: __TAlias_param_data_by_type = {
+    valid_key_data_by_type: __TAlias_param_data_by_type = {
         str: __valid_key_data_str,
         bytes: [key_str.encode(UTF_8) for key_str in __valid_key_data_str]
     }
-    __valid_values_data_by_type: __TAlias_param_data_by_type = {
+    valid_values_data_by_type: __TAlias_param_data_by_type = {
         str: __valid_values_data_str,
         bytes: [values_str.encode(UTF_8) for values_str in __valid_values_data_str],
         PurePath: __valid_values_data_path
     }
-    __valid_joined_values_data_by_type: __TAlias_param_data_by_type = {
+    valid_joined_values_data_by_type: __TAlias_param_data_by_type = {
         str: __valid_joined_values_data_str,
         bytes: [values_str.encode(UTF_8) for values_str in __valid_joined_values_data_str],
     }
