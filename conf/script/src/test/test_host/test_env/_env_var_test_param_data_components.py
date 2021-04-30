@@ -9,8 +9,9 @@ from typing import Any, Final, final
 
 @final
 class EnvVarTestParamDataComponents:
-    __TAlias_param_types = Final[list[type]]
-    __TAlias_param_data_by_type = Final[dict[type: list[Any]]]
+    TAlias_param_types = Final[list[type]]
+    TAlias_param_data_by_type = Final[dict[type: list[Any]]]
+
     __TAlias_param_data_str = Final[list[str]]
     __TAlias_param_data_path = Final[list[PurePath]]
     __TAlias_invalid_param_data_none = Final[list[type[None]]]
