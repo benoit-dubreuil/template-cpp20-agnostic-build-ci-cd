@@ -24,11 +24,24 @@ class TestEnvVar(unittest.TestCase):
 
     __valid_key_data_str: Final[list[str]] = ['', 'key', 'test', '123', 'KEY', 'key_', '_key', 'z-abc', 'space space']
     __valid_values_data_str: Final[list[str]] = __valid_key_data_str + \
+                                                [f'%{key_str}%' for key_str in __valid_key_data_str] + \
                                                 ['val1;',
                                                  'val1;val2',
                                                  'val1;val2;',
                                                  'many_postfix_sep;;;;',
-                                                 ';;;;;many_prefix_sep']
+                                                 ';;;;;many_prefix_sep',
+                                                 'C:\\',
+                                                 'C:\\Users',
+                                                 'C:\\Users\\',
+                                                 'C:\\Users\\Public',
+                                                 'C:\\Users\\Public\\',
+                                                 'C:\\Users\\Public\\wow.doge',
+                                                 '.\\',
+                                                 '.\\Users',
+                                                 '.\\Users\\',
+                                                 '.\\Users\\Public',
+                                                 '.\\Users\\Public\\',
+                                                 '.\\Users\\Public\\wow.doge']
 
     __valid_key_data_by_type: __TAlias_param_data = {
         str: __valid_key_data_str,
