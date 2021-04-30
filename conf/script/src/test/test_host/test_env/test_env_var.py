@@ -11,6 +11,11 @@ from ext.meta_prog.introspection import *
 
 
 class TestEnvVar(unittest.TestCase):
+    __valid_key_generic_types = [str, bytes]
+    __valid_values_generic_types = [str, bytes, Path]
+
+    __invalid_key_generic_types = [type(None), int, bool, float]
+    __invalid_values_generic_types = [type(None), int, bool, float]
 
     def test_ref_cls_no_generics(self):
         _ = EnvVar
