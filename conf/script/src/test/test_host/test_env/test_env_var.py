@@ -21,13 +21,22 @@ class TestEnvVar(unittest.TestCase):
     __invalid_key_types: __TAlias_param_types = [type(None), int, bool, float]
     __invalid_values_types: __TAlias_param_types = [type(None), int, bool, float]
 
+    __valid_key_data_str: Final[list[str]] = ['', 'key', 'test', '123', 'KEY', 'key_', '_key', 'z-abc', 'space space']
+    __valid_values_data_str: Final[list[str]] = __valid_key_data_str + \
+                                                ['val1;',
+                                                 'val1;val2',
+                                                 'val1;val2;',
+                                                 'many_postfix_sep;;;;',
+                                                 ';;;;;many_prefix_sep']
+
     __valid_key_data_by_type: __TAlias_param_data = {
-        bytes: []
+        str: __valid_key_data_str,
+        bytes: [key_str.encode(UTF_8) for key_str in __valid_key_data_str]
     }
 
     __valid_values_data_by_type: __TAlias_param_data = {
-        str: [],
-        bytes: [],
+        str: __valid_values_data_str,
+        bytes: [values_str.encode(UTF_8) for values_str in __valid_values_data_str],
         Path: []
     }
 
