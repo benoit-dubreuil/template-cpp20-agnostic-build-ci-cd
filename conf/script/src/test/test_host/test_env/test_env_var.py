@@ -3,12 +3,13 @@
 __all__ = ['TestEnvVar']
 
 import unittest
-from pathlib import Path
+from pathlib import PurePath
 from os import PathLike
 from typing import Final, Any
 
 from host.env.env_var import *
 from ext.meta_prog.introspection import *
+from ext.utils.string import *
 
 
 class TestEnvVar(unittest.TestCase):
@@ -16,7 +17,7 @@ class TestEnvVar(unittest.TestCase):
     __TAlias_param_data = Final[dict[type: list[Any]]]
 
     __valid_key_types: __TAlias_param_types = [str, bytes]
-    __valid_values_types: __TAlias_param_types = [str, bytes, Path]
+    __valid_values_types: __TAlias_param_types = [str, bytes, PurePath]
 
     __invalid_key_types: __TAlias_param_types = [type(None), int, bool, float]
     __invalid_values_types: __TAlias_param_types = [type(None), int, bool, float]
@@ -37,7 +38,7 @@ class TestEnvVar(unittest.TestCase):
     __valid_values_data_by_type: __TAlias_param_data = {
         str: __valid_values_data_str,
         bytes: [values_str.encode(UTF_8) for values_str in __valid_values_data_str],
-        Path: []
+        PurePath: []
     }
 
     __invalid_key_data_by_type: __TAlias_param_data = {
