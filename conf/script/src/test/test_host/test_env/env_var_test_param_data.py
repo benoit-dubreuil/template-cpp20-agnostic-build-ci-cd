@@ -33,23 +33,22 @@ class EnvVarTestParamData:
         bytes: [values_str.encode(UTF_8) for values_str in _fwd.valid_joined_values_data_str],
     }
 
-    # TODO
     invalid_key_data_by_type: _fwd.TAlias_param_data_by_type = {
-        type(None): [None],
-        int: [],
-        bool: [],
-        float: []
+        type(None): _fwd.invalid_param_data_none,
+        int: _fwd.invalid_param_data_int,
+        bool: _fwd.invalid_param_data_bool,
+        float: _fwd.invalid_param_data_float
     }
     invalid_values_data_by_type: _fwd.TAlias_param_data_by_type = {
-        type(None): [None],
-        int: [],
-        bool: [],
-        float: []
+        type(None): _fwd.invalid_param_data_none,
+        int: _fwd.invalid_param_data_int,
+        bool: _fwd.invalid_param_data_bool,
+        float: _fwd.invalid_param_data_float
     }
     invalid_joined_values_data_by_type: _fwd.TAlias_param_data_by_type = {
-        type(None): [None],
-        int: [],
-        bool: [],
-        float: [],
-        PurePath: []
+        type(None): _fwd.invalid_param_data_none,
+        int: _fwd.invalid_param_data_int,
+        bool: _fwd.invalid_param_data_bool,
+        float: _fwd.invalid_param_data_float,
+        PurePath: _fwd.invalid_joined_values_data_path
     }
