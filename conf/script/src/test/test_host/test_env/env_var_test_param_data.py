@@ -76,20 +76,21 @@ class EnvVarTestParamData:
         bytes: [values_str.encode(UTF_8) for values_str in valid_joined_values_data_str],
     }
 
+    # TODO
     invalid_key_data_by_type: __TAlias_param_data_by_type = {
-        type(None): [],
+        type(None): [None],
         int: [],
         bool: [],
         float: []
     }
     invalid_values_data_by_type: __TAlias_param_data_by_type = {
-        type(None): [],
+        type(None): [None],
         int: [],
         bool: [],
         float: []
     }
     invalid_joined_values_data_by_type: __TAlias_param_data_by_type = {
-        type(None): [],
+        type(None): [None],
         int: [],
         bool: [],
         float: [],
