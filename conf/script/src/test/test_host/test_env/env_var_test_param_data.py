@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 
-all = ['TestEnvVarParamData']
+__all__ = ['EnvVarTestParamData']
 
 from os import pathsep
 from pathlib import PurePath
-from typing import Any, Final
+from typing import Any, Final, final
 
 from ext.utils.string import *
 
 
-class TestEnvVarParamData:
+@final
+class EnvVarTestParamData:
     __TAlias_param_types = Final[list[type]]
     __TAlias_param_data_by_type = Final[dict[type: list[Any]]]
     __TAlias_param_data_str = Final[list[str]]

@@ -6,7 +6,7 @@ import unittest
 
 from ext.meta_prog.introspection import *
 from host.env.env_var import *
-from .test_env_var_param_data import *
+from .env_var_test_param_data import *
 
 
 class TestEnvVar(unittest.TestCase):
