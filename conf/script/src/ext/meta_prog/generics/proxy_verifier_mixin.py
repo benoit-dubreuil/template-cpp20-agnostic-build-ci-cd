@@ -1,8 +1,9 @@
 __all__ = ['ProxyGenericsVerifierMixin']
 
-from .data import *
+from typing import TypeVar
+
 from .cls_wrapper_data import *
-from typing import Tuple, TypeVar, Generic
+from .data import *
 
 
 class ProxyGenericsVerifierMixin(GenericsDataMixin, GenericClassWrapperDataMixin):
