@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 from build_system.compiler import *
-from ext.cli import *
+from cli import *
 
 
 def fetch_compiler_info(compiler_family: CompilerFamily,

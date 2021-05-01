@@ -2,7 +2,7 @@ __all__ = ['DIR_STR',
            'ROOT_DIR_ARG',
            'BUILD_DIR_ARG']
 
-from ext.cli import *
+from cli import *
 from ._type_alias import *
 from .fs_build_dir import *
 from .fs_root_dir import *

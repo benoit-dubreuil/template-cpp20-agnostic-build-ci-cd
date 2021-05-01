@@ -4,8 +4,8 @@ import argparse
 
 import colorama
 
-from ext.cli import *
-from ext.more_typing import *
+from cli import *
+from ext.utils.path import *
 from file_structure import *
 from .impl import *
 
@@ -15,7 +15,7 @@ def cli_find_build_dir():
         description=f"Finds the project's '{colorama.Fore.LIGHTBLACK_EX}{BUILD_DIR_NAME}{colorama.Style.RESET_ALL}' folder.")
     add_optional_path_arg(arg_parser, ROOT_DIR_ARG, path_arg_help="The project's root directory")
 
-    root_dir: AnyPath = parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
+    root_dir: TUnion_AnyPath = parse_optional_path_arg(arg_parser, ROOT_DIR_ARG)
     arg_parser.parse_args()
 
     def cli_cmd():

@@ -4,7 +4,7 @@ __all__ = ['TestManage']
 
 import unittest
 
-from ext.error import *
+from error import *
 from ext.meta_prog.introspection import *
 
 

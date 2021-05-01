@@ -5,7 +5,7 @@ from typing import NoReturn, Optional, Union
 
 from ...cli import *
 from build_system.compiler import *
-from ext.error import *
+from error import *
 from .impl import *
 
 

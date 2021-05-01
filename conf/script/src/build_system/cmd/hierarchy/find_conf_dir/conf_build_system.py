@@ -4,8 +4,8 @@ __all__ = ['get_conf_build_system_dir_path_relative_to_conf_dir',
 from pathlib import Path
 from typing import Optional
 
-from ext.error import *
-from ext.error.utils import *
+from error import *
+from error.utils import *
 from file_structure import *
 from .impl import *
 

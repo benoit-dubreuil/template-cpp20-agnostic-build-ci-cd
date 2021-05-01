@@ -5,8 +5,8 @@ from typing import Optional
 
 from build_system.build_target import *
 from build_system.compiler import *
-from ext.error import *
-from ext.more_path import *
+from error import *
+from ext.utils.path import *
 from .target_dir_creation import *
 from .target_dir_name_generation import *
 from .target_script_dir_creation import *

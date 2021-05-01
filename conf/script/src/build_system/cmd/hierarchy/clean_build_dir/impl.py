@@ -4,7 +4,7 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-from ext.error import *
+from error import *
 from ..find_build_dir import *
 
 

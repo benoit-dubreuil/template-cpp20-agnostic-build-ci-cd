@@ -6,6 +6,7 @@ from pathlib import Path
 import javaproperties
 
 from build_system.build_target import *
+from ext.utils.string import *
 from file_structure import *
 from ..cli import *
 

@@ -4,7 +4,7 @@ __all__ = ['colorize_header_label',
 
 import colorama
 
-from ext.more_typing import *
+from ext.utils.path import *
 
 
 def colorize_header_label(header: str) -> str:
@@ -15,5 +15,5 @@ def colorize_label(label: str) -> str:
     return colorama.Fore.CYAN + label + colorama.Style.RESET_ALL
 
 
-def colorize_path(path_info: PathLike) -> str:
+def colorize_path(path_info: TUnion_PathLike) -> str:
     return colorama.Fore.LIGHTBLACK_EX + str(path_info) + colorama.Style.RESET_ALL

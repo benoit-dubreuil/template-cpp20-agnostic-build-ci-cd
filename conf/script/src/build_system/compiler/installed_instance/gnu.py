@@ -4,13 +4,12 @@ import contextlib
 from dataclasses import dataclass
 from pathlib import Path
 
-from ..core import *
-from ..build_option import *
-from host import *
-from ext.error import *
-from ext.error.utils import *
+from error import *
+from error.utils import *
+from ext.utils.path import *
 from .compiler_instance import *
-from ext.cmd_integrity import *
+from ..build_option import *
+from ..core import *
 
 
 @dataclass(order=True, frozen=True)

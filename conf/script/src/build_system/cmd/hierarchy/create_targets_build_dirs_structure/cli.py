@@ -4,8 +4,8 @@ import argparse
 
 import colorama
 
-from ext.cli import *
-from ext.more_typing import *
+from cli import *
+from ext.utils.path import *
 from file_structure import *
 from .impl import *
 
@@ -18,7 +18,7 @@ def cli_create_targets_build_dirs_structure():
                           path_arg=BUILD_DIR_ARG,
                           path_arg_help=f"The project's {BUILD_DIR_NAME} directory")
 
-    build_dir: AnyPath = parse_optional_path_arg(arg_parser, BUILD_DIR_ARG)
+    build_dir: TUnion_AnyPath = parse_optional_path_arg(arg_parser, BUILD_DIR_ARG)
     arg_parser.parse_args()
 
     def cli_cmd():
