@@ -60,28 +60,22 @@ class TestEnvVar(unittest.TestCase):
 
         self.__with_valid_generic_types(test_func=_test_impl)
 
-    @staticmethod
-    def __for_generic_types(key_types: Iterable[type],
-                            values_types: Iterable[type],
-                            test_func: __TAlias_generic_test_func):
-        for key_type in key_types:
-            for values_type in values_types:
-                test_func(key_type, values_type)
+    def __with_valid_generic_types(self,
+                                   test_func: __TAlias_generic_test_func,
+                                   msg: Optional[str] = None):
+        self.__with_generic_types(generic_types_iterative_func=self.__for_valid_generic_types,
+                                  test_func=test_func,
+                                  msg=msg)
 
-    @classmethod
-    def __for_valid_generic_types(cls, test_func: __TAlias_generic_test_func):
-        cls.__for_generic_types(key_types=test_data.valid_key_types,
-                                values_types=test_data.valid_values_types,
-                                test_func=test_func)
-
-    @classmethod
-    def __for_invalid_generic_types(cls, test_func: __TAlias_generic_test_func):
-        cls.__for_generic_types(key_types=test_data.invalid_key_types,
-                                values_types=test_data.invalid_values_types,
-                                test_func=test_func)
+    def __with_invalid_generic_types(self,
+                                     test_func: __TAlias_generic_test_func,
+                                     msg: Optional[str] = None):
+        self.__with_generic_types(generic_types_iterative_func=self.__for_invalid_generic_types,
+                                  test_func=test_func,
+                                  msg=msg)
 
     def __with_generic_types(self,
-                             generic_types_iterative_func: type[__for_valid_generic_types],
+                             generic_types_iterative_func: type['__for_valid_generic_types'],
                              test_func: __TAlias_generic_test_func,
                              msg: Optional[str] = None):
         def wrap_subtest(key_type: type, values_type: type):
@@ -96,19 +90,25 @@ class TestEnvVar(unittest.TestCase):
 
         generic_types_iterative_func(test_func=wrap_subtest)
 
-    def __with_valid_generic_types(self,
-                                   test_func: __TAlias_generic_test_func,
-                                   msg: Optional[str] = None):
-        self.__with_generic_types(generic_types_iterative_func=self.__for_valid_generic_types,
-                                  test_func=test_func,
-                                  msg=msg)
+    @classmethod
+    def __for_valid_generic_types(cls, test_func: __TAlias_generic_test_func):
+        cls.__for_generic_types(key_types=test_data.valid_key_types,
+                                values_types=test_data.valid_values_types,
+                                test_func=test_func)
 
-    def __with_invalid_generic_types(self,
-                                     test_func: __TAlias_generic_test_func,
-                                     msg: Optional[str] = None):
-        self.__with_generic_types(generic_types_iterative_func=self.__for_invalid_generic_types,
-                                  test_func=test_func,
-                                  msg=msg)
+    @classmethod
+    def __for_invalid_generic_types(cls, test_func: __TAlias_generic_test_func):
+        cls.__for_generic_types(key_types=test_data.invalid_key_types,
+                                values_types=test_data.invalid_values_types,
+                                test_func=test_func)
+
+    @staticmethod
+    def __for_generic_types(key_types: Iterable[type],
+                            values_types: Iterable[type],
+                            test_func: __TAlias_generic_test_func):
+        for key_type in key_types:
+            for values_type in values_types:
+                test_func(key_type, values_type)
 
 
 if is_caller_main():
