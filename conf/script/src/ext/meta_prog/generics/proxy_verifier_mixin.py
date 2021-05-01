@@ -23,6 +23,7 @@ class ProxyGenericsVerifierMixin(GenericsDataMixin, GenericClassWrapperDataMixin
         if len(self.generics_by_type_vars) != len(generic_type_vars):
             raise TypeError(f'Wrong number of generic types for {type(self.wrapped_generic_cls)}.')
 
+        # TODO : Change me for checking if it matches the actual TypeVars, i.e. if the bound and the constraints are respected.
         if tuple(self.generics_by_type_vars.keys()) != generic_type_vars:
             raise TypeError(f'Supplied generic types do not match the class\'s generic type vars requirements.')
 
