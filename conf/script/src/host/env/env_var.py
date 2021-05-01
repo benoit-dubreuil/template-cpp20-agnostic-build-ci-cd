@@ -104,9 +104,6 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         return [cast_path_like(target_cls=type_env_single_val, src_path_like=value) for value in split_values]
 
     def __verify_generics(self):
-        if len(self.generics_by_type_vars) != 2:
-            raise TypeError(f'Wrong number of generic types for {type(self)}. The required generics are {T_Env_Key} and {T_Env_Single_Val}.')
-
         if self.generics_by_type_vars[T_Env_Key] is None:
             raise TypeError(f'Missing `T_Env_Key` generic type')
 
