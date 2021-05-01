@@ -16,6 +16,7 @@ class TestEnvVar(unittest.TestCase):
 
     def test_ref_cls_no_generics(self):
         _ = EnvVar
+        self.assertIs(_, EnvVar)
 
     def test_ref_cls_valid_generic_types(self):
         def _test_impl(key_type: type, values_type: type):
