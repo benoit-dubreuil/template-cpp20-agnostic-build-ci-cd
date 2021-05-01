@@ -18,7 +18,7 @@ class TestEnvVar(unittest.TestCase):
         _ = EnvVar
         self.assertIs(_, EnvVar)
 
-    def test_ref_cls_valid_generic_types(self):
+    def test_ref_cls_valid_generics(self):
         def _test_impl(key_type: type, values_type: type):
             _ = EnvVar[key_type, values_type]
 
@@ -26,7 +26,7 @@ class TestEnvVar(unittest.TestCase):
 
     # TODO : See TODO in `ext.meta_prog.generics.proxy_verifier_mixin.ProxyGenericsVerifierMixin._verify_generics`
     @unittest.skip('Skipping due to missing feature : verify if a type respects a TypeVar\'s constraints.')
-    def test_ref_cls_invalid_generic_types(self):
+    def test_ref_cls_invalid_generics(self):
         def _test_impl(key_type: type, values_type: type):
             with self.assertRaises(TypeError):
                 _ = EnvVar[key_type, values_type]
