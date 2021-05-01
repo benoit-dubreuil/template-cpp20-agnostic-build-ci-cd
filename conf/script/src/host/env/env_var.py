@@ -18,7 +18,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
 
     __ENV_VAR_ITEM_COUNT: Final[int] = 1
 
-    def __init__(self: T_EnvVar,
+    def __init__(self,
                  *args,
                  key: T_Env_Key = None,
                  values: Optional[TAlias_Env_Values] = None,
@@ -113,7 +113,7 @@ class EnvVar(GenericClassProxyInjectorMixin, Mapping[T_Env_Key, TAlias_Env_Value
         if self.generics_by_type_vars[T_Env_Single_Val] is None:
             raise TypeError(f'Missing `T_Env_Single_Val` generic type')
 
-    def __verify_key_type(self: type[T_EnvVar], key: T_Env_Key) -> None:
+    def __verify_key_type(self, key: T_Env_Key) -> None:
         generic_env_key = self.generics_by_type_vars[T_Env_Key]
 
         if not isinstance(key, generic_env_key):
