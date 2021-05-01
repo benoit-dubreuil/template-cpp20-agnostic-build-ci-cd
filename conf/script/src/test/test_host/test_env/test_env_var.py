@@ -53,6 +53,13 @@ class TestEnvVar(unittest.TestCase):
         with self.assertRaises(TypeError):
             _ = EnvVar(joined_values='joined_values')
 
+    def test_constructor_valid_generics_no_args_raises(self):
+        def _test_impl(key_type: type, values_type: type):
+            with self.assertRaises(TypeError):
+                _ = EnvVar[key_type, values_type]()
+
+        self.__with_valid_generic_types(test_func=_test_impl)
+
     @staticmethod
     def __for_generic_types(key_types: Iterable[type],
                             values_types: Iterable[type],
@@ -102,11 +109,6 @@ class TestEnvVar(unittest.TestCase):
         self.__with_generic_types(generic_types_iterative_func=self.__for_invalid_generic_types,
                                   test_func=test_func,
                                   msg=msg)
-
-    # TODO
-    # def test_constructor_valid_generics_no_args_raises(self):
-    #     with self.assertRaises(TypeError):
-    #         _ = EnvVar[]()
 
 
 if is_caller_main():
