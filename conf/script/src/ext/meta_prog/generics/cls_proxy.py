@@ -1,27 +1,44 @@
 __all__ = ['GenericClassProxy']
 
 import itertools
-from typing import TypeVar
+from typing import Any, TypeVar
 
 from .cls_wrapper import *
 from .cls_wrapper_data import *
 from .data import *
+from ..encapsulation import *
+from .proxy_verifier_mixin import *
 
 
 # TODO : functools -> wraps ?
-class GenericClassProxy(GenericsDataMixin,
-                        GenericClassWrapperMixin):
+class GenericClassProxy(ProxyGenericsVerifierMixin,
+                        GenericsDataMixin,
+                        GenericClassWrapperMixin,
+                        ClearArgsKwargs):
 
-    def __init__(self,
-                 generic_cls: TAlias_generic_cls,
-                 *args,
-                 generics: tuple[type] = tuple(),
-                 **kwargs) -> None:
-        generics_by_type_vars = self.__create_generics_by_type_vars(generic_cls=generic_cls, generics=generics)
-        super().__init__(*args, generic_cls=generic_cls, generics_by_type_vars=generics_by_type_vars, **kwargs)
+    def __new__(cls,
+                generic_cls: TAlias_generic_cls,
+                *args,
+                generics: tuple[type] = tuple(),
+                **kwargs):
+        generics_by_type_vars = cls.__create_generics_by_type_vars(generic_cls=generic_cls, generics=generics)
+        return super().__new__(cls, *args, generic_cls=generic_cls, generics_by_type_vars=generics_by_type_vars, **kwargs)
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
 
     def __call__(self, *args, **kwargs):
         return self.wrapped_generic_cls(*args, generics_by_type_vars=self.generics_by_type_vars, **kwargs)
+
+    def __getattribute__(self, name: str) -> Any:
+        attr: Any
+
+        try:
+            attr = super().__getattribute__(name)
+        except AttributeError:
+            attr = getattr(self.wrapped_generic_cls, name)
+
+        return attr
 
     @classmethod
     def __create_generics_by_type_vars(cls,

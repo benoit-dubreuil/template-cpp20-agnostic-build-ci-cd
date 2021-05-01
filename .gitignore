@@ -1,3 +1,20 @@
+# Override of :
+### Python ###
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pythonenv*
+
+# Project specific
+!/conf/script/src/
+!/conf/script/src/*
+!/conf/script/src/**/*
+
 # Created by https://www.toptal.com/developers/gitignore/api/git,vim,c++,meson,macos,linux,batch,emacs,eclipse,windows,netbeans,clion+all,notepadpp,powershell,intellij+all,visualstudio,visualstudiocode,python,pycharm+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,vim,c++,meson,macos,linux,batch,emacs,eclipse,windows,netbeans,clion+all,notepadpp,powershell,intellij+all,visualstudio,visualstudiocode,python,pycharm+all
 
@@ -566,16 +583,6 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-pythonenv*
-
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -1005,3 +1012,4 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/git,vim,c++,meson,macos,linux,batch,emacs,eclipse,windows,netbeans,clion+all,notepadpp,powershell,intellij+all,visualstudio,visualstudiocode,python,pycharm+all
+

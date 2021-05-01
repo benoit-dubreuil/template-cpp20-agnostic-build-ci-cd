@@ -6,6 +6,9 @@ from .cls_wrapper_data import *
 # TODO : functools -> wraps ?
 class GenericClassWrapperMixin(GenericClassWrapperDataMixin):
 
+    def __new__(cls, *args, **kwargs):
+        return super().__new__(cls, *args, **kwargs)
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 

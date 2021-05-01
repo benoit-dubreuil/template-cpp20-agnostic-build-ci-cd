@@ -1,5 +1,6 @@
 __all__ = ['get_nth_caller',
            'get_caller',
+           'get_caller_func_name',
            'is_frame_main',
            'is_caller_main']
 
@@ -27,6 +28,10 @@ def get_nth_caller(n: int = _CALLER_MIN_N) -> FrameType:
 
 def get_caller() -> FrameType:
     return get_nth_caller(n=_CALLER_MIN_N + 1)
+
+
+def get_caller_func_name() -> str:
+    return get_caller().f_code.co_name
 
 
 def is_frame_main(frame: FrameType) -> bool:
