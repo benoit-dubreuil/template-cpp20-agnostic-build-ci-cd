@@ -49,6 +49,10 @@ class TestEnvVar(unittest.TestCase):
         with self.assertRaises(TypeError):
             _ = EnvVar(values=[])
 
+    def test_constructor_no_generics_only_joined_values_arg_raises(self):
+        with self.assertRaises(TypeError):
+            _ = EnvVar(joined_values='joined_values')
+
     @staticmethod
     def __for_generic_types(key_types: Iterable[type],
                             values_types: Iterable[type],
