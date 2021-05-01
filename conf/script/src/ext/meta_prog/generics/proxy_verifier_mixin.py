@@ -22,6 +22,9 @@ class ProxyGenericsVerifierMixin(GenericsDataMixin, GenericClassWrapperDataMixin
         if len(self.generics_by_type_vars) != len(generic_type_vars):
             raise TypeError(f'Wrong number of generic types for {type(self.wrapped_generic_cls)}.')
 
+        if tuple(self.generics_by_type_vars.keys()) != generic_type_vars:
+            raise TypeError(f'Supplied generic types do not match the class\'s generic type vars requirements.')
+
     @staticmethod
     def __get_cls_generic_type_vars(cls: TAlias_generic_cls) -> tuple[TypeVar]:
         return cls.__parameters__
