@@ -7,10 +7,12 @@ from .cls_wrapper import *
 from .cls_wrapper_data import *
 from .data import *
 from ..encapsulation import *
+from .proxy_verifier_mixin import *
 
 
 # TODO : functools -> wraps ?
-class GenericClassProxy(GenericsDataMixin,
+class GenericClassProxy(ProxyGenericsVerifierMixin,
+                        GenericsDataMixin,
                         GenericClassWrapperMixin,
                         ClearArgsKwargs):
 
