@@ -45,13 +45,11 @@ def _generate_meson_setup_cli_args(root_dir: Path,
 
     setup_cli_fatal_warnings = r'--fatal-meson-warnings'
 
-    setup_cli_arg_build_type = r'--buildtype' + cli_kwarg_assignment_op + build_target.target_build_type.value
     setup_cli_arg_build_dir = str(build_target.dir)
     setup_cli_arg_source_dir = str(root_dir)
 
     meson_cli_args: list[str] = [cli_arg_setup_cmd,
                                  setup_cli_fatal_warnings,
-                                 setup_cli_arg_build_type,
                                  *(generate_meson_machine_files_args(compiler_instance=compiler_instance, build_target=build_target)),
                                  setup_cli_arg_build_dir,
                                  setup_cli_arg_source_dir]
