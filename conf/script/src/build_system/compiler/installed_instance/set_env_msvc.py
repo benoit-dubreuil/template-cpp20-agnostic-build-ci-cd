@@ -38,13 +38,13 @@ class EnvMSVC(contextlib.AbstractContextManager):
 
         self.vcvars = vcvars
 
-        self.__append_vcvars_to_local_env()
+        self.__add_vcvars_to_local_env()
 
     def __teardown_env(self) -> None:
         self.__remove_vcvars_from_local_env()
         self.vcvars = None
 
-    def __append_vcvars_to_local_env(self):
+    def __add_vcvars_to_local_env(self):
         local_env = os.environ
 
         for vcvar_key, vcvar_value in self.vcvars.items():
