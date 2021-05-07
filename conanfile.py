@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 __all__ = ['MesonConanPkgRecipe']
 
 from build_system.compiler import *
@@ -10,16 +8,28 @@ import os
 
 
 class MesonConanPkgRecipe(ConanFile):
+    _cppstd = 20
+    _compilers_reqs: dict[CompilerFamily, CompilerReqs] = CompilerReqs.create_all_from_config_file()
+
     generators = 'pkg_config'
 
     requires = ('opengl/system',
                 'glfw/3.3.4',
                 'glbinding/3.1.0')
 
-    settings = {'os': {{OSFamily.WINDOWS.value: {'subsystem': None}},
-                       OSFamily.LINUX.value},
-                'compiler': None,
-                'build_type': [TargetBuildType.DEBUG],
+    settings = {'os': {{OSFamily.WINDOWS: {'subsystem': None}},
+                       OSFamily.LINUX},
+
+                'compiler': {
+                    {CompilerFamily.MSVC: {'cppstd': _cppstd, 'version': '19.29'}},
+                    {CompilerFamily.CLANG: {'cppstd': _cppstd, 'version': _compilers_reqs[CompilerFamily.CLANG].min_compiler_version.major}},
+                    {CompilerFamily.GCC: {'cppstd': _cppstd, 'version': _compilers_reqs[CompilerFamily.GCC].min_compiler_version.major}}
+                },
+
+                'build_type': [TargetBuildType.DEBUG,
+                               TargetBuildType.DEBUG_OPTIMIZED.capitalized_alternative_name,
+                               TargetBuildType.RELEASE],
+
                 'arch': ['x86_64']}
 
     def build(self):
