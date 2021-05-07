@@ -4,7 +4,7 @@ from enum import Enum, unique
 
 
 @unique
-class CompilerReqsScheme(Enum):
+class CompilerReqsScheme(str, Enum):
     OS = 'os'
     MAJOR = 'major'
     MINOR = 'minor'  # Optional

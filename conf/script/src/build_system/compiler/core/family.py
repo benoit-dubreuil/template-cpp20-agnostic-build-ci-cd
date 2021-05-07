@@ -4,7 +4,7 @@ from enum import Enum, unique
 
 
 @unique
-class CompilerFamily(Enum):
+class CompilerFamily(str, Enum):
     MSVC = 'msvc'
     CLANG = 'clang'
     GCC = 'gcc'

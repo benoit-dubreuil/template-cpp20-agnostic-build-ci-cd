@@ -7,7 +7,7 @@ from typing import final
 
 @final
 @unique
-class OSFamily(Enum):
+class OSFamily(str, Enum):
     WINDOWS = 'windows'
     DARWIN = 'darwin'
     LINUX = 'linux'

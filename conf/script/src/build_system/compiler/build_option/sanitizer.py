@@ -4,7 +4,7 @@ from enum import Enum, unique
 
 
 @unique
-class CompilerSanitizer(Enum):
+class CompilerSanitizer(str, Enum):
     NONE = 'none'
     ADDRESS = 'address'
     THREAD = 'thread'
