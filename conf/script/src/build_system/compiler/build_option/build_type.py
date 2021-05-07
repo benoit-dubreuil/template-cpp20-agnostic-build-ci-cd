@@ -8,3 +8,6 @@ class TargetBuildType(str, Enum):
     DEBUG = 'debug'
     DEBUG_OPTIMIZED = 'debugoptimized'
     RELEASE = 'release'
+
+
+TargetBuildType.DEBUG_OPTIMIZED.capitalized_alternative_name = 'RelWithDebInfo'
