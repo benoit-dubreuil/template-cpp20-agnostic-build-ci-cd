@@ -21,9 +21,16 @@ class MesonConanPkgRecipe(ConanFile):
                        OSFamily.LINUX},
 
                 'compiler': {
-                    {CompilerFamily.MSVC: {'cppstd': _cppstd, 'version': '19.29'}},
-                    {CompilerFamily.CLANG: {'cppstd': _cppstd, 'version': _compilers_reqs[CompilerFamily.CLANG].min_compiler_version.major}},
-                    {CompilerFamily.GCC: {'cppstd': _cppstd, 'version': _compilers_reqs[CompilerFamily.GCC].min_compiler_version.major}}
+                    {CompilerFamily.MSVC: {'cppstd': _cppstd,
+                                           'version': '19.29'}},
+
+                    {CompilerFamily.CLANG: {'cppstd': _cppstd,
+                                            'version': _compilers_reqs[CompilerFamily.CLANG].min_compiler_version.major,
+                                            'libcxx': 'libc++'}},
+
+                    {CompilerFamily.GCC: {'cppstd': _cppstd,
+                                          'version': _compilers_reqs[CompilerFamily.GCC].min_compiler_version.major,
+                                          'libcxx': 'libstdc++11'}}
                 },
 
                 'build_type': [TargetBuildType.DEBUG,
