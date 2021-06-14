@@ -1,5 +1,8 @@
 # Template Repository : C++ Ecosystem
 
+ABANDONED
+LEARNT LESSON : MESON AS A BUILD SYSTEM DOES NOT FIT C++ ECOSYSTEM
+
 Template repository for projects using C++ and its ecosystem.
 
 ## Specifications
